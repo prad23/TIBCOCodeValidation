@@ -1,0 +1,72 @@
+GV~GV Value in PROD XML~GV Value in Staged XML~Reason
+AdapterAS400Connections/Password~#!udnaeU9H1sc4MQlv4BWdlqvX7VW96tVNaEFhZpUsg1M=~"#!+Y8KLhaHLw6PPiK8rW568Jvcmv4COTDJwUBe2+zOFPI="~GV Present in Both XMLs but not matching
+HTTPConnections/Descartes/IdentityFile/password~#!RTWOv/UrfDY7TKfRGaUyUiMQM+hqE1bPNUxLBFJ8baY=~"#!2aHoWvzFzZGnf5cUBcvbEygGej840cGjgT5Lca67G6U="~GV Present in Both XMLs but not matching
+HTTPConnections/MDMConnection/Password~#!6yJEbS997zIbcouchvhUSgsVHjQ2TNDp~"#!OeLMJ521KaOLiR1NwsN4wBPtMxdDnI3J"~GV Present in Both XMLs but not matching
+JDBCConnections/AXDB/Password~#!N90lBz5Rt38DSaQYGTHUE9HqoBvOl4KX~"#!ppbCT3FaxzFE9L2sAda/AWCyNKah1LZN"~GV Present in Both XMLs but not matching
+JDBCConnections/CLEDB/Password~#!u4sHb7HRmIoAG/k5vMEmL5hfdVpix8R9OkG2C0bqypg=~"#!YUa2hJCq8gKTYZ5fsPNPK7bcFmmimski00krL9ompmo="~GV Present in Both XMLs but not matching
+JDBCConnections/CheckpointDB/Password~#!hUf5ijf0U7FOMgDsvur1LSH1kKgzGo2R+mxwa62HBBk=~"#!2oNs4MuQvWSbj0D/V3JjKiAHOq/V3lrTiyNKFXvLSZc="~GV Present in Both XMLs but not matching
+JDBCConnections/KRONOSDB/Password~#!mFsEjphbxDf9fuWiYtqQEI9v/2L39zA935N96CpOxKc=~"#!BKJSrlVqJkma1PQJ6E1z9nmDiOa3dwfLKqxcgQVo4+c="~GV Present in Both XMLs but not matching
+JDBCConnections/MDM/Password~#!xbf4SwJtMVOcoYtsXg1NPBUznAQmxtZjj4dnY54rnuc=~"#!HI2RcZsA4Xq13r9dPUbJqkxB7jJbq8acr2YWCuaFuwM="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSD2FraudServiceDB/Password~#!1B3L4DFQ+D2G87ctKGYzkHeSxBLfyDPnsNeireq9tos=~"#!zn3Heur8qsAeljtqyF/WzizNWXAi2aC2xw9Vpv26hes="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSSterlingDB/DatabaseURL~jdbc:tibcosoftwareinc:oracle://scomdbdevmp1p:1521;SID=yandev~"jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=yes)(ADDRESS=(PROTOCOL=TCP)(HOST=STORCK-SCAN.WSGC.COM)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))"~GV Present in Both XMLs but not matching
+JDBCConnections/OMSSterlingDB/Password~#!GSlsISocVKo35Azw/fhV1geyHDgxGEBWAaHjSHV+/dc=~"#!XwBATJRxJwzHKoPYQqaExivMqjK4Js7zor7vb19Zjvk="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB-IBMDB2/Password~#!pBrLRBWm0fPuq8oJfbVCWcUjXxT1KmUQdxKQHvhrdPw=~"#!nKe+M12o5WbForT6G2Mjiz/TaUEYM7x8FoNZp6yINaU="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB/Password~#!J5NZCkVUKEBdK1pop/KGrF/8gqXaGJMBRV3EGYWzLrQ=~"#!/tOQ2FLxLxpWlXGBVhjpsrV2PsJvbIBwuTrxDaKJ0b8="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDBMEMRPT/Password~#!TyqjHgr2YzaMO7RWN5ygTPk/0RrQ+xmg/f9lwMcr6R8=~"#!vJselWjgWkdLyGGDrfD0qSQfx9+5H9ALoch4nKE33sE="~GV Present in Both XMLs but not matching
+JDBCConnections/PaymentServiceDB/Password~#!4ABVPkNDK5TdUQAPXX+Ur5fMaBQXC7hi~"#!w9PvPZKaHYn+jmsem3qEd68HB4CiIKRP"~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDB/Password~#!MRcFlpphuSeFD0PRSNpq/FPanwk7eHwWPQqInJXlOjY=~"#!Yrd7Up9nGHNGPJLEgcBSZhFzznH7xlC828tX4kDyVD8="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDBThin/Password~#!qKSWUBDF9E+u3C4p1UOpAlpXm1BuFbPX1dNvUEnI9r8=~"#!KheETAPO0Ml5YXSwncqff7rW6Kma8x8orbZzSz6b6QI="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDEV2/Password~#!FDKtOfEN+c4nOQ0sIlZnXfsNtIA4aZVcrbt+L+OoNAI=~"#!fy/F9m4GbqLMOj4Wy5QglgreS0GrG456d2pHvwx73Ck="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnDB/DatabaseURL~jdbc:tibcosoftwareinc:oracle://scomdbprdrk5p:1521;SID=yanprd3~"jdbc:tibcosoftwareinc:oracle://STORCK-VCAX001.WSGC.COM:1521;SID=yanprd5"~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnDB/Password~#!Hpga/okCWJlnR76sEYobnX3N3jTWULDkn1ap8nRkU5U=~"#!f9/hT8qQACxN13iBbq4xAB7EfQs1ygIImUuSEJxvwSA="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnsAppUIDB/DatabaseURL~jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=scomdbprdrk5p-vip)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=scomdbprdrk6p-vip)(PORT=1521)))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))~"jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=yes)(ADDRESS=(PROTOCOL=TCP)(HOST=STORCK-SCAN.WSGC.COM)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))"~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnsAppUIDB/Password~#!shfoyqvgJRRGtKLdYcPH4cJm1HRHtEwd5Dexs7RRtzg=~"#!FReR5LZogRS2rRUn0jMIfM6lWVMrCiGAqfyg7TKAKUk="~GV Present in Both XMLs but not matching
+JDBCConnections/SDM-TeraData-DB/Password~#!aDv5MNCKMhnk83VlbEK3XwTp02i0RC1/BEp1iLC7nEA=~"#!fMQyBVyQp/DorSaQ3yROIHifHgxd1WICWs1XV+s3FLw="~GV Present in Both XMLs but not matching
+JDBCConnections/SterlingDB/DatabaseURL~jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=scomdbprdrk5p-vip)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=scomdbprdrk6p-vip)(PORT=1521)))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))~"jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=yes)(ADDRESS=(PROTOCOL=TCP)(HOST=STORCK-SCAN.WSGC.COM)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))"~GV Present in Both XMLs but not matching
+JDBCConnections/SterlingDB/Password~#!bSC54TNfvRS16Mrbn//gEVHZE7tLz8MITV/blnS84TI=~"#!l8Dg8rgKh+TNnYW1Knayf4MQqj4b0husbR/5VXppCs8="~GV Present in Both XMLs but not matching
+JDBCConnections/TMSDB/Password~#!95ytGsOlNBE+zPCgF2P7usrdANZOft40~"#!RGjTo5iA4hXFNeg7YcUZjT2DlW2RXTiE"~GV Present in Both XMLs but not matching
+JDBCConnections/TPMDB/Password~#!IfrhnhhpwM+43N66pmPmk5AN84vvUNOy8odAA1ssWm9wLJEysBBhIw==~"#!i33Rwrb26wF3LGTdX+ss3sjU7c97tAZapxmY8aFBql9HrfRPxoHFTA=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMCDCDB/Password~#!kf50fbWQUFiz2g5mTwQg5EyftNlyta0+FjxxaWVJ/CXGZC2rhfIDiQ==~"#!9idcurbvL1zn+4HXovJoHutVHki9bKPDRrX7v4Aw/iFLEU9EEyqOyw=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMDB/Password~#!fvTTh/4fILPO3n/A3vSDH2DSnallR0JwfNDG74TNF5VQsAZrLi7NFQ==~"#!wLHrVnDVte98e3ZODfkqOyy0crYuOMUPkwuWAEAfJA3AImvXiSgJqQ=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMINTDB/Password~#!4eMjKBW9qnn++4T8cRrSCmpDH+oWO+mhUq5sNxLZDxU0NXPSAL8dNg==~"#!co2B9/me+6CpulHnVOgqBxT7UWcPnkSx6cloxlHs9rWAluqP7S9edg=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMOBMDB/Password~#!3icIYU/ZNwH+TilxmbuBTYGXs+5I0DYYze0IEwDGquRM3XzwNMynqw==~"#!9rYpYHD8OeyYSBWUo/Bt/9ko5C02rk5ZssAGRJUyi9OBvB9DKu63QA=="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/JNDIPassword~#!Dp93gQIyAUv15posTBJ3V1QGOfd2DFfjxCRr3NnF1dM=~"#!d2oAGqzRXaDmhCjtoEgaif71yvX30+MLWGndCS+W1Mc="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/Password~#!c3uLWkI4CkyR5lyey8LJU50xqXqouzjYkYu+lL16VS8=~"#!fDyTMEtYyaZRSRZ1mVHbaNN2IqrKHUM3CK0ZD440Nss="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/JNDIPassword~#!hOrS07jFfgHCsXyP+Y44p7rMoKLcvttVZ4GBZr6o6mE=~"#!sok2vmfMdPXtQzj/E+TwXzOnHK8Q9rIKhQOFF9lm6sU="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/Password~#!gfUNTCJ/RLFeulTyWgnvnG1EFHufbocTL8D9ksCZAI4=~"#!XcKTeMPplUg9Tg+i93mTxJ050hmTC9+EaZ2hwfvdXww="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/JNDIPassword~#!kyc80St6YmGpnnSyheNfJs+0XwG+ujuCTC2eUQGV+to=~"#!O8mbLUtXRFA+7bxrsNzf6aGrFtleJeul2b6aQdARX0k="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/Password~#!ot04ttdrgxyZwXrBJ5Q0UXXsOY/QaHC8uPY8eoSHwu8=~"#!6+GT7T/4hKtSrJvFa4epUVE6x1nsdYr1GJAmSQDdWrg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/JNDIPassword~#!wcnaBwHw//2MdVImEjCb/7o5QKri2Fe0MYIHmxkOBRo=~"#!lq5tQ/sY9oNQRUTcZpHbY/cjLYy0HFjPiAS4vT2m4U0="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/Password~#!DvGEY//ia8D7RQA1BvZJHlWN1ZBs/1+uJZXjS7iKVJI=~"#!6E9xDMTXQWx0kChTmI0xEKZv63HSsTdK0kBfjkodJJo="~GV Present in Both XMLs but not matching
+JMSConnections/EMSELSSECURE/JNDIPassword~#!yvKMPOMRjyAoK0XWz2Xd06CbuJXa4r/m~"#!MrrcKjxd9XGz0AH74cTo+W3NFJaOPHNY"~GV Present in Both XMLs but not matching
+JMSConnections/EMSELSSECURE/Password~#!yW6/2ziQEo5etjqetVLM3gdxen4k8M4c~"#!xOWfIQY7c0qaUHxn7nb7Ukrx0MOgxzss"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/JNDIPassword~#!zoTeiXlZqa0kgvQmaGl6fffaZji7QnfQ~"#!5W4OsZh5Lx8Pl6idM4xts2V9wX1K+V6Q"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/Password~#!WkKgGEv5ffZiB8wCxjlR8MTqENE9j1HW~"#!mspzTp5C3UrCsPRjR2NLoVMvdOdiRyLe"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/JNDIPassword~#!vinVtlxlcMwDHy4x9xjZn9HvBq2cmyayhBDAIhK5yTc=~"#!rUSHeGU7dZYIj/tdlEyizMVEA/hzsnCGJ36YIurAEJ8="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/Password~#!JyXsYNsEuYWdma1cXAHf5yirlGuQ7/fceeNQqP4MI5g=~"#!2ysi+rnaKHY/Qrco0cqBqiwGfAF+WFDqRnX80/8Ky+0="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/JNDIPassword~#!4zI/Gf7+xPCEwtAOOtCx0MgyoPiRQoFQTdG4iWrYK/A=~"#!qaPlRhS45kiod1gttIt56Jn7yU3/M1aWoHHsyjoae/0="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/Password~#!NFsg9rAfbJXMom78ughZQ1V93ii+pA+l2amp5ZIXUug=~"#!U7NE0vzdzYn5GY8HB755FVQ75ltlWbpOaCMEsHtiD14="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/JNDIPassword~#!Epw/CL/2LnTQ4wvfI0FVRxKLdHdyX4W+LOGoVzyJj6I=~"#!1s9/lOF/XlH/GhmGko6wqMSu4/hbF1hlbz67K9ngCJ0="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/Password~#!RZVi/ELVk/hTINfUq0PYh9ITfwWJRvLv5mUleGQwgQQ=~"#!k01ahG6fANsdf3NwZZ8Z+IVwIUQaQEzB50bLa1+tlgg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/JNDIPassword~#!vvdyp6IkpBi34RUlo0IXusp3qdY7EKbFd48hhngNgq8=~"#!fQL9glrxan5Zo6pzhtmDIVovO8PpFXSMEx6HHUsY3Do="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/Password~#!DH+5l0sYMWdcoZJlKhPhpWKg4b49KwwB+5nYq3xLUPg=~"#!f57vKdJikAmcQE5CM1dwkwCpHZGRHzklMHMUhmr4dP4="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/JNDIPassword~#!XGvYjmxgZinTJCmwk+QhWZR/bu96jpK8D0m1oggUCJc=~"#!HU80qYbXw+56Kapa2xKhqxk0HCi/bwRwxLXrw/JU4P4="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/Password~#!bMAQDsIcJpELWuO0ACLoSxBRSQ1z60iFonqqeRc8WR0=~"#!I0KSMJDLHIhHWSlSWxCUdg0DWbg3llysJt2yCCbDWB8="~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/JNDIContextURL~file:/C:\JNDI-Directory~"file:/app/tibco/MQSeries/JNDI/TMS/prd1"~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/JNDIPassword~~"#!mZDriT4iKiZSnhHr4MpZJA=="~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/Password~~"#!IRWLQ7pf7UdZyTLCr2sUww=="~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/QueueConnectionFactory~TIBQCF~"WSI_PROD_QCF"~GV Present in Both XMLs but not matching
+NetSuiteReturnOrderToRMS/CLE/BeginMessage~~"Received Message from NetSuite"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/CLE/EndMessage~~"Completed processing message successfully."~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/CLE/ExceptionMessage~~"Negative return code received from RMS, Please replay if necessary."~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/CLE/InterfaceCode~~"NSU_RMS.RETURNORDER"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/CLE/SPNegativeExceptionCode~~"NetSuiteReturnsToRMS_SPERROR"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/CLE/TransactionDomain~~"RETURNORDER"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/CLE/TransactionType~~"RETURNORDERFROMNETSUITE"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/JMS/AckMode~~"2"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/JMS/MaxSessions~~"1"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/JMS/ReceiverQueueSuffix~~"NSU.RETURNORDER.RECEIVE"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/RMSDatabse/PackageName~~"WS_NETSUITE_RMS_RCPT_SQL"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/RMSDatabse/Schema~~"RMS_OWNER"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/RMSDatabse/StoredProcedureName~~"CONSUME_XML"~GV not present in PROD XML
+NetSuiteReturnOrderToRMS/RMSDatabse/SuccessStatusCode~~"S"~GV not present in PROD XML

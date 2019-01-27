@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.wsgc.com/schemas/common/PaymentServiceReports.xsd"
+	 targetNamespace="http://www.wsgc.com/schemas/common/PaymentServiceReports.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="PaymentServiceReports">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PaymentServiceReport" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ReportType" type="xs:string"/>
+							<xs:element name="WorkDirAlias" type="xs:string"/>
+							<xs:element name="OutputDirAlias" type="xs:string"/>
+							<xs:element name="FileNamePrefix" type="xs:string"/>
+							<xs:element name="FileNameExtension" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

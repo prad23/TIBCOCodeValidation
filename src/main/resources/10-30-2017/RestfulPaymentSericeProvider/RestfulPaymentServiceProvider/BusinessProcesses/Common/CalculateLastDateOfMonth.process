@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>BusinessProcesses/Common/CalculateLastDateOfMonth.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Date">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="month" type="xsd:string"/>
+                    <xsd:element name="year" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <lastDate>
+                <xsl:value-of select="$CalculateLastDate/javaCodeActivityOutput/lastDate"/>
+            </lastDate>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="lastDate" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1431070344567</pd:targetNamespace>
+    <pd:activity name="CalculateLastDate">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>278</pd:x>
+        <pd:y>155</pd:y>
+        <config>
+            <fileName>CalculateLastDateOfMonthCalculateLastDate</fileName>
+            <packageName>BusinessProcesses.Common.Stub.CalculateLastDateOfMonth</packageName>
+            <fullsource>package BusinessProcesses.Common.Stub.CalculateLastDateOfMonth;
+import java.util.*;
+import java.io.*;
+import java.util.Calendar;
+
+
+public class CalculateLastDateOfMonthCalculateLastDate{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected int month = 0;
+	protected int year = 0;
+	protected Date lastDate = null;
+	public int getmonth() {
+		return month;
+	}
+	public void setmonth(int val) {
+		month = val;
+	}
+	public int getyear() {
+		return year;
+	}
+	public void setyear(int val) {
+		year = val;
+	}
+	public Date getlastDate() {
+		return lastDate;
+	}
+	public void setlastDate(Date val) {
+		lastDate = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public CalculateLastDateOfMonthCalculateLastDate() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : int month
+	In  : int year
+	Out : Date lastDate
+* Available Variables: DO NOT MODIFY *****/
+
+  Calendar calendar = new GregorianCalendar(year, month-1,
+  5);
+  calendar.set(Calendar.DAY_OF_MONTH,
+  calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+  lastDate=calendar.getTime();
+
+
+
+}
+}
+</fullsource>
+            <inputData>
+                <row>
+                    <fieldName>month</fieldName>
+                    <fieldType>int</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>year</fieldName>
+                    <fieldType>int</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>lastDate</fieldName>
+                    <fieldType>dateTime</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>CalculateLastDateOfMonthCalculateLastDate</name>
+                    <byteCode>yv66vgAAADMAOAkACgAkCQAKACUJAAoAJgoACwAnBwAoCgAFACkKACoAKwoAKgAsCgAqAC0HAC4HAC8BAAVtb250aAEAAUkBAAR5ZWFyAQAIbGFzdERhdGUBABBMamF2YS91dGlsL0RhdGU7AQAIZ2V0bW9udGgBAAMoKUkBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQAIc2V0bW9udGgBAAQoSSlWAQAHZ2V0eWVhcgEAB3NldHllYXIBAAtnZXRsYXN0RGF0ZQEAEigpTGphdmEvdXRpbC9EYXRlOwEAC3NldGxhc3REYXRlAQATKExqYXZhL3V0aWwvRGF0ZTspVgEABjxpbml0PgEAAygpVgEABmludm9rZQEACkV4Y2VwdGlvbnMHADABAApTb3VyY2VGaWxlAQAuQ2FsY3VsYXRlTGFzdERhdGVPZk1vbnRoQ2FsY3VsYXRlTGFzdERhdGUuamF2YQwADAANDAAOAA0MAA8AEAwAHQAeAQAbamF2YS91dGlsL0dyZWdvcmlhbkNhbGVuZGFyDAAdADEHADIMADMANAwANQA2DAA3ABoBAGBCdXNpbmVzc1Byb2Nlc3Nlcy9Db21tb24vU3R1Yi9DYWxjdWxhdGVMYXN0RGF0ZU9mTW9udGgvQ2FsY3VsYXRlTGFzdERhdGVPZk1vbnRoQ2FsY3VsYXRlTGFzdERhdGUBABBqYXZhL2xhbmcvT2JqZWN0AQATamF2YS9sYW5nL0V4Y2VwdGlvbgEABihJSUkpVgEAEmphdmEvdXRpbC9DYWxlbmRhcgEAEGdldEFjdHVhbE1heGltdW0BAAQoSSlJAQADc2V0AQAFKElJKVYBAAdnZXRUaW1lACEACgALAAAAAwAEAAwADQAAAAQADgANAAAABAAPABAAAAAIAAEAEQASAAEAEwAAAB0AAQABAAAABSq0AAGsAAAAAQAUAAAABgABAAAADQABABUAFgABABMAAAAiAAIAAgAAAAYqG7UAAbEAAAABABQAAAAKAAIAAAAQAAUAEQABABcAEgABABMAAAAdAAEAAQAAAAUqtAACrAAAAAEAFAAAAAYAAQAAABMAAQAYABYAAQATAAAAIgACAAIAAAAGKhu1AAKxAAAAAQAUAAAACgACAAAAFgAFABcAAQAZABoAAQATAAAAHQABAAEAAAAFKrQAA7AAAAABABQAAAAGAAEAAAAZAAEAGwAcAAEAEwAAACIAAgACAAAABiortQADsQAAAAEAFAAAAAoAAgAAABwABQAdAAEAHQAeAAEAEwAAADwAAgABAAAAFCq3AAQqA7UAASoDtQACKgG1AAOxAAAAAQAUAAAAFgAFAAAAHwAEAAkACQAKAA4ACwATACAAAQAfAB4AAgATAAAASgAFAAIAAAAmuwAFWSq0AAIqtAABBGQItwAGTCsIKwi2AAe2AAgqK7YACbUAA7EAAAABABQAAAASAAQAAAAoABMAKgAdACwAJQAwACAAAAAEAAEAIQABACIAAAACACM=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <month>
+                    <xsl:value-of select="$Start/Date/month"/>
+                </month>
+                <year>
+                    <xsl:value-of select="$Start/Date/year"/>
+                </year>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>CalculateLastDate</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CalculateLastDate</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

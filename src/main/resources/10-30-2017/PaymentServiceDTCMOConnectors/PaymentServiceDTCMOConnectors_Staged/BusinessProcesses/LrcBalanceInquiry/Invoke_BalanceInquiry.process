@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://services.wsgc.com/2014/Payment" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType">
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/lrc-balance.xsd"/>
+    <pd:name>BusinessProcesses/LrcBalanceInquiry/Invoke_BalanceInquiry.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="group">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="ns:LrcBalanceInquiryRequest"/>
+                    <xsd:element name="targetServiceProvider" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>58</pd:startX>
+    <pd:startY>59</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$BalanceInquiry/ns:LrcBalanceInquiryResponse"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="ns:LrcBalanceInquiryResponse"/>
+    <pd:endX>293</pd:endX>
+    <pd:endY>62</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1496699240780</pd:targetNamespace>
+    <pd:activity name="BalanceInquiry">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>168</pd:x>
+        <pd:y>60</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcBalanceInquiry/BalanceInquiry.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/group/ns:LrcBalanceInquiryRequest"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>BalanceInquiry</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>BalanceInquiry</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

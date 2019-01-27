@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx2="http://ecommerce.wsgc.com/2013/Common" xmlns:pfx3="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions">
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/credit-return.xsd"/>
+    <pd:name>BusinessProcesses/CreditReturn/ResponseProcessors/MapPaymentServiceResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="IsPLCCTender" type="xsd:boolean"/>
+                    <xsd:element name="paymentgatewayresponse" type="xsd:string"/>
+                    <xsd:element ref="pfx:CreditCardReturnRequest"/>
+                    <xsd:element name="PAN" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="TenderSubType" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Error" type="pfx2:ErrorType" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>158</pd:startX>
+    <pd:startY>100</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="string-length($MapErrorResponse/pfx:CreditCardReturnResponse/@version)>0">
+                <xsl:copy-of select="$MapErrorResponse/pfx:CreditCardReturnResponse"/>
+            </xsl:when>
+            <xsl:when test="string-length($MapPaymentServiceResponse-PLCC/pfx:CreditCardReturnResponse/@version)>0">
+                <xsl:copy-of select="$MapPaymentServiceResponse-PLCC/pfx:CreditCardReturnResponse"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="$MapPaymentServiceResponse-CC/pfx:CreditCardReturnResponse"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx:CreditCardReturnResponse"/>
+    <pd:endX>681</pd:endX>
+    <pd:endY>92</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1436864167818</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>420</pd:x>
+        <pd:y>255</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>98</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/CreditReturn/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="LogRequestValidationExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>679</pd:x>
+        <pd:y>255</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns1:ExceptionHandlerRequest>
+                <ns1:envCode>
+                    <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/ENV"/>
+                </ns1:envCode>
+                <ns1:appCode>
+                    <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/CLE/AppCode"/>
+                </ns1:appCode>
+                <ns1:interfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </ns1:interfaceCode>
+                <ns1:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns1:hostName>
+                <ns1:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns1:timeStamp>
+                <ns1:message>
+                    <xsl:value-of select="$_error/ns:ErrorReport/Msg"/>
+                </ns1:message>
+                <ns1:payload>
+                    <xsl:value-of select="tib:render-xml($Start/root/pfx:CreditCardReturnRequest)"/>
+                </ns1:payload>
+                <ns1:ErrorLevel>
+                    <ns1:errorCode>
+                        <xsl:value-of select="concat($MapErrorResponse/pfx:CreditCardReturnResponse/Error/Type, $_globalVariables/pfx3:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$MapErrorResponse/pfx:CreditCardReturnResponse/Error/Detail[1])"/>
+                    </ns1:errorCode>
+                </ns1:ErrorLevel>
+                <ns1:TransactionDetails>
+                    <ns1:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns1:transactionDomain>
+                    <ns1:transactionType>
+                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/Return/CLE/TransactionType"/>
+                    </ns1:transactionType>
+                    <ns1:transactionID>
+                        <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                    </ns1:transactionID>
+                </ns1:TransactionDetails>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns:ErrorReport">
+                    <ns1:ErrorReportType>
+                        <ns1:stackTrace>
+                            <xsl:value-of select="StackTrace"/>
+                        </ns1:stackTrace>
+                        <ns1:msg>
+                            <xsl:value-of select="Msg"/>
+                        </ns1:msg>
+                        <ns1:fullClass>
+                            <xsl:value-of select="FullClass"/>
+                        </ns1:fullClass>
+                        <ns1:class>
+                            <xsl:value-of select="Class"/>
+                        </ns1:class>
+                        <ns1:processStack>
+                            <xsl:value-of select="ProcessStack"/>
+                        </ns1:processStack>
+                        <xsl:if test="MsgCode">
+                            <ns1:msgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </ns1:msgCode>
+                        </xsl:if>
+                        <ns1:data>
+                            <xsl:value-of select="Data/*"/>
+                        </ns1:data>
+                    </ns1:ErrorReportType>
+                </xsl:for-each>
+            </ns1:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapErrorResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>547</pd:x>
+        <pd:y>255</pd:y>
+        <config>
+            <element ref="pfx:CreditCardReturnResponse"/>
+        </config>
+        <pd:inputBindings>
+            <pfx:CreditCardReturnResponse>
+                <xsl:attribute xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="version">
+                    <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/Return/MessageVersion"/>
+                </xsl:attribute>
+                <SystemContext>
+                    <EnvironmentIdentifier>
+                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                    </EnvironmentIdentifier>
+                    <RegionIdentifier>
+                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                    </RegionIdentifier>
+                    <SourceSystemIdentifier>
+                        <xsl:value-of select="concat($_globalVariables/pfx3:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix, BW:getHostName())"/>
+                    </SourceSystemIdentifier>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="string-length($Start/root/pfx:CreditCardReturnRequest/SystemContext/TransactionId) > 0">
+                            <TransactionId>
+                                <xsl:value-of select="concat($_globalVariables/pfx3:GlobalVariables/Return/Constants/TransactionIdPrefix,&quot;-&quot;,$Start/root/pfx:CreditCardReturnRequest/SystemContext/TransactionId)"/>
+                            </TransactionId>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <TransactionId>
+                                <xsl:value-of select="concat($_globalVariables/pfx3:GlobalVariables/Return/Constants/TransactionIdPrefix,&quot;-&quot;,tib:format-dateTime($_globalVariables/pfx3:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns:ProcessContext/ProcessId,  $_globalVariables/pfx3:GlobalVariables/ENV,BW:getHostName())"/>
+                            </TransactionId>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <TransactionTime>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </TransactionTime>
+                </SystemContext>
+                <xsl:copy-of select="$Start/root/pfx:CreditCardReturnRequest/PaymentContext"/>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns:ErrorReport">
+                    <xsl:choose>
+                        <xsl:when test="Class=$_globalVariables/pfx3:GlobalVariables/PaymentService/ValidationConstants/BIND_EXCEPTION_CLASS">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                                </Type>
+                                <xsl:if test="string-length($_globalVariables/pfx3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail)>0">
+                                    <Detail>
+                                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                                    </Detail>
+                                </xsl:if>
+                                <ErrorMessage>
+                                    <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                                </Type>
+                                <xsl:if test="string-length($_globalVariables/pfx3:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail)>0">
+                                    <Detail>
+                                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                                    </Detail>
+                                </xsl:if>
+                                <ErrorMessage>
+                                    <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </pfx:CreditCardReturnResponse>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapPaymentServiceResponse-CC">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>474</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/BusinessProcesses/CreditReturn/ResponseProcessors/MapPaymentServiceResponse-CC.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <paymentgatewayresponse>
+                    <xsl:value-of select="$Start/root/paymentgatewayresponse"/>
+                </paymentgatewayresponse>
+                <xsl:copy-of select="$Start/root/pfx:CreditCardReturnRequest"/>
+                <xsl:if test="$Start/root/PAN">
+                    <PAN>
+                        <xsl:value-of select="$Start/root/PAN"/>
+                    </PAN>
+                </xsl:if>
+                <xsl:if test="$Start/root/TenderSubType">
+                    <TenderSubCode>
+                        <xsl:value-of select="$Start/root/TenderSubType"/>
+                    </TenderSubCode>
+                </xsl:if>
+                <xsl:copy-of select="$Start/root/Error"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapPaymentServiceResponse-PLCC">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>477</pd:x>
+        <pd:y>143</pd:y>
+        <config>
+            <processName>/BusinessProcesses/CreditReturn/ResponseProcessors/MapPaymentServiceResponse-PLCC.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <paymentgatewayresponse>
+                    <xsl:value-of select="$Start/root/paymentgatewayresponse"/>
+                </paymentgatewayresponse>
+                <xsl:copy-of select="$Start/root/pfx:CreditCardReturnRequest"/>
+                <xsl:if test="$Start/root/PAN">
+                    <PAN>
+                        <xsl:value-of select="$Start/root/PAN"/>
+                    </PAN>
+                </xsl:if>
+                <xsl:if test="$Start/root/TenderSubType">
+                    <TenderSubCode>
+                        <xsl:value-of select="$Start/root/TenderSubType"/>
+                    </TenderSubCode>
+                </xsl:if>
+                <xsl:copy-of select="$Start/root/Error"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>MapPaymentServiceResponse-PLCC</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapPaymentServiceResponse-CC</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>MapPaymentServiceResponse-PLCC</pd:to>
+        <pd:xpathDescription>PLCC</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Start/root/IsPLCCTender = $_globalVariables/pfx3:GlobalVariables/PaymentService/Constants/BooleanSuccess</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>MapPaymentServiceResponse-CC</pd:to>
+        <pd:xpathDescription>CC</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>MapErrorResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapErrorResponse</pd:from>
+        <pd:to>LogRequestValidationExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogRequestValidationExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

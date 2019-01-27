@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://services.wsgc.com/2014/Payment"
+           xmlns:common="http://ecommerce.wsgc.com/2013/Common"
+           targetNamespace="http://services.wsgc.com/2014/Payment"
+           elementFormDefault="unqualified">
+
+  <xs:import namespace="http://ecommerce.wsgc.com/2013/Common"
+             schemaLocation="../../2013/Common/common-all.xsd"/>
+
+  <xs:include schemaLocation="base-types.xsd"/>
+
+  <xs:annotation>
+    <xs:documentation>This schema contains the definitions of common XML types used by LRC schemas.</xs:documentation>
+  </xs:annotation>
+
+  <xs:complexType name="LrcCertificateType">
+    <xs:annotation>
+      <xs:documentation>Representation of a Loyalty/Reward Certificate within the WSI enterprise.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CertificateType" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Reserved for future use. Contains the type of the certificate beyond the tender designation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Concept" type="common:ConceptCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>WSI concept for which the certificate is issued.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CertificateStatus" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Status of the certificate. Possibile values are "ACTIVE","EXPIRED","CONSUMED"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CurrencyCode" type="common:CurrencyCodeType"/>
+      <xs:element name="CertificateAmount" type="common:CurrencyAmountType">
+        <xs:annotation>
+          <xs:documentation>Certificate's initial monetary value.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BalanceAmount" type="common:CurrencyAmountType">
+        <xs:annotation>
+          <xs:documentation>Amount available to spend.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Expiration" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Point in time in the UTC time zone at which the certificate expires.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Tender" type="LrcTenderType">
+        <xs:annotation>
+          <xs:documentation>Tender information to be used in the transaction</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="PaginationTokenType">
+    <xs:annotation>
+      <xs:documentation>Opaque value returned by the service whenever additional results are available. The value must be provided to the service in a search request to obtain the a particular set of available results.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+</xs:schema>

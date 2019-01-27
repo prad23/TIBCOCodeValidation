@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://schemas.tibco.com/bw/plugins/jms/5.0/jmsExceptions" xmlns:pfx2="http://www.tibco.com/schemas/PaymentServices/SharedResources/PaymentServiceInternal/RECON_CAPTURE_CC_PLCC.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://paymentservice.wsgc.com/2014/PaymentServices/SharedResources/XMLSchemas/PaymentServiceInternal/credit-reconciliationrequest.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions">
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2014/Payment/credit-capture.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/PaymentServices/SharedResources/PaymentServiceInternal/RECON_CAPTURE_CC_PLCC.xsd" schemaLocation="/SharedResources/XMLSchemas/PaymentServiceInternal/RECON_CAPTURE_CC_PLCC.xsd"/>
+    <xsd:import namespace="http://paymentservice.wsgc.com/2014/PaymentServices/SharedResources/XMLSchemas/PaymentServiceInternal/credit-reconciliationrequest.xsd" schemaLocation="/SharedResources/XMLSchemas/PaymentServiceInternal/credit-reconciliationrequest.xsd"/>
+    <pd:name>BusinessProcesses/Reconciliation/Credit/SendCreditReconciliationMessage.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx3:CreditReconciliationRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>143</pd:startX>
+    <pd:startY>116</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>853</pd:endX>
+    <pd:endY>128</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Process>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="InterfaceCode" type="xsd:string"/>
+                        <xsd:element name="TransactionId" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Process>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1419287069056</pd:targetNamespace>
+    <pd:activity name="JMSQueueSender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>467</pd:x>
+        <pd:y>117</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%PrefixQueue%%.%%ENV%%.%%Reconciliation/Credit/JMS/ReconciliationInternalQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedConnections/JMS/EMSMain.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <Body>
+                    <xsl:value-of select="tib:render-xml($Start/root/pfx3:CreditReconciliationRequest)"/>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>503</pd:x>
+        <pd:y>227</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionHandlerRequest>
+                <ns12:envCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                </ns12:envCode>
+                <ns12:appCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/AppCode"/>
+                </ns12:appCode>
+                <ns12:interfaceCode>
+                    <xsl:value-of select="$Process/root/InterfaceCode"/>
+                </ns12:interfaceCode>
+                <ns12:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:hostName>
+                <ns12:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns12:timeStamp>
+                <ns12:message>
+                    <xsl:value-of select="concat( $_error/ns2:ErrorReport/MsgCode, $_globalVariables/ns1:GlobalVariables/PaymentService/CLE/ErrorMessageSeparator  , $_error/ns2:ErrorReport/Msg )"/>
+                </ns12:message>
+                <ns12:payload>
+                    <xsl:value-of select="tib:render-xml($Start/root/pfx3:CreditReconciliationRequest)"/>
+                </ns12:payload>
+                <ns12:ErrorLevel>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="string-length($_error_JMSQueueSender/ActivityErrors/ns3:JMSInvalidInputException/msg)>0">
+                            <ns12:errorCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Exceptions/JMS/Send/JMSInvalidInputException"/>
+                            </ns12:errorCode>
+                        </xsl:when>
+                        <xsl:when test="string-length($_error_JMSQueueSender/ActivityErrors/ns3:JMSMessageCreateException/msg)>0">
+                            <ns12:errorCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Exceptions/JMS/Send/JMSMessageCreateException"/>
+                            </ns12:errorCode>
+                        </xsl:when>
+                        <xsl:when test="string-length($_error_JMSQueueSender/ActivityErrors/ns3:JMSSendException/msg)">
+                            <ns12:errorCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Exceptions/JMS/Send/JMSSendException"/>
+                            </ns12:errorCode>
+                        </xsl:when>
+                        <xsl:when test="string-length($_error_JMSQueueSender/ActivityErrors/ns3:JMSSessionCreateException/msg)>0">
+                            <ns12:errorCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Exceptions/JMS/Send/JMSSessionCreateException"/>
+                            </ns12:errorCode>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns12:errorCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/UnknownExceptionCode"/>
+                            </ns12:errorCode>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </ns12:ErrorLevel>
+                <ns12:TransactionDetails>
+                    <ns12:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns12:transactionDomain>
+                    <ns12:transactionType>
+                        <xsl:value-of select="$Start/root/pfx3:CreditReconciliationRequest/pfx3:TransactionType"/>
+                    </ns12:transactionType>
+                    <ns12:transactionID>
+                        <xsl:value-of select="$Process/root/TransactionId"/>
+                    </ns12:transactionID>
+                </ns12:TransactionDetails>
+            </ns12:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>318</pd:x>
+        <pd:y>230</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>305</pd:x>
+        <pd:y>119</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Reconciliation/Credit/CLE/InterfaceCode"/>
+                </InterfaceCode>
+                <TransactionId>
+                    <xsl:value-of select="concat( $Start/root/pfx3:CreditReconciliationRequest/pfx3:OrderContext/@omsOrderId, $_globalVariables/ns1:GlobalVariables/PaymentService/Constants/TransactionIdSeparator,&#xA; $Start/root/pfx3:CreditReconciliationRequest/pfx3:ConsumerTransactionId, $_globalVariables/ns1:GlobalVariables/PaymentService/Constants/TransactionIdSeparator,&#xA; $Start/root/pfx3:CreditReconciliationRequest/pfx3:SystemContext/TransactionId)"/>
+                </TransactionId>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendLogRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>644</pd:x>
+        <pd:y>117</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendAuditReplayRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:envCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                </ns12:envCode>
+                <ns12:appCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/AppCode"/>
+                </ns12:appCode>
+                <ns12:interfaceCode>
+                    <xsl:value-of select="$Process/root/InterfaceCode"/>
+                </ns12:interfaceCode>
+                <ns12:timestamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns12:timestamp>
+                <ns12:message>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Capture/CLE/AUDIT_BEGIN_RECONCILIATION_MESSAGE"/>
+                </ns12:message>
+                <ns12:TransactionDetails>
+                    <ns12:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns12:transactionDomain>
+                    <ns12:transactionType>
+                        <xsl:value-of select="$Start/root/pfx3:CreditReconciliationRequest/pfx3:TransactionType"/>
+                    </ns12:transactionType>
+                    <ns12:transactionID>
+                        <xsl:value-of select="$Process/root/TransactionId"/>
+                    </ns12:transactionID>
+                </ns12:TransactionDetails>
+                <ns12:AuditInfo>
+                    <ns12:payload>
+                        <xsl:value-of select="tib:render-xml($Start/root/pfx3:CreditReconciliationRequest)"/>
+                    </ns12:payload>
+                    <ns12:auditStep>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Constants/AuditBegin"/>
+                    </ns12:auditStep>
+                </ns12:AuditInfo>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>JMSQueueSender</pd:from>
+        <pd:to>SendLogRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>SendExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>JMSQueueSender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendLogRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

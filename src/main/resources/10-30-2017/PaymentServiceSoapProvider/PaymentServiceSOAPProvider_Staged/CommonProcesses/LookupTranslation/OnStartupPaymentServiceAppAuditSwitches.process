@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx10="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd" xmlns:pfx="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:ns="http://www.tibco.com/schemas/Phase1BWTemplate/SharedResources/SchemaDefinitions/Common/Schema.xsd" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pfx2="http://www.tibco.com/schemas/Phase1BWTemplate/SharedResources/SchemaDefinitions/Common/Schema.xsd2" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://www.wsgc.com/schemas/common/ItemConcepts.xsd" xmlns:pfx4="http://www.wsgc.com/schemas/common/RMSLocations.xsd" xmlns:pfx5="http://www.wsgc.com/schemas/common/ConceptFilters.xsd" xmlns:pfx6="http://www.wsgc.com/schemas/common/CLEFlags.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx7="http://www.wsgc.com/schemas/common/ReturnsAppAuditSwitches.xsd" xmlns:pfx8="http://www.wsgc.com/schemas/common/ECDDAppAuditSwitches.xsd" xmlns:pfx9="http://www.wsgc.com/schemas/common/ATPAppAuditSwitches.xsd">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/Phase1BWTemplate/SharedResources/SchemaDefinitions/Common/Schema.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Common/LookupTranslations.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/ItemConcepts.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/ItemConcepts.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/ConceptFilters.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/ConceptFilters.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/RMSLocations.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/CLEFlags.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/CLEFlags.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/ReturnsAppAuditSwitches.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/ReturnsAppAuditSwitches.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/ECDDAppAuditSwitches.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/ECDDAppAuditSwitches.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/ATPAppAuditSwitches.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/ATPAppAuditSwitches.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentServiceAuditSwitches.xsd"/>
+    <pd:name>CommonProcesses/LookupTranslation/OnStartupPaymentServiceAppAuditSwitches.process</pd:name>
+    <pd:startName>onStartup</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="onStartup">
+        <pd:type>com.tibco.pe.core.OnStartupEventSource</pd:type>
+        <pd:resourceType>ae.activities.onStartup</pd:resourceType>
+        <pd:x>62</pd:x>
+        <pd:y>63</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>584</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1200594477234</pd:targetNamespace>
+    <pd:activity name="SetVariable">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>420</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <showResult>false</showResult>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceAppAuditSwitches.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Parse-XML/pfx10:PaymentServiceAuditSwitches"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Read File">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>174</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <pfx:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CommonFilePath/PaymentServiceAppAuditSwitches"/>
+                </fileName>
+                <encoding>
+                    <xsl:value-of select="&quot;UTF-8&quot;"/>
+                </encoding>
+            </pfx:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>297</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx10:PaymentServiceAuditSwitches"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Read-File/ns2:ReadActivityOutputTextClass/fileContent/textContent"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>onStartup</pd:from>
+        <pd:to>Read File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetVariable</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read File</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>SetVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

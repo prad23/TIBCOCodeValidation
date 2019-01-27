@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://www.wsgc.com/schemas/common/InterfaceNameList.xsd" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://www.wsgc.com/schemas/common/InterfaceNameAndXSLT.xsd" xmlns:pfx2="http://www.wsgc.com/schemas/common/InterfaceCodeAndXSLT.xsd" xmlns:pfx3="http://www.wsgc.com/schemas/common/CLEFlags.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx4="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:pfx5="http://www.wsgc.com/schemas/common/TrackingScanCodes.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions">
+    <xsd:import namespace="http://www.wsgc.com/schemas/common/CLEFlags.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/CLEFlags.xsd"/>
+    <pd:name>CommonProcesses/LookupTranslation/FilePollerCLEFlags.process</pd:name>
+    <pd:startName>File Poller</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="File Poller">
+        <pd:type>com.tibco.plugin.file.FileEventSource</pd:type>
+        <pd:resourceType>ae.activities.FileEventSourceResource</pd:resourceType>
+        <pd:x>58</pd:x>
+        <pd:y>265</pd:y>
+        <config>
+            <pollInterval>%%LookupTranslation/FilePollerIntervalInSec%%</pollInterval>
+            <createEvent>false</createEvent>
+            <modifyEvent>true</modifyEvent>
+            <deleteEvent>false</deleteEvent>
+            <mode>only-files</mode>
+            <encoding>text</encoding>
+            <sortby>File Name</sortby>
+            <sortorder>descending</sortorder>
+            <fileName>%%CommonFilePath/CLEFlags%%</fileName>
+            <excludeContent>true</excludeContent>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1390</pd:endX>
+    <pd:endY>267</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <CLEFlag ref="pfx3:CLEFlags"/>
+        <XSLTFileInfo>
+            <xsd:element name="XSLTFileInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="pfx3:XSLTContent" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </XSLTFileInfo>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1200937245473</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>404</pd:x>
+        <pd:y>91</pd:y>
+        <pd:width>663</pd:width>
+        <pd:height>330</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$ParseCLEFlag/pfx3:CLEFlags/pfx3:CLEFlag</pd:over>
+            <pd:iterationElementSlot>itrCLEFlag</pd:iterationElementSlot>
+            <pd:indexSlot>iCLEFlag</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>NonXSLTCLEFLag</pd:to>
+            <pd:lineType>Multiple Bends</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>otherwise</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>xsltGroup</pd:to>
+            <pd:xpathDescription>XSLT</pd:xpathDescription>
+            <pd:lineType>Multiple Bends</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>lower-case($itrCLEFlag/pfx3:CLEFlag/pfx3:ContentValidation/pfx3:ContentValidation) = $_globalVariables/ns:GlobalVariables/Constants/VALUE_TRUE</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>XSLTFileInfoReset</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>One Bend</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>NonXSLTCLEFLag</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>One Bend</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>xsltGroup</pd:from>
+            <pd:to>XSLTCLEFLag</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>XSLTCLEFLag</pd:from>
+            <pd:to>XSLTFileInfoReset</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="NonXSLTCLEFLag">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>488</pd:x>
+            <pd:y>347</pd:y>
+            <config>
+                <variableName>CLEFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <pfx3:CLEFlags>
+                    <xsl:copy-of select="$itrCLEFlag/pfx3:CLEFlag"/>
+                    <xsl:copy-of select="$CLEFlag/pfx3:CLEFlags/pfx3:CLEFlag"/>
+                </pfx3:CLEFlags>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:group name="xsltGroup">
+            <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+            <pd:resourceType>ae.process.group</pd:resourceType>
+            <pd:x>464</pd:x>
+            <pd:y>120</pd:y>
+            <pd:width>308</pd:width>
+            <pd:height>193</pd:height>
+            <pd:collapsedWidth>57</pd:collapsedWidth>
+            <pd:collapsedHeight>70</pd:collapsedHeight>
+            <pd:groupVariables/>
+            <pd:joinToggle>inherit</pd:joinToggle>
+            <config>
+                <pd:groupType>inputLoop</pd:groupType>
+                <pd:serializable>false</pd:serializable>
+                <pd:over>$itrCLEFlag/pfx3:CLEFlag/pfx3:ContentValidation/pfx3:XSLTFilenameWithExtension</pd:over>
+                <pd:iterationElementSlot>itrxslt</pd:iterationElementSlot>
+                <pd:indexSlot>idxxslt</pd:indexSlot>
+                <pd:activityOutputName/>
+                <pd:accumulateOutput>false</pd:accumulateOutput>
+            </config>
+            <pd:inputBindings/>
+            <pd:expanded>true</pd:expanded>
+            <pd:transition>
+                <pd:from>start</pd:from>
+                <pd:to>ReadXSLTFile</pd:to>
+                <pd:lineType>Default</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>XSLTFileInfo</pd:from>
+                <pd:to>end</pd:to>
+                <pd:lineType>Default</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>OnError</pd:from>
+                <pd:to>end</pd:to>
+                <pd:lineType>One Bend</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>ReadXSLTFile</pd:from>
+                <pd:to>XSLTFileInfo</pd:to>
+                <pd:lineType>Default</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>always</pd:conditionType>
+            </pd:transition>
+            <pd:transition>
+                <pd:from>ReadXSLTFile</pd:from>
+                <pd:to>OnError</pd:to>
+                <pd:lineType>Multiple Bends</pd:lineType>
+                <pd:lineColor>-16777216</pd:lineColor>
+                <pd:conditionType>error</pd:conditionType>
+            </pd:transition>
+            <pd:activity name="ReadXSLTFile">
+                <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+                <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+                <pd:x>540</pd:x>
+                <pd:y>192</pd:y>
+                <config>
+                    <encoding>text</encoding>
+                </config>
+                <pd:inputBindings>
+                    <ns2:ReadActivityInputClass>
+                        <fileName>
+                            <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/CommonFilePath/XSLTFilePath,&#xA;$itrxslt/pfx3:XSLTFilenameWithExtension)"/>
+                        </fileName>
+                    </ns2:ReadActivityInputClass>
+                </pd:inputBindings>
+            </pd:activity>
+            <pd:activity name="XSLTFileInfo">
+                <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+                <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+                <pd:x>683</pd:x>
+                <pd:y>192</pd:y>
+                <config>
+                    <variableName>XSLTFileInfo</variableName>
+                </config>
+                <pd:inputBindings>
+                    <XSLTFileInfo>
+                        <xsl:if test="string-length($ReadXSLTFile/ns1:ReadActivityOutputTextClass/fileContent/textContent) > 0">
+                            <pfx3:XSLTContent>
+                                <xsl:attribute name="filenamewithextension">
+                                    <xsl:value-of select="$ReadXSLTFile/ns1:ReadActivityOutputTextClass/fileInfo/fileName"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="type">
+                                    <xsl:value-of select="$itrxslt/pfx3:XSLTFilenameWithExtension/@type"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ReadXSLTFile/ns1:ReadActivityOutputTextClass/fileContent/textContent"/>
+                            </pfx3:XSLTContent>
+                        </xsl:if>
+                        <xsl:if test="string-length($XSLTFileInfo/XSLTFileInfo/pfx3:XSLTContent[1]/@type) > 0">
+                            <xsl:copy-of select="$XSLTFileInfo/XSLTFileInfo/pfx3:XSLTContent"/>
+                        </xsl:if>
+                    </XSLTFileInfo>
+                </pd:inputBindings>
+            </pd:activity>
+            <pd:activity name="OnError">
+                <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+                <pd:resourceType>ae.activities.null</pd:resourceType>
+                <pd:x>631</pd:x>
+                <pd:y>259</pd:y>
+                <config/>
+                <pd:inputBindings/>
+            </pd:activity>
+        </pd:group>
+        <pd:activity name="XSLTCLEFLag">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>849</pd:x>
+            <pd:y>226</pd:y>
+            <config>
+                <variableName>CLEFlag</variableName>
+            </config>
+            <pd:inputBindings>
+                <pfx3:CLEFlags>
+                    <xsl:for-each select="$itrCLEFlag/pfx3:CLEFlag">
+                        <pfx3:CLEFlag>
+                            <pfx3:ApplicationCode>
+                                <xsl:value-of select="pfx3:ApplicationCode"/>
+                            </pfx3:ApplicationCode>
+                            <pfx3:InterfaceCode>
+                                <xsl:value-of select="pfx3:InterfaceCode"/>
+                            </pfx3:InterfaceCode>
+                            <pfx3:LoggingOn>
+                                <xsl:value-of select="pfx3:LoggingOn"/>
+                            </pfx3:LoggingOn>
+                            <pfx3:ExceptionOn>
+                                <xsl:value-of select="pfx3:ExceptionOn"/>
+                            </pfx3:ExceptionOn>
+                            <xsl:for-each select="pfx3:Masks">
+                                <pfx3:Masks>
+                                    <xsl:for-each select="pfx3:Mask">
+                                        <pfx3:Mask>
+                                            <pfx3:TargetParentElement>
+                                                <xsl:value-of select="pfx3:TargetParentElement"/>
+                                            </pfx3:TargetParentElement>
+                                            <pfx3:TargetElement>
+                                                <xsl:value-of select="pfx3:TargetElement"/>
+                                            </pfx3:TargetElement>
+                                            <pfx3:NumOfFirstCharToRetain>
+                                                <xsl:value-of select="pfx3:NumOfFirstCharToRetain"/>
+                                            </pfx3:NumOfFirstCharToRetain>
+                                            <pfx3:NumOfLastCharToRetain>
+                                                <xsl:value-of select="pfx3:NumOfLastCharToRetain"/>
+                                            </pfx3:NumOfLastCharToRetain>
+                                            <pfx3:MaskChar>
+                                                <xsl:value-of select="pfx3:MaskChar"/>
+                                            </pfx3:MaskChar>
+                                        </pfx3:Mask>
+                                    </xsl:for-each>
+                                </pfx3:Masks>
+                            </xsl:for-each>
+                            <xsl:for-each select="pfx3:ContentValidation">
+                                <pfx3:ContentValidation>
+                                    <pfx3:ContentValidation>
+                                        <xsl:value-of select="pfx3:ContentValidation"/>
+                                    </pfx3:ContentValidation>
+                                    <xsl:for-each select="pfx3:XSLTFilenameWithExtension">
+                                        <pfx3:XSLTFilenameWithExtension>
+                                            <xsl:if test="@type">
+                                                <xsl:attribute name="type">
+                                                    <xsl:value-of select="@type"/>
+                                                </xsl:attribute>
+                                            </xsl:if>
+                                            <xsl:value-of select="."/>
+                                        </pfx3:XSLTFilenameWithExtension>
+                                    </xsl:for-each>
+                                    <xsl:copy-of select="$XSLTFileInfo/XSLTFileInfo/pfx3:XSLTContent"/>
+                                    <xsl:if test="pfx3:RequestValidationErrorCodePrefix">
+                                        <pfx3:RequestValidationErrorCodePrefix>
+                                            <xsl:value-of select="pfx3:RequestValidationErrorCodePrefix"/>
+                                        </pfx3:RequestValidationErrorCodePrefix>
+                                    </xsl:if>
+                                    <xsl:if test="pfx3:ResponseValidationErrorCodePrefix">
+                                        <pfx3:ResponseValidationErrorCodePrefix>
+                                            <xsl:value-of select="pfx3:ResponseValidationErrorCodePrefix"/>
+                                        </pfx3:ResponseValidationErrorCodePrefix>
+                                    </xsl:if>
+                                </pfx3:ContentValidation>
+                            </xsl:for-each>
+                        </pfx3:CLEFlag>
+                    </xsl:for-each>
+                    <xsl:copy-of select="$CLEFlag/pfx3:CLEFlags/pfx3:CLEFlag"/>
+                </pfx3:CLEFlags>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="XSLTFileInfoReset">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>968</pd:x>
+            <pd:y>226</pd:y>
+            <config>
+                <variableName>XSLTFileInfo</variableName>
+            </config>
+            <pd:inputBindings>
+                <XSLTFileInfo>
+                    <xsl:variable name="EmptyString" select="&quot;&quot;"/>
+                    <pfx3:XSLTContent>
+                        <xsl:attribute name="type">
+                            <xsl:value-of select="$EmptyString"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="filenamewithextension">
+                            <xsl:value-of select="$EmptyString"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="$EmptyString"/>
+                    </pfx3:XSLTContent>
+                </XSLTFileInfo>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="CatchAll">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1165</pd:x>
+        <pd:y>353</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ParseCLEFlag">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>314</pd:x>
+        <pd:y>265</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx3:CLEFlags"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$ReadCLEFlag/ns1:ReadActivityOutputTextClass/fileContent/textContent"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ReadCLEFlag">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>181</pd:x>
+        <pd:y>265</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <ns2:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="$File-Poller/ns1:EventSourceOuputNoContentClass/fileInfo/fullName"/>
+                </fileName>
+                <encoding>
+                    <xsl:value-of select="&quot;UTF-8&quot;"/>
+                </encoding>
+            </ns2:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendException">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1283</pd:x>
+        <pd:y>354</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <pfx4:ExceptionHandlerRequest>
+                <pfx4:envCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ENV"/>
+                </pfx4:envCode>
+                <pfx4:appCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLEAppCode"/>
+                </pfx4:appCode>
+                <pfx4:interfaceCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/LookupTranslation/InterfaceCode"/>
+                </pfx4:interfaceCode>
+                <pfx4:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </pfx4:hostName>
+                <pfx4:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </pfx4:timeStamp>
+                <pfx4:activityName>
+                    <xsl:value-of select="BW:getCurrentActivityName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                </pfx4:activityName>
+                <pfx4:message>
+                    <xsl:value-of select="'EXCEPTION'"/>
+                </pfx4:message>
+                <pfx4:payload>
+                    <xsl:value-of select="'Please validate both CLEFlag and XSLT files'"/>
+                </pfx4:payload>
+                <pfx4:ErrorLevel>
+                    <pfx4:errorCode>
+                        <xsl:value-of select="'TIB_COMMONLOOKUP_001'"/>
+                    </pfx4:errorCode>
+                </pfx4:ErrorLevel>
+                <pfx4:TransactionDetails>
+                    <pfx4:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/LookupTranslation/TransactionDomain"/>
+                    </pfx4:transactionDomain>
+                    <pfx4:transactionType>
+                        <xsl:value-of select="'onStartup'"/>
+                    </pfx4:transactionType>
+                    <pfx4:transactionID>
+                        <xsl:value-of select="concat($ReadCLEFlag/ns1:ReadActivityOutputTextClass/fileInfo/fileName, '_', tib:format-dateTime('yyyyMMddHHmmss', current-dateTime()))"/>
+                    </pfx4:transactionID>
+                </pfx4:TransactionDetails>
+                <xsl:for-each select="$_processContext">
+                    <pfx4:ProcessContextDetails>
+                        <pfx4:processId>
+                            <xsl:value-of select="ns3:ProcessContext/ProcessId"/>
+                        </pfx4:processId>
+                        <pfx4:projectName>
+                            <xsl:value-of select="ns3:ProcessContext/ProjectName"/>
+                        </pfx4:projectName>
+                        <pfx4:engineName>
+                            <xsl:value-of select="ns3:ProcessContext/EngineName"/>
+                        </pfx4:engineName>
+                        <pfx4:restartedFromCheckpoint>
+                            <xsl:value-of select="ns3:ProcessContext/RestartedFromCheckpoint"/>
+                        </pfx4:restartedFromCheckpoint>
+                        <xsl:for-each select="ns3:ProcessContext/TrackingInfo">
+                            <pfx4:trackingInfo>
+                                <xsl:value-of select="."/>
+                            </pfx4:trackingInfo>
+                        </xsl:for-each>
+                    </pfx4:ProcessContextDetails>
+                </xsl:for-each>
+                <xsl:for-each select="$_error/ns3:ErrorReport">
+                    <pfx4:ErrorReportType>
+                        <pfx4:stackTrace>
+                            <xsl:value-of select="StackTrace"/>
+                        </pfx4:stackTrace>
+                        <pfx4:msg>
+                            <xsl:value-of select="Msg"/>
+                        </pfx4:msg>
+                        <pfx4:fullClass>
+                            <xsl:value-of select="FullClass"/>
+                        </pfx4:fullClass>
+                        <pfx4:class>
+                            <xsl:value-of select="Class"/>
+                        </pfx4:class>
+                        <pfx4:processStack>
+                            <xsl:value-of select="ProcessStack"/>
+                        </pfx4:processStack>
+                        <xsl:if test="MsgCode">
+                            <pfx4:msgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </pfx4:msgCode>
+                        </xsl:if>
+                        <xsl:if test="Data/*">
+                            <pfx4:data>
+                                <xsl:value-of select="Data/*"/>
+                            </pfx4:data>
+                        </xsl:if>
+                    </pfx4:ErrorReportType>
+                </xsl:for-each>
+            </pfx4:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1277</pd:x>
+        <pd:y>266</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendLogRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <pfx4:LogRequest>
+                <pfx4:envCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ENV"/>
+                </pfx4:envCode>
+                <pfx4:appCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLEAppCode"/>
+                </pfx4:appCode>
+                <pfx4:interfaceCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/LookupTranslation/InterfaceCode"/>
+                </pfx4:interfaceCode>
+                <pfx4:timestamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </pfx4:timestamp>
+                <pfx4:status>
+                    <xsl:value-of select="'COMPLETED'"/>
+                </pfx4:status>
+                <pfx4:message>
+                    <xsl:value-of select="'New CLEFlag values set'"/>
+                </pfx4:message>
+                <pfx4:TransactionDetails>
+                    <pfx4:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/LookupTranslation/TransactionDomain"/>
+                    </pfx4:transactionDomain>
+                    <pfx4:transactionType>
+                        <xsl:value-of select="'onStartup'"/>
+                    </pfx4:transactionType>
+                    <pfx4:transactionID>
+                        <xsl:value-of select="concat($ReadCLEFlag/ns1:ReadActivityOutputTextClass/fileInfo/fileName, '_', tib:format-dateTime('yyyyMMddHHmmss', current-dateTime()))"/>
+                    </pfx4:transactionID>
+                </pfx4:TransactionDetails>
+                <pfx4:AuditInfo>
+                    <pfx4:payload>
+                        <xsl:value-of select="concat(&#xA;'File full name: ', $ReadCLEFlag/ns1:ReadActivityOutputTextClass/fileInfo/fullName, ' &#xA;', &#xA;'New value set:', '&#xA;', &#xA;tib:render-xml($SetCLEFlag/pfx3:CLEFlags,1,1)&#xA;)"/>
+                    </pfx4:payload>
+                    <pfx4:auditStep>
+                        <xsl:value-of select="BW:getCurrentActivityName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </pfx4:auditStep>
+                </pfx4:AuditInfo>
+            </pfx4:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEFlag">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>1171</pd:x>
+        <pd:y>265</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-CLEFlags.sharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <pfx3:CLEFlags>
+                <xsl:copy-of select="$CLEFlag/pfx3:CLEFlags/pfx3:CLEFlag"/>
+            </pfx3:CLEFlags>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>ReadCLEFlag</pd:from>
+        <pd:to>ParseCLEFlag</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CatchAll</pd:from>
+        <pd:to>SendException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEFlag</pd:from>
+        <pd:to>SendLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseCLEFlag</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>SetCLEFlag</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>File Poller</pd:from>
+        <pd:to>ReadCLEFlag</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>This process looks polls for interface code and XSLT file configuration which is defined in CLEFlag_TIBCOProjectName.xml
+After getting the interface and xslt details, it gets the XSLT file content for each interface which require XSLT validation and sets to SV. 
+XSLT location is defined in GV XSLTFilePath = C:\TIBCODEV\TIBCOSharedResources\SharedResources\XSLTs\
+Once the values are set logging is done to validate the data before the actual biz is started. In case of failure the exception is logged.
+</pd:description>
+        <pd:x>474</pd:x>
+        <pd:y>39</pd:y>
+        <pd:width>947</pd:width>
+        <pd:height>77</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-3342337</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>false</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

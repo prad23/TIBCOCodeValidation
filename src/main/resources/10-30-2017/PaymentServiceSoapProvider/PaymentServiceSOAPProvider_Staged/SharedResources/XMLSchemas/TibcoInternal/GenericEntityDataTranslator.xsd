@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:tns="http://www.wsgc.com/schemas/TibcoInternal/GenericEntityDataTranslator.xsd"
+	 targetNamespace="http://www.wsgc.com/schemas/TibcoInternal/GenericEntityDataTranslator.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="EntityNameValuePairs">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:EntityNameValue" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EntityNameValue">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:EntityName"/>
+				<xs:element ref="tns:EntityValue" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EntityName" type="xs:string"/>
+	<xs:element name="EntityValue" type="xs:string"/>
+</xs:schema>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:regexGenerator="java://regexGenerator">
+    <pd:name>BusinessProcesses/Common/RemoveUnwantedCharacters.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="SourceString" type="xsd:string"/>
+                    <xsd:element name="RegexOfCharactersToRemove" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>142</pd:startX>
+    <pd:startY>86</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <TargetString>
+                <xsl:value-of select="$RemoveUnwantedCharacters/javaCodeActivityOutput/TargetString"/>
+            </TargetString>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="TargetString" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>477</pd:endX>
+    <pd:endY>84</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Variable1/>
+        <Variable0>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="NumericString" type="xsd:string"/>
+                        <xsd:element name="Regex" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Variable0>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1470781639722</pd:targetNamespace>
+    <pd:activity name="RemoveUnwantedCharacters">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>306</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <fileName>RemoveUnwantedCharactersRemoveUnwantedCharacters</fileName>
+            <packageName>BusinessProcesses.Common.RemoveUnwantedCharacters</packageName>
+            <fullsource>package BusinessProcesses.Common.RemoveUnwantedCharacters;
+import java.util.*;
+import java.io.*;
+public class RemoveUnwantedCharactersRemoveUnwantedCharacters{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String SourceString = "";
+	protected String RegexOfCharactersToRemove = "";
+	protected String TargetString = "";
+	public String getSourceString() {
+		return SourceString;
+	}
+	public void setSourceString(String val) {
+		SourceString = val;
+	}
+	public String getRegexOfCharactersToRemove() {
+		return RegexOfCharactersToRemove;
+	}
+	public void setRegexOfCharactersToRemove(String val) {
+		RegexOfCharactersToRemove = val;
+	}
+	public String getTargetString() {
+		return TargetString;
+	}
+	public void setTargetString(String val) {
+		TargetString = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public RemoveUnwantedCharactersRemoveUnwantedCharacters() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String SourceString
+	In  : String RegexOfCharactersToRemove
+	Out : String TargetString
+* Available Variables: DO NOT MODIFY *****/
+
+	
+	TargetString = SourceString.replaceAll (RegexOfCharactersToRemove, "");
+}
+}
+</fullsource>
+            <inputData>
+                <row>
+                    <fieldName>SourceString</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>RegexOfCharactersToRemove</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>TargetString</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>RemoveUnwantedCharactersRemoveUnwantedCharacters</name>
+                    <byteCode>yv66vgAAADMAKwkABwAeCQAHAB8JAAcAIAoACAAhCAAiCgAjACQHACUHACYBAAxTb3VyY2VTdHJpbmcBABJMamF2YS9sYW5nL1N0cmluZzsBABlSZWdleE9mQ2hhcmFjdGVyc1RvUmVtb3ZlAQAMVGFyZ2V0U3RyaW5nAQAPZ2V0U291cmNlU3RyaW5nAQAUKClMamF2YS9sYW5nL1N0cmluZzsBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQAPc2V0U291cmNlU3RyaW5nAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAcZ2V0UmVnZXhPZkNoYXJhY3RlcnNUb1JlbW92ZQEAHHNldFJlZ2V4T2ZDaGFyYWN0ZXJzVG9SZW1vdmUBAA9nZXRUYXJnZXRTdHJpbmcBAA9zZXRUYXJnZXRTdHJpbmcBAAY8aW5pdD4BAAMoKVYBAAZpbnZva2UBAApFeGNlcHRpb25zBwAnAQAKU291cmNlRmlsZQEANVJlbW92ZVVud2FudGVkQ2hhcmFjdGVyc1JlbW92ZVVud2FudGVkQ2hhcmFjdGVycy5qYXZhDAAJAAoMAAsACgwADAAKDAAXABgBAAAHACgMACkAKgEAYkJ1c2luZXNzUHJvY2Vzc2VzL0NvbW1vbi9SZW1vdmVVbndhbnRlZENoYXJhY3RlcnMvUmVtb3ZlVW53YW50ZWRDaGFyYWN0ZXJzUmVtb3ZlVW53YW50ZWRDaGFyYWN0ZXJzAQAQamF2YS9sYW5nL09iamVjdAEAE2phdmEvbGFuZy9FeGNlcHRpb24BABBqYXZhL2xhbmcvU3RyaW5nAQAKcmVwbGFjZUFsbAEAOChMamF2YS9sYW5nL1N0cmluZztMamF2YS9sYW5nL1N0cmluZzspTGphdmEvbGFuZy9TdHJpbmc7ACEABwAIAAAAAwAEAAkACgAAAAQACwAKAAAABAAMAAoAAAAIAAEADQAOAAEADwAAAB0AAQABAAAABSq0AAGwAAAAAQAQAAAABgABAAAACgABABEAEgABAA8AAAAiAAIAAgAAAAYqK7UAAbEAAAABABAAAAAKAAIAAAANAAUADgABABMADgABAA8AAAAdAAEAAQAAAAUqtAACsAAAAAEAEAAAAAYAAQAAABAAAQAUABIAAQAPAAAAIgACAAIAAAAGKiu1AAKxAAAAAQAQAAAACgACAAAAEwAFABQAAQAVAA4AAQAPAAAAHQABAAEAAAAFKrQAA7AAAAABABAAAAAGAAEAAAAWAAEAFgASAAEADwAAACIAAgACAAAABiortQADsQAAAAEAEAAAAAoAAgAAABkABQAaAAEAFwAYAAEADwAAAD8AAgABAAAAFyq3AAQqEgW1AAEqEgW1AAIqEgW1AAOxAAAAAQAQAAAAFgAFAAAAHAAEAAYACgAHABAACAAWAB0AAQAZABgAAgAPAAAALgAEAAEAAAASKiq0AAEqtAACEgW2AAa1AAOxAAAAAQAQAAAACgACAAAAJgARACcAGgAAAAQAAQAbAAEAHAAAAAIAHQ==</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <SourceString>
+                    <xsl:value-of select="$Start/root/SourceString"/>
+                </SourceString>
+                <RegexOfCharactersToRemove>
+                    <xsl:value-of select="$Start/root/RegexOfCharactersToRemove"/>
+                </RegexOfCharactersToRemove>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RemoveUnwantedCharacters</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RemoveUnwantedCharacters</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

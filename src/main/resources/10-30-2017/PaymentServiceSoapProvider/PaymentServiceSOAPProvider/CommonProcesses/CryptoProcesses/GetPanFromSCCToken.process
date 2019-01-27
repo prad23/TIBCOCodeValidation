@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx2="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://ecommerce.wsgc.com/2013/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="www.tibco.com/plugin/java/JavaMethodActivityOutput" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="www.tibco.com/plugin/java/JavaMethodActivityInput" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://schemas.tibco.com/bw/plugins/java/5.0/javaExceptions">
+    <pd:name>CommonProcesses/CryptoProcesses/GetPanFromSCCToken.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Token" type="xsd:string"/>
+                    <xsd:element name="Scheme" type="xsd:string"/>
+                    <xsd:element name="Scope" type="xsd:string"/>
+                    <xsd:element name="Expiration" type="xsd:dateTime"/>
+                    <xsd:element name="IsCVNProvided" type="xsd:boolean" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>102</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="string-length($Error/root/ErrorMessage)=0">
+                <CardDetails>
+                    <PAN>
+                        <xsl:value-of select="$GetPan/javaCodeActivityOutput/pan"/>
+                    </PAN>
+                    <ExpiryMonth>
+                        <xsl:value-of select="tib:pad-front($GetPan/javaCodeActivityOutput/cardexpirationmonth, 2, &quot;0&quot;)"/>
+                    </ExpiryMonth>
+                    <ExpiryYear>
+                        <xsl:value-of select="$GetPan/javaCodeActivityOutput/cardexpirationyear"/>
+                    </ExpiryYear>
+                </CardDetails>
+            </xsl:if>
+            <xsl:if test="string-length($Error/root/ErrorMessage)>0">
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$Error/root/ErrorType"/>
+                    </Type>
+                    <xsl:if test="$Error/root/ErrorDetail">
+                        <Detail>
+                            <xsl:value-of select="$Error/root/ErrorDetail"/>
+                        </Detail>
+                    </xsl:if>
+                    <ErrorMessage>
+                        <xsl:value-of select="$Error/root/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </xsl:if>
+            <xsl:if test="string-length($Error/root/CLE/ErrorReportType)>0">
+                <CLEErrorReport>
+                    <xsl:copy-of select="$Error/root/CLE/ErrorReportType/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Error/root/CLE/ErrorReportType/@*"/>
+                    <xsl:copy-of select="$Error/root/CLE/ErrorReportType/node()"/>
+                </CLEErrorReport>
+            </xsl:if>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="CardDetails" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="PAN" type="xsd:string"/>
+                                <xsd:element name="ExpiryMonth" type="xsd:string"/>
+                                <xsd:element name="ExpiryYear" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="Error" type="pfx:ErrorType" minOccurs="0"/>
+                    <xsd:element name="CLEErrorReport" type="pfx2:ErrorReportType" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>696</pd:endX>
+    <pd:endY>102</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Error>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ErrorType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorDetail" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorMessage" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="CLE" minOccurs="0">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="ErrorReportType" type="pfx2:ErrorReportType"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Error>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1430416777192</pd:targetNamespace>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>535</pd:x>
+        <pd:y>208</pd:y>
+        <config>
+            <variableName>Error</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="contains($_error_GetPan/ns4:InvocationException/exceptionClassName,$_globalVariables/ns:GlobalVariables/CryptoProcesses/SavedCreditCardVerificationExceptionClass)">
+                    <root>
+                        <ErrorType>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INCOMPLETE_REQUEST_SCC_CARD_NOT_VERIFIED/Type"/>
+                        </ErrorType>
+                        <xsl:if test="string-length($_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INCOMPLETE_REQUEST_SCC_CARD_NOT_VERIFIED/Detail)>0">
+                            <ErrorDetail>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INCOMPLETE_REQUEST_SCC_CARD_NOT_VERIFIED/Detail"/>
+                            </ErrorDetail>
+                        </xsl:if>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INCOMPLETE_REQUEST_SCC_CARD_NOT_VERIFIED/ErrorMessage"/>
+                        </ErrorMessage>
+                        <CLE>
+                            <ErrorReportType>
+                                <xsl:if test="$_error/ns3:ErrorReport/StackTrace">
+                                    <pfx2:stackTrace>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/StackTrace"/>
+                                    </pfx2:stackTrace>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/Msg">
+                                    <pfx2:msg>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                                    </pfx2:msg>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/FullClass">
+                                    <pfx2:fullClass>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/FullClass"/>
+                                    </pfx2:fullClass>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/Class">
+                                    <pfx2:class>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/Class"/>
+                                    </pfx2:class>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/ProcessStack">
+                                    <pfx2:processStack>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/ProcessStack"/>
+                                    </pfx2:processStack>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/MsgCode">
+                                    <pfx2:msgCode>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/MsgCode"/>
+                                    </pfx2:msgCode>
+                                </xsl:if>
+                                <pfx2:data>
+                                    <xsl:value-of select="tib:render-xml($_error/ns3:ErrorReport/Data/*)"/>
+                                </pfx2:data>
+                            </ErrorReportType>
+                        </CLE>
+                    </root>
+                </xsl:when>
+                <xsl:when test="contains($_error_GetPan/ns4:InvocationException/exceptionClassName,$_globalVariables/ns:GlobalVariables/CryptoProcesses/TokenizationExceptionClass)">
+                    <root>
+                        <ErrorType>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INVALID_TOKEN/Type"/>
+                        </ErrorType>
+                        <xsl:if test="string-length($_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INVALID_TOKEN/Detail)>0">
+                            <ErrorDetail>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INVALID_TOKEN/Detail"/>
+                            </ErrorDetail>
+                        </xsl:if>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INVALID_TOKEN/ErrorMessage"/>
+                        </ErrorMessage>
+                        <CLE>
+                            <ErrorReportType>
+                                <xsl:if test="$_error/ns3:ErrorReport/StackTrace">
+                                    <pfx2:stackTrace>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/StackTrace"/>
+                                    </pfx2:stackTrace>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/Msg">
+                                    <pfx2:msg>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                                    </pfx2:msg>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/FullClass">
+                                    <pfx2:fullClass>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/FullClass"/>
+                                    </pfx2:fullClass>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/Class">
+                                    <pfx2:class>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/Class"/>
+                                    </pfx2:class>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/ProcessStack">
+                                    <pfx2:processStack>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/ProcessStack"/>
+                                    </pfx2:processStack>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/MsgCode">
+                                    <pfx2:msgCode>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/MsgCode"/>
+                                    </pfx2:msgCode>
+                                </xsl:if>
+                                <pfx2:data>
+                                    <xsl:value-of select="tib:render-xml($_error/ns3:ErrorReport/Data/*)"/>
+                                </pfx2:data>
+                            </ErrorReportType>
+                        </CLE>
+                    </root>
+                </xsl:when>
+                <xsl:otherwise>
+                    <root>
+                        <ErrorType>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonInternalErrors/PanFromSCCToken/COMMON_INTERNAL_ERROR_PAN_FROM_SCC_TOKEN/Type"/>
+                        </ErrorType>
+                        <xsl:if test="string-length($_globalVariables/ns:GlobalVariables/PaymentService/CommonInternalErrors/PanFromSCCToken/COMMON_INTERNAL_ERROR_PAN_FROM_SCC_TOKEN/Detail)>0">
+                            <ErrorDetail>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonInternalErrors/PanFromSCCToken/COMMON_INTERNAL_ERROR_PAN_FROM_SCC_TOKEN/Detail"/>
+                            </ErrorDetail>
+                        </xsl:if>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonInternalErrors/PanFromSCCToken/COMMON_INTERNAL_ERROR_PAN_FROM_SCC_TOKEN/ErrorMessage"/>
+                        </ErrorMessage>
+                        <CLE>
+                            <ErrorReportType>
+                                <xsl:if test="$_error/ns3:ErrorReport/StackTrace">
+                                    <pfx2:stackTrace>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/StackTrace"/>
+                                    </pfx2:stackTrace>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/Msg">
+                                    <pfx2:msg>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                                    </pfx2:msg>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/FullClass">
+                                    <pfx2:fullClass>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/FullClass"/>
+                                    </pfx2:fullClass>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/Class">
+                                    <pfx2:class>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/Class"/>
+                                    </pfx2:class>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/ProcessStack">
+                                    <pfx2:processStack>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/ProcessStack"/>
+                                    </pfx2:processStack>
+                                </xsl:if>
+                                <xsl:if test="$_error/ns3:ErrorReport/MsgCode">
+                                    <pfx2:msgCode>
+                                        <xsl:value-of select="$_error/ns3:ErrorReport/MsgCode"/>
+                                    </pfx2:msgCode>
+                                </xsl:if>
+                                <pfx2:data>
+                                    <xsl:value-of select="tib:render-xml($_error/ns3:ErrorReport/Data/*)"/>
+                                </pfx2:data>
+                            </ErrorReportType>
+                        </CLE>
+                    </root>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AuditBeginLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>232</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/AuditLogMessage.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetTransactionDetails/root/InterfaceCode"/>
+                </InterfaceCode>
+                <AuditMessageType>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CryptoProcesses/CLE/SCCRequest"/>
+                </AuditMessageType>
+                <payloadTrue>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CryptoProcesses/CLE/PayloadTrue"/>
+                </payloadTrue>
+                <pfx2:LogRequest>
+                    <pfx2:envCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ENV"/>
+                    </pfx2:envCode>
+                    <pfx2:appCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/AppCode"/>
+                    </pfx2:appCode>
+                    <pfx2:interfaceCode>
+                        <xsl:value-of select="$GetTransactionDetails/root/InterfaceCode"/>
+                    </pfx2:interfaceCode>
+                    <pfx2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx2:timestamp>
+                    <pfx2:message>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CryptoProcesses/CLE/SCCRequestMsg"/>
+                    </pfx2:message>
+                    <pfx2:TransactionDetails>
+                        <pfx2:transactionDomain>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                        </pfx2:transactionDomain>
+                        <pfx2:transactionType>
+                            <xsl:value-of select="$GetTransactionDetails/root/TransactionType"/>
+                        </pfx2:transactionType>
+                        <pfx2:transactionID>
+                            <xsl:value-of select="$GetTransactionDetails/root/TransactionId"/>
+                        </pfx2:transactionID>
+                    </pfx2:TransactionDetails>
+                    <pfx2:AuditInfo>
+                        <pfx2:payload>
+                            <xsl:value-of select="''"/>
+                        </pfx2:payload>
+                        <pfx2:auditStep>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CryptoProcesses/CLE/SCCRequest"/>
+                        </pfx2:auditStep>
+                    </pfx2:AuditInfo>
+                </pfx2:LogRequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AuditEndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>550</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/AuditLogMessage.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetTransactionDetails/root/InterfaceCode"/>
+                </InterfaceCode>
+                <AuditMessageType>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CryptoProcesses/CLE/SCCResponse"/>
+                </AuditMessageType>
+                <payloadTrue>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CryptoProcesses/CLE/PayloadTrue"/>
+                </payloadTrue>
+                <pfx2:LogRequest>
+                    <pfx2:envCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ENV"/>
+                    </pfx2:envCode>
+                    <pfx2:appCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/AppCode"/>
+                    </pfx2:appCode>
+                    <pfx2:interfaceCode>
+                        <xsl:value-of select="$GetTransactionDetails/root/InterfaceCode"/>
+                    </pfx2:interfaceCode>
+                    <pfx2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx2:timestamp>
+                    <pfx2:message>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CryptoProcesses/CLE/SCCResponseMsg"/>
+                    </pfx2:message>
+                    <pfx2:TransactionDetails>
+                        <pfx2:transactionDomain>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                        </pfx2:transactionDomain>
+                        <pfx2:transactionType>
+                            <xsl:value-of select="$GetTransactionDetails/root/TransactionType"/>
+                        </pfx2:transactionType>
+                        <pfx2:transactionID>
+                            <xsl:value-of select="$GetTransactionDetails/root/TransactionId"/>
+                        </pfx2:transactionID>
+                    </pfx2:TransactionDetails>
+                    <pfx2:AuditInfo>
+                        <pfx2:payload>
+                            <xsl:value-of select="''"/>
+                        </pfx2:payload>
+                        <pfx2:auditStep>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CryptoProcesses/CLE/SCCResponse"/>
+                        </pfx2:auditStep>
+                    </pfx2:AuditInfo>
+                </pfx2:LogRequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>358</pd:x>
+        <pd:y>210</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetConfigHandle">
+        <pd:type>com.tibco.plugin.java.JavaMethodActivity</pd:type>
+        <pd:resourceType>ae.activities.JavaMethodActivity</pd:resourceType>
+        <pd:x>341</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <ConstructDeclaredClass>false</ConstructDeclaredClass>
+            <CacheConstructedClass>false</CacheConstructedClass>
+            <InvokeCleanupMethod>false</InvokeCleanupMethod>
+            <JavaGlobalInstance>/CommonProcesses/CryptoProcesses/CryptoEnvironment.serviceagent</JavaGlobalInstance>
+            <MethodInfo>
+                <className>com.wsgc.ecommerce.tokenization.runtime.EnvironmentHandle</className>
+                <methodName>getConfigurationHandle</methodName>
+                <methodReturn>com.wsgc.ecommerce.tokenization.runtime.ConfigurationHandle</methodReturn>
+            </MethodInfo>
+        </config>
+        <pd:inputBindings>
+            <ns2:JavaMethodActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetPan">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>441</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <fileName>GetPanFromSCCTokenGetPan</fileName>
+            <packageName>CommonProcesses.CryptoProcesses.GetPanFromSCCToken</packageName>
+            <fullsource>package CommonProcesses.CryptoProcesses.GetPanFromSCCToken;
+import java.util.*;
+import java.io.*;
+import com.wsgc.ecommerce.tokenization.runtime.ConfigurationHandle;
+import com.wsgc.ecommerce.tokenization.PaymentToken;
+import com.wsgc.ecommerce.tokenization.TokenizationContext;
+import com.wsgc.ecommerce.tokenization.TokenizationContexts;
+import com.wsgc.ecommerce.tokenization.CardExpiration;
+import com.wsgc.ecommerce.tokenization.TokenizationEnvironment;
+import com.wsgc.ecommerce.tokenization.AccountData;
+
+public class GetPanFromSCCTokenGetPan{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected Object confighandle = null;
+	protected String scheme = "";
+	protected String value = "";
+	protected String scope = "";
+	protected String environment = "";
+	protected Date expiration = null;
+	protected boolean iscvnprovided = false;
+	protected String pan = "";
+	protected int cardexpirationmonth = 0;
+	protected int cardexpirationyear = 0;
+	public Object getconfighandle() {
+		return confighandle;
+	}
+	public void setconfighandle(Object val) {
+		confighandle = val;
+	}
+	public String getscheme() {
+		return scheme;
+	}
+	public void setscheme(String val) {
+		scheme = val;
+	}
+	public String getvalue() {
+		return value;
+	}
+	public void setvalue(String val) {
+		value = val;
+	}
+	public String getscope() {
+		return scope;
+	}
+	public void setscope(String val) {
+		scope = val;
+	}
+	public String getenvironment() {
+		return environment;
+	}
+	public void setenvironment(String val) {
+		environment = val;
+	}
+	public Date getexpiration() {
+		return expiration;
+	}
+	public void setexpiration(Date val) {
+		expiration = val;
+	}
+	public boolean getiscvnprovided() {
+		return iscvnprovided;
+	}
+	public void setiscvnprovided(boolean val) {
+		iscvnprovided = val;
+	}
+	public String getpan() {
+		return pan;
+	}
+	public void setpan(String val) {
+		pan = val;
+	}
+	public int getcardexpirationmonth() {
+		return cardexpirationmonth;
+	}
+	public void setcardexpirationmonth(int val) {
+		cardexpirationmonth = val;
+	}
+	public int getcardexpirationyear() {
+		return cardexpirationyear;
+	}
+	public void setcardexpirationyear(int val) {
+		cardexpirationyear = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public GetPanFromSCCTokenGetPan() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : Object confighandle
+	In  : String scheme
+	In  : String value
+	In  : String scope
+	In  : String environment
+	In  : Date expiration
+	In  : boolean iscvnprovided
+	Out : String pan
+	Out : int cardexpirationmonth
+	Out : int cardexpirationyear
+* Available Variables: DO NOT MODIFY *****/
+
+        // This is a “long-form” SCC token
+
+	/*
+        PaymentToken tok = new PaymentToken("local-scc-dev",
+                                            "ecomm:PB/prf:test@wsgc.com/cc1/nwJHJQ/odUWonomEnlGsZdQMxHyoprWs0RLycPNh9DnyAAeE48",
+                                            null,
+                                            new Date(1430350163335L));
+	*/
+try{
+	com.wsgc.ecommerce.tokenization.runtime.ConfigurationHandle ch = (com.wsgc.ecommerce.tokenization.runtime.ConfigurationHandle) getconfighandle();
+	 PaymentToken tok = new PaymentToken(scheme,
+                                           value,
+                                            (String)null,
+                                          expiration);
+        
+        TokenizationContext ctx = TokenizationContexts.forCurrentTime(getiscvnprovided()); // true = CVN present
+        TokenizationEnvironment tokEnv = ch.getEnvironment(environment);
+        AccountData accountData = tokEnv.getPaymentProvider().detokenize(tok, ctx);
+        
+	if(accountData !=null){
+            pan = accountData.getAccountNumberString();
+	    cardexpirationmonth = (accountData.getCardExpiration() != null) ? accountData.getCardExpiration().getMonth() : 0;
+	    cardexpirationyear = (accountData.getCardExpiration() != null)? accountData.getCardExpiration().get2DigitYear() : 0;
+     }
+
+        // Do operations here
+  /*        
+        if (tokEnv.isSavedCreditCardScheme(tok.getScheme())) {
+            tokEnv.getSavedCardProvider(tok.getScheme()).verifySavedCard(tok);
+	    pan = accountData.getAccountNumberString();
+	    cardexpirationmonth = accountData.getCardExpiration().getMonth();
+	    cardexpirationyear = accountData.getCardExpiration().get2DigitYear();
+		
+        }
+*/
+
+} catch (Exception e) {
+
+		e.printStackTrace();
+	throw e;
+	}
+}
+}
+</fullsource>
+            <outputData>
+                <row>
+                    <fieldName>pan</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>cardexpirationmonth</fieldName>
+                    <fieldType>int</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>cardexpirationyear</fieldName>
+                    <fieldType>int</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <inputData>
+                <row>
+                    <fieldName>confighandle</fieldName>
+                    <fieldType>ObjectReference</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>scheme</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>value</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>scope</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>environment</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>expiration</fieldName>
+                    <fieldType>dateTime</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>iscvnprovided</fieldName>
+                    <fieldType>boolean</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <byteCode>
+                <class>
+                    <name>GetPanFromSCCTokenGetPan</name>
+                    <byteCode>yv66vgAAADMAlAkAHQBcCQAdAF0JAB0AXgkAHQBfCQAdAGAJAB0AYQkAHQBiCQAdAGMJAB0AZAkAHQBlCgAeAGYIAGcKAB0AaAcAaQcAagcAawoADwBsCgAdAG0KAG4AbwsADgBwCwBxAHILAHMAdAoAdQB2CgB1AHcKAHgAeQoAeAB6BwB7CgAbAHwHAH0HAH4BAAxjb25maWdoYW5kbGUBABJMamF2YS9sYW5nL09iamVjdDsBAAZzY2hlbWUBABJMamF2YS9sYW5nL1N0cmluZzsBAAV2YWx1ZQEABXNjb3BlAQALZW52aXJvbm1lbnQBAApleHBpcmF0aW9uAQAQTGphdmEvdXRpbC9EYXRlOwEADWlzY3ZucHJvdmlkZWQBAAFaAQADcGFuAQATY2FyZGV4cGlyYXRpb25tb250aAEAAUkBABJjYXJkZXhwaXJhdGlvbnllYXIBAA9nZXRjb25maWdoYW5kbGUBABQoKUxqYXZhL2xhbmcvT2JqZWN0OwEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAA9zZXRjb25maWdoYW5kbGUBABUoTGphdmEvbGFuZy9PYmplY3Q7KVYBAAlnZXRzY2hlbWUBABQoKUxqYXZhL2xhbmcvU3RyaW5nOwEACXNldHNjaGVtZQEAFShMamF2YS9sYW5nL1N0cmluZzspVgEACGdldHZhbHVlAQAIc2V0dmFsdWUBAAhnZXRzY29wZQEACHNldHNjb3BlAQAOZ2V0ZW52aXJvbm1lbnQBAA5zZXRlbnZpcm9ubWVudAEADWdldGV4cGlyYXRpb24BABIoKUxqYXZhL3V0aWwvRGF0ZTsBAA1zZXRleHBpcmF0aW9uAQATKExqYXZhL3V0aWwvRGF0ZTspVgEAEGdldGlzY3ZucHJvdmlkZWQBAAMoKVoBABBzZXRpc2N2bnByb3ZpZGVkAQAEKFopVgEABmdldHBhbgEABnNldHBhbgEAFmdldGNhcmRleHBpcmF0aW9ubW9udGgBAAMoKUkBABZzZXRjYXJkZXhwaXJhdGlvbm1vbnRoAQAEKEkpVgEAFWdldGNhcmRleHBpcmF0aW9ueWVhcgEAFXNldGNhcmRleHBpcmF0aW9ueWVhcgEABjxpbml0PgEAAygpVgEABmludm9rZQEADVN0YWNrTWFwVGFibGUHAH0HAGkHAGoHAH8HAIAHAIEHAHsBAApFeGNlcHRpb25zAQAKU291cmNlRmlsZQEAHUdldFBhbkZyb21TQ0NUb2tlbkdldFBhbi5qYXZhDAAfACAMACEAIgwAIwAiDAAkACIMACUAIgwAJgAnDAAoACkMACoAIgwAKwAsDAAtACwMAE4ATwEAAAwALgAvAQA7Y29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9ydW50aW1lL0NvbmZpZ3VyYXRpb25IYW5kbGUBACxjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL1BheW1lbnRUb2tlbgEAEGphdmEvbGFuZy9TdHJpbmcMAE4AggwAQgBDBwCDDACEAIUMAIYAhwcAgAwAiACJBwCKDACLAIwHAIEMAI0ANQwAjgCPBwCQDACRAEkMAJIASQEAE2phdmEvbGFuZy9FeGNlcHRpb24MAJMATwEAS0NvbW1vblByb2Nlc3Nlcy9DcnlwdG9Qcm9jZXNzZXMvR2V0UGFuRnJvbVNDQ1Rva2VuL0dldFBhbkZyb21TQ0NUb2tlbkdldFBhbgEAEGphdmEvbGFuZy9PYmplY3QBADNjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL1Rva2VuaXphdGlvbkNvbnRleHQBADdjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL1Rva2VuaXphdGlvbkVudmlyb25tZW50AQArY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9BY2NvdW50RGF0YQEASShMamF2YS9sYW5nL1N0cmluZztMamF2YS9sYW5nL1N0cmluZztMamF2YS9sYW5nL1N0cmluZztMamF2YS91dGlsL0RhdGU7KVYBADRjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL1Rva2VuaXphdGlvbkNvbnRleHRzAQAOZm9yQ3VycmVudFRpbWUBADgoWilMY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9Ub2tlbml6YXRpb25Db250ZXh0OwEADmdldEVudmlyb25tZW50AQBPKExqYXZhL2xhbmcvU3RyaW5nOylMY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9ydW50aW1lL0Vudmlyb25tZW50SGFuZGxlOwEAEmdldFBheW1lbnRQcm92aWRlcgEAPygpTGNvbS93c2djL2Vjb21tZXJjZS90b2tlbml6YXRpb24vUGF5bWVudFRva2VuaXphdGlvblByb3ZpZGVyOwEAO2NvbS93c2djL2Vjb21tZXJjZS90b2tlbml6YXRpb24vUGF5bWVudFRva2VuaXphdGlvblByb3ZpZGVyAQAKZGV0b2tlbml6ZQEAkihMY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9QYXltZW50VG9rZW47TGNvbS93c2djL2Vjb21tZXJjZS90b2tlbml6YXRpb24vVG9rZW5pemF0aW9uQ29udGV4dDspTGNvbS93c2djL2Vjb21tZXJjZS90b2tlbml6YXRpb24vQWNjb3VudERhdGE7AQAWZ2V0QWNjb3VudE51bWJlclN0cmluZwEAEWdldENhcmRFeHBpcmF0aW9uAQAyKClMY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9DYXJkRXhwaXJhdGlvbjsBAC5jb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL0NhcmRFeHBpcmF0aW9uAQAIZ2V0TW9udGgBAA1nZXQyRGlnaXRZZWFyAQAPcHJpbnRTdGFja1RyYWNlACEAHQAeAAAACgAEAB8AIAAAAAQAIQAiAAAABAAjACIAAAAEACQAIgAAAAQAJQAiAAAABAAmACcAAAAEACgAKQAAAAQAKgAiAAAABAArACwAAAAEAC0ALAAAABYAAQAuAC8AAQAwAAAAHQABAAEAAAAFKrQAAbAAAAABADEAAAAGAAEAAAAZAAEAMgAzAAEAMAAAACIAAgACAAAABiortQABsQAAAAEAMQAAAAoAAgAAABwABQAdAAEANAA1AAEAMAAAAB0AAQABAAAABSq0AAKwAAAAAQAxAAAABgABAAAAHwABADYANwABADAAAAAiAAIAAgAAAAYqK7UAArEAAAABADEAAAAKAAIAAAAiAAUAIwABADgANQABADAAAAAdAAEAAQAAAAUqtAADsAAAAAEAMQAAAAYAAQAAACUAAQA5ADcAAQAwAAAAIgACAAIAAAAGKiu1AAOxAAAAAQAxAAAACgACAAAAKAAFACkAAQA6ADUAAQAwAAAAHQABAAEAAAAFKrQABLAAAAABADEAAAAGAAEAAAArAAEAOwA3AAEAMAAAACIAAgACAAAABiortQAEsQAAAAEAMQAAAAoAAgAAAC4ABQAvAAEAPAA1AAEAMAAAAB0AAQABAAAABSq0AAWwAAAAAQAxAAAABgABAAAAMQABAD0ANwABADAAAAAiAAIAAgAAAAYqK7UABbEAAAABADEAAAAKAAIAAAA0AAUANQABAD4APwABADAAAAAdAAEAAQAAAAUqtAAGsAAAAAEAMQAAAAYAAQAAADcAAQBAAEEAAQAwAAAAIgACAAIAAAAGKiu1AAaxAAAAAQAxAAAACgACAAAAOgAFADsAAQBCAEMAAQAwAAAAHQABAAEAAAAFKrQAB6wAAAABADEAAAAGAAEAAAA9AAEARABFAAEAMAAAACIAAgACAAAABiobtQAHsQAAAAEAMQAAAAoAAgAAAEAABQBBAAEARgA1AAEAMAAAAB0AAQABAAAABSq0AAiwAAAAAQAxAAAABgABAAAAQwABAEcANwABADAAAAAiAAIAAgAAAAYqK7UACLEAAAABADEAAAAKAAIAAABGAAUARwABAEgASQABADAAAAAdAAEAAQAAAAUqtAAJrAAAAAEAMQAAAAYAAQAAAEkAAQBKAEsAAQAwAAAAIgACAAIAAAAGKhu1AAmxAAAAAQAxAAAACgACAAAATAAFAE0AAQBMAEkAAQAwAAAAHQABAAEAAAAFKrQACqwAAAABADEAAAAGAAEAAABPAAEATQBLAAEAMAAAACIAAgACAAAABiobtQAKsQAAAAEAMQAAAAoAAgAAAFIABQBTAAEATgBPAAEAMAAAAIAAAgABAAAAPCq3AAsqAbUAASoSDLUAAioSDLUAAyoSDLUABCoSDLUABSoBtQAGKgO1AAcqEgy1AAgqA7UACSoDtQAKsQAAAAEAMQAAADIADAAAAFUABAAOAAkADwAPABAAFQARABsAEgAhABMAJgAUACsAFQAxABYANgAXADsAVgABAFAATwACADAAAAFSAAYABgAAAI0qtgANwAAOTLsAD1kqtAACKrQAAwHAABAqtAAGtwARTSq2ABK4ABNOKyq0AAW5ABQCADoEGQS5ABUBACwtuQAWAwA6BRkFxgA8KhkFtgAXtQAIKhkFtgAYxgAOGQW2ABi2ABmnAAQDtQAJKhkFtgAYxgAOGQW2ABi2ABqnAAQDtQAKpwAKTCu2ABwrv7EAAQAAAIIAhQAbAAIAMQAAADoADgAAAG4ACABvACAAdAAoAHUANAB2AEQAeABJAHkAUgB6AGoAewCCAI0AhQCJAIYAiwCKAIwAjACOAFEAAABrAAf/AGYABgcAUgcAUwcAVAcAVQcAVgcAVwABBwBS/wAAAAYHAFIHAFMHAFQHAFUHAFYHAFcAAgcAUgFWBwBS/wAAAAYHAFIHAFMHAFQHAFUHAFYHAFcAAgcAUgH/AAIAAQcAUgAAQgcAWAYAWQAAAAQAAQAbAAEAWgAAAAIAWw==</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <confighandle>
+                    <xsl:value-of select="$GetConfigHandle/ns1:JavaMethodActivityOutput/MethodReturnValue"/>
+                </confighandle>
+                <scheme>
+                    <xsl:value-of select="$Start/root/Scheme"/>
+                </scheme>
+                <value>
+                    <xsl:value-of select="$Start/root/Token"/>
+                </value>
+                <scope>
+                    <xsl:value-of select="$Start/root/Scope"/>
+                </scope>
+                <environment>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ENV"/>
+                </environment>
+                <expiration>
+                    <xsl:value-of select="$Start/root/Expiration"/>
+                </expiration>
+                <xsl:if test="$Start/root/IsCVNProvided">
+                    <iscvnprovided>
+                        <xsl:value-of select="$Start/root/IsCVNProvided"/>
+                    </iscvnprovided>
+                </xsl:if>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetTransactionDetails">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>122</pd:x>
+        <pd:y>102</pd:y>
+        <config>
+            <variableConfig>/CommonProcesses/InterfaceDetails.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetTransactionDetails</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetConfigHandle</pd:from>
+        <pd:to>GetPan</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPan</pd:from>
+        <pd:to>AuditEndLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AuditBeginLog</pd:from>
+        <pd:to>GetConfigHandle</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AuditEndLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetTransactionDetails</pd:from>
+        <pd:to>AuditBeginLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

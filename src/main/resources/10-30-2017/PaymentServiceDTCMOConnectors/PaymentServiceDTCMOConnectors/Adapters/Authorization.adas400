@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" xmlns:AESDK="http://www.tibco.com/xmlns/aemeta/adapter/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <adas400:adapter xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002" name="AS400Adapter" globalName="/tibco/private/adapter/Authorization/AS400Adapter">
+        <AESDK:instanceId>Authorization</AESDK:instanceId>
+        <AESDK:startup>
+            <AESDK:defaultStartup>none</AESDK:defaultStartup>
+            <AESDK:banner>true</AESDK:banner>
+            <AESDK:hasStdMicroAgent>true</AESDK:hasStdMicroAgent>
+            <AESDK:stdMicroAgentName>COM.TIBCO.ADAPTER.adas400.%%Deployment%%.%%InstanceId%%</AESDK:stdMicroAgentName>
+            <AESDK:stdMicroAgentTimeout>%%AS400Adapter/StandardMicroAgentTimeout%%</AESDK:stdMicroAgentTimeout>
+            <AESDK:hasClassMicroAgent>%%HawkEnabled%%</AESDK:hasClassMicroAgent>
+            <AESDK:classMicroAgentTimeout>%%AS400Adapter/ClassMicroAgentTimeout%%</AESDK:classMicroAgentTimeout>
+            <AESDK:classMicroAgentName>COM.TIBCO.adas400.%%Deployment%%.%%InstanceId%%</AESDK:classMicroAgentName>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>HawkSession</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:defaultMicroAgentSession>HawkSession</AESDK:defaultMicroAgentSession>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>DefaultJmsQueueSession</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>AuthorizationPublisherEndPoint</AESDK:name>
+            </AESDK:startComponent>
+            <AESDK:startComponent>
+                <AESDK:state>active</AESDK:state>
+                <AESDK:name>AuthorizationSubscriberEndPoint</AESDK:name>
+            </AESDK:startComponent>
+        </AESDK:startup>
+        <AESDK:deployment>
+            <AESDK:advisories>
+                <AESDK:advisory>
+                    <AESDK:name>RVErrorAdvisory</AESDK:name>
+                    <AESDK:subject>_RV.ERROR.&gt;</AESDK:subject>
+                </AESDK:advisory>
+                <AESDK:advisory>
+                    <AESDK:name>RVWarnAdvisory</AESDK:name>
+                    <AESDK:subject>_RV.WARN.&gt;</AESDK:subject>
+                </AESDK:advisory>
+                <AESDK:advisory>
+                    <AESDK:name>SDKErrorAdvisory</AESDK:name>
+                    <AESDK:subject>_SDK.ERROR.&gt;</AESDK:subject>
+                </AESDK:advisory>
+                <AESDK:advisory>
+                    <AESDK:name>SDKWarnAdvisory</AESDK:name>
+                    <AESDK:subject>_SDK.WARN.&gt;</AESDK:subject>
+                </AESDK:advisory>
+                <AESDK:advisory>
+                    <AESDK:name>SDKInfoAdvisory</AESDK:name>
+                    <AESDK:subject>_SDK.INFO.&gt;</AESDK:subject>
+                </AESDK:advisory>
+            </AESDK:advisories>
+            <AESDK:sessions>
+                <AESDK:messaging>
+                    <AESDK:rvSession isRef="true">#rvSession.HawkSession</AESDK:rvSession>
+                    <AESDK:jmsSession isRef="true">#jmsSession.DefaultJmsQueueSession</AESDK:jmsSession>
+                </AESDK:messaging>
+            </AESDK:sessions>
+            <AESDK:producers>
+                <AESDK:jmsPublisher isRef="true">#jmsProducer.AuthorizationPublisherEndPoint</AESDK:jmsPublisher>
+            </AESDK:producers>
+            <AESDK:consumers>
+                <AESDK:jmsSubscriber isRef="true">#jmsConsumer.AuthorizationSubscriberEndPoint</AESDK:jmsSubscriber>
+            </AESDK:consumers>
+        </AESDK:deployment>
+        <AESDK:timers xsi:nil="true"/>
+        <AESDK:txControls xsi:nil="true"/>
+        <AESDK:reporting>
+            <AESDK:fileSink>
+                <AESDK:fileName>%%DirTrace%%/%%Deployment%%.%%InstanceId%%.log</AESDK:fileName>
+                <AESDK:fileCount>3</AESDK:fileCount>
+                <AESDK:fileLimit>30000</AESDK:fileLimit>
+                <AESDK:appendMode>true</AESDK:appendMode>
+                <AESDK:name>fileSink</AESDK:name>
+                <AESDK:role>
+                    <AESDK:name>infoRole</AESDK:name>
+                </AESDK:role>
+                <AESDK:role>
+                    <AESDK:name>errorRole</AESDK:name>
+                </AESDK:role>
+                <AESDK:role>
+                    <AESDK:name>warnRole</AESDK:name>
+                </AESDK:role>
+            </AESDK:fileSink>
+            <AESDK:stdioSink>
+                <AESDK:ioName>stdout</AESDK:ioName>
+                <AESDK:name>stdioSink</AESDK:name>
+                <AESDK:role>
+                    <AESDK:name>infoRole</AESDK:name>
+                </AESDK:role>
+                <AESDK:role>
+                    <AESDK:name>errorRole</AESDK:name>
+                </AESDK:role>
+                <AESDK:role>
+                    <AESDK:name>warnRole</AESDK:name>
+                </AESDK:role>
+            </AESDK:stdioSink>
+        </AESDK:reporting>
+        <AESDK:metadata>
+            <AESDK:loadUrl isRef="true">/AESchemas/ae/as400/Authorization/OutboundMessage/OutboundMessage.aeschema#class</AESDK:loadUrl>
+            <AESDK:loadUrl isRef="true">/AESchemas/ae/as400/Authorization/DataQueueWrite/DataQueueWrite.aeschema#class</AESDK:loadUrl>
+        </AESDK:metadata>
+        <AESDK:hawk>
+            <AESDK:help>TIBCO Adapter for IBM i Microagent</AESDK:help>
+            <AESDK:microAgentName>COM.TIBCO.adas400.%%Deployment%%.%%InstanceId%%</AESDK:microAgentName>
+            <AESDK:sessionName isRef="true">#rvSession.HawkSession</AESDK:sessionName>
+        </AESDK:hawk>
+        <AESDK:designer>
+            <AESDK:advancedLogging>false</AESDK:advancedLogging>
+            <AESDK:adapterVersion>sdk51</AESDK:adapterVersion>
+            <AESDK:fixedChildren>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions</AESDK:resource>
+                    <AESDK:children>HawkSession,DefaultJmsQueueSession</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJmsQueueSession</AESDK:resource>
+                    <AESDK:children>AuthorizationPublisherEndPoint,AuthorizationSubscriberEndPoint</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJmsQueueSession/AuthorizationSubscriberEndPoint</AESDK:resource>
+                    <AESDK:children>AuthorizationSubscriber</AESDK:children>
+                </AESDK:fixed>
+                <AESDK:fixed>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJmsQueueSession/AuthorizationPublisherEndPoint</AESDK:resource>
+                    <AESDK:children>AuthorizationPublisher</AESDK:children>
+                </AESDK:fixed>
+            </AESDK:fixedChildren>
+            <AESDK:lockedProperties>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJmsQueueSession</AESDK:resource>
+                    <AESDK:properties>connectionFactoryType,name,providerContextFactory</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJmsQueueSession/AuthorizationSubscriberEndPoint</AESDK:resource>
+                    <AESDK:properties>sessionType,deliveryMode,name,destination</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/DefaultJmsQueueSession/AuthorizationPublisherEndPoint</AESDK:resource>
+                    <AESDK:properties>sessionType,replyDestination,deliveryMode,name,destination</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Sessions/HawkSession</AESDK:resource>
+                    <AESDK:properties>name</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/SDKInfoAdvisory</AESDK:resource>
+                    <AESDK:properties>name,subject</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/SDKWarnAdvisory</AESDK:resource>
+                    <AESDK:properties>name,subject</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/SDKErrorAdvisory</AESDK:resource>
+                    <AESDK:properties>name,subject</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/RVWarnAdvisory</AESDK:resource>
+                    <AESDK:properties>name,subject</AESDK:properties>
+                </AESDK:locked>
+                <AESDK:locked>
+                    <AESDK:resource>/Advanced/Advisories/RVErrorAdvisory</AESDK:resource>
+                    <AESDK:properties>name,subject</AESDK:properties>
+                </AESDK:locked>
+            </AESDK:lockedProperties>
+            <AESDK:serviceOwnedSessions>
+                <AESDK:session>DefaultJmsQueueSession</AESDK:session>
+            </AESDK:serviceOwnedSessions>
+            <AESDK:resourceDescriptions/>
+            <AESDK:adapterTester>
+                <AESDK:exe>C:\tibco\adapter\adas400\6.1\bin\adas400.exe</AESDK:exe>
+                <AESDK:args>--run --propFile</AESDK:args>
+                <AESDK:workingDir>C:\Temp</AESDK:workingDir>
+                <AESDK:RuntimeCertificatesDirectory>C:\security\Certificates</AESDK:RuntimeCertificatesDirectory>
+            </AESDK:adapterTester>
+        </AESDK:designer>
+        <adas400:services xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+            <adas400:AS400Sender>
+                <adas400:resourceType>as400.service.publisher</adas400:resourceType>
+                <adas400:serviceName>AuthorizationPublisher</adas400:serviceName>
+                <adas400:transportType>jms</adas400:transportType>
+                <adas400:version>6.1.0</adas400:version>
+                <adas400:type>as400.service.publisher</adas400:type>
+                <adas400:connection>AS400Pool</adas400:connection>
+                <adas400:endpoint>AuthorizationPublisherEndPoint</adas400:endpoint>
+                <adas400:dispatcherType>OutboundMessage</adas400:dispatcherType>
+                <adas400:categoryType>OutboundMessage</adas400:categoryType>
+                <adas400:reqQueueLib/>
+                <adas400:reqQueueName>%%Authorization/AS400Adapter/DataQueue/PublicationService%%</adas400:reqQueueName>
+                <adas400:erQueueLib/>
+                <adas400:erQueueName>%%Authorization/AS400Adapter/DataQueue/ErrorDataQueue%%</adas400:erQueueName>
+                <adas400:sharedDataQueue>false</adas400:sharedDataQueue>
+                <adas400:sourceLib>TIBCOWRKLB</adas400:sourceLib>
+                <adas400:sourceFile>ADAS400SRC</adas400:sourceFile>
+                <adas400:sourceType>RPGLE</adas400:sourceType>
+                <adas400:pollingInterval>0</adas400:pollingInterval>
+                <adas400:class>AuthorizationPublisher</adas400:class>
+                <adas400:schemaReference isRef="true">/AESchemas/ae/as400/Authorization/OutboundMessage/OutboundMessage.aeschema#class.AuthorizationPublisher</adas400:schemaReference>
+                <adas400:endpointReference isRef="true">#jmsProducer.AuthorizationPublisherEndPoint</adas400:endpointReference>
+                <adas400:deliveryMode>1</adas400:deliveryMode>
+                <adas400:wireFormat>aeXml</adas400:wireFormat>
+                <adas400:sessionReference isRef="true">#jmsSession.DefaultJmsQueueSession</adas400:sessionReference>
+                <adas400:connFactoryType>1</adas400:connFactoryType>
+                <adas400:destination>%%PrefixQueue%%.%%ENV%%.%%Authorization/AS400Adapter/JMS/AS400QueueNamePubSuffix%%</adas400:destination>
+                <adas400:name>AuthorizationPublisher</adas400:name>
+                <adas400:dispatcher>%%Authorization/AS400Adapter/DataQueue/PublicationService%%</adas400:dispatcher>
+                <adas400:sourceMember>AUTH_PUB</adas400:sourceMember>
+                <adas400:mainTable xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+                    <adas400:table xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+                        <adas400:name>Entry</adas400:name>
+                        <adas400:useAttribute>true</adas400:useAttribute>
+                        <adas400:useLooping>false</adas400:useLooping>
+                        <adas400:seqLength> </adas400:seqLength>
+                        <adas400:direction>inout</adas400:direction>
+                        <adas400:col>OutputDataQueue,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>CorrelationID,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Version,true,char.15,15,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>EnvironmentIdentifier,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>RegionIdentifier,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>SourceSystemIdentifier,true,char.50,50,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionId,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionTime,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Concept,true,char.5,5,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Channel,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>AssociateId,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>OrderNumber,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>OrderTime,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>ConsumerTransactionId,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Code,true,char.40,40,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>SubCode,true,char.40,40,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>AccountNumber,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Token,true,char.520,520,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Scheme,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Scope,true,char.15,15,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>IsTemporary,true,char.5,5,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Expiration,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>FullName,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Year,true,char.4,4,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Month,true,char.2,2,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Pin1,true,char.15,15,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Pin2,true,char.15,15,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Pin3,true,char.15,15,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>CardVerificationCode,true,char.5,5,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>IsCardNotPresent,true,char.1,1,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>FullNameBillTo,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>AddressLine1,true,char.50,50,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>AddressLine2,true,char.50,50,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>City,true,char.50,50,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>County,true,char.50,50,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>StateProvince,true,char.50,50,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>PostalCode,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Country,true,char.2,2,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>VerificationStatus,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Classification,true,char.25,25,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>CurrencyCode,true,char.3,3,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>AuthorizationAmount,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>IncludedTaxAmount,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>PaymentPlanCode,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Purpose,true,char.50,50,0,false, ,A, , , , </adas400:col>
+                    </adas400:table>
+                </adas400:mainTable>
+            </adas400:AS400Sender>
+            <adas400:AS400Receiver>
+                <adas400:resourceType>as400.service.subscriber</adas400:resourceType>
+                <adas400:serviceName>AuthorizationSubscriber</adas400:serviceName>
+                <adas400:transportType>jms</adas400:transportType>
+                <adas400:version>6.1.0</adas400:version>
+                <adas400:type>as400.service.subscriber</adas400:type>
+                <adas400:connection>AS400Pool</adas400:connection>
+                <adas400:endpoint>AuthorizationSubscriberEndPoint</adas400:endpoint>
+                <adas400:categoryType>DataQueueWrite</adas400:categoryType>
+                <adas400:srvReturnType>numeric</adas400:srvReturnType>
+                <adas400:reqQueueLib/>
+                <adas400:reqQueueName>%%Authorization/AS400Adapter/DataQueue/SubscriptionService%%</adas400:reqQueueName>
+                <adas400:sharedDataQueue>true</adas400:sharedDataQueue>
+                <adas400:endpointReference isRef="true">#jmsConsumer.AuthorizationSubscriberEndPoint</adas400:endpointReference>
+                <adas400:deliveryMode>1</adas400:deliveryMode>
+                <adas400:wireFormat>aeXml</adas400:wireFormat>
+                <adas400:sessionReference isRef="true">#jmsSession.DefaultJmsQueueSession</adas400:sessionReference>
+                <adas400:connFactoryType>1</adas400:connFactoryType>
+                <adas400:destination>%%PrefixQueue%%.%%ENV%%.%%Authorization/AS400Adapter/JMS/AS400QueueNameSubSuffix%%</adas400:destination>
+                <adas400:name>AuthorizationSubscriber</adas400:name>
+                <adas400:sourceLib>TIBCOWRKLB</adas400:sourceLib>
+                <adas400:sourceFile>ADAS400SRC</adas400:sourceFile>
+                <adas400:schemaReference isRef="true">/AESchemas/ae/as400/Authorization/DataQueueWrite/DataQueueWrite.aeschema#class.AuthorizationSubscriber</adas400:schemaReference>
+                <adas400:class>AuthorizationSubscriber</adas400:class>
+                <adas400:sourceType>RPGLE</adas400:sourceType>
+                <adas400:sourceMember>AUTH_SUB</adas400:sourceMember>
+                <adas400:mainTable xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+                    <adas400:table xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+                        <adas400:name>Entry</adas400:name>
+                        <adas400:useAttribute>true</adas400:useAttribute>
+                        <adas400:useLooping>false</adas400:useLooping>
+                        <adas400:seqLength> </adas400:seqLength>
+                        <adas400:direction>inout</adas400:direction>
+                        <adas400:col>OutputDataQueue,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>CorrelationID,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Version,true,char.15,15,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>EnvironmentIdentifier,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>RegionIdentifier,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>SourceSystemIdentifier,true,char.50,50,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionId,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionTime,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Concept,true,char.5,5,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Channel,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>AssociateId,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>OrderNumber,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>ConsumerTransactionId,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>ConfirmationId,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>AuthorizationStatus,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Code,true,char.10,10,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Expiration,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>CurrencyCode,true,char.3,3,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Amount,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData1,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType1,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData2,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType2,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData3,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType3,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData4,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType4,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData5,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType5,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData6,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType6,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData7,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType7,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData8,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType8,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData9,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType9,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaData10,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MetaDataType10,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>AddressVerificationStatusCode,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>CardVerificationStatusCode,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata1,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType1,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata2,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType2,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata3,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType3,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata4,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType4,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata5,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType5,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata6,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType6,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata7,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType7,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata8,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType8,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata9,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType9,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadata10,true,char.80,80,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TransactionMetadataType10,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>PaymentCode,true,char.40,40,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>SubCode,true,char.40,40,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Token,true,char.520,520,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Scheme,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Scope,true,char.15,15,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>IsTemporary,true,char.1,1,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>TimeExpiration,true,char.30,30,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Hash1,true,char.70,70,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>HashScheme1,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Hash2,true,char.70,70,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>HashScheme2,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Hash3,true,char.70,70,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>HashScheme3,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Hash4,true,char.70,70,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>HashScheme4,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Hash5,true,char.70,70,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>HashScheme5,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>MaskedAccountNumber,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>ErrorType,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail1,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail2,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail3,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail4,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail5,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail6,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail7,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail8,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail9,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail10,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail11,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail12,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail13,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail14,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>Detail15,true,char.100,100,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>ErrorMessage,true,char.200,200,0,false, ,A, , , , </adas400:col>
+                        <adas400:col>ReportingGroup,true,char.20,20,0,false, ,A, , , , </adas400:col>
+                    </adas400:table>
+                </adas400:mainTable>
+            </adas400:AS400Receiver>
+        </adas400:services>
+        <adas400:application xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+            <adas400:SFlowVersion>5.1.0</adas400:SFlowVersion>
+            <adas400:RepoFormatVersion>1</adas400:RepoFormatVersion>
+            <adas400:AS400Application xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+                <adas400:version>6.1.0</adas400:version>
+                <adas400:name>AS400Adapter</adas400:name>
+                <adas400:type>java</adas400:type>
+                <adas400:appDispatcherCount>5</adas400:appDispatcherCount>
+                <adas400:terminateSubject>%%Domain%%.%%Deployment%%.adas400.%%InstanceId%%.exit</adas400:terminateSubject>
+            </adas400:AS400Application>
+        </adas400:application>
+        <adas400:connections xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+            <adas400:AS400ConnectionPool xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+                <adas400:version>6.1.0</adas400:version>
+                <adas400:name>AS400Pool</adas400:name>
+                <adas400:dtconfigType>Generic</adas400:dtconfigType>
+                <adas400:configType>Generic</adas400:configType>
+                <adas400:noOfInvocations>3</adas400:noOfInvocations>
+                <adas400:maxConnections>%%AS400Adapter/MaximumNoofConnections%%</adas400:maxConnections>
+                <adas400:idleTime>%%AS400Adapter/ConnectionIdletime%%</adas400:idleTime>
+                <adas400:initialConnections>%%AS400Adapter/InitialNoofConnections%%</adas400:initialConnections>
+                <adas400:retriesBeforeSuspend>3</adas400:retriesBeforeSuspend>
+                <adas400:retryCount>3</adas400:retryCount>
+                <adas400:connRetryAttempts>3</adas400:connRetryAttempts>
+                <adas400:sleepBetweenRetries>1000</adas400:sleepBetweenRetries>
+                <adas400:showExpertSettings>false</adas400:showExpertSettings>
+                <adas400:useDesignTime>true</adas400:useDesignTime>
+                <adas400:dtUseSSL>true</adas400:dtUseSSL>
+                <adas400:generateProgram>true</adas400:generateProgram>
+                <adas400:dtserver>%%AS400Adapter/ServerName%%</adas400:dtserver>
+                <adas400:dtusername>%%AS400Adapter/User%%</adas400:dtusername>
+                <adas400:dtpassword>%%AS400Adapter/Password%%</adas400:dtpassword>
+                <adas400:username>%%AS400Adapter/User%%</adas400:username>
+                <adas400:password>%%AS400Adapter/Password%%</adas400:password>
+                <adas400:obfuscatePassword>0</adas400:obfuscatePassword>
+                <adas400:server>%%AS400Adapter/ServerName%%</adas400:server>
+                <adas400:useSSL>true</adas400:useSSL>
+                <adas400:savePassword>true</adas400:savePassword>
+                <adas400:dtworkLib>%%AS400Adapter/WorkLibrary%%</adas400:dtworkLib>
+                <adas400:dtlibList>%%AS400Adapter/LibraryList%%</adas400:dtlibList>
+                <adas400:libList>%%AS400Adapter/LibraryList%%</adas400:libList>
+                <adas400:dtinputCA>%%PaymentService/Security/DTCSERVER_KEYSTORE%%</adas400:dtinputCA>
+                <adas400:dtCAPassword>#!maunv9hn1zuoj8vA4ay1DjjX0zAwDhChT4HGfcTJOA4=</adas400:dtCAPassword>
+                <adas400:inputCA>%%PaymentService/Security/DTCSERVER_KEYSTORE%%</adas400:inputCA>
+                <adas400:CAPassword>#!iYLXyNbDTPpcTAgQxuGH8ds0x8d8IrlnP4+MwAP4eo0=</adas400:CAPassword>
+            </adas400:AS400ConnectionPool>
+        </adas400:connections>
+        <adas400:dispatchers xmlns:adas400="http://www.tibco.com/xmlns/adapter/adas400/2002">
+            <adas400:AS400Dispatcher>
+                <adas400:version>6.1.0</adas400:version>
+                <adas400:dispatcherType>OutboundMessage</adas400:dispatcherType>
+                <adas400:name>%%Authorization/AS400Adapter/DataQueue/PublicationService%%</adas400:name>
+                <adas400:dispatcherName>%%Authorization/AS400Adapter/DataQueue/PublicationService%%</adas400:dispatcherName>
+                <adas400:reqQueueLib/>
+                <adas400:reqQueueName>%%Authorization/AS400Adapter/DataQueue/PublicationService%%</adas400:reqQueueName>
+                <adas400:erQueueLib/>
+                <adas400:erQueueName>%%Authorization/AS400Adapter/DataQueue/ErrorDataQueue%%</adas400:erQueueName>
+                <adas400:dispatcherThreads>1</adas400:dispatcherThreads>
+                <adas400:pollingInterval>0</adas400:pollingInterval>
+                <adas400:PubPollingInterval>0</adas400:PubPollingInterval>
+                <adas400:connection>AS400Pool</adas400:connection>
+                <adas400:sharedDataQueue>false</adas400:sharedDataQueue>
+                <adas400:peekRead>true</adas400:peekRead>
+                <adas400:usingPubKey>false</adas400:usingPubKey>
+                <adas400:publisherKey/>
+            </adas400:AS400Dispatcher>
+        </adas400:dispatchers>
+    </adas400:adapter>
+    <AEService:rvSession xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="session.RV" name="HawkSession">
+        <AEService:daemon>%%TIBHawkDaemon%%</AEService:daemon>
+        <AEService:service>%%TIBHawkService%%</AEService:service>
+        <AEService:network>%%TIBHawkNetwork%%</AEService:network>
+    </AEService:rvSession>
+    <AEService:jmsSession xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="session.JMS" name="DefaultJmsQueueSession">
+        <AEService:clientId/>
+        <AEService:emsServerUserName>%%JMSConnections/EMSEPSSECURE/UserName%%</AEService:emsServerUserName>
+        <AEService:emsServerPassword>%%JMSConnections/EMSEPSSECURE/Password%%</AEService:emsServerPassword>
+        <AEService:connectionFactorySslPassword/>
+        <AEService:connFactoryType>1</AEService:connFactoryType>
+        <AEService:connFactoryName>%%JMSConnections/EMSEPSSECURE/QueueConnectionFactory%%</AEService:connFactoryName>
+        <AEService:jndiLookups>true</AEService:jndiLookups>
+        <AEService:providerUrl>%%JMSConnections/EMSEPSSECURE/JNDIContextURL%%</AEService:providerUrl>
+        <AEService:providerCtxFactory>com.tibco.tibjms.naming.TibjmsInitialContextFactory</AEService:providerCtxFactory>
+        <AEService:connUsername>%%JMSConnections/EMSEPSSECURE/UserName%%</AEService:connUsername>
+        <AEService:connPassword>%%JMSConnections/EMSEPSSECURE/Password%%</AEService:connPassword>
+        <AEService:useSsl>true</AEService:useSsl>
+        <AEService:ssl>
+            <AEService:trace>true</AEService:trace>
+            <AEService:debugTrace>true</AEService:debugTrace>
+            <AEService:verifyHostName>false</AEService:verifyHostName>
+            <AEService:strongCipherSuitesOnly>true</AEService:strongCipherSuitesOnly>
+            <AEService:cert isRef="true">%%RuntimeCertificatesDirectory%%</AEService:cert>
+        </AEService:ssl>
+    </AEService:jmsSession>
+    <AEService:jmsProducer xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.JMSPublisher" name="AuthorizationPublisherEndPoint">
+        <AEService:class isRef="true">/AESchemas/ae/as400/Authorization/OutboundMessage/OutboundMessage.aeschema#class.AuthorizationPublisher</AEService:class>
+        <AEService:wireFormat>aeXml</AEService:wireFormat>
+        <AEService:destination>%%PrefixQueue%%.%%ENV%%.%%Authorization/AS400Adapter/JMS/AS400QueueNamePubSuffix%%</AEService:destination>
+        <AEService:deliveryMode>1</AEService:deliveryMode>
+        <AEService:deliveryMode2>1</AEService:deliveryMode2>
+        <AEService:messageTimeout>0</AEService:messageTimeout>
+        <AEService:messagePriority>4</AEService:messagePriority>
+        <AEService:isCompressed>false</AEService:isCompressed>
+        <AEService:session isRef="true">#jmsSession.DefaultJmsQueueSession</AEService:session>
+    </AEService:jmsProducer>
+    <AEService:jmsConsumer xmlns:AEService="http://www.tibco.com/xmlns/aemeta/services/2002" objectType="endpoint.JMSSubscriber" name="AuthorizationSubscriberEndPoint">
+        <AEService:class isRef="true">/AESchemas/ae/as400/Authorization/DataQueueWrite/DataQueueWrite.aeschema#class.AuthorizationSubscriber</AEService:class>
+        <AEService:wireFormat>aeXml</AEService:wireFormat>
+        <AEService:destination>%%PrefixQueue%%.%%ENV%%.%%Authorization/AS400Adapter/JMS/AS400QueueNameSubSuffix%%</AEService:destination>
+        <AEService:deliveryMode>1</AEService:deliveryMode>
+        <AEService:deliveryMode2>1</AEService:deliveryMode2>
+        <AEService:autoConfirm>true</AEService:autoConfirm>
+        <AEService:durableName/>
+        <AEService:messageSelector/>
+        <AEService:listenTimeout>0</AEService:listenTimeout>
+        <AEService:session isRef="true">#jmsSession.DefaultJmsQueueSession</AEService:session>
+    </AEService:jmsConsumer>
+</Repository:repository>

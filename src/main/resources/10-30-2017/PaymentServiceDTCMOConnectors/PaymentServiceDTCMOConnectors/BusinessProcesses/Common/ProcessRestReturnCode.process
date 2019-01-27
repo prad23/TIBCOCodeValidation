@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns="http://www.wsgc.com/schemas/common/PaymentGatewayGenericResultCodes.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.wsgc.com/schemas/common/PaymentGatewaySVCStatusCodes.xsd" xmlns:ns2="http://www.wsgc.com/schemas/common/PaymentGatewayAuthorizationStatusCodes.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentServiceWSIDeclineRules.xsd" xmlns:ns4="http://www.wsgc.com/schemas/common/RCMSServiceProcessReturnCodes.xsd" xmlns:pfx2="http://ecommerce.wsgc.com/2013/Common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/XMLSchemas/Verifone/GiftActivateResponse.xsd" xmlns:pfx4="http://services.wsgc.com/2014/Payment" xmlns:pfx6="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx7="http://www.wsgc.com/schemas/common/PaymentServiceProcessorReturnCodes.xsd" xmlns:pfx8="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorizationResponse">
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2013/Common/base-types.xsd"/>
+    <xsd:import namespace="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorizationResponse" schemaLocation="/SharedResources/XMLSchemas/Verifone/UGP-V1/UGPCreditPreAuthorizationResponse.xsd"/>
+    <xsd:import namespace="http://www.wsgc.com/schemas/common/PaymentServiceProcessorReturnCodes.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentServiceProcessorReturnCodes.xsd"/>
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/2013/Common/common-all.xsd"/>
+    <xsd:import namespace="http://www.wsgc.com/schemas/common/RCMSServiceProcessReturnCodes.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/RCMSServiceProcessReturnCodes.xsd"/>
+    <pd:name>BusinessProcesses/Common/ProcessRestReturnCode.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="OperationScope" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Error" type="pfx2:ErrorType" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>143</pd:startX>
+    <pd:startY>214</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="string-length($RCMSResultCodeTranslation/root/ErrorType) > 0">
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$RCMSResultCodeTranslation/root/ErrorType"/>
+                    </Type>
+                    <xsl:if test="string-length($RCMSResultCodeTranslation/root/ErrorDetail)>0">
+                        <xsl:if test="$RCMSResultCodeTranslation/root/ErrorDetail">
+                            <Detail>
+                                <xsl:value-of select="$RCMSResultCodeTranslation/root/ErrorDetail"/>
+                            </Detail>
+                        </xsl:if>
+                    </xsl:if>
+                    <ErrorMessage>
+                        <xsl:value-of select="$RCMSResultCodeTranslation/root/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="string-length($RCMSResultCodeTranslation/root/ErrorType)>0">
+                    <Success>
+                        <xsl:value-of select="&quot;false&quot;"/>
+                    </Success>
+                </xsl:when>
+                <xsl:otherwise>
+                    <Success>
+                        <xsl:value-of select="&quot;true&quot;"/>
+                    </Success>
+                </xsl:otherwise>
+            </xsl:choose>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Error" type="pfx2:ErrorType" minOccurs="0"/>
+                    <xsd:element name="Success" type="xsd:boolean" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>665</pd:endX>
+    <pd:endY>77</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <InterimVars>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RCFound" type="xsd:boolean" minOccurs="0"/>
+                        <xsd:element ref="ns4:RCMSServiceProcessReturnCodes" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </InterimVars>
+        <RCMSResultCodeTranslation>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ErrorType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorDetail" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorMessage" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ShouldNotify" type="xsd:boolean" minOccurs="0"/>
+                        <xsd:element name="NotificationErrorCode" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </RCMSResultCodeTranslation>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1418700207599</pd:targetNamespace>
+    <pd:activity name="LookupResultCode">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>147</pd:x>
+        <pd:y>71</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-RCMSProcessReturnCodes.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="AssignGenericError-2">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>401</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <variableName>RCMSResultCodeTranslation</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable name="var" select="$InterimVars/root/ns4:RCMSServiceProcessReturnCodes/ns4:RCMSServiceProcessReturnCode[1]/ns4:WSIMessage[@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/RCMS/AllOperationScope]"/>
+            <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                <xsl:when test="string-length($var/@errorType) >0">
+                    <root>
+                        <ErrorType>
+                            <xsl:value-of select="$var/@errorType"/>
+                        </ErrorType>
+                        <ErrorDetail>
+                            <xsl:value-of select="$var/text()"/>
+                        </ErrorDetail>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Start/root/Error/ErrorMessage)>0">
+                                <ErrorMessage>
+                                    <xsl:value-of select="$Start/root/Error/ErrorMessage"/>
+                                </ErrorMessage>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <ErrorMessage>
+                                    <xsl:value-of select="$InterimVars/root/ns4:RCMSServiceProcessReturnCodes/ns4:RCMSServiceProcessReturnCode[1]/ns4:Description"/>
+                                </ErrorMessage>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <ShouldNotify>
+                            <xsl:value-of select="$var/@shouldNotify"/>
+                        </ShouldNotify>
+                        <NotificationErrorCode>
+                            <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/NotificationErrorCodes/NOTIFIABLE_RESULTCODE_ERROR"/>
+                        </NotificationErrorCode>
+                    </root>
+                </xsl:when>
+                <xsl:otherwise>
+                    <root/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignResultCode">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>276</pd:x>
+        <pd:y>72</pd:y>
+        <config>
+            <variableName>InterimVars</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <RCFound>
+                    <xsl:value-of select="string-length($LookupResultCode/ns4:RCMSServiceProcessReturnCodes/ns4:RCMSServiceProcessReturnCode[$Start/root/Error/Type  =  ns4:ProcessorReturnCode][ns4:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/RCMS/AllOperationScope]/ns4:WSIMessage)>0"/>
+                </RCFound>
+                <ns4:RCMSServiceProcessReturnCodes>
+                    <xsl:for-each select="$LookupResultCode/ns4:RCMSServiceProcessReturnCodes/ns4:RCMSServiceProcessReturnCode[$Start/root/Error/Type  =  .][ns4:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/RCMS/AllOperationScope]">
+                        <ns4:RCMSServiceProcessReturnCode>
+                            <ns4:ProcessorReturnCode>
+                                <xsl:value-of select="ns4:ProcessorReturnCode"/>
+                            </ns4:ProcessorReturnCode>
+                            <ns4:Description>
+                                <xsl:value-of select="ns4:Description"/>
+                            </ns4:Description>
+                            <xsl:for-each select="ns4:WSIMessage">
+                                <ns4:WSIMessage>
+                                    <xsl:attribute name="operationScope">
+                                        <xsl:value-of select="@operationScope"/>
+                                    </xsl:attribute>
+                                    <xsl:attribute name="errorType">
+                                        <xsl:value-of select="@errorType"/>
+                                    </xsl:attribute>
+                                    <xsl:attribute name="shouldNotify">
+                                        <xsl:value-of select="@shouldNotify"/>
+                                    </xsl:attribute>
+                                    <xsl:value-of select="."/>
+                                </ns4:WSIMessage>
+                            </xsl:for-each>
+                        </ns4:RCMSServiceProcessReturnCode>
+                    </xsl:for-each>
+                </ns4:RCMSServiceProcessReturnCodes>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignGenericError-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>396</pd:x>
+        <pd:y>214</pd:y>
+        <config>
+            <variableName>RCMSResultCodeTranslation</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ErrorType>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/Type"/>
+                </ErrorType>
+                <ErrorDetail>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/Detail"/>
+                </ErrorDetail>
+                <ErrorMessage>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/ErrorMessage"/>
+                </ErrorMessage>
+                <ShouldNotify>
+                    <xsl:value-of select="true()"/>
+                </ShouldNotify>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>528</pd:x>
+        <pd:y>75</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>LookupResultCode</pd:to>
+        <pd:xpathDescription>ERR_TYPE_EXISTS</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/Error/Type)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError-2</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>errorExists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($RCMSResultCodeTranslation/root/ErrorType)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LookupResultCode</pd:from>
+        <pd:to>AssignResultCode</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignResultCode</pd:from>
+        <pd:to>AssignGenericError-2</pd:to>
+        <pd:xpathDescription>RC Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$InterimVars/root/RCFound='true'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>AssignGenericError-1</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignResultCode</pd:from>
+        <pd:to>AssignGenericError-1</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>AssignGenericError-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError-2</pd:from>
+        <pd:to>AssignGenericError-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx21="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd" xmlns:pfx="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" xmlns:ns="http://services.wsgc.com/2014/Payment" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/OutboundMessage" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx1="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/DataQueueWrite/DataQueueWrite" xmlns:ns4="http://www.tibco.com/pe/EngineTypes" xmlns:pfx2="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/OutboundMessage/OutboundMessage" xmlns:ns5="http://schemas.tibco.com/bw/plugins/ae/5.0/aeExceptions" xmlns:pfx3="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/OutboundMessage/Data_Structures/TokenizationPublisher" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx4="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/DataQueueWrite/DataQueueWrite" xmlns:pfx5="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/SVCActivation/OutboundMessage/OutboundMessage" xmlns:pfx6="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/SVCActivation/DataQueueWrite/DataQueueWrite" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx7="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/SVCBalanceInquiry/DataQueueWrite/DataQueueWrite" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pfx8="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/SVCBalanceInquiry/OutboundMessage/OutboundMessage">
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" schemaLocation="/AESchemas/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/OutboundMessage/Data_Structures/TokenizationPublisher" schemaLocation="/AESchemas/ae/as400/Tokenization/OutboundMessage/Data_Structures/TokenizationPublisher.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/OutboundMessage/OutboundMessage" schemaLocation="/AESchemas/ae/as400/Tokenization/OutboundMessage/OutboundMessage.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/DataQueueWrite/DataQueueWrite" schemaLocation="/AESchemas/ae/as400/Tokenization/DataQueueWrite/DataQueueWrite.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/SVCActivation/OutboundMessage/OutboundMessage" schemaLocation="/AESchemas/ae/as400/SVCActivation/OutboundMessage/OutboundMessage.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/SVCActivation/DataQueueWrite/DataQueueWrite" schemaLocation="/AESchemas/ae/as400/SVCActivation/DataQueueWrite/DataQueueWrite.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/SVCBalanceInquiry/OutboundMessage/OutboundMessage" schemaLocation="/AESchemas/ae/as400/SVCBalanceInquiry/OutboundMessage/OutboundMessage.aeschema"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2014/Payment/svc-balance.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/SVCBalanceInquiry/DataQueueWrite/DataQueueWrite" schemaLocation="/AESchemas/ae/as400/SVCBalanceInquiry/DataQueueWrite/DataQueueWrite.aeschema"/>
+    <pd:name>BusinessProcesses/SvcBalanceInquiry/ResponseProcessors/MapDTCMOResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx8:SVCBalanceInquiryPublisher"/>
+                    <xsd:element name="SvcBalanceInquiryCommon">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element ref="ns:SvcBalanceInquiryResponse"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$MapAdapterResponse/pfx7:SVCBalanceInquirySubscriber"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx7:SVCBalanceInquirySubscriber"/>
+    <pd:endX>633</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1428698665830</pd:targetNamespace>
+    <pd:activity name="MapAdapterResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>432</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <element ref="pfx7:SVCBalanceInquirySubscriber"/>
+        </config>
+        <pd:inputBindings>
+            <pfx7:SVCBalanceInquirySubscriber>
+                <xsl:variable name="Entry" select="$Start/root/pfx8:SVCBalanceInquiryPublisher/Entry"/>
+                <xsl:variable name="CommonResponse" select="$Start/root/SvcBalanceInquiryCommon/ns:SvcBalanceInquiryResponse"/>
+                <Entry>
+                    <OutputDataQueue>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/OutputDataQueue),20)"/>
+                    </OutputDataQueue>
+                    <CorrelationID>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/CorrelationID),20)"/>
+                    </CorrelationID>
+                    <Version>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Version),15)"/>
+                    </Version>
+                    <EnvironmentIdentifier>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/EnvironmentIdentifier),10)"/>
+                    </EnvironmentIdentifier>
+                    <RegionIdentifier>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/RegionIdentifier),10)"/>
+                    </RegionIdentifier>
+                    <SourceSystemIdentifier>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/SourceSystemIdentifier),50)"/>
+                    </SourceSystemIdentifier>
+                    <TransactionId>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/TransactionId),80)"/>
+                    </TransactionId>
+                    <TransactionTime>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/TransactionTime),30)"/>
+                    </TransactionTime>
+                    <Concept>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Concept),5)"/>
+                    </Concept>
+                    <Channel>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Channel),10)"/>
+                    </Channel>
+                    <AssociateId>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/AssociateId),10)"/>
+                    </AssociateId>
+                    <OrderNumber>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/OrderNumber),20)"/>
+                    </OrderNumber>
+                    <AuthCode>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Authorization/Code),10)"/>
+                    </AuthCode>
+                    <Expiration>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Authorization/Expiration),30)"/>
+                    </Expiration>
+                    <CurrencyCode>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Authorization/CurrencyCode),3)"/>
+                    </CurrencyCode>
+                    <Amount>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Authorization/Amount),20)"/>
+                    </Amount>
+                    <MetaData1>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[1]),80)"/>
+                    </MetaData1>
+                    <MetaDataType1>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[1]/@type),30)"/>
+                    </MetaDataType1>
+                    <MetaData2>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[2]),80)"/>
+                    </MetaData2>
+                    <MetaDataType2>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[2]/@type),30)"/>
+                    </MetaDataType2>
+                    <MetaData3>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[3]),80)"/>
+                    </MetaData3>
+                    <MetaDataType3>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[3]/@type),30)"/>
+                    </MetaDataType3>
+                    <MetaData4>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[4]),80)"/>
+                    </MetaData4>
+                    <MetaDataType4>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[4]/@type),30)"/>
+                    </MetaDataType4>
+                    <MetaData5>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[5]),80)"/>
+                    </MetaData5>
+                    <MetaDataType5>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[5]/@type),30)"/>
+                    </MetaDataType5>
+                    <MetaData6>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[6]),80)"/>
+                    </MetaData6>
+                    <MetaDataType6>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[6]/@type),30)"/>
+                    </MetaDataType6>
+                    <MetaData7>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[7]),80)"/>
+                    </MetaData7>
+                    <MetaDataType7>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[7]/@type),30)"/>
+                    </MetaDataType7>
+                    <MetaData8>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[8]),80)"/>
+                    </MetaData8>
+                    <MetaDataType8>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[8]/@type),30)"/>
+                    </MetaDataType8>
+                    <MetaData9>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[9]),80)"/>
+                    </MetaData9>
+                    <MetaDataType9>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[9]/@type),30)"/>
+                    </MetaDataType9>
+                    <MetaData10>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[10]),80)"/>
+                    </MetaData10>
+                    <MetaDataType10>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[10]/@type),30)"/>
+                    </MetaDataType10>
+                    <xsl:choose>
+                        <xsl:when test="tib:trim($_globalVariables/ns2:GlobalVariables/SvcBalanceInquiry/BWTransformation/IsPinVerified)='true'">
+                            <IsPinVerified>
+                                <xsl:value-of select="&quot;Y&quot;"/>
+                            </IsPinVerified>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <IsPinVerified>
+                                <xsl:value-of select="&quot;N&quot;"/>
+                            </IsPinVerified>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ISOCurrencyCode>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Authorization/CurrencyCode),3)"/>
+                    </ISOCurrencyCode>
+                    <BalanceAmount>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/BalanceAmount),20)"/>
+                    </BalanceAmount>
+                    <TransactionMetadata1>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[1]),80)"/>
+                    </TransactionMetadata1>
+                    <TransactionMetadataType1>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[1]/@type),30)"/>
+                    </TransactionMetadataType1>
+                    <TransactionMetadata2>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[2]),80)"/>
+                    </TransactionMetadata2>
+                    <TransactionMetadataType2>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[2]/@type),30)"/>
+                    </TransactionMetadataType2>
+                    <TransactionMetadata3>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[3]),80)"/>
+                    </TransactionMetadata3>
+                    <TransactionMetadataType3>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[3]/@type),30)"/>
+                    </TransactionMetadataType3>
+                    <TransactionMetadata4>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[4]),80)"/>
+                    </TransactionMetadata4>
+                    <TransactionMetadataType4>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[4]/@type),30)"/>
+                    </TransactionMetadataType4>
+                    <TransactionMetadata5>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[5]),80)"/>
+                    </TransactionMetadata5>
+                    <TransactionMetadataType5>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[5]/@type),30)"/>
+                    </TransactionMetadataType5>
+                    <TransactionMetadata6>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[6]),80)"/>
+                    </TransactionMetadata6>
+                    <TransactionMetadataType6>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[6]/@type),30)"/>
+                    </TransactionMetadataType6>
+                    <TransactionMetadata7>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[7]),80)"/>
+                    </TransactionMetadata7>
+                    <TransactionMetadataType7>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[7]/@type),30)"/>
+                    </TransactionMetadataType7>
+                    <TransactionMetadata8>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[8]),80)"/>
+                    </TransactionMetadata8>
+                    <TransactionMetadataType8>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[8]/@type),30)"/>
+                    </TransactionMetadataType8>
+                    <TransactionMetadata9>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[9]),80)"/>
+                    </TransactionMetadata9>
+                    <TransactionMetadataType9>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[9]/@type),30)"/>
+                    </TransactionMetadataType9>
+                    <TransactionMetadata10>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[10]),80)"/>
+                    </TransactionMetadata10>
+                    <TransactionMetadataType10>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/TransactionMetadata[10]/@type),30)"/>
+                    </TransactionMetadataType10>
+                    <Code>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Code),40)"/>
+                    </Code>
+                    <SubCode>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Tender/Type/SubCode),40)"/>
+                    </SubCode>
+                    <SVCAccountNumber>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/AccountNumber),20)"/>
+                    </SVCAccountNumber>
+                    <Type>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Type),100)"/>
+                    </Type>
+                    <Detail1>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[1]),100)"/>
+                    </Detail1>
+                    <Detail2>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[2]),100)"/>
+                    </Detail2>
+                    <Detail3>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[3]),100)"/>
+                    </Detail3>
+                    <Detail4>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[4]),100)"/>
+                    </Detail4>
+                    <Detail5>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[5]),100)"/>
+                    </Detail5>
+                    <Detail6>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[6]),100)"/>
+                    </Detail6>
+                    <Detail7>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[7]),100)"/>
+                    </Detail7>
+                    <Detail8>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[8]),100)"/>
+                    </Detail8>
+                    <Detail9>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[9]),100)"/>
+                    </Detail9>
+                    <Detail10>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[10]),100)"/>
+                    </Detail10>
+                    <Detail11>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[11]),100)"/>
+                    </Detail11>
+                    <Detail12>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[12]),100)"/>
+                    </Detail12>
+                    <Detail13>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[13]),100)"/>
+                    </Detail13>
+                    <Detail14>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[14]),100)"/>
+                    </Detail14>
+                    <Detail15>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/Detail[15]),100)"/>
+                    </Detail15>
+                    <ErrorMessage>
+                        <xsl:value-of select="tib:pad-and-limit(tib:trim($CommonResponse/Error/ErrorMessage),200)"/>
+                    </ErrorMessage>
+                </Entry>
+            </pfx7:SVCBalanceInquirySubscriber>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>284</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/SvcBalanceInquiry/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetAppAuditSwitchesVariable">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>154</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceAppAuditSwitches.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>MapAdapterResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetAppAuditSwitchesVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>MapAdapterResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetAppAuditSwitchesVariable</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

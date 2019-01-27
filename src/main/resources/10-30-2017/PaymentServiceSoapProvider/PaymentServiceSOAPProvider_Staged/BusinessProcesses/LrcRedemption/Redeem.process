@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://www.tibco.com/schemas/REST-POC/Schemas/Schema.xsd" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns2="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:pfx2="http://www.tibco.com/ns/no_namespace_schema_location/JSON_GEN_Schemas/TEST.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://services.wsgc.com/2014/Payment" xmlns:pfx4="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions">
+    <xsd:import namespace="http://www.tibco.com/schemas/REST-POC/Schemas/Schema.xsd" schemaLocation="/Schemas/Schema.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/JSON_GEN_Schemas/TEST.xsd" schemaLocation="/JSON_GEN_Schemas/TEST.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/lrc-redemption.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/reward-service-redeem.xsd"/>
+    <pd:name>BusinessProcesses/LrcRedemption/Redeem.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:LrcRedemptionRequest"/>
+    <pd:startX>59</pd:startX>
+    <pd:startY>182</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="string-length($InvokePaymentGateway/root/Error/Type)>0">
+                <pfx3:LrcRedemptionResponse>
+                    <xsl:attribute name="version">
+                        <xsl:value-of select="$Start/pfx3:LrcRedemptionRequest/@version"/>
+                    </xsl:attribute>
+                    <xsl:copy-of select="$Start/pfx3:LrcRedemptionRequest/SystemContext"/>
+                    <xsl:copy-of select="$Start/pfx3:LrcRedemptionRequest/PaymentContext"/>
+                    <Error>
+                        <Type>
+                            <xsl:value-of select="$InvokePaymentGateway/root/Error/Type"/>
+                        </Type>
+                        <xsl:if test="string-length($InvokePaymentGateway/root/Error/Detail[1])>0">
+                            <xsl:if test="$InvokePaymentGateway/root/Error/Detail[1]">
+                                <Detail>
+                                    <xsl:value-of select="$InvokePaymentGateway/root/Error/Detail[1]"/>
+                                </Detail>
+                            </xsl:if>
+                        </xsl:if>
+                        <ErrorMessage>
+                            <xsl:value-of select="$InvokePaymentGateway/root/Error/ErrorMessage"/>
+                        </ErrorMessage>
+                    </Error>
+                </pfx3:LrcRedemptionResponse>
+            </xsl:when>
+            <xsl:when test="string-length($MapPaymentGatewayRequest/root/pfx3:LrcRedemptionResponse/Error/Type)>0">
+                <xsl:copy-of select="$MapPaymentGatewayRequest/root/pfx3:LrcRedemptionResponse"/>
+            </xsl:when>
+            <xsl:when test="string-length($Map-Data/pfx3:LrcRedemptionResponse/Error/Type)>0">
+                <xsl:for-each select="$Map-Data/pfx3:LrcRedemptionResponse">
+                    <pfx3:LrcRedemptionResponse>
+                        <xsl:attribute name="version">
+                            <xsl:value-of select="@version"/>
+                        </xsl:attribute>
+                        <SystemContext>
+                            <EnvironmentIdentifier>
+                                <xsl:value-of select="SystemContext/EnvironmentIdentifier"/>
+                            </EnvironmentIdentifier>
+                            <RegionIdentifier>
+                                <xsl:value-of select="SystemContext/RegionIdentifier"/>
+                            </RegionIdentifier>
+                            <SourceSystemIdentifier>
+                                <xsl:value-of select="SystemContext/SourceSystemIdentifier"/>
+                            </SourceSystemIdentifier>
+                            <TransactionId>
+                                <xsl:value-of select="SystemContext/TransactionId"/>
+                            </TransactionId>
+                            <TransactionTime>
+                                <xsl:value-of select="SystemContext/TransactionTime"/>
+                            </TransactionTime>
+                            <xsl:if test="SystemContext/RoutingSpecification">
+                                <RoutingSpecification>
+                                    <xsl:value-of select="SystemContext/RoutingSpecification"/>
+                                </RoutingSpecification>
+                            </xsl:if>
+                            <xsl:if test="SystemContext/TestingMode">
+                                <TestingMode>
+                                    <xsl:value-of select="SystemContext/TestingMode"/>
+                                </TestingMode>
+                            </xsl:if>
+                        </SystemContext>
+                        <xsl:for-each select="PaymentContext">
+                            <PaymentContext>
+                                <Concept>
+                                    <xsl:value-of select="Concept"/>
+                                </Concept>
+                                <Channel>
+                                    <xsl:value-of select="Channel"/>
+                                </Channel>
+                            </PaymentContext>
+                        </xsl:for-each>
+                        <xsl:for-each select="Error">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <xsl:if test="string-length(Detail[1])>0">
+                                    <xsl:for-each select="Detail">
+                                        <Detail>
+                                            <xsl:value-of select="."/>
+                                        </Detail>
+                                    </xsl:for-each>
+                                </xsl:if>
+                                <ErrorMessage>
+                                    <xsl:value-of select="ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:for-each>
+                    </pfx3:LrcRedemptionResponse>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="string-length($ProcessRCMSPaymentGtwyResponse/pfx3:LrcRedemptionResponse)>0">
+                <xsl:copy-of select="$ProcessRCMSPaymentGtwyResponse/pfx3:LrcRedemptionResponse"/>
+            </xsl:when>
+            <xsl:when test="string-length($MapPaymentServiceResponse/pfx3:LrcRedemptionResponse)>0">
+                <xsl:copy-of select="$MapPaymentServiceResponse/pfx3:LrcRedemptionResponse"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx3:LrcRedemptionResponse>
+                    <xsl:attribute name="version">
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/MessageVersion"/>
+                    </xsl:attribute>
+                    <SystemContext>
+                        <EnvironmentIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                        </EnvironmentIdentifier>
+                        <RegionIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                        </RegionIdentifier>
+                        <SourceSystemIdentifier>
+                            <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix, BW:getHostName())"/>
+                        </SourceSystemIdentifier>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Start/pfx3:LrcRedemptionRequest/SystemContext/TransactionId)>0">
+                                <TransactionId>
+                                    <xsl:value-of select="$Start/pfx3:LrcRedemptionRequest/SystemContext/TransactionId"/>
+                                </TransactionId>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <TransactionId>
+                                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/LrcRedemption/Constants/TransactionIdPrefix,concat(tib:format-dateTime($_globalVariables/ns1:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns3:ProcessContext/ProcessId,  $_globalVariables/ns1:GlobalVariables/ENV   , BW:getHostName()))"/>
+                                </TransactionId>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <TransactionTime>
+                            <xsl:value-of select="current-dateTime()"/>
+                        </TransactionTime>
+                    </SystemContext>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Start/pfx3:LrcRedemptionRequest/PaymentContext/Concept) > 0">
+                            <xsl:copy-of select="$Start/pfx3:LrcRedemptionRequest/PaymentContext"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <PaymentContext>
+                                <Concept>
+                                    <xsl:value-of select="&quot;&quot;"/>
+                                </Concept>
+                                <Channel>
+                                    <xsl:value-of select="&quot;&quot;"/>
+                                </Channel>
+                            </PaymentContext>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <Error>
+                        <Type>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                        </ErrorMessage>
+                    </Error>
+                </pfx3:LrcRedemptionResponse>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:LrcRedemptionResponse"/>
+    <pd:endX>1079</pd:endX>
+    <pd:endY>181</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1406742610426</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>1236</pd:x>
+        <pd:y>403</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>155</pd:x>
+        <pd:y>182</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/LrcRedemption/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetLRCRequestURI">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>418</pd:x>
+        <pd:y>53</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/GetLRCRequestURI.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <paymentservicerequest>
+                    <xsl:value-of select="tib:render-xml($Start/pfx3:LrcRedemptionRequest)"/>
+                </paymentservicerequest>
+                <transactionid>
+                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                </transactionid>
+                <cleInterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </cleInterfaceCode>
+                <transactiontype>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/CLE/TransactionType"/>
+                </transactiontype>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="InvokePaymentGateway">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>422</pd:x>
+        <pd:y>321</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcRedemption/Gateway/InvokeGateway.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <PaymentGatewayRequest>
+                    <xsl:value-of select="$MapPaymentGatewayRequest/root/paymentgatewayrequest"/>
+                </PaymentGatewayRequest>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <transactionid>
+                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                </transactionid>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="InvokeRCMSPymtGtwy_POST">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>589</pd:x>
+        <pd:y>53</pd:y>
+        <config>
+            <processName>/CommonProcesses/PaymentGateway/InvokeRCMSPymtGtwy_POST.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <rcmspaymentgatewayrequest>
+                    <xsl:value-of select="$MapRCMSPaymentGatewayRequest/root/paymentgatewayrequest"/>
+                </rcmspaymentgatewayrequest>
+                <transactionid>
+                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                </transactionid>
+                <xsl:if test="$GetCLEParams/root/targetServiceProvider">
+                    <provider>
+                        <xsl:value-of select="$GetCLEParams/root/targetServiceProvider"/>
+                    </provider>
+                </xsl:if>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <timeout>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/Validation/PaymentGateway/Timeout"/>
+                </timeout>
+                <Transactiontype>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/CLE/TransactionType"/>
+                </Transactiontype>
+                <method>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/PaymentGateway/RCMS/HTTPPOSTMETHOD"/>
+                </method>
+                <contenttype>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/PaymentGateway/RCMS/ContentType"/>
+                </contenttype>
+                <requesturi>
+                    <xsl:value-of select="$GetLRCRequestURI/root/requesturi"/>
+                </requesturi>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogPaymentGatewayRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>182</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/AuditLogMessage.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <xsl:choose>
+                    <xsl:when test="string-length($MapRCMSPaymentGatewayRequest/root/paymentgatewayrequest)>0">
+                        <AuditMessageType>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Constants/VALUE_RCMSPAYMETGATEWAYREQUEST"/>
+                        </AuditMessageType>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <AuditMessageType>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Constants/VALUE_PAYMENTGATEWAYREQUEST"/>
+                        </AuditMessageType>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <payloadTrue>
+                    <xsl:value-of select="(string-length($MapRCMSPaymentGatewayRequest/root/paymentgatewayrequest)>0 or ($MapPaymentGatewayRequest/root/paymentgatewayrequest)>0)"/>
+                </payloadTrue>
+                <ns2:LogRequest>
+                    <ns2:envCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                    </ns2:envCode>
+                    <ns2:appCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/AppCode"/>
+                    </ns2:appCode>
+                    <ns2:interfaceCode>
+                        <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                    </ns2:interfaceCode>
+                    <ns2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns2:timestamp>
+                    <ns2:message>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/PaymentGatewayRequestAuditMessage"/>
+                    </ns2:message>
+                    <ns2:TransactionDetails>
+                        <ns2:transactionDomain>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                        </ns2:transactionDomain>
+                        <ns2:transactionType>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/CLE/TransactionType"/>
+                        </ns2:transactionType>
+                        <ns2:transactionID>
+                            <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                        </ns2:transactionID>
+                    </ns2:TransactionDetails>
+                    <ns2:AuditInfo>
+                        <xsl:choose>
+                            <xsl:when test="exists($MapRCMSPaymentGatewayRequest/root/paymentgatewayrequest)">
+                                <ns2:payload>
+                                    <xsl:value-of select="$MapRCMSPaymentGatewayRequest/root/paymentgatewayrequest"/>
+                                </ns2:payload>
+                            </xsl:when>
+                            <xsl:when test="exists($MapPaymentGatewayRequest/root/paymentgatewayrequest)">
+                                <ns2:payload>
+                                    <xsl:value-of select="$MapPaymentGatewayRequest/root/paymentgatewayrequest"/>
+                                </ns2:payload>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <ns2:payload>
+                                    <xsl:value-of select="&quot;&quot;"/>
+                                </ns2:payload>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($GetCLEParams/root/targetServiceProvider)>0 and $GetCLEParams/root/targetServiceProvider=$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME">
+                                <ns2:auditStep>
+                                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME,$_globalVariables/ns1:GlobalVariables/CLE/Constants/AuditReport)"/>
+                                </ns2:auditStep>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <ns2:auditStep>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Constants/AuditReport"/>
+                                </ns2:auditStep>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ns2:AuditInfo>
+                </ns2:LogRequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogPaymentGatewayResponse">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>593</pd:x>
+        <pd:y>183</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/AuditLogMessage.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <xsl:choose>
+                    <xsl:when test="string-length($InvokePaymentGateway/root/PaymentGatewayResponse)>0">
+                        <AuditMessageType>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Constants/VALUE_PAYMENTGATEWAYRESPONSE"/>
+                        </AuditMessageType>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <AuditMessageType>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Constants/VALUE_RCMSPAYMENTGATEWAYRESPONSE"/>
+                        </AuditMessageType>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <payloadTrue>
+                    <xsl:value-of select="(string-length($InvokePaymentGateway/root/PaymentGatewayResponse)>0 or string-length($InvokeRCMSPymtGtwy_POST/root/PaymentGatewayResponse)>0&#xA;or string-length($MapRCMSResponse/pfx3:RedeemResponse)>0)"/>
+                </payloadTrue>
+                <ns2:LogRequest>
+                    <ns2:envCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                    </ns2:envCode>
+                    <ns2:appCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/AppCode"/>
+                    </ns2:appCode>
+                    <ns2:interfaceCode>
+                        <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                    </ns2:interfaceCode>
+                    <ns2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns2:timestamp>
+                    <ns2:message>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/PaymentGatewayResponseAuditMessage"/>
+                    </ns2:message>
+                    <ns2:TransactionDetails>
+                        <ns2:transactionDomain>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                        </ns2:transactionDomain>
+                        <ns2:transactionType>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/CLE/TransactionType"/>
+                        </ns2:transactionType>
+                        <ns2:transactionID>
+                            <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                        </ns2:transactionID>
+                    </ns2:TransactionDetails>
+                    <ns2:AuditInfo>
+                        <xsl:choose>
+                            <xsl:when test="exists($InvokeRCMSPymtGtwy_POST/root/PaymentGatewayResponse) and not(empty($InvokeRCMSPymtGtwy_POST/root/PaymentGatewayResponse))">
+                                <ns2:payload>
+                                    <xsl:value-of select="$InvokeRCMSPymtGtwy_POST/root/PaymentGatewayResponse"/>
+                                </ns2:payload>
+                            </xsl:when>
+                            <xsl:when test="exists($MapRCMSResponse/pfx3:RedeemResponse) and not(empty($MapRCMSResponse/pfx3:RedeemResponse))">
+                                <ns2:payload>
+                                    <xsl:value-of select="tib:render-xml($MapRCMSResponse/pfx3:RedeemResponse)"/>
+                                </ns2:payload>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <ns2:payload>
+                                    <xsl:value-of select="$InvokePaymentGateway/root/PaymentGatewayResponse"/>
+                                </ns2:payload>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($GetCLEParams/root/targetServiceProvider)>0 and $GetCLEParams/root/targetServiceProvider=$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME">
+                                <ns2:auditStep>
+                                    <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME,$_globalVariables/ns1:GlobalVariables/CLE/Constants/AuditReport)"/>
+                                </ns2:auditStep>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <ns2:auditStep>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/Constants/AuditReport"/>
+                                </ns2:auditStep>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ns2:AuditInfo>
+                    <xsl:if test="(string-length($InvokeRCMSPymtGtwy_POST/root/PaymentGatewayResponse)>0&#xA;or string-length($MapRCMSResponse/pfx3:RedeemResponse)>0)">
+                        <ns2:AdditionalInformation>
+                            <ns2:name>
+                                <xsl:value-of select="$GetCLEParams/root/targetServiceProvider"/>
+                            </ns2:name>
+                            <ns2:value>
+                                <xsl:value-of select="$GetLRCRequestURI/root/requesturi"/>
+                            </ns2:value>
+                        </ns2:AdditionalInformation>
+                    </xsl:if>
+                </ns2:LogRequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>1235</pd:x>
+        <pd:y>284</pd:y>
+        <config>
+            <element ref="pfx3:LrcRedemptionResponse"/>
+        </config>
+        <pd:inputBindings>
+            <pfx3:LrcRedemptionResponse>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/MessageVersion"/>
+                </xsl:attribute>
+                <SystemContext>
+                    <EnvironmentIdentifier>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                    </EnvironmentIdentifier>
+                    <RegionIdentifier>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                    </RegionIdentifier>
+                    <SourceSystemIdentifier>
+                        <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix, BW:getHostName())"/>
+                    </SourceSystemIdentifier>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Start/pfx3:LrcRedemptionRequest/SystemContext/TransactionId)>0">
+                            <TransactionId>
+                                <xsl:value-of select="$Start/pfx3:LrcRedemptionRequest/SystemContext/TransactionId"/>
+                            </TransactionId>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <TransactionId>
+                                <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/LrcRedemption/Constants/TransactionIdPrefix,concat(tib:format-dateTime($_globalVariables/ns1:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns3:ProcessContext/ProcessId,  $_globalVariables/ns1:GlobalVariables/ENV   , BW:getHostName()))"/>
+                            </TransactionId>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <TransactionTime>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </TransactionTime>
+                </SystemContext>
+                <xsl:choose>
+                    <xsl:when test="string-length($Start/pfx3:LrcRedemptionRequest/PaymentContext/Concept) > 0">
+                        <xsl:copy-of select="$Start/pfx3:LrcRedemptionRequest/PaymentContext"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <PaymentContext>
+                            <Concept>
+                                <xsl:value-of select="&quot;&quot;"/>
+                            </Concept>
+                            <Channel>
+                                <xsl:value-of select="&quot;&quot;"/>
+                            </Channel>
+                        </PaymentContext>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="exists($_error_MapRCMSPaymentGatewayRequest/root/Error) and string-length($_error_MapRCMSPaymentGatewayRequest/root/Error)>0">
+                        <xsl:for-each select="$_error_MapRCMSPaymentGatewayRequest/root/Error">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <xsl:for-each select="Detail">
+                                    <Detail>
+                                        <xsl:value-of select="."/>
+                                    </Detail>
+                                </xsl:for-each>
+                                <ErrorMessage>
+                                    <xsl:value-of select="ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:when test="exists($_error_InvokeRCMSPymtGtwy_POST/root/Error) and string-length($_error_InvokeRCMSPymtGtwy_POST/root/Error)>0">
+                        <xsl:for-each select="$_error_InvokeRCMSPymtGtwy_POST/root/Error">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <xsl:for-each select="Detail">
+                                    <Detail>
+                                        <xsl:value-of select="."/>
+                                    </Detail>
+                                </xsl:for-each>
+                                <ErrorMessage>
+                                    <xsl:value-of select="ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:when test="exists($_error_GetLRCRequestURI/root/Error) and string-length($_error_GetLRCRequestURI/root/Error)>0">
+                        <xsl:for-each select="$_error_GetLRCRequestURI/root/Error">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <xsl:for-each select="Detail">
+                                    <Detail>
+                                        <xsl:value-of select="."/>
+                                    </Detail>
+                                </xsl:for-each>
+                                <ErrorMessage>
+                                    <xsl:value-of select="ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:when test="exists($_error_ProcessRCMSPaymentGtwyResponse/root/Error) and string-length($_error_ProcessRCMSPaymentGtwyResponse/root/Error)>0">
+                        <xsl:for-each select="$_error_ProcessRCMSPaymentGtwyResponse/root/Error">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <xsl:for-each select="Detail">
+                                    <Detail>
+                                        <xsl:value-of select="."/>
+                                    </Detail>
+                                </xsl:for-each>
+                                <ErrorMessage>
+                                    <xsl:value-of select="ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:when test="$_error/ns3:ErrorReport/Class=$_globalVariables/ns1:GlobalVariables/PaymentService/ValidationConstants/BIND_EXCEPTION_CLASS">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </pfx3:LrcRedemptionResponse>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapRCMSPaymentGatewayRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>154</pd:x>
+        <pd:y>52</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcRedemption/RequestProcessors/MapRCMSPaymentGatewayRequest.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx3:LrcRedemptionRequest"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapPaymentServiceResponse">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>922</pd:x>
+        <pd:y>321</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcRedemption/ResponseProcessors/MapPaymentServiceResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <paymentgatewayresponse>
+                    <xsl:value-of select="$InvokePaymentGateway/root/PaymentGatewayResponse"/>
+                </paymentgatewayresponse>
+                <xsl:copy-of select="$Start/pfx3:LrcRedemptionRequest"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapPaymentGatewayRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>157</pd:x>
+        <pd:y>323</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcRedemption/RequestProcessors/MapPaymentGatewayRequest.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx3:LrcRedemptionRequest"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>420</pd:x>
+        <pd:y>182</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-2">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>916</pd:x>
+        <pd:y>181</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ProcessRCMSPaymentGtwyResponse">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>913</pd:x>
+        <pd:y>52</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcRedemption/ResponseProcessors/ProcessRCMSPaymentGatewayResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:choose>
+                    <xsl:when test="string-length($MapRCMSResponse/pfx3:RedeemResponse)>0">
+                        <paymentgatewayresponse>
+                            <xsl:value-of select="tib:render-xml($MapRCMSResponse/pfx3:RedeemResponse)"/>
+                        </paymentgatewayresponse>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <paymentgatewayresponse>
+                            <xsl:value-of select="$InvokeRCMSPymtGtwy_POST/root/PaymentGatewayResponse"/>
+                        </paymentgatewayresponse>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:copy-of select="$Start/pfx3:LrcRedemptionRequest"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1231</pd:x>
+        <pd:y>179</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="exists($_error_InvokeRCMSPymtGtwy_POST/root/ns2:ExceptionHandlerRequest) and not(empty($_error_InvokeRCMSPymtGtwy_POST/root/ns2:ExceptionHandlerRequest))">
+                    <xsl:copy-of select="$_error_InvokeRCMSPymtGtwy_POST/root/ns2:ExceptionHandlerRequest"/>
+                </xsl:when>
+                <xsl:when test="exists($_error_ProcessRCMSPaymentGtwyResponse/root/ns2:ExceptionHandlerRequest) and not(empty($_error_ProcessRCMSPaymentGtwyResponse/root/ns2:ExceptionHandlerRequest))">
+                    <xsl:copy-of select="$_error_ProcessRCMSPaymentGtwyResponse/root/ns2:ExceptionHandlerRequest"/>
+                </xsl:when>
+                <xsl:when test="exists($_error_MapRCMSPaymentGatewayRequest/root/ns2:ExceptionHandlerRequest) and not(empty($_error_MapRCMSPaymentGatewayRequest/root/ns2:ExceptionHandlerRequest))">
+                    <xsl:copy-of select="$_error_MapRCMSPaymentGatewayRequest/root/ns2:ExceptionHandlerRequest"/>
+                </xsl:when>
+                <xsl:when test="exists($_error_GetLRCRequestURI/root/ns2:ExceptionHandlerRequest) and not(empty($_error_GetLRCRequestURI/root/ns2:ExceptionHandlerRequest))">
+                    <xsl:copy-of select="$_error_GetLRCRequestURI/root/ns2:ExceptionHandlerRequest"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <ns2:ExceptionHandlerRequest>
+                        <ns2:envCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                        </ns2:envCode>
+                        <ns2:appCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/AppCode"/>
+                        </ns2:appCode>
+                        <ns2:interfaceCode>
+                            <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                        </ns2:interfaceCode>
+                        <ns2:hostName>
+                            <xsl:value-of select="BW:getHostName()"/>
+                        </ns2:hostName>
+                        <ns2:timeStamp>
+                            <xsl:value-of select="current-dateTime()"/>
+                        </ns2:timeStamp>
+                        <ns2:message>
+                            <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                        </ns2:message>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Start/pfx3:LrcRedemptionRequest) > 0">
+                                <ns2:payload>
+                                    <xsl:value-of select="tib:render-xml($Start/pfx3:LrcRedemptionRequest)"/>
+                                </ns2:payload>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <ns2:payload>
+                                    <xsl:value-of select="&quot;&quot;"/>
+                                </ns2:payload>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <ns2:ErrorLevel>
+                            <ns2:errorCode>
+                                <xsl:value-of select="concat($Map-Data/pfx3:LrcRedemptionResponse/Error/Type, $_globalVariables/ns1:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$Map-Data/pfx3:LrcRedemptionResponse/Error/Detail[1])"/>
+                            </ns2:errorCode>
+                        </ns2:ErrorLevel>
+                        <ns2:TransactionDetails>
+                            <ns2:transactionDomain>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                            </ns2:transactionDomain>
+                            <ns2:transactionType>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/CLE/TransactionType"/>
+                            </ns2:transactionType>
+                            <ns2:transactionID>
+                                <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                            </ns2:transactionID>
+                        </ns2:TransactionDetails>
+                        <xsl:for-each select="$_error/ns3:ErrorReport">
+                            <ns2:ErrorReportType>
+                                <ns2:stackTrace>
+                                    <xsl:value-of select="StackTrace"/>
+                                </ns2:stackTrace>
+                                <ns2:msg>
+                                    <xsl:value-of select="Msg"/>
+                                </ns2:msg>
+                                <ns2:fullClass>
+                                    <xsl:value-of select="FullClass"/>
+                                </ns2:fullClass>
+                                <ns2:class>
+                                    <xsl:value-of select="Class"/>
+                                </ns2:class>
+                                <ns2:processStack>
+                                    <xsl:value-of select="ProcessStack"/>
+                                </ns2:processStack>
+                                <xsl:if test="MsgCode">
+                                    <ns2:msgCode>
+                                        <xsl:value-of select="MsgCode"/>
+                                    </ns2:msgCode>
+                                </xsl:if>
+                                <ns2:data>
+                                    <xsl:value-of select="Data/*"/>
+                                </ns2:data>
+                            </ns2:ErrorReportType>
+                        </xsl:for-each>
+                    </ns2:ExceptionHandlerRequest>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapRCMSResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>767</pd:x>
+        <pd:y>54</pd:y>
+        <config>
+            <element ref="pfx3:RedeemResponse"/>
+        </config>
+        <pd:inputBindings>
+            <pfx3:RedeemResponse>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/LrcRedemption/MessageVersion"/>
+                </xsl:attribute>
+                <xsl:for-each select="$InvokeRCMSPymtGtwy_POST/root/Error">
+                    <Error>
+                        <Type>
+                            <xsl:value-of select="Type"/>
+                        </Type>
+                        <xsl:for-each select="Detail">
+                            <Detail>
+                                <xsl:value-of select="."/>
+                            </Detail>
+                        </xsl:for-each>
+                        <ErrorMessage>
+                            <xsl:value-of select="ErrorMessage"/>
+                        </ErrorMessage>
+                    </Error>
+                </xsl:for-each>
+            </pfx3:RedeemResponse>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapPaymentServiceResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>SendExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapRCMSPaymentGatewayRequest</pd:from>
+        <pd:to>LogPaymentGatewayRequest</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>InvokePaymentGateway</pd:to>
+        <pd:xpathDescription>Good PG Request?</pd:xpathDescription>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($MapPaymentGatewayRequest/root/paymentgatewayrequest)&gt;0 and $GetCLEParams/root/targetServiceProvider !=$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>LogPaymentGatewayResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-2</pd:from>
+        <pd:to>MapPaymentServiceResponse</pd:to>
+        <pd:xpathDescription>Good PG Response?</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($InvokePaymentGateway/root/PaymentGatewayResponse)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-2</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>MapRCMSPaymentGatewayRequest</pd:to>
+        <pd:xpathDescription>RCMS</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GetCLEParams/root/targetServiceProvider)&gt;0 and $GetCLEParams/root/targetServiceProvider=$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InvokePaymentGateway</pd:from>
+        <pd:to>LogPaymentGatewayResponse</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>MapPaymentGatewayRequest</pd:to>
+        <pd:xpathDescription>DTC</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GetCLEParams/root/targetServiceProvider)&gt;0 and $GetCLEParams/root/targetServiceProvider!=$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapPaymentGatewayRequest</pd:from>
+        <pd:to>LogPaymentGatewayRequest</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>GetLRCRequestURI</pd:to>
+        <pd:xpathDescription>Good RCMS Request</pd:xpathDescription>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($MapRCMSPaymentGatewayRequest/root/paymentgatewayrequest)&gt;0 and $GetCLEParams/root/targetServiceProvider=$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InvokeRCMSPymtGtwy_POST</pd:from>
+        <pd:to>LogPaymentGatewayResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-2</pd:from>
+        <pd:to>ProcessRCMSPaymentGtwyResponse</pd:to>
+        <pd:xpathDescription>Good RCMS Response</pd:xpathDescription>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($InvokeRCMSPymtGtwy_POST/root/PaymentGatewayResponse)&gt;0 or
+string-length($MapRCMSResponse/pfx3:RedeemResponse)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessRCMSPaymentGtwyResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetLRCRequestURI</pd:from>
+        <pd:to>InvokeRCMSPymtGtwy_POST</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>LogPaymentGatewayRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogPaymentGatewayRequest</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogPaymentGatewayResponse</pd:from>
+        <pd:to>Null-2</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InvokeRCMSPymtGtwy_POST</pd:from>
+        <pd:to>MapRCMSResponse</pd:to>
+        <pd:xpathDescription>RestError</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($InvokeRCMSPymtGtwy_POST/root/Error/Type)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapRCMSResponse</pd:from>
+        <pd:to>LogPaymentGatewayResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

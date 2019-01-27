@@ -1,0 +1,431 @@
+GV~GV Value in PROD XML~GV Value in Staged XML~Reason
+HTTPConnections/Descartes/IdentityFile/password~#!UseEdo1i0uZOiEZMZSkdcg5O4zef7UCoGOm2rZWVUzY=~"#!dAkvyAoIxGAyhTHs2F+7ABz/ThBBNrdJD1qW9P+nUps="~GV Present in Both XMLs but not matching
+HTTPConnections/MDMConnection/Password~#!Zb0iU2g3URnGFM1Q0kK2+FAScUb3AU9i~"#!oO67PXiFKCzRJNGAy4zItWaCNjttIB6t"~GV Present in Both XMLs but not matching
+HawkEnabled~false~"no value"~GV Present in Both XMLs but not matching
+JDBCConnections/AXDB/Password~#!GtgLc48dSekso1edJzqQelRxDkCvxKqN~"#!eYgfkCVBspfKOE59gU6Rvu1UBB85WF8C"~GV Present in Both XMLs but not matching
+JDBCConnections/CLEDB/Password~#!DZ3m3JOmhvnI+gVbzsfB1n4l1ludjGGM+rruoa1//EQ=~"#!01dLx/hTQ+SaCvihLGmcU0d9b8qO3Sa63KznA26PqOk="~GV Present in Both XMLs but not matching
+JDBCConnections/CheckpointDB/Password~#!xNRAnTaI7UX0W9sNCfse3OgwA6DXIn4xvOLWRiacWqc=~"#!WKR0ePhhchTx6phISN0CjGZMLjp2A8nkBNWj1abguMU="~GV Present in Both XMLs but not matching
+JDBCConnections/KRONOSDB/Password~#!x3abarnrvPDQ/rHo/l2LJhNFP7+XcN3g2P19nB77Br0=~"#!Dk0aZkyLaAtYVC9QJW2fTid5IG9h1kZDmyGXBEin2dE="~GV Present in Both XMLs but not matching
+JDBCConnections/MDM/Password~#!oB0eMHN3t0E2WVhHziklhTEKdHMovdLF7ZK0Dgqytqw=~"#!QvApFEgQlJmR7wk4QxdbVHBtxlv2p1O76bSGZPLRzUY="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSD2FraudServiceDB/Password~#!ZX0T5MZUCjNM2OnRWHG3ptAAyw+0nsQpgdf4MhsXIf4=~"#!xIqo2vJtHn/9AFNV2I4lb6yAs5aPfJvioyyYELLUcBs="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSSterlingDB/Password~#!0sfQpl0NLSfbVQ7v0qR+LdoQ7tX+V8AE2rdwv7zZP+8=~"#!pcd3aEa89wb9Ffj5ho8Rn7mYeP/uuE8FohWuZ/gHsuU="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB-IBMDB2/Password~#!2mhE5QVJPdn1qaLTMKmCFUJuhprwVgMiWQlTCNCnGYU=~"#!KlC8fLSiAyBSk+KpckCO10kNwI/s9RKGGOoiMZbW+Y0="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB/Password~#!BDQw/w40ZKneZtm9c0reOApmSWIiWvN6vERouLG/V/4=~"#!iTZEbibR0vZPxYjvs5KpAZnOw1l0uW1jZGVDdWIYhA8="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/Password~#!fex70gyBAdPfaZsPoHVPnCfRzHec7hlQlNi7WKoE4wM=~"#!LNY4OCniIdLFh3nPR4AUcopeXVxNlJ9x7dwDqaY1Urk="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDBMEMRPT/Password~#!bZzPVD8HAbysWwW6dhCyrF2EobNUqY32fTPnaVrdopA=~"#!75r1THF6+BBETvWCC7JdZmiFOwUkLB9VDoGUKIncxJ0="~GV Present in Both XMLs but not matching
+JDBCConnections/PSDB/Password~#!xfoFlptGGLWOfqzX5l/GYIoUNPzTDppCQ9w6axu80z4=~"#!hyjcOLeiTtsEvm11aY/CvwXax1VgjXOjKjn5yuxh+7Y="~GV Present in Both XMLs but not matching
+JDBCConnections/PaymentServiceDB/Password~#!jY7/XZXb4DSmfie0OwP6E81I6nWk7h6G~"#!cjn9x6fxKjXnx0IUHxSXfKK8RczkGL6n"~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDB/Password~#!wOVu+r9TFK67acknV4tmQv+LX6RZvAHFCyL9UMU5wtM=~"#!JJXyyp2intwz2QYZmILoQMrXXUTI42MRoteGTx2Qnic="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDBThin/Password~#!OA8T9Dlv9PeUN0bQAq/zlM2ZIN4HTWj7CZi42yu4IYQ=~"#!KXKUb8NJA0EaFisT8PHfvlRXGrHiWMDItKM7idvQ7Wo="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDEV2/Password~#!EfuJwQfLz89XZ0oVelzZzTSIoeWVTIqJ4nFw0t5reh0=~"#!tCWUKkfcUU6ZhKrMRoU/sBptDAXMXJzBN2EcsVwb3m4="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnDB/Password~#!ms34zCvbv55q8NpZP+DodJ2VNsqqmfFBjum+1ZFYHnI=~"#!SXgY/hg6D8XN1Etaj7Y5Of5mIaGIkmQ1yVciAnwStYg="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnsAppUIDB/Password~#!xU4MgmD5DTYGRNk5TuUUgra5szW9S2+iVmrW22/iNX8=~"#!Q9LURjZ33gl3WGCeq1qqM798ubJG7rrNmMVmSVg4kKs="~GV Present in Both XMLs but not matching
+JDBCConnections/SDM-TeraData-DB/Password~#!4lEGl7Nx5ym64fpNBYh/1ACjnHdLaDHeh1JC5+bjicA=~"#!tXctnAY+KLLcS4mUJZtHNmK52PvRM9N/2NaUa/JegP4="~GV Present in Both XMLs but not matching
+JDBCConnections/SterlingDB/Password~#!LtpK0r3ErIU0nPQk5PRnocfJxQAGn8vtbADEizV0Blg=~"#!eRNhk2TIVqJBApdwwLDCa7LjM1KM61EH52qyA7xFSf4="~GV Present in Both XMLs but not matching
+JDBCConnections/TMSDB/Password~#!NSMft4YTctbp2Xs4TvZgPO99jkORAAiN~"#!48Vo5qNTDQ3HIxO6DA8YPt0Wxp6Vtatb"~GV Present in Both XMLs but not matching
+JDBCConnections/TPMDB/Password~#!q6dDmZc6HQWfymIuwSCo8eejOVA/dCFMniTNR817ZbraZF6Sloa1TA==~"#!vZtulgpvKqWhumLIIKiZcTcnMUp1FGJIcIagg888aw1GwRAOUk03sg=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMCDCDB/Password~#!bTpGhkgFrlzBtXQMsyJlbYMSahgPIjLotNEapAmiKrx5C8UvKyKKmw==~"#!rShZ8NPgyVLOixPFKKwMGz4gGB6zK9WFBRKDzAtVwgM8yCMW7dIedA=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMDB/Password~#!RWFBr6inTUWZKeE5caNvLQAgCSnGITE71/jMzZZAqHsOm/WA6Yi0lQ==~"#!9Ql7VThkGazi+HnN3EZLo4ty1eei67TXuNO+3L1NNeJHzMpshUKGIg=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMINTDB/Password~#!dH58qV7sok4ECaJiU7PrJKOcejfN7+03+3kojK3HttFIYptv+rW46Q==~"#!tTH5n11z92qUOlWCNbyRGtF94DHTNVidzmK+NIt4j27gZBBx15rtZA=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMOBMDB/Password~#!yDHZxoFRgqBDEhRBZJ2yltJF8Jp4p/BAR0DHilBj1MEiUdt+s7sUDw==~"#!dpvGUmTPVY3awSnlAZbizOIX0ksdDFL8Pozkeu8TjbPrOJb3y8qw4g=="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/JNDIPassword~#!vArBrdzorKD67mCI2H1Kdca9UvA46bmVO7b9Gc9umQA=~"#!xxnw0zOE4+/QuFV8e7FdvbjOqyTYI/I0Ln9AkUmII+c="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/Password~#!TcdBDwHVD0VlkxOD8og7fY8PqfKACHheg4dDMDKa8O4=~"#!2QbKp3f7BfgilBjLLF5gY+Jb1O8JWVfiIUgZzdzwwOE="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/JNDIPassword~#!ShRxijk1MgsajOiJHT9zOXlC4WSkCau6FFwh8G8g3lE=~"#!qUyznnMZsanJa15vhhIHnEIlb9gCbs/kcYKJ6Acr7oA="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/Password~#!D/NLXlTIOAJ/rJ9t6ygw+jGNDbOSZ7SuCL2rhcNCf4g=~"#!6QASYVm1R+YRfNSRVpC7PvC8AQUyZleO+zuRQWnO0kk="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/JNDIPassword~#!gteBAgBRKyXm7YQy7EKtstC5fSFvy1uHSql7o06ehjQ=~"#!S2xHiSTrb6pcXH07EnuSqfYTnkTzTWanCuvfR8ybNek="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/Password~#!kwzg3cujfNsgZ8aGp8RkHP9TBlp2KZ/B/xX70NFk4DA=~"#!jctPF/4kR7jcELrvH4hsyk7hgWucA6qf0gHOqJeuQJw="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/JNDIPassword~#!B50vbpD+PirkA4+HV3j2AgPnXyXRISmRA3mYwQrhRBk=~"#!BnBifCU+2tTGBFP71lmSUNlbH4f0dOB1GgTYUEWj/Gk="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/Password~#!1zGvd26h505U0bCXJ9spiJ1upcB19QxxWHQjNkvOXzU=~"#!A0zvX8paCoWCxWdjAchBRZNHxi643j1W1y3DpYgd71o="~GV Present in Both XMLs but not matching
+JMSConnections/EMSELSSECURE/JNDIPassword~#!z6iL35jv+dbpbXABCc4QnsUwkmX31PcN~"#!xL1TsA+Yvgp0ndVZFMk7R1whC5zw60XU"~GV Present in Both XMLs but not matching
+JMSConnections/EMSELSSECURE/Password~#!2nH+YHc0lUFHSwk6cNEm74eMqaNbcuIT~"#!LPkV4nSdjdR8Qq/M68zyCcbL7q5nSPJi"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/JNDIPassword~#!VfhSF3GvCkgZA4sxlUX1s76zbyY6+rn6~"#!S1n7g1OuUUm09Yx38miSdYh1QGJ+mi4y"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/Password~#!o6NJn6k0Kmj+0hxfiOh4AIy4O9r+z2b/~"#!VVmAf2Bhww9cxntwyC5TfMSWw514OkBE"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/JNDIPassword~#!/9UIAoU7izs0Su2ehqGaUXyftdWI6LXS0KQU9gbyGZk=~"#!5wrPLTbEARhu31Fup5ajeknL9MNL05g3uRE+s6RRRQg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/Password~#!UUwhoVDXf4or5fQew1WdLwoEbv/lOF699wackSg/E5Q=~"#!MfZXjJsHNH4fdHfayHdvkoaJrPqWz4bJyjNb8XYAbB8="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/JNDIPassword~#!PtJr8yylB19MtWf5p5rt2ADZ5EkZeb4w+Ln+cENFlds=~"#!nqhq4haA5/YGNR6WefiQfKmNuzqoBgDsGpis9kXYIdA="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/Password~#!Y9rXJFcolvwdExnqgbxYadCmxI0LUEprSg7P9zvGeDM=~"#!myiFxeNlTvU/dXLkjnqV8ep77mukKR8MOeBIEXox6Ao="~GV Present in Both XMLs but not matching
+JMSConnections/EMSRMS/JNDIPassword~#!BC4SV0ysWkQ9brro59JTVRcUCJLK5kxxLCiEOIov6qs=~"#!ZeApG6880AOuAsEmxo9FYk2uFyOLfQCdnH6MlXHq3U0="~GV Present in Both XMLs but not matching
+JMSConnections/EMSRMS/Password~#!AbMjrdMmmd/Q/oAqie0by/6bwetrCSU4TBZhFJhirAc=~"#!8MH53o1NbEFVi5cdTxRNx7KO+ZPO92f+FF8OCOt20PA="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/JNDIPassword~#!TsrknrSkLp+M4qfjHUZ5nB0myCsSJDnT8pXvUGmGV/w=~"#!DXdTwyY/rC26sPxvnvn0Nz4ClpN15OX24GSX+9x13xY="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/Password~#!6iTh9K91h+AtEWbVxTLTeAP2LzKVNHcO5QG0L1miwMs=~"#!d4BIzc3gqVMPg0D7K6Wtl8PyFnFmvTdAuCLrjcNASXg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/JNDIPassword~#!R9iGzyw87Ai9Wt7KrAlrrFPYapGlZhoM2f20znBed9w=~"#!+ZwYd1exiQ1jIFy7dfFOAYlmXwCp1ZAslQ3xEOBdcTI="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/Password~#!akbiXPrs/qf/f6t7FtlHf62f0FcS8tBTLzgdBQyn8+4=~"#!62NFR3Byb1g9xqptHbis8UwohktEinTpFWXc6I3yHak="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/JNDIPassword~#!U+I8GuqWyZHupN52fagG8W6ajTtxWCMrCqHslwCxY1k=~"#!xRKpdemhV2hWJVKEsAmGZN/UFU0qNQJThUwWvxXnpAg="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/Password~#!DGfky1m2Q6Uv35nO6ds5/3vwm5ZecuiUi12t8Y7kSNI=~"#!TzN6NVzmpDEkTm4CqDXN0x+UlecTOcMoLw9UB/o1oSg="~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/JNDIPassword~#!/NyaQnU9bKcMQQONWJCxXA==~"#!A3c1xjNtt9ZYilYgeEfhTA=="~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/Password~#!YK39lICMDbNxXyo3Q+w9jg==~"#!5u0usxmN52lMU3CrRud/wQ=="~GV Present in Both XMLs but not matching
+OrderDropPublish/CLE/AUDITSTEP_BEGIN~~"BEGIN"~GV not present in PROD XML
+OrderDropPublish/CLE/AUDITSTEP_END~~"END"~GV not present in PROD XML
+OrderDropPublish/CLE/AUDIT_BEGIN_MESSAGE~~"RECEIVED ORDERDROPTODTCMOPKMSRMSCFS MESSAGE FROM STERLING"~GV not present in PROD XML
+OrderDropPublish/CLE/AUDIT_END_MESSAGE~~"COMPLETED PROCESSING ORDERDROPTODTCMOPKMSRMSCFS MESSAGE FROM STERLING"~GV not present in PROD XML
+OrderDropPublish/CLE/AppCode~~"TIBCO"~GV not present in PROD XML
+OrderDropPublish/CLE/InterfaceCode~~"STR_TIB.ORDERDROPMESSAGEROUTER"~GV not present in PROD XML
+OrderDropPublish/CLE/JMS_SEND_EXCEPTION_CODE~~"TIB_ORDERDROPMESSAGEROUTER_100003"~GV not present in PROD XML
+OrderDropPublish/CLE/JMS_SEND_EXCEPTION_MESSAGE~~"ERROR OCCURRED DURING JMS QUEUE SEND"~GV not present in PROD XML
+OrderDropPublish/CLE/NotificationList~~""~GV not present in PROD XML
+OrderDropPublish/CLE/TIB_INTERNAL_EXCEPTION_CODE~~"TIB_ORDERDROPMESSAGEROUTER_100001"~GV not present in PROD XML
+OrderDropPublish/CLE/TIB_INTERNAL_EXCEPTION_MSG~~"TIB_INTERNAL_EXCEPTION"~GV not present in PROD XML
+OrderDropPublish/CLE/TransactionDomain~~"OrderDrop"~GV not present in PROD XML
+OrderDropPublish/CLE/TransactionType~~"OrderDropRouting"~GV not present in PROD XML
+OrderDropPublish/CLE/XML_PARSE_EXCEPTION_CODE~~"TIB_ORDERDROPMESSAGEROUTER_100005"~GV not present in PROD XML
+OrderDropPublish/CLE/XML_PARSE_EXCEPTION_MESSAGE~~"XML PARSE EXCEPTION OCCURED"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeCategory1~~"LineInfo"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeCategory2~~"MerchDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeCategory3~~"HeaderInfo"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeCategory4~~"LineCharges"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeCategory7~~"LineInfoDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeCategory8~~"LineInfoAdjustment"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName1~~"Shipping"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName10~~"LineGiftWrapDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName11~~"LineShippingDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName12~~"MerchAdjustment"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName13~~"SurchargeAdjustment"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName14~~"PersAdjustment"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName15~~"GiftWrapAdjustment"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName16~~"ShippingAdjustment"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName17~~"LineMerchEffective"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName18~~"LineSurchargeEffective"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName19~~"LineMonoPZEffective"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName2~~"MerchDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName20~~"LineGiftWrapEffective"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName21~~"LineShippingEffective"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName22~~"DTCLineTotal"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName23~~"DTCOrderTotal"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName3~~"SurchargeDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName4~~"PersDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName5~~"GiftWrapDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName6~~"ShippingDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName7~~"LineMerchDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName8~~"LineSurchargeDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ChargeName9~~"LineMonoPZDiscount"~GV not present in PROD XML
+OrderDropPublish/Constants/ConditionNo~~"N"~GV not present in PROD XML
+OrderDropPublish/Constants/ConditionYes~~"Y"~GV not present in PROD XML
+OrderDropPublish/Constants/DCDSFlag1~~"DC"~GV not present in PROD XML
+OrderDropPublish/Constants/DCDSFlag2~~"DS"~GV not present in PROD XML
+OrderDropPublish/Constants/Namespace~~"xmlns="http://www.sterlingcommerce.com/documentation/YFS/OrderDrop/output""~GV not present in PROD XML
+OrderDropPublish/Constants/NodeType~~"RDC"~GV not present in PROD XML
+OrderDropPublish/Constants/NodeType1~~"GC"~GV not present in PROD XML
+OrderDropPublish/Constants/NodeType2~~"DS"~GV not present in PROD XML
+OrderDropPublish/Constants/RootElement~~"Order"~GV not present in PROD XML
+OrderDropPublish/Constants/TaxName1~~"MerchTax"~GV not present in PROD XML
+OrderDropPublish/Constants/TaxName2~~"ShippingTax"~GV not present in PROD XML
+OrderDropPublish/Constants/TaxName3~~"MonoPZTax"~GV not present in PROD XML
+OrderDropPublish/Constants/TaxName4~~"MonoPZTax"~GV not present in PROD XML
+OrderDropPublish/Constants/TaxName5~~"SurchargeTax"~GV not present in PROD XML
+OrderDropPublish/Constants/TaxName6~~"GiftWrapTax"~GV not present in PROD XML
+OrderDropPublish/EMSConstants/AcknowledgeMode~~"Client"~GV not present in PROD XML
+OrderDropPublish/EMSConstants/DeliveryMode~~"PERSISTENT"~GV not present in PROD XML
+OrderDropPublish/EMSConstants/JMSExpirationSecs~~"0"~GV not present in PROD XML
+OrderDropPublish/EMSConstants/MaxSessions~~"1"~GV not present in PROD XML
+OrderDropPublish/EMSConstants/Priority~~"4"~GV not present in PROD XML
+OrderDropPublish/JMS/InputQueue~~"STERLING.ORDERDROP.PUBLISH"~GV not present in PROD XML
+OrderDropPublish/JMS/OutputQueueToCFS~~"BW.ORDERDROPTOCFS.PUBLISH"~GV not present in PROD XML
+OrderDropPublish/JMS/OutputQueueToCFS_AuditReplay~~"BW.ORDERDROPTOCFS.PUBLISH.REPLAY"~GV not present in PROD XML
+OrderDropPublish/JMS/OutputQueueToDTCMO~~"BW.ORDERDROPTODTC.PUBLISH"~GV not present in PROD XML
+OrderDropPublish/JMS/OutputQueueToDTCMO_AuditReplay~~"BW.ORDERDROPTODTC.PUBLISH.REPLAY"~GV not present in PROD XML
+OrderDropPublish/JMS/OutputQueueToPKMS~~"BW.ORDERDROPTOPKMS.PUBLISH"~GV not present in PROD XML
+OrderDropPublish/JMS/OutputQueueToRMS~~"BW.ORDERDROPTORMS.PUBLISH"~GV not present in PROD XML
+OrderDropPublish/JMS/OutputQueueToRMS_AuditReplay~~"BW.ORDERDROPTORMS.PUBLISH.REPLAY"~GV not present in PROD XML
+OrderDropToCFS/CLE/AUDITSTEP_BEGIN~~"BEGIN"~GV not present in PROD XML
+OrderDropToCFS/CLE/AUDITSTEP_END~~"END"~GV not present in PROD XML
+OrderDropToCFS/CLE/AUDIT_BEGIN_MESSAGE~~"RECEIVED ORDERDROPTOCFS MESSAGE FROM STERLING"~GV not present in PROD XML
+OrderDropToCFS/CLE/AUDIT_END_MESSAGE~~"COMPLETED PROCESSING ORDERDROPTOCFS MESSAGE FROM STERLING"~GV not present in PROD XML
+OrderDropToCFS/CLE/CFSAllOrders~~"AS400AD.ORDERDROPTOCFS.PUBLISH"~GV not present in PROD XML
+OrderDropToCFS/CLE/CFSFileCreate~~"TRIGGERED CFS FILE CREATION"~GV not present in PROD XML
+OrderDropToCFS/CLE/FileErrCode~~"ORDERDROPTOCFS-1002"~GV not present in PROD XML
+OrderDropToCFS/CLE/GenErrCode~~"ORDERDROPTOCFS-1000"~GV not present in PROD XML
+OrderDropToCFS/CLE/InterfaceCode~~"TIB_CFS.ORDERDROPTOCFS"~GV not present in PROD XML
+OrderDropToCFS/CLE/NotificationList~~"no value"~GV not present in PROD XML
+OrderDropToCFS/CLE/ParseErrCode~~"ORDERDROPTOCFS-1001"~GV not present in PROD XML
+OrderDropToCFS/CLE/TransFormErrCode~~"ORDERDROPTOCFS-1003"~GV not present in PROD XML
+OrderDropToCFS/CLE/TransactionDomain~~"TIB_CFS.ORDERDROPTOCFS"~GV not present in PROD XML
+OrderDropToCFS/CLE/TransactionType~~"TIB_CFS.ORDERDROPTOCFS"~GV not present in PROD XML
+OrderDropToCFS/Constants/ArchiveTriggerFile~~"C:\temp\cfs\ArchiveTriggerFile\"~GV not present in PROD XML
+OrderDropToCFS/Constants/Attribute/Type~~"Face Value"~GV not present in PROD XML
+OrderDropToCFS/Constants/CFSFIlePollingInterval~~"5"~GV not present in PROD XML
+OrderDropToCFS/Constants/CFSFileCreateTrigger~~"C:\temp\cfs\TriggerFile\CFSFileCreationTrigger.txt"~GV not present in PROD XML
+OrderDropToCFS/Constants/CFSOrderCreateFileHeader~~"xsi:schemaLocation="http://www.wsgc.com/SharedResources/XMLSchemas/EMS/FileHeader.xsd CFSOrderCreateFileHeader.xsd" xmlns="http://www.wsgc.com/SharedResources/XMLSchemas/EMS/FileHeader.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance""~GV not present in PROD XML
+OrderDropToCFS/Constants/CFSOrderCreateFileTail~~"xsi:schemaLocation="http://www.wsgc.com/SharedResources/XMLSchemas/EMS/FileTail.xsd CFSOrderCreateFileTail.xsd" xmlns="http://www.wsgc.com/SharedResources/XMLSchemas/EMS/FileTail.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance""~GV not present in PROD XML
+OrderDropToCFS/Constants/CFSTriggerFile~~"CFSTriggerFile"~GV not present in PROD XML
+OrderDropToCFS/Constants/DBSchemaName~~"RETURN_OWNER"~GV not present in PROD XML
+OrderDropToCFS/Constants/FileEnd~~"End of File"~GV not present in PROD XML
+OrderDropToCFS/Constants/FilePath~~"C:\temp\cfs\app\tibco\dtc\extract\cfsordercreate\new\stst0\"~GV not present in PROD XML
+OrderDropToCFS/Constants/JMSReceiverTimeout~~"10"~GV not present in PROD XML
+OrderDropToCFS/Constants/MessageHeader/From~~"WS"~GV not present in PROD XML
+OrderDropToCFS/Constants/MessageHeader/MessageID~~"ID"~GV not present in PROD XML
+OrderDropToCFS/Constants/MessageHeader/MessageVersion~~"1.0"~GV not present in PROD XML
+OrderDropToCFS/Constants/MessageHeader/MesssageType~~"OrderCreateRequest"~GV not present in PROD XML
+OrderDropToCFS/Constants/MessageHeader/Sender~~"WS"~GV not present in PROD XML
+OrderDropToCFS/Constants/MessageHeader/To~~"CFS"~GV not present in PROD XML
+OrderDropToCFS/Constants/MessagePerFile~~"5"~GV not present in PROD XML
+OrderDropToCFS/Constants/Namespace~~"xmlns="http://www.sterlingcommerce.com/documentation/YFS/OrderDrop/output""~GV not present in PROD XML
+OrderDropToCFS/Constants/PollForCFSFiles~~"C:\temp\cfs\TriggerFile\CFSTriggerFile.txt"~GV not present in PROD XML
+OrderDropToCFS/Constants/StartTime~~"1373676842000"~GV not present in PROD XML
+OrderDropToCFS/Constants/TimeInterval~~"120000"~GV not present in PROD XML
+OrderDropToCFS/Constants/Transaction~~"Local Transactional"~GV not present in PROD XML
+OrderDropToCFS/Constants/XSDRootElement~~"Order"~GV not present in PROD XML
+OrderDropToCFS/Constants/errDir~~"C:\TIBCODEV\CFSOrderDropRevamp\Error\"~GV not present in PROD XML
+OrderDropToCFS/Constants/fileNamePrefix~~"C:\TIBCODEV\CFSOrderDropRevamp\New\WS_OrderCreateRequest_XML_"~GV not present in PROD XML
+OrderDropToCFS/Constants/ftpDir~~"C:\TIBCODEV\CFSOrderDropRevamp\MoveIT\"~GV not present in PROD XML
+OrderDropToCFS/Constants/processedDir~~"/app/tibco/dtc/extract/cfsordercreate/ftpDir/copy/"~GV not present in PROD XML
+OrderDropToCFS/Constants/remoteFileName~~"/File/"~GV not present in PROD XML
+OrderDropToCFS/Constants/rootElement~~"FileAdapter"~GV not present in PROD XML
+OrderDropToCFS/EMSConstants/AcknowledgeMode~~"Client"~GV not present in PROD XML
+OrderDropToCFS/EMSConstants/DeliveryMode~~"PERSISTENT"~GV not present in PROD XML
+OrderDropToCFS/EMSConstants/JMSExpirationSecs~~"0"~GV not present in PROD XML
+OrderDropToCFS/EMSConstants/MaxSessions~~"1"~GV not present in PROD XML
+OrderDropToCFS/EMSConstants/Priority~~"4"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/CopyFileErrorCode~~"TIB_ORDERDROPCFS_100004"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/CopyFileErrorMsg~~"Unable to Copy File"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/FileException/ExceptionCode~~"TIB_ORDERDROPCFS_100001"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/FileException/ExceptionMsg~~"Exception in file handling"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/JDBCErrorCode~~"TIB_ORDERDROPCFS_100005"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/JDBCErrorMsg~~"Unable to Connect toSterling  DB for CFS MSGID sequence"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/JMSExceptionCode~~"TIB_ORDERDROPCFS_100003"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/JMSExceptionMsg~~"Unable To send End of File"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/ParseException/ExceptionCode~~"TIB_ORDERDROPCFS_100002"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/ParseException/ExceptionMsg~~"Parsing exception"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/TIBCOInternalExceptionCode~~"TIB_ORDERDROPCFS_100006"~GV not present in PROD XML
+OrderDropToCFS/Exceptions/TIBCOInternalExceptionMsg~~"TIBCOInternalException"~GV not present in PROD XML
+OrderDropToCFS/JMS/CFSMessageQueue~~"BW.CFSMESSAGE.PUBLISH"~GV not present in PROD XML
+OrderDropToCFS/JMS/FileIOReplayExceptionQueue~~"BW.CFSFILEIOEXCEPTION.REPLAY"~GV not present in PROD XML
+OrderDropToCFS/JMS/OrderDropRouterQueueToCFS~~"CFS.STRSALESORDERDROP.RECEIVE"~GV not present in PROD XML
+OrderDropToDTCMO/AS400Queues/DetailJMSQueue~~"DTCMO.ORDDROPDTL.PUBLISH"~GV not present in PROD XML
+OrderDropToDTCMO/AS400Queues/HeaderJMSQueue~~"DTCMO.ORDDROPHDR.PUBLISH"~GV not present in PROD XML
+OrderDropToDTCMO/AS400Queues/OrdDropJMSQueue01~~"DTCMO.ORDDROP.PUBLISH.001"~GV not present in PROD XML
+OrderDropToDTCMO/AS400Queues/OrdDropJMSQueue02~~"DTCMO.ORDDROP.PUBLISH.002"~GV not present in PROD XML
+OrderDropToDTCMO/AS400Queues/OrdDropJMSQueue03~~"DTCMO.ORDDROP.PUBLISH.003"~GV not present in PROD XML
+OrderDropToDTCMO/AS400Queues/OrdDropJMSQueue04~~"DTCMO.ORDDROP.PUBLISH.004"~GV not present in PROD XML
+OrderDropToDTCMO/AS400Queues/OrdDropJMSQueue05~~"DTCMO.ORDDROP.PUBLISH.005"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/AUDITSTEP_BEGIN~~"BEGIN"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/AUDITSTEP_END~~"END"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/AUDIT_BEGIN_MESSAGE~~"RECEIVED ORDERDROPTODTCMO MESSAGE FROM STERLING"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/AUDIT_END_MESSAGE~~"COMPLETED PROCESSING ORDERDROPTODTCMO MESSAGE FROM STERLING"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/FILTERED_MESSAGE~~"FILTERED ORDER: "~GV not present in PROD XML
+OrderDropToDTCMO/CLE/InterfaceCode~~"TIB_DTC.ORDERDROPTODTCMO"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/NotificationList~~"no value"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/PUBLISH_TO_ADAPTER_EXCEPTION_CODE~~"TIB_ORDERDROPDTCMO_100005"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/PUBLISH_TO_ADAPTER_EXCEPTION_MESSAGE~~"PUBLISH TO ADAPTER EXCEPTION"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/RARETAIL_FILTERED_MESSAGE~~"FILTERED RARETAIL ORDER: "~GV not present in PROD XML
+OrderDropToDTCMO/CLE/TIBCO_INTERNAL_EXCEPTION_CODE~~"TIB_ORDERDROPDTCMO_100002"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/TIBCO_INTERNAL_EXCEPTION_MSG~~"TIBCO_INTERNAL_EXCEPTION"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/TransactionType~~"OrderDropToDTCMO"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/XML_PARSE_EXCEPTION_CODE~~"TIB_ORDERDROPDTCMO_100001"~GV not present in PROD XML
+OrderDropToDTCMO/CLE/XML_PARSE_EXCEPTION_MESSAGE~~"XML PARSE EXCEPTION OCCURED"~GV not present in PROD XML
+OrderDropToDTCMO/ChargeCategory~~"HeaderInfo"~GV not present in PROD XML
+OrderDropToDTCMO/ChargeName~~"DTCOrderTotal"~GV not present in PROD XML
+OrderDropToDTCMO/ConditionYes~~"Y"~GV not present in PROD XML
+OrderDropToDTCMO/DCFlag~~"DC"~GV not present in PROD XML
+OrderDropToDTCMO/DSFlag~~"DS"~GV not present in PROD XML
+OrderDropToDTCMO/EMSConstants/AcknowledgeMode~~"Client"~GV not present in PROD XML
+OrderDropToDTCMO/EMSConstants/AuditReplayQueueSuffix~~"BW.ORDERDROPTODTC.PUBLISH.REPLAY"~GV not present in PROD XML
+OrderDropToDTCMO/EMSConstants/DeliveryMode~~"PERSISTENT"~GV not present in PROD XML
+OrderDropToDTCMO/EMSConstants/JMSExpirationSecs~~"0"~GV not present in PROD XML
+OrderDropToDTCMO/EMSConstants/MaxSessions~~"1"~GV not present in PROD XML
+OrderDropToDTCMO/EMSConstants/Priority~~"4"~GV not present in PROD XML
+OrderDropToDTCMO/EMSConstants/SourceQueueSuffix~~"DTC.STRSALESORDERDROP.RECEIVE"~GV not present in PROD XML
+OrderDropToDTCMO/ExtnChargeSpecLength~~"325"~GV not present in PROD XML
+OrderDropToDTCMO/Namespace~~"xmlns="http://www.sterlingcommerce.com/documentation/YFS/OrderDrop/output""~GV not present in PROD XML
+OrderDropToDTCMO/OlderLineCheck~~"VDR"~GV not present in PROD XML
+OrderDropToDTCMO/OrderLineLength~~"12880"~GV not present in PROD XML
+OrderDropToDTCMO/RARETAIL~~"RARETAIL"~GV not present in PROD XML
+OrderDropToDTCMO/RootElement~~"Order"~GV not present in PROD XML
+OrderDropToDTCMO/TrueFlag~~"true"~GV not present in PROD XML
+OrderDropToDTCMO/ZeroPadding14~~"00000000000000"~GV not present in PROD XML
+OrderDropToDTCMO/ZeroPadding9~~"000000000"~GV not present in PROD XML
+OrderDropToRMS/CLE/AUDITSTEP_BEGIN~~"BEGIN"~GV not present in PROD XML
+OrderDropToRMS/CLE/AUDITSTEP_END~~"END"~GV not present in PROD XML
+OrderDropToRMS/CLE/AUDIT_BEGIN_MESSAGE~~"RECEIVED ORDERDROPTORMS MESSAGE FROM STERLING"~GV not present in PROD XML
+OrderDropToRMS/CLE/AUDIT_END_MESSAGE~~"COMPLETED PROCESSING ORDERDROPTORMS MESSAGE FROM STERLING"~GV not present in PROD XML
+OrderDropToRMS/CLE/DB_CONNECTION_EXCEPTION_CODE~~"TIB_ORDERDROPRMS_100006"~GV not present in PROD XML
+OrderDropToRMS/CLE/DB_CONNECTION_EXCEPTION_MESSAGE~~"CONNECT TO DATABASE EXCEPTION"~GV not present in PROD XML
+OrderDropToRMS/CLE/FILTER_MESSAGE~~"FILTERED. ORDER NOT SENT TO RMS. DCDSFlag="DC""~GV not present in PROD XML
+OrderDropToRMS/CLE/FILTER_MESSAGE_2~~"FILTERED. ORDER NOT SENT TO RMS. OrderType="RARETAIL""~GV not present in PROD XML
+OrderDropToRMS/CLE/FILTER_MESSAGE_3~~"FILTERED. ORDER NOT SENT TO RMS. OrderType="INVENTORY_TRANSFER""~GV not present in PROD XML
+OrderDropToRMS/CLE/FILTER_STATUS~~"FILTERED"~GV not present in PROD XML
+OrderDropToRMS/CLE/InterfaceCode~~"TIB_RMS.ORDERDROPTORMS"~GV not present in PROD XML
+OrderDropToRMS/CLE/NotificationList~~"no value"~GV not present in PROD XML
+OrderDropToRMS/CLE/TIB_INTERNAL_EXCEPTION_CODE~~"TIB_ORDERDROPRMS_100003"~GV not present in PROD XML
+OrderDropToRMS/CLE/TIB_INTERNAL_EXCEPTION_MSG~~"TIB_INTERNAL_EXCEPTION"~GV not present in PROD XML
+OrderDropToRMS/CLE/TransactionType~~"OrderDropToRMS"~GV not present in PROD XML
+OrderDropToRMS/CLE/XML_PARSE_EXCEPTION_CODE~~"TIB_ORDERDROPRMS_100001"~GV not present in PROD XML
+OrderDropToRMS/CLE/XML_PARSE_EXCEPTION_MESSAGE~~"XML PARSE EXCEPTION"~GV not present in PROD XML
+OrderDropToRMS/Constants/DistroDescriptionFA~~"Future Allocation"~GV not present in PROD XML
+OrderDropToRMS/Constants/DistroDocTypeA~~"A"~GV not present in PROD XML
+OrderDropToRMS/Constants/DistroMessTypeCreate~~"CREATE"~GV not present in PROD XML
+OrderDropToRMS/Constants/InventoryTransfer~~"INVENTORY_TRANSFERS"~GV not present in PROD XML
+OrderDropToRMS/Constants/LineTypeFutureAlloc~~"FutureAllocation"~GV not present in PROD XML
+OrderDropToRMS/Constants/Namespace~~"xmlns="http://www.sterlingcommerce.com/documentation/YFS/OrderDrop/output""~GV not present in PROD XML
+OrderDropToRMS/Constants/Numerals~~"1"~GV not present in PROD XML
+OrderDropToRMS/Constants/PackageName~~"WSI_TIB_CUSTORDDROP"~GV not present in PROD XML
+OrderDropToRMS/Constants/ProcedureName~~"CONSUME_XML"~GV not present in PROD XML
+OrderDropToRMS/Constants/RARETAIL~~"RARETAIL"~GV not present in PROD XML
+OrderDropToRMS/Constants/RMSDateFormat~~"yyyy-MM-dd"~GV not present in PROD XML
+OrderDropToRMS/Constants/RootElement~~"Order"~GV not present in PROD XML
+OrderDropToRMS/Constants/SchemaName~~"RMS_OWNER"~GV not present in PROD XML
+OrderDropToRMS/Constants/TransactionDateTimeFormat~~"yyyyMMddHHmmss"~GV not present in PROD XML
+OrderDropToRMS/Constants/UserIdFutureAlloc~~"1"~GV not present in PROD XML
+OrderDropToRMS/EMSConstants/AcknowledgeMode~~"Client"~GV not present in PROD XML
+OrderDropToRMS/EMSConstants/AuditReplayQueueSuffix~~"BW.ORDERDROPTORMS.PUBLISH.REPLAY"~GV not present in PROD XML
+OrderDropToRMS/EMSConstants/DeliveryMode~~"PERSISTENT"~GV not present in PROD XML
+OrderDropToRMS/EMSConstants/JMSExpirationSecs~~"0"~GV not present in PROD XML
+OrderDropToRMS/EMSConstants/MaxSessions~~"1"~GV not present in PROD XML
+OrderDropToRMS/EMSConstants/Priority~~"4"~GV not present in PROD XML
+OrderDropToRMS/EMSConstants/RMSQueueForFutureAlloc~~"RMS.ALLOCORDER.RECEIVE"~GV not present in PROD XML
+OrderDropToRMS/EMSConstants/SourceQueueSuffix~~"RMS.STRSALESORDERDROP.RECEIVE"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/AuditEndMessages~~"ORDER ACKNOWLEDGE RECEIPT TO STERLING MESSAGE SENT"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/AuditEndReplay~~"END_REPLAY"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/AuditEndStatus~~"SUCCESS"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/AuditExceptionMessage~~"AN EXCEPTION OCCURED"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/AuditExceptionStatus~~"EXCEPTION"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/AuditStartMessage~~"ORDER RECEIPT  TO STERLING MESSAGE RECEIVED FROM STERLING"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/AuditStartReplay~~"BEGIN_REPLAY"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/AuditStartStatus~~"STARTED"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/CLEAdditionalInfoName~~"OrderNumber"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/InterfaceCode~~"TIB_STR.PKMSORDERACKTOSTERLING"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/TransactionDomain~~"STR"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/CLEConstants/TransactionType~~"ACKNOWLEDGEMENT"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/DocumentType~~"0001"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50001~~"TIB_ORDACKTOSTR_50001"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50001_MSG~~"Encoding Exception Occured"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50002~~"TIB_ORDACKTOSTR_50002"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50002_MSG~~"XML Pare Exception Occured"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50003~~"TIB_ORDACKTOSTR_50003"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50003_MSG~~"Missing Bytes"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50004~~"TIB_ORDACKTOSTR_50004"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50004_MSG~~"Schema Validation Failed"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50005~~"TIB_ORDACKTOSTR_50005"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50005_MSG~~"Error during JMS Session creation"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50006~~"TIB_ORDACKTOSTR_50006"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50006_MSG~~"Error occurred during JMS Queue Send"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50007~~"TIB_ORDACKTOSTR_50007"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50007_MSG~~"Unable to create JMS Message"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50008~~"TIB_ORDACKTOSTR_50008"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Exceptions/TIB_ORDACKTOSTR_50008_MSG~~"Invalid JMS input"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/Namespace~~"xmlns="http://www.sterlingcommerce.com/documentation/YFS/OrderDrop/output""~GV not present in PROD XML
+OrderReceiptToSTR/Constants/NodeTypeGC~~"GC"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/RootElement~~"Order"~GV not present in PROD XML
+OrderReceiptToSTR/Constants/TransactionType~~"ACKNOWLEDGEMENT"~GV not present in PROD XML
+OrderReceiptToSTR/EMSConstants/AcknowledgeMode~~"Client"~GV not present in PROD XML
+OrderReceiptToSTR/EMSConstants/DeliveryMode~~"PERSISTENT"~GV not present in PROD XML
+OrderReceiptToSTR/EMSConstants/JMSExpirationSecs~~"0"~GV not present in PROD XML
+OrderReceiptToSTR/EMSConstants/MaxSessions~~"1"~GV not present in PROD XML
+OrderReceiptToSTR/EMSConstants/Priority~~"4"~GV not present in PROD XML
+OrderReceiptToSTR/JMS/Maxsessions~~"4"~GV not present in PROD XML
+OrderReceiptToSTR/JMS/OrderDropConsumedXMLQueue~~"PKMS.ORDERRECEIPT.CREATE"~GV not present in PROD XML
+OrderReceiptToSTR/JMS/OrderDropConsumedXMLQueue_AuditReplay~~"PKMS.ORDERRECEIPT.CREATE.REPLAY"~GV not present in PROD XML
+OrderReceiptToSTR/JMS/OrderReceiptAckQueue~~"BW.ORDERDROP.ACK"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/AdditionalData/OrderNo~~"OrderNo"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/Exceptions/INVALID_ACTION_CODE~~"INVALID_ACTION"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/Exceptions/INVALID_ACTION_MSG~~"INVALID ACTION CODE RECEIVED: "~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/Exceptions/Redelivered_CODE~~"JMS_REDELIVERED"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/Exceptions/Redelivered_MSG~~"JMS Message Redelivered. Message is consumed but bot processed. Do not Replay"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/Exceptions/VIRTUAL_WH_NOT_FOUND_CODE~~"VIRTUAL_WH_NOT_FOUND"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/Exceptions/VIRTUAL_WH_NOT_FOUND_MSG~~"VIRTUAL WAREHOUSE NOT FOUND"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/InterfaceCode~~"RMS_STR.ORDERCREATETOSTERLING"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/TransactionDomain~~"ORDER"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/CLE/TransactionType~~"CREATE"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/CREATE~~"CREATE"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Create/DocumentType~~"0101.ex"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Create/EACH~~"EACH"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Create/ImplIndicator~~"PHASE1"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Create/OrderType~~"RMSALLOCATIONS"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Create/PK~~"PK"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Create/RTL~~"RTL"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Create/STR~~"STR"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/DELETE~~"DELETE"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Delete/CANCEL~~"CANCEL"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Delete/DocumentType~~"0101.ex"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Delete/ModificationReasonCode~~"RMS_ALLOCATION_DELETION"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Delete/ModificationReasonText~~"RMS_ALLOCATION_DELETION"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/Namespace~~"xmlns="http://services.wsgc.com/RMS/AllocationOrderRequest""~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/CS~~"CS"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/DocumentType~~"0001"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/EACH~~"EACH"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/EnteredBy~~"RMS"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/EntryType~~"RMS"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/PK~~"PK"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/RARETAIL~~"RARETAIL"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/REGULAR~~"REGULAR"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/ReqDeliveryDate~~"ReqDeliveryDate"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/OneInventory/STR~~"STR"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/Defaults/RootElement~~"AllocationRequest"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/JMS/DestinationQueue_CREATE~~"BW.RTLALLOCATION.CREATE"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/JMS/DestinationQueue_MODIFY~~"BW.RTLALLOCATION.MODIFY"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/JMS/DestinationQueue_OI~~"BW.RTLORDERALLOCATION.CREATE"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/JMS/MaxSessions~~"8"~GV not present in PROD XML
+RMSOrderCreateToSTR/CONSTANTS/JMS/SourceQueue~~"RMS.ORDERCREATE.RECEIVE"~GV not present in PROD XML
+RuntimeCertificatesDirectory~~"C:/security/JMSSSL/"~GV Present in Both XMLs but not matching
+STRTransferOrderToRMS/CONSTANTS/CLE/Exceptions/FUNCTIONAL.INVALID.TRANSACTIONTYPE~~"FUNCTIONAL.INVALID.TRANSACTIONTYPE"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/Exceptions/InvalidTransactionTypeMsg~~"INVALID TRANSACTION TYPE RECEIVED"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/Exceptions/JMSRedelivered~~"DO NOT REPLAY. Received a JMS redelivered message. Possibly as a result of an unhandled exception. Please investigate the root cause."~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/Exceptions/TECHNICAL.JMS.REDELIVERED~~"TECHNICAL.JMS.REDELIVERED"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/InterfaceCode~~"STR_RMS.TRANSFERORDER"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/MessageLogs/AuditEndMessage~~"MESSAGE SENT TO RMS "~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/MessageLogs/AuditEndStatus~~"SUCCESS"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/MessageLogs/AuditStartMessage~~"MESSAGE RECEIVED FROM STERLING"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/MessageLogs/AuditStartStatus~~"STARTED"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/OrderNo~~"OrderNo"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/Region~~"Region"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/TransactionDomain~~"TRANSFER ORDER"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/CLE/TransactionType~~"TransactionType"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Create/JMSHEADER~~"JMSHEADER"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Create/Namespace~~"xmlns="http://www.sterlingcommerce.com/documentation/YFS/ORDER_CREATE/ON_SUCCESS""~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Create/REQUEST~~"REQUEST"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Create/RootElement~~"OMSEvent"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Create/TO_CREATE~~"TO_CREATE"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Create/TransferCreate~~"TransferCreate"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Create/XMLPAYLOAD~~"XMLPAYLOAD"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/JMSHEADER~~"JMSHEADER"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/Namespace~~"xmlns="http://www.sterlingcommerce.com/documentation/YFS/ORDER_CHANGE/ON_SUCCESS""~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/OrderLineKey~~"OrderLineKey"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/OrderedQty~~"OrderedQty"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/REQUEST~~"REQUEST"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/RootElement~~"OMSEvent"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/TO_MODIFY~~"TO_MODIFY"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/TransferUpdate~~"TransferUpdate"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/Defaults/Modify/XMLPAYLOAD~~"XMLPAYLOAD"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/JMS/DestinationQueuePostfix~~"RMS.TRANSFERORDER.RECEIVE"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/JMS/MaxSessions~~"8"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/JMS/Properties/OrderNo~~"OrderNo"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/JMS/Properties/TransactionType~~"TransactionType"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/JMS/ReplayQueueSuffix~~"STERLING.TRANSFERORDER.REPLAY"~GV not present in PROD XML
+STRTransferOrderToRMS/CONSTANTS/JMS/SourceQueuePostfix~~"STERLING.TRANSFERORDER.PUBLISH"~GV not present in PROD XML
+AdapterAS400Connections/InvocationTimeOut~~"0"~GV not present in PROD XML
+AdapterAS400Connections/Environment~~"no value"~GV not present in PROD XML
+AdapterAS400Connections/FileLimit~~"30000"~GV not present in PROD XML
+AdapterAS400Connections/WorkLib~~"no value"~GV not present in PROD XML
+AdapterAS400Connections/InboundThreadCount~~"1"~GV not present in PROD XML
+AdapterAS400Connections/User~~"TIBCODATAQ"~GV not present in PROD XML
+AdapterAS400Connections/TimeOut~~"15000"~GV not present in PROD XML
+AdapterAS400Connections/Password~~"#!wdgD9m/dXwluZ8VXLlQ+rWDloVNKACzdrj2oM1TVNhc="~GV not present in PROD XML
+AdapterAS400Connections/MaximumNoOfConnections~~"20"~GV not present in PROD XML
+AdapterAS400Connections/SecurityLib~~"no value"~GV not present in PROD XML
+AdapterAS400Connections/InitialNoOfConnections~~"3"~GV not present in PROD XML
+AdapterAS400Connections/ServerName~~"DTCQA"~GV not present in PROD XML
+AdapterAS400Connections/ConnectionIdleTime~~"1000"~GV not present in PROD XML
+AdapterAS400Connections/FileCount~~"3"~GV not present in PROD XML
+AdapterAS400Connections/InvocationTimeOut~~"0"~GV not present in PROD XML
+AdapterAS400Connections/Environment~~"no value"~GV not present in PROD XML
+AdapterAS400Connections/FileLimit~~"30000"~GV not present in PROD XML
+AdapterAS400Connections/WorkLib~~"no value"~GV not present in PROD XML
+AdapterAS400Connections/InboundThreadCount~~"1"~GV not present in PROD XML
+AdapterAS400Connections/User~~"TIBCODATAQ"~GV not present in PROD XML
+AdapterAS400Connections/TimeOut~~"15000"~GV not present in PROD XML
+AdapterAS400Connections/Password~~"#!ZBb+my5uEmBu5wmBEyY3YmPf2i3k6r7vMyC/SsvEZqg="~GV not present in PROD XML
+AdapterAS400Connections/MaximumNoOfConnections~~"20"~GV not present in PROD XML
+AdapterAS400Connections/SecurityLib~~"no value"~GV not present in PROD XML
+AdapterAS400Connections/InitialNoOfConnections~~"3"~GV not present in PROD XML
+AdapterAS400Connections/ServerName~~"DTCQA"~GV not present in PROD XML
+AdapterAS400Connections/ConnectionIdleTime~~"1000"~GV not present in PROD XML
+AdapterAS400Connections/FileCount~~"3"~GV not present in PROD XML
+RvaHost~localhost~""~GV not present in Staged XML
+RvDaemon~tcp:7500~""~GV not present in Staged XML
+OrderToPKMS/Constants/DeferredDeliveryDate~DeferredDeliveryDate~""~GV not present in Staged XML
+RvService~7500~""~GV not present in Staged XML
+RvNetwork~~""~GV not present in Staged XML
+JmsSslProviderUrl~ssl://localhost:7243~""~GV not present in Staged XML
+RvaPort~7600~""~GV not present in Staged XML
+JmsProviderUrl~tcp://localhost:7222~""~GV not present in Staged XML
+RuntimeRvDaemonCertificate~~""~GV not present in Staged XML
+RemoteRvDaemon~~""~GV not present in Staged XML

@@ -1,0 +1,1006 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/DataQueueWrite/DataQueueWrite" xmlns:ns10="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCBalanceInquirySvcConsumer/OutboundMessage/OutboundMessage" xmlns:ns="http://services.wsgc.com/2014/Payment" xmlns:ns11="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCBalanceInquirySvcConsumer/DataQueueWrite/DataQueueWrite" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:ns13="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/OutboundMessage" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns3="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" xmlns:ns4="http://www.tibco.com/pe/EngineTypes" xmlns:pfx2="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd" xmlns:ns5="http://schemas.tibco.com/bw/plugins/ae/5.0/aeExceptions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions">
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2014/Payment/tokenization.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/DataQueueWrite/DataQueueWrite" schemaLocation="/AESchemas/ae/as400/IBMiAdapterConfiguration/DataQueueWrite/DataQueueWrite.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCBalanceInquirySvcConsumer/DataQueueWrite/DataQueueWrite" schemaLocation="/AESchemas/ae/as400/LRCBalanceInquirySvcConsumer/DataQueueWrite/DataQueueWrite.aeschema"/>
+    <pd:name>BusinessProcesses/LrcBalanceInquiry/MessageTransportHandlers/DTCHandler.process</pd:name>
+    <pd:startName>LRCBalanceInquiryAdapterJMSSubscriber</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="LRCBalanceInquiryAdapterJMSSubscriber">
+        <pd:type>com.tibco.plugin.ae.AESubscriberActivity</pd:type>
+        <pd:resourceType>ae.aepalette.aeSubscription</pd:resourceType>
+        <pd:x>66</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <ae.aepalette.sharedProperties.transportChoice>default</ae.aepalette.sharedProperties.transportChoice>
+            <ae.aepalette.sharedProperties.useRequestReply>false</ae.aepalette.sharedProperties.useRequestReply>
+            <ae.aepalette.sharedProperties.adapterService>/Adapters/LRCBalanceInquirySvcConsumer.adas400#adapterService.BalanceInquiryPublisher</ae.aepalette.sharedProperties.adapterService>
+            <tpPluginEndpointName>BalanceInquiryPublisherEndPoint</tpPluginEndpointName>
+            <ae.aepalette.sharedProperties.transportType>jmsQueue</ae.aepalette.sharedProperties.transportType>
+            <ae.aepalette.sharedProperties.jmsQueueSessionQueue>%%PrefixQueue%%.%%ENV%%.%%LrcBalanceInquiry/AS400Adapter/JMS/AS400QueueNamePubSuffix%%</ae.aepalette.sharedProperties.jmsQueueSessionQueue>
+            <ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>%%JMSConnections/EMSEPSSECURE/QueueConnectionFactory%%</ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.jmsSessionUsername>%%JMSConnections/EMSEPSSECURE/UserName%%</ae.aepalette.sharedProperties.jmsSessionUsername>
+            <ae.aepalette.sharedProperties.jmsSessionPassword>%%JMSConnections/EMSEPSSECURE/Password%%</ae.aepalette.sharedProperties.jmsSessionPassword>
+            <ae.aepalette.sharedProperties.jmsSessionProviderURL>%%JMSConnections/EMSEPSSECURE/JNDIContextURL%%</ae.aepalette.sharedProperties.jmsSessionProviderURL>
+            <ae.aepalette.sharedProperties.isAutoConfirm>false</ae.aepalette.sharedProperties.isAutoConfirm>
+            <ae.aepalette.sharedProperties.jmsTopicSessionConnectionFactory>TopicConnectionFactory</ae.aepalette.sharedProperties.jmsTopicSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.autoGenClientID>true</ae.aepalette.sharedProperties.autoGenClientID>
+            <useSsl>true</useSsl>
+            <ae.aepalette.sharedProperties.jmsSessionJNDILookups>true</ae.aepalette.sharedProperties.jmsSessionJNDILookups>
+            <ae.aepalette.sharedProperties.jmsTopicSessionTopic>%%PrefixQueue%%.%%ENV%%.%%LrcBalanceInquiry/AS400Adapter/JMS/AS400QueueNamePubSuffix%%</ae.aepalette.sharedProperties.jmsTopicSessionTopic>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+                <ns0:trace>true</ns0:trace>
+                <ns0:debugTrace>true</ns0:debugTrace>
+                <ns0:verifyHostName>false</ns0:verifyHostName>
+                <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+                <ns0:cert isRef="true">%%RuntimeCertificatesDirectory%%</ns0:cert>
+                <ns0:runtimeCertificateDir>%%RuntimeCertificatesDirectory%%</ns0:runtimeCertificateDir>
+            </ns0:ssl>
+            <ae.aepalette.sharedProperties.outputMeta>
+                <aeMeta>/AESchemas/ae/as400/LRCBalanceInquirySvcConsumer/OutboundMessage/OutboundMessage.aeschema#class.BalanceInquiryPublisher</aeMeta>
+            </ae.aepalette.sharedProperties.outputMeta>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1346</pd:endX>
+    <pd:endY>191</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <TransactionID>
+            <xsd:element name="TransactionID" type="xsd:string"/>
+        </TransactionID>
+        <ResponseToAdapter ref="ns11:BalanceInquirySubscriber"/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1428011603211</pd:targetNamespace>
+    <pd:activity name="AssignTransactionID">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>243</pd:x>
+        <pd:y>444</pd:y>
+        <config>
+            <variableName>TransactionID</variableName>
+        </config>
+        <pd:inputBindings>
+            <TransactionID>
+                <xsl:value-of select="concat(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns4:ProcessContext/ProcessId,  $_globalVariables/ns2:GlobalVariables/ENV   , BW:getHostName())"/>
+            </TransactionID>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>240</pd:x>
+        <pd:y>336</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>1209</pd:x>
+        <pd:y>190</pd:y>
+        <config>
+            <ConfirmEvent>LRCBalanceInquiryAdapterJMSSubscriber</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm-1">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>1202</pd:x>
+        <pd:y>336</pd:y>
+        <config>
+            <ConfirmEvent>LRCBalanceInquiryAdapterJMSSubscriber</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="LogPaymentServiceErrorResponse">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>848</pd:x>
+        <pd:y>336</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendLogRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns12:LogRequest>
+                <ns12:envCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                </ns12:envCode>
+                <ns12:appCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                </ns12:appCode>
+                <ns12:interfaceCode>
+                    <xsl:value-of select="$SetCLEParams/root/InterfaceCode"/>
+                </ns12:interfaceCode>
+                <ns12:timestamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns12:timestamp>
+                <ns12:message>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/EndAuditMessage"/>
+                </ns12:message>
+                <ns12:TransactionDetails>
+                    <ns12:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns12:transactionDomain>
+                    <ns12:transactionType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/CLE/TransactionType"/>
+                    </ns12:transactionType>
+                    <ns12:transactionID>
+                        <xsl:value-of select="$SetCLEParams/root/TransactionId"/>
+                    </ns12:transactionID>
+                </ns12:TransactionDetails>
+                <ns12:AuditInfo>
+                    <ns12:payload>
+                        <xsl:value-of select="tib:render-xml($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher)"/>
+                    </ns12:payload>
+                    <ns12:auditStep>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Constants/AuditEnd"/>
+                    </ns12:auditStep>
+                </ns12:AuditInfo>
+            </ns12:LogRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogPaymentServiceRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/AuditLogMessage.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$SetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <AuditMessageType>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Constants/VALUE_DTCREQUEST"/>
+                </AuditMessageType>
+                <payloadTrue>
+                    <xsl:value-of select="true()"/>
+                </payloadTrue>
+                <ns12:LogRequest>
+                    <ns12:envCode>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                    </ns12:envCode>
+                    <ns12:appCode>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                    </ns12:appCode>
+                    <ns12:interfaceCode>
+                        <xsl:value-of select="$SetCLEParams/root/InterfaceCode"/>
+                    </ns12:interfaceCode>
+                    <ns12:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns12:timestamp>
+                    <ns12:message>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/BeginAuditMessage"/>
+                    </ns12:message>
+                    <ns12:TransactionDetails>
+                        <ns12:transactionDomain>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                        </ns12:transactionDomain>
+                        <ns12:transactionType>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/CLE/TransactionType"/>
+                        </ns12:transactionType>
+                        <ns12:transactionID>
+                            <xsl:value-of select="$SetCLEParams/root/TransactionId"/>
+                        </ns12:transactionID>
+                    </ns12:TransactionDetails>
+                    <ns12:AuditInfo>
+                        <ns12:payload>
+                            <xsl:value-of select="tib:render-xml($LRCBalanceInquiryAdapterJMSSubscriber)"/>
+                        </ns12:payload>
+                        <ns12:auditStep>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Constants/AuditBegin"/>
+                        </ns12:auditStep>
+                    </ns12:AuditInfo>
+                </ns12:LogRequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogPaymentServiceResponse">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>948</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/AuditLogMessage.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$SetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <AuditMessageType>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Constants/VALUE_DTCRESPONSE"/>
+                </AuditMessageType>
+                <payloadTrue>
+                    <xsl:value-of select="true()"/>
+                </payloadTrue>
+                <ns12:LogRequest>
+                    <ns12:envCode>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                    </ns12:envCode>
+                    <ns12:appCode>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                    </ns12:appCode>
+                    <ns12:interfaceCode>
+                        <xsl:value-of select="$SetCLEParams/root/InterfaceCode"/>
+                    </ns12:interfaceCode>
+                    <ns12:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns12:timestamp>
+                    <ns12:message>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/EndAuditMessage"/>
+                    </ns12:message>
+                    <ns12:TransactionDetails>
+                        <ns12:transactionDomain>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                        </ns12:transactionDomain>
+                        <ns12:transactionType>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/CLE/TransactionType"/>
+                        </ns12:transactionType>
+                        <ns12:transactionID>
+                            <xsl:value-of select="$SetCLEParams/root/TransactionId"/>
+                        </ns12:transactionID>
+                    </ns12:TransactionDetails>
+                    <ns12:AuditInfo>
+                        <ns12:payload>
+                            <xsl:value-of select="tib:render-xml($MapDTCMOControllerOutput/ns11:BalanceInquirySubscriber)"/>
+                        </ns12:payload>
+                        <ns12:auditStep>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/Constants/AuditEnd"/>
+                        </ns12:auditStep>
+                    </ns12:AuditInfo>
+                </ns12:LogRequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>389</pd:x>
+        <pd:y>336</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Type" type="xsd:string"/>
+                            <xsd:element name="Detail" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                            <xsd:element name="ErrorMessage" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="string-length($_error_PublishtoBalanceInuirySubscriber/ActivityErrors/ns5:TransportException/msg)!=0">
+                    <root>
+                        <Type>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/TRANSPORT_EXCEPTION/Type"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/TRANSPORT_EXCEPTION/Detail"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/TRANSPORT_EXCEPTION/ErrorMessage"/>
+                        </ErrorMessage>
+                    </root>
+                </xsl:when>
+                <xsl:when test="string-length($_error_PublishtoBalanceInuirySubscriber/ActivityErrors/ns5:SerializationException/msg)!=0">
+                    <root>
+                        <Type>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/SERIALIZATION_EXCEPTION/Type"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/SERIALIZATION_EXCEPTION/Detail"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/SERIALIZATION_EXCEPTION/ErrorMessage"/>
+                        </ErrorMessage>
+                    </root>
+                </xsl:when>
+                <xsl:when test="string-length($_error_PublishtoBalanceInuirySubscriber/ActivityErrors/ns5:TimeoutException/msg)!=0">
+                    <root>
+                        <Type>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/TIMEOUT_EXCEPTION/Type"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/TIMEOUT_EXCEPTION/Detail"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/TIMEOUT_EXCEPTION/ErrorMessage"/>
+                        </ErrorMessage>
+                    </root>
+                </xsl:when>
+                <xsl:when test="string-length($_error_MapInputToXMLValidator/root/Error/Type)!=0">
+                    <root>
+                        <Type>
+                            <xsl:value-of select="$_error_MapInputToXMLValidator/root/Error/Type"/>
+                        </Type>
+                        <xsl:for-each select="$_error_MapInputToXMLValidator/root/Error/Detail">
+                            <Detail>
+                                <xsl:value-of select="."/>
+                            </Detail>
+                        </xsl:for-each>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_error_MapInputToXMLValidator/root/Error/ErrorMessage"/>
+                        </ErrorMessage>
+                    </root>
+                </xsl:when>
+                <xsl:when test="string-length($_error_MapDTCMOControllerOutput/root/Error/Type)!=0">
+                    <root>
+                        <Type>
+                            <xsl:value-of select="$_error_MapDTCMOControllerOutput/root/Error/Type"/>
+                        </Type>
+                        <xsl:for-each select="$_error_MapDTCMOControllerOutput/root/Error/Detail">
+                            <Detail>
+                                <xsl:value-of select="."/>
+                            </Detail>
+                        </xsl:for-each>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_error_MapDTCMOControllerOutput/root/Error/ErrorMessage"/>
+                        </ErrorMessage>
+                    </root>
+                </xsl:when>
+                <xsl:otherwise>
+                    <root>
+                        <Type>
+                            <xsl:value-of select="$_error/ns4:ErrorReport/MsgCode"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="$_error/ns4:ErrorReport/Msg"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_error/ns4:ErrorReport/Msg"/>
+                        </ErrorMessage>
+                    </root>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapDTCMOControllerOutput">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>806</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcBalanceInquiry/ResponseProcessors/MapDTCMOResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:copy-of select="$BalanceInquiryCommon/ns:LrcBalanceInquiryResponse"/>
+                <xsl:if test="not(($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/OutboundDataQueue/@xsi:nil=(&quot;true&quot;)) or ($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/OutboundDataQueue/@xsi:nil=(&quot;1&quot;)))">
+                    <OutboundDataQueue>
+                        <xsl:value-of select="$LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/OutboundDataQueue"/>
+                    </OutboundDataQueue>
+                </xsl:if>
+                <xsl:if test="$LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/ConsumerTransactionId">
+                    <ConsumerTransactionId>
+                        <xsl:value-of select="$LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/ConsumerTransactionId"/>
+                    </ConsumerTransactionId>
+                </xsl:if>
+                <xsl:if test="not(($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/OrderNumber/@xsi:nil=(&quot;true&quot;)) or ($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/OrderNumber/@xsi:nil=(&quot;1&quot;)))">
+                    <OrderNumber>
+                        <xsl:value-of select="$LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/OrderNumber"/>
+                    </OrderNumber>
+                </xsl:if>
+                <xsl:if test="not(($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/CertificateNumber/@xsi:nil=(&quot;true&quot;)) or ($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/CertificateNumber/@xsi:nil=(&quot;1&quot;)))">
+                    <CertificateNumber>
+                        <xsl:value-of select="$LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/CertificateNumber"/>
+                    </CertificateNumber>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapInputToXMLValidator">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>479</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcBalanceInquiry/RequestProcessors/ValidateDTCMORequest.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="PublishtoBalanceInuirySubscriber">
+        <pd:type>com.tibco.plugin.ae.AEPublisherActivity</pd:type>
+        <pd:resourceType>ae.aepalette.aePubActivity</pd:resourceType>
+        <pd:x>1082</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <ae.aepalette.sharedProperties.transportChoice>default</ae.aepalette.sharedProperties.transportChoice>
+            <ae.aepalette.sharedProperties.useRequestReply>false</ae.aepalette.sharedProperties.useRequestReply>
+            <ae.aepalette.sharedProperties.adapterService>/Adapters/LRCBalanceInquirySvcConsumer.adas400#adapterService.BalanceInquirySubscriber</ae.aepalette.sharedProperties.adapterService>
+            <tpPluginEndpointName>BalanceInquirySubscriberEndPoint</tpPluginEndpointName>
+            <ae.aepalette.sharedProperties.transportType>jmsQueue</ae.aepalette.sharedProperties.transportType>
+            <ae.aepalette.sharedProperties.jmsQueueSessionQueue>%%PrefixQueue%%.%%ENV%%.%%LrcBalanceInquiry/AS400Adapter/JMS/AS400QueueNameSubSuffix%%</ae.aepalette.sharedProperties.jmsQueueSessionQueue>
+            <ae.aepalette.sharedProperties.deliveryMode>NONPERSISTENT</ae.aepalette.sharedProperties.deliveryMode>
+            <ae.aepalette.sharedProperties.timeToLive>0</ae.aepalette.sharedProperties.timeToLive>
+            <ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>%%JMSConnections/EMSEPSSECURE/QueueConnectionFactory%%</ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.jmsSessionUsername>%%JMSConnections/EMSEPSSECURE/UserName%%</ae.aepalette.sharedProperties.jmsSessionUsername>
+            <ae.aepalette.sharedProperties.jmsSessionPassword>%%JMSConnections/EMSEPSSECURE/Password%%</ae.aepalette.sharedProperties.jmsSessionPassword>
+            <ae.aepalette.sharedProperties.jmsSessionProviderURL>%%JMSConnections/EMSEPSSECURE/JNDIContextURL%%</ae.aepalette.sharedProperties.jmsSessionProviderURL>
+            <ae.aepalette.sharedProperties.jmsSessionJNDILookups>true</ae.aepalette.sharedProperties.jmsSessionJNDILookups>
+            <useSsl>true</useSsl>
+            <ae.aepalette.sharedProperties.outputMeta>
+                <aeMeta>/AESchemas/ae/as400/LRCBalanceInquirySvcConsumer/DataQueueWrite/DataQueueWrite.aeschema#class.BalanceInquirySubscriber</aeMeta>
+            </ae.aepalette.sharedProperties.outputMeta>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002"/>
+        </config>
+        <pd:inputBindings>
+            <aePubInputType>
+                <body>
+                    <xsl:copy-of select="$MapDTCMOControllerOutput/ns11:BalanceInquirySubscriber"/>
+                </body>
+            </aePubInputType>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="PublishtoBalanceInuirySubscriber-Exception">
+        <pd:type>com.tibco.plugin.ae.AEPublisherActivity</pd:type>
+        <pd:resourceType>ae.aepalette.aePubActivity</pd:resourceType>
+        <pd:x>1017</pd:x>
+        <pd:y>336</pd:y>
+        <config>
+            <ae.aepalette.sharedProperties.transportChoice>default</ae.aepalette.sharedProperties.transportChoice>
+            <ae.aepalette.sharedProperties.useRequestReply>false</ae.aepalette.sharedProperties.useRequestReply>
+            <ae.aepalette.sharedProperties.adapterService>/Adapters/LRCBalanceInquirySvcConsumer.adas400#adapterService.BalanceInquirySubscriber</ae.aepalette.sharedProperties.adapterService>
+            <tpPluginEndpointName>BalanceInquirySubscriberEndPoint</tpPluginEndpointName>
+            <ae.aepalette.sharedProperties.transportType>jmsQueue</ae.aepalette.sharedProperties.transportType>
+            <ae.aepalette.sharedProperties.jmsQueueSessionQueue>%%PrefixQueue%%.%%ENV%%.%%LrcBalanceInquiry/AS400Adapter/JMS/AS400QueueNameSubSuffix%%</ae.aepalette.sharedProperties.jmsQueueSessionQueue>
+            <ae.aepalette.sharedProperties.deliveryMode>NONPERSISTENT</ae.aepalette.sharedProperties.deliveryMode>
+            <ae.aepalette.sharedProperties.timeToLive>0</ae.aepalette.sharedProperties.timeToLive>
+            <ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>%%JMSConnections/EMSEPSSECURE/QueueConnectionFactory%%</ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.jmsSessionUsername>%%JMSConnections/EMSEPSSECURE/UserName%%</ae.aepalette.sharedProperties.jmsSessionUsername>
+            <ae.aepalette.sharedProperties.jmsSessionPassword>%%JMSConnections/EMSEPSSECURE/Password%%</ae.aepalette.sharedProperties.jmsSessionPassword>
+            <ae.aepalette.sharedProperties.jmsSessionProviderURL>%%JMSConnections/EMSEPSSECURE/JNDIContextURL%%</ae.aepalette.sharedProperties.jmsSessionProviderURL>
+            <ae.aepalette.sharedProperties.jmsSessionJNDILookups>true</ae.aepalette.sharedProperties.jmsSessionJNDILookups>
+            <useSsl>true</useSsl>
+            <ae.aepalette.sharedProperties.outputMeta>
+                <aeMeta>/AESchemas/ae/as400/LRCBalanceInquirySvcConsumer/DataQueueWrite/DataQueueWrite.aeschema#class.BalanceInquirySubscriber</aeMeta>
+            </ae.aepalette.sharedProperties.outputMeta>
+            <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002"/>
+        </config>
+        <pd:inputBindings>
+            <aePubInputType>
+                <body>
+                    <xsl:copy-of select="$ResponseToAdapter/ns11:BalanceInquirySubscriber"/>
+                </body>
+            </aePubInputType>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="BalanceInquiryCommon">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>632</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <processName>/BusinessProcesses/LrcBalanceInquiry/BalanceInquiry.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$MapInputToXMLValidator/root/ns:LrcBalanceInquiryRequest"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ResponseToAdapterException">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>519</pd:x>
+        <pd:y>336</pd:y>
+        <config>
+            <variableName>ResponseToAdapter</variableName>
+        </config>
+        <pd:inputBindings>
+            <ns11:BalanceInquirySubscriber>
+                <xsl:variable name="Entry" select="$LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry"/>
+                <xsl:variable name="Blank" select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/Blank"/>
+                <xsl:variable name="Detail" select="tib:pad-and-limit(tib:concat-sequence($Map-Data/root/Detail), 1500 )"/>
+                <Entry>
+                    <OutboundDataQueue>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/OutboundDataQueue,20)"/>
+                    </OutboundDataQueue>
+                    <EnvironmentIdentifier>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/EnvironmentIdentifier,10)"/>
+                    </EnvironmentIdentifier>
+                    <RegionIdentifier>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/RegionIdentifier,10)"/>
+                    </RegionIdentifier>
+                    <SourceSystemIdentifier>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/SourceSystemIdentifier,50)"/>
+                    </SourceSystemIdentifier>
+                    <TransactionId>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/TransactionId,30)"/>
+                    </TransactionId>
+                    <ConsumerTransactionId>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/ConsumerTransactionId,30)"/>
+                    </ConsumerTransactionId>
+                    <TransactionTime>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/TransactionTime,30)"/>
+                    </TransactionTime>
+                    <Concept>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/Concept,5)"/>
+                    </Concept>
+                    <Channel>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/Channel,10)"/>
+                    </Channel>
+                    <UserId>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/UserId,10)"/>
+                    </UserId>
+                    <OrderNumber>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/OrderNumber,12)"/>
+                    </OrderNumber>
+                    <CertificateType>
+                        <xsl:value-of select="tib:pad-and-limit($Blank,10)"/>
+                    </CertificateType>
+                    <CertificateStatus>
+                        <xsl:value-of select="tib:pad-and-limit($Blank,10)"/>
+                    </CertificateStatus>
+                    <CurrencyCode>
+                        <xsl:value-of select="tib:pad-and-limit($Blank,3)"/>
+                    </CurrencyCode>
+                    <CertificateAmount>
+                        <xsl:value-of select="tib:pad-and-limit($Blank,10)"/>
+                    </CertificateAmount>
+                    <BalanceAmount>
+                        <xsl:value-of select="tib:pad-and-limit($Blank,10)"/>
+                    </BalanceAmount>
+                    <Expiration>
+                        <xsl:value-of select="tib:pad-and-limit($Blank,10)"/>
+                    </Expiration>
+                    <Code>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/Code,40)"/>
+                    </Code>
+                    <SubCode>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/SubCode,40)"/>
+                    </SubCode>
+                    <CertificateNumber>
+                        <xsl:value-of select="tib:pad-and-limit($Entry/CertificateNumber,20)"/>
+                    </CertificateNumber>
+                    <ErrorType>
+                        <xsl:value-of select="tib:pad-and-limit($Map-Data/root/Type,100)"/>
+                    </ErrorType>
+                    <ErrorDetail1>
+                        <xsl:value-of select="substring($Detail, 1, 100)"/>
+                    </ErrorDetail1>
+                    <ErrorDetail2>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 101, 100))">
+                                <xsl:value-of select="substring($Detail, 101, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail2>
+                    <ErrorDetail3>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 201, 100))">
+                                <xsl:value-of select="substring($Detail, 201, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail3>
+                    <ErrorDetail4>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 301, 100))">
+                                <xsl:value-of select="substring($Detail, 301, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail4>
+                    <ErrorDetail5>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 401, 100))">
+                                <xsl:value-of select="substring($Detail, 401, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail5>
+                    <ErrorDetail6>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 501, 100))">
+                                <xsl:value-of select="substring($Detail, 501, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail6>
+                    <ErrorDetail7>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 601, 100))">
+                                <xsl:value-of select="substring($Detail, 601, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail7>
+                    <ErrorDetail8>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 701, 100))">
+                                <xsl:value-of select="substring($Detail, 701, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail8>
+                    <ErrorDetail9>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 801, 100))">
+                                <xsl:value-of select="substring($Detail, 801, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail9>
+                    <ErrorDetail10>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 901, 100))">
+                                <xsl:value-of select="substring($Detail, 901, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail10>
+                    <ErrorDetail11>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 1001, 100))">
+                                <xsl:value-of select="substring($Detail, 1001, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail11>
+                    <ErrorDetail12>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 1101, 100))">
+                                <xsl:value-of select="substring($Detail, 1101, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail12>
+                    <ErrorDetail13>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 1201, 100))">
+                                <xsl:value-of select="substring($Detail, 1201, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail13>
+                    <ErrorDetail14>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 1301, 100))">
+                                <xsl:value-of select="substring($Detail, 1301, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail14>
+                    <ErrorDetail15>
+                        <xsl:choose>
+                            <xsl:when test="exists(substring($Detail, 1401, 100))">
+                                <xsl:value-of select="substring($Detail, 1401, 100)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </ErrorDetail15>
+                    <ErrorMessage>
+                        <xsl:value-of select="tib:pad-and-limit($Map-Data/root/ErrorMessage,200)"/>
+                    </ErrorMessage>
+                </Entry>
+            </ns11:BalanceInquirySubscriber>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>673</pd:x>
+        <pd:y>336</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="exists($_error_MapInputToXMLValidator/root/ns12:ExceptionHandlerRequest) and not (empty($_error_MapInputToXMLValidator/root/ns12:ExceptionHandlerRequest))">
+                    <xsl:copy-of select="$_error_MapInputToXMLValidator/root/ns12:ExceptionHandlerRequest"/>
+                </xsl:when>
+                <xsl:when test="exists($_error_MapDTCMOControllerOutput/root/ns12:ExceptionHandlerRequest) and not (empty($_error_MapDTCMOControllerOutput/root/ns12:ExceptionHandlerRequest))">
+                    <xsl:copy-of select="$_error_MapDTCMOControllerOutput/root/ns12:ExceptionHandlerRequest"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <ns12:ExceptionHandlerRequest>
+                        <ns12:envCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                        </ns12:envCode>
+                        <ns12:appCode>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                        </ns12:appCode>
+                        <ns12:interfaceCode>
+                            <xsl:value-of select="$SetCLEParams/root/InterfaceCode"/>
+                        </ns12:interfaceCode>
+                        <ns12:hostName>
+                            <xsl:value-of select="BW:getHostName()"/>
+                        </ns12:hostName>
+                        <ns12:timeStamp>
+                            <xsl:value-of select="current-dateTime()"/>
+                        </ns12:timeStamp>
+                        <ns12:message>
+                            <xsl:value-of select="$_error/ns4:ErrorReport/Msg"/>
+                        </ns12:message>
+                        <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                            <xsl:when test="string-length($LRCBalanceInquiryAdapterJMSSubscriber) > 0">
+                                <ns12:payload>
+                                    <xsl:value-of select="tib:render-xml($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher)"/>
+                                </ns12:payload>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <ns12:payload>
+                                    <xsl:value-of select="&quot;&quot;"/>
+                                </ns12:payload>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <ns12:ErrorLevel>
+                            <ns12:errorCode>
+                                <xsl:value-of select="substring(concat($Map-Data/root/Type, $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$Map-Data/root/Detail[1]),1, 100)"/>
+                            </ns12:errorCode>
+                        </ns12:ErrorLevel>
+                        <ns12:TransactionDetails>
+                            <ns12:transactionDomain>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                            </ns12:transactionDomain>
+                            <ns12:transactionType>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/CLE/TransactionType"/>
+                            </ns12:transactionType>
+                            <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                                <xsl:when test="string-length($SetCLEParams/root/TransactionId) > 0">
+                                    <ns12:transactionID>
+                                        <xsl:value-of select="$SetCLEParams/root/TransactionId"/>
+                                    </ns12:transactionID>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <ns12:transactionID>
+                                        <xsl:value-of select="$TransactionID/TransactionID"/>
+                                    </ns12:transactionID>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </ns12:TransactionDetails>
+                        <xsl:for-each select="$_processContext/ns4:ProcessContext">
+                            <ns12:ProcessContextDetails>
+                                <ns12:processId>
+                                    <xsl:value-of select="ProcessId"/>
+                                </ns12:processId>
+                                <ns12:projectName>
+                                    <xsl:value-of select="ProjectName"/>
+                                </ns12:projectName>
+                                <ns12:engineName>
+                                    <xsl:value-of select="EngineName"/>
+                                </ns12:engineName>
+                                <ns12:restartedFromCheckpoint>
+                                    <xsl:value-of select="RestartedFromCheckpoint"/>
+                                </ns12:restartedFromCheckpoint>
+                                <xsl:for-each select="TrackingInfo">
+                                    <ns12:trackingInfo>
+                                        <xsl:value-of select="."/>
+                                    </ns12:trackingInfo>
+                                </xsl:for-each>
+                            </ns12:ProcessContextDetails>
+                        </xsl:for-each>
+                        <xsl:for-each select="$_error/ns4:ErrorReport">
+                            <ns12:ErrorReportType>
+                                <ns12:stackTrace>
+                                    <xsl:value-of select="StackTrace"/>
+                                </ns12:stackTrace>
+                                <ns12:msg>
+                                    <xsl:value-of select="Msg"/>
+                                </ns12:msg>
+                                <ns12:fullClass>
+                                    <xsl:value-of select="FullClass"/>
+                                </ns12:fullClass>
+                                <ns12:class>
+                                    <xsl:value-of select="Class"/>
+                                </ns12:class>
+                                <ns12:processStack>
+                                    <xsl:value-of select="ProcessStack"/>
+                                </ns12:processStack>
+                                <xsl:if test="MsgCode">
+                                    <ns12:msgCode>
+                                        <xsl:value-of select="MsgCode"/>
+                                    </ns12:msgCode>
+                                </xsl:if>
+                                <xsl:if test="Data">
+                                    <ns12:data>
+                                        <xsl:value-of select="tib:render-xml(Data)"/>
+                                    </ns12:data>
+                                </xsl:if>
+                            </ns12:ErrorReportType>
+                        </xsl:for-each>
+                    </ns12:ExceptionHandlerRequest>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetCLEParams">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>192</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/LrcBalanceInquiry/CLEParams.jobsharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/CLE/DTCInterfaceCode"/>
+                </InterfaceCode>
+                <TransactionId>
+                    <xsl:value-of select="concat(tib:trim($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/OrderNumber), $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/TransactionIdSeparator,&#xA;tib:trim($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/ConsumerTransactionId), $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/TransactionIdSeparator,&#xA;tib:trim($LRCBalanceInquiryAdapterJMSSubscriber/ProcessStarterOutput/body/ns10:BalanceInquiryPublisher/Entry/TransactionId))"/>
+                </TransactionId>
+                <targetServiceProvider>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/RCMSSERVICEPROVIDERNAME"/>
+                </targetServiceProvider>
+                <SourceSytem>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTCSERVICEPROVIDERNAME"/>
+                </SourceSytem>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Confirm</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LRCBalanceInquiryAdapterJMSSubscriber</pd:from>
+        <pd:to>SetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>BalanceInquiryCommon</pd:from>
+        <pd:to>MapDTCMOControllerOutput</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>AssignTransactionID</pd:to>
+        <pd:xpathDescription>NoTranasctionID</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($SetCLEParams/root/TransactionId)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignTransactionID</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ResponseToAdapterException</pd:from>
+        <pd:to>SendExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>ResponseToAdapterException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PublishtoBalanceInuirySubscriber</pd:from>
+        <pd:to>Confirm</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PublishtoBalanceInuirySubscriber-Exception</pd:from>
+        <pd:to>Confirm-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendExceptionRequest</pd:from>
+        <pd:to>LogPaymentServiceErrorResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogPaymentServiceErrorResponse</pd:from>
+        <pd:to>PublishtoBalanceInuirySubscriber-Exception</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetCLEParams</pd:from>
+        <pd:to>LogPaymentServiceRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapInputToXMLValidator</pd:from>
+        <pd:to>BalanceInquiryCommon</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogPaymentServiceRequest</pd:from>
+        <pd:to>MapInputToXMLValidator</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapDTCMOControllerOutput</pd:from>
+        <pd:to>LogPaymentServiceResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogPaymentServiceResponse</pd:from>
+        <pd:to>PublishtoBalanceInuirySubscriber</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,1247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx3="http://ecommerce.wsgc.com/2013/Common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentGatewayCredentials.xsd" xmlns:ns4="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema">
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2014/Payment/credit-authorization.xsd"/>
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2013/Common/base-types.xsd"/>
+    <pd:name>BusinessProcesses/CreditAuthorization/RequestProcessors/MapPaymentGatewayRequest.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:CreditCardAuthorizationRequest"/>
+    <pd:startX>27</pd:startX>
+    <pd:startY>312</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:choose>
+                <xsl:when test="string-length($Process/root/Error/Type) > 0">
+                    <pfx:CreditCardAuthorizationResponse>
+                        <xsl:attribute name="version">
+                            <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/@version"/>
+                        </xsl:attribute>
+                        <SystemContext>
+                            <EnvironmentIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                            </EnvironmentIdentifier>
+                            <RegionIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                            </RegionIdentifier>
+                            <SourceSystemIdentifier>
+                                <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix,BW:getHostName())"/>
+                            </SourceSystemIdentifier>
+                            <xsl:choose>
+                                <xsl:when test="string-length($Start/pfx:CreditCardAuthorizationRequest/SystemContext/TransactionId)>0">
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/Authorization/Constants/TransactionIdPrefix,$Start/pfx:CreditCardAuthorizationRequest/SystemContext/TransactionId)"/>
+                                    </TransactionId>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/Authorization/Constants/TransactionIdPrefix, tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns2:GlobalVariables/ENV   , BW:getHostName())"/>
+                                    </TransactionId>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <TransactionTime>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </TransactionTime>
+                        </SystemContext>
+                        <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/PaymentContext"/>
+                        <xsl:for-each select="$Process/root/Error">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <xsl:for-each select="Detail">
+                                    <Detail>
+                                        <xsl:value-of select="."/>
+                                    </Detail>
+                                </xsl:for-each>
+                                <ErrorMessage>
+                                    <xsl:value-of select="ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:for-each>
+                    </pfx:CreditCardAuthorizationResponse>
+                </xsl:when>
+                <xsl:when test="string-length($MapCCRequest/root/pfx:CreditCardAuthorizationResponse/@version) > 0">
+                    <xsl:copy-of select="$MapCCRequest/root/pfx:CreditCardAuthorizationResponse"/>
+                </xsl:when>
+                <xsl:when test="string-length($MapPLCCRequest/root/pfx:CreditCardAuthorizationResponse/@version) > 0">
+                    <xsl:copy-of select="$MapPLCCRequest/root/pfx:CreditCardAuthorizationResponse"/>
+                </xsl:when>
+                <xsl:otherwise/>
+            </xsl:choose>
+            <xsl:if test="string-length($Process/root/Error/Type) =0">
+                <xsl:choose>
+                    <xsl:when test="$IsPLCCTender/root/IsPLCCTender=$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/BooleanSuccess">
+                        <paymentgatewayrequest>
+                            <xsl:value-of select="$MapPLCCRequest/root/paymentgatewayrequest"/>
+                        </paymentgatewayrequest>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <paymentgatewayrequest>
+                            <xsl:value-of select="$MapCCRequest/root/paymentgatewayrequest"/>
+                        </paymentgatewayrequest>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+            <xsl:if test="string-length($IsPLCCTender/root/IsPLCCTender)>0">
+                <xsl:if test="$IsPLCCTender/root/IsPLCCTender">
+                    <IsPLCCTender>
+                        <xsl:value-of select="$IsPLCCTender/root/IsPLCCTender"/>
+                    </IsPLCCTender>
+                </xsl:if>
+            </xsl:if>
+            <xsl:if test="string-length($PAN/root/PlainTextPAN) > 0">
+                <xsl:if test="$PAN/root/PlainTextPAN">
+                    <PAN>
+                        <xsl:value-of select="$PAN/root/PlainTextPAN"/>
+                    </PAN>
+                </xsl:if>
+            </xsl:if>
+            <xsl:if test="$TenderSubType/root/TenderSubType">
+                <TenderSubType>
+                    <xsl:value-of select="$TenderSubType/root/TenderSubType"/>
+                </TenderSubType>
+            </xsl:if>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:CreditCardAuthorizationResponse" minOccurs="0"/>
+                    <xsd:element name="paymentgatewayrequest" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="IsPLCCTender" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="PAN" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="TenderSubType" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>964</pd:endX>
+    <pd:endY>317</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <PAN>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="PlainTextPAN" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </PAN>
+        <Process>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Error" type="pfx3:ErrorType"/>
+                        <xsd:element name="NotificationErrorCode" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Process>
+        <TenderSubType>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="TenderSubType" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </TenderSubType>
+        <IsPLCCTender>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="IsPLCCTender" type="xsd:boolean" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </IsPLCCTender>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1414172991752</pd:targetNamespace>
+    <pd:activity name="AssignError">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>364</pd:x>
+        <pd:y>151</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/NO_PAN_FROM_TOKEN/Type"/>
+                    </Type>
+                    <ErrorMessage>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/NO_PAN_FROM_TOKEN/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+                <NotificationErrorCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/NotificationErrorCodes/SCCTOKEN_DETOKENIZE_ERROR"/>
+                </NotificationErrorCode>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignError-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>209</pd:x>
+        <pd:y>712</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/NO_PAN_FROM_TOKEN/Type"/>
+                    </Type>
+                    <ErrorMessage>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/NO_PAN_FROM_TOKEN/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+                <NotificationErrorCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/NotificationErrorCodes/LOCALTOKEN_DETOKENIZE_ERROR"/>
+                </NotificationErrorCode>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignFailure">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>534</pd:x>
+        <pd:y>817</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:choose>
+                    <xsl:when test="$_error/ns1:ErrorReport/Class=$_globalVariables/ns2:GlobalVariables/PaymentService/ValidationConstants/BIND_EXCEPTION_CLASS">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="string-length($GetPanfromLocalToken/root/Error/Type) > 0">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$GetPanfromLocalToken/root/Error/Type"/>
+                            </Type>
+                            <xsl:for-each select="$GetPanfromLocalToken/root/Error/Detail">
+                                <Detail>
+                                    <xsl:value-of select="."/>
+                                </Detail>
+                            </xsl:for-each>
+                            <ErrorMessage>
+                                <xsl:value-of select="$GetPanfromLocalToken/root/Error/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="string-length($GetPANFromEComVault/root/Error/Type) > 0">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$GetPANFromEComVault/root/Error/Type"/>
+                            </Type>
+                            <xsl:for-each select="$GetPANFromEComVault/root/Error/Detail">
+                                <Detail>
+                                    <xsl:value-of select="."/>
+                                </Detail>
+                            </xsl:for-each>
+                            <ErrorMessage>
+                                <xsl:value-of select="$GetPANFromEComVault/root/Error/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignInvalidCardNumber">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>713</pd:x>
+        <pd:y>655</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_CARD_NUMBER/Type"/>
+                    </Type>
+                    <Detail>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_CARD_NUMBER/Detail"/>
+                    </Detail>
+                    <ErrorMessage>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_CARD_NUMBER/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignPAN">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>294</pd:x>
+        <pd:y>651</pd:y>
+        <config>
+            <variableName>PAN</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <PlainTextPAN>
+                    <xsl:value-of select="if (string-length($Start/pfx:CreditCardAuthorizationRequest/Tender/AccountNumber) > 0)&#xA; then&#xA; $Start/pfx:CreditCardAuthorizationRequest/Tender/AccountNumber&#xA;else&#xA;  if (string-length($GetPanfromLocalToken/root/CardDetails/PAN)>0) &#xA;   then&#xA; &#x9;$GetPanfromLocalToken/root/CardDetails/PAN&#xA;  else &#xA;   if (string-length($GetPANFromEComVault/root/CardDetails/PAN) > 0) &#xA;     then&#xA;      $GetPANFromEComVault/root/CardDetails/PAN&#xA;    else &#xA;     &quot;&quot;"/>
+                </PlainTextPAN>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignIsPLCC">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>608</pd:x>
+        <pd:y>316</pd:y>
+        <config>
+            <variableName>IsPLCCTender</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <IsPLCCTender>
+                    <xsl:value-of select="if(contains($TenderSubType/root/TenderSubType,$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/PrivateLabelCreditCard))&#xA;then&#xA; $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/BooleanSuccess&#xA;else&#xA;$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/BooleanFailure"/>
+                </IsPLCCTender>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignTenderSubType">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>473</pd:x>
+        <pd:y>316</pd:y>
+        <config>
+            <variableName>TenderSubType</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <TenderSubType>
+                    <xsl:value-of select="if(string-length($GetTenderSubTypeByBin/root/TenderSubCode)>0)&#xA;then&#xA; $GetTenderSubTypeByBin/root/TenderSubCode&#xA;else&#xA; $Start/pfx:CreditCardAuthorizationRequest/Tender/Type/SubCode"/>
+                </TenderSubType>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>262</pd:x>
+        <pd:y>819</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>48</pd:x>
+        <pd:y>155</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <ns4:ActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GenerateError">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>46</pd:x>
+        <pd:y>493</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <ns4:ActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>127</pd:x>
+        <pd:y>312</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/CreditAuthorization/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetPANFromEComVault">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>212</pd:x>
+        <pd:y>152</pd:y>
+        <config>
+            <processName>/CommonProcesses/CryptoProcesses/GetPanFromSCCToken.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Token>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token"/>
+                </Token>
+                <Scheme>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scheme"/>
+                </Scheme>
+                <Scope>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scope"/>
+                </Scope>
+                <Expiration>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@expiration"/>
+                </Expiration>
+                <IsCVNProvided>
+                    <xsl:value-of select="if(string-length($Start/pfx:CreditCardAuthorizationRequest/Tender/Type/SubCode)>0&#xA; and contains($Start/pfx:CreditCardAuthorizationRequest/Tender/Type/SubCode,$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/PrivateLabelCreditCard))&#xA; then&#xA; $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/BooleanSuccess&#xA;else&#xA;  if(string-length($Start/pfx:CreditCardAuthorizationRequest/CardVerificationCode)>0)&#xA; then&#xA; $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/BooleanSuccess&#xA;else&#xA; $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/BooleanFailure"/>
+                </IsCVNProvided>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetPanfromLocalToken">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>216</pd:x>
+        <pd:y>491</pd:y>
+        <config>
+            <processName>/CommonProcesses/CryptoProcesses/GetPanFromLocalToken.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Token>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token"/>
+                </Token>
+                <Scheme>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scheme"/>
+                </Scheme>
+                <Scope>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scope"/>
+                </Scope>
+                <Expiration>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@expiration"/>
+                </Expiration>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetTenderSubTypeByBin">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>464</pd:x>
+        <pd:y>651</pd:y>
+        <config>
+            <processName>/CommonProcesses/CreditBinRange/GetTenderSubCodeByBinRange.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <AccNum>
+                    <xsl:value-of select="$PAN/root/PlainTextPAN"/>
+                </AccNum>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogRequestValidationExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>962</pd:x>
+        <pd:y>813</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns:ExceptionHandlerRequest>
+                <ns:envCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                </ns:envCode>
+                <ns:appCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                </ns:appCode>
+                <ns:interfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </ns:interfaceCode>
+                <ns:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns:hostName>
+                <ns:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns:timeStamp>
+                <ns:message>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ns:message>
+                <ns:payload>
+                    <xsl:value-of select="tib:render-xml($Start/pfx:CreditCardAuthorizationRequest)"/>
+                </ns:payload>
+                <ns:ErrorLevel>
+                    <ns:errorCode>
+                        <xsl:value-of select="concat($Process/root/Error/Type, $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$Process/root/Error/Detail[1])"/>
+                    </ns:errorCode>
+                </ns:ErrorLevel>
+                <ns:TransactionDetails>
+                    <ns:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns:transactionDomain>
+                    <ns:transactionType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Authorization/CLE/TransactionType"/>
+                    </ns:transactionType>
+                    <ns:transactionID>
+                        <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                    </ns:transactionID>
+                </ns:TransactionDetails>
+                <xsl:choose>
+                    <xsl:when test="string-length($GetPanfromLocalToken/root/CLEErrorReport/ns:stackTrace)>0">
+                        <ns:ErrorReportType>
+                            <xsl:if test="$GetPanfromLocalToken/root/CLEErrorReport/ns:stackTrace">
+                                <ns:stackTrace>
+                                    <xsl:value-of select="$GetPanfromLocalToken/root/CLEErrorReport/ns:stackTrace"/>
+                                </ns:stackTrace>
+                            </xsl:if>
+                            <xsl:if test="$GetPanfromLocalToken/root/CLEErrorReport/ns:msg">
+                                <ns:msg>
+                                    <xsl:value-of select="$GetPanfromLocalToken/root/CLEErrorReport/ns:msg"/>
+                                </ns:msg>
+                            </xsl:if>
+                            <xsl:if test="$GetPanfromLocalToken/root/CLEErrorReport/ns:fullClass">
+                                <ns:fullClass>
+                                    <xsl:value-of select="$GetPanfromLocalToken/root/CLEErrorReport/ns:fullClass"/>
+                                </ns:fullClass>
+                            </xsl:if>
+                            <xsl:if test="$GetPanfromLocalToken/root/CLEErrorReport/ns:class">
+                                <ns:class>
+                                    <xsl:value-of select="$GetPanfromLocalToken/root/CLEErrorReport/ns:class"/>
+                                </ns:class>
+                            </xsl:if>
+                            <xsl:if test="$GetPanfromLocalToken/root/CLEErrorReport/ns:processStack">
+                                <ns:processStack>
+                                    <xsl:value-of select="$GetPanfromLocalToken/root/CLEErrorReport/ns:processStack"/>
+                                </ns:processStack>
+                            </xsl:if>
+                            <xsl:if test="$GetPanfromLocalToken/root/CLEErrorReport/ns:msgCode">
+                                <ns:msgCode>
+                                    <xsl:value-of select="$GetPanfromLocalToken/root/CLEErrorReport/ns:msgCode"/>
+                                </ns:msgCode>
+                            </xsl:if>
+                            <xsl:if test="$GetPanfromLocalToken/root/CLEErrorReport/ns:data">
+                                <ns:data>
+                                    <xsl:value-of select="$GetPanfromLocalToken/root/CLEErrorReport/ns:data"/>
+                                </ns:data>
+                            </xsl:if>
+                        </ns:ErrorReportType>
+                    </xsl:when>
+                    <xsl:when test="string-length($GetPANFromEComVault/root/CLEErrorReport/ns:stackTrace)>0">
+                        <ns:ErrorReportType>
+                            <xsl:if test="$GetPANFromEComVault/root/CLEErrorReport/ns:stackTrace">
+                                <ns:stackTrace>
+                                    <xsl:value-of select="$GetPANFromEComVault/root/CLEErrorReport/ns:stackTrace"/>
+                                </ns:stackTrace>
+                            </xsl:if>
+                            <xsl:if test="$GetPANFromEComVault/root/CLEErrorReport/ns:msg">
+                                <ns:msg>
+                                    <xsl:value-of select="$GetPANFromEComVault/root/CLEErrorReport/ns:msg"/>
+                                </ns:msg>
+                            </xsl:if>
+                            <xsl:if test="$GetPANFromEComVault/root/CLEErrorReport/ns:fullClass">
+                                <ns:fullClass>
+                                    <xsl:value-of select="$GetPANFromEComVault/root/CLEErrorReport/ns:fullClass"/>
+                                </ns:fullClass>
+                            </xsl:if>
+                            <xsl:if test="$GetPANFromEComVault/root/CLEErrorReport/ns:class">
+                                <ns:class>
+                                    <xsl:value-of select="$GetPANFromEComVault/root/CLEErrorReport/ns:class"/>
+                                </ns:class>
+                            </xsl:if>
+                            <xsl:if test="$GetPANFromEComVault/root/CLEErrorReport/ns:processStack">
+                                <ns:processStack>
+                                    <xsl:value-of select="$GetPANFromEComVault/root/CLEErrorReport/ns:processStack"/>
+                                </ns:processStack>
+                            </xsl:if>
+                            <xsl:if test="$GetPANFromEComVault/root/CLEErrorReport/ns:msgCode">
+                                <ns:msgCode>
+                                    <xsl:value-of select="$GetPANFromEComVault/root/CLEErrorReport/ns:msgCode"/>
+                                </ns:msgCode>
+                            </xsl:if>
+                            <xsl:if test="$GetPANFromEComVault/root/CLEErrorReport/ns:data">
+                                <ns:data>
+                                    <xsl:value-of select="$GetPANFromEComVault/root/CLEErrorReport/ns:data"/>
+                                </ns:data>
+                            </xsl:if>
+                        </ns:ErrorReportType>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="$_error/ns1:ErrorReport">
+                            <ns:ErrorReportType>
+                                <ns:stackTrace>
+                                    <xsl:value-of select="StackTrace"/>
+                                </ns:stackTrace>
+                                <ns:msg>
+                                    <xsl:value-of select="Msg"/>
+                                </ns:msg>
+                                <ns:fullClass>
+                                    <xsl:value-of select="FullClass"/>
+                                </ns:fullClass>
+                                <ns:class>
+                                    <xsl:value-of select="Class"/>
+                                </ns:class>
+                                <ns:processStack>
+                                    <xsl:value-of select="ProcessStack"/>
+                                </ns:processStack>
+                                <xsl:if test="MsgCode">
+                                    <ns:msgCode>
+                                        <xsl:value-of select="MsgCode"/>
+                                    </ns:msgCode>
+                                </xsl:if>
+                                <ns:data>
+                                    <xsl:value-of select="Data/*"/>
+                                </ns:data>
+                            </ns:ErrorReportType>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </ns:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapCCRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>775</pd:x>
+        <pd:y>254</pd:y>
+        <config>
+            <processName>/BusinessProcesses/CreditAuthorization/RequestProcessors/MapPaymentGatewayRequest-CC.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:CreditCardAuthorizationRequest>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/@version"/>
+                </xsl:attribute>
+                <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/SystemContext"/>
+                <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/PaymentContext"/>
+                <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/OrderContext"/>
+                <ConsumerTransactionId>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/ConsumerTransactionId"/>
+                </ConsumerTransactionId>
+                <Tender>
+                    <Type>
+                        <Code>
+                            <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Type/Code"/>
+                        </Code>
+                        <xsl:if test="$TenderSubType/root/TenderSubType">
+                            <SubCode>
+                                <xsl:value-of select="$TenderSubType/root/TenderSubType"/>
+                            </SubCode>
+                        </xsl:if>
+                    </Type>
+                    <xsl:choose>
+                        <xsl:when test="string-length($PAN/root/PlainTextPAN) > 0">
+                            <AccountNumber>
+                                <xsl:value-of select="$PAN/root/PlainTextPAN"/>
+                            </AccountNumber>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <Token>
+                                <xsl:attribute name="scheme">
+                                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scheme"/>
+                                </xsl:attribute>
+                                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scope">
+                                    <xsl:attribute name="scope">
+                                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scope"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@isTemporary">
+                                    <xsl:attribute name="isTemporary">
+                                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@isTemporary"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:attribute name="expiration">
+                                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@expiration"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token"/>
+                            </Token>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Tender>
+                <CardMetadata>
+                    <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardHolderName"/>
+                    <xsl:if test="(string-length($GetPanfromLocalToken/root/CardDetails/ExpiryYear)>0 and ($GetPanfromLocalToken/root/CardDetails/ExpiryYear)!=0)&#xA;or&#xA;string-length($Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardExpiration/Year)>0">
+                        <CardExpiration>
+                            <xsl:choose>
+                                <xsl:when test="string-length($GetPanfromLocalToken/root/CardDetails/ExpiryYear)>0 and ($GetPanfromLocalToken/root/CardDetails/ExpiryYear)!=0">
+                                    <Year>
+                                        <xsl:value-of select="$GetPanfromLocalToken/root/CardDetails/ExpiryYear"/>
+                                    </Year>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <Year>
+                                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardExpiration/Year"/>
+                                    </Year>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:choose>
+                                <xsl:when test="string-length($GetPanfromLocalToken/root/CardDetails/ExpiryMonth)>0 and ($GetPanfromLocalToken/root/CardDetails/ExpiryMonth)!=0">
+                                    <Month>
+                                        <xsl:value-of select="$GetPanfromLocalToken/root/CardDetails/ExpiryMonth"/>
+                                    </Month>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <Month>
+                                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardExpiration/Month"/>
+                                    </Month>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </CardExpiration>
+                    </xsl:if>
+                </CardMetadata>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/Pin">
+                    <Pin>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Pin"/>
+                    </Pin>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/CardVerificationCode">
+                    <CardVerificationCode>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/CardVerificationCode"/>
+                    </CardVerificationCode>
+                </xsl:if>
+                <IsCardNotPresent>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/IsCardNotPresent"/>
+                </IsCardNotPresent>
+                <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/BillingAddress"/>
+                <CurrencyCode>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/CurrencyCode"/>
+                </CurrencyCode>
+                <AuthorizationAmount>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/AuthorizationAmount"/>
+                </AuthorizationAmount>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/IncludedTaxAmount">
+                    <IncludedTaxAmount>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/IncludedTaxAmount"/>
+                    </IncludedTaxAmount>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/PaymentPlanCode">
+                    <PaymentPlanCode>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/PaymentPlanCode"/>
+                    </PaymentPlanCode>
+                </xsl:if>
+                <Purpose>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Purpose"/>
+                </Purpose>
+            </pfx:CreditCardAuthorizationRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapPLCCRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>774</pd:x>
+        <pd:y>379</pd:y>
+        <config>
+            <processName>/BusinessProcesses/CreditAuthorization/RequestProcessors/MapPaymentGatewayRequest-PLCC.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:CreditCardAuthorizationRequest>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/@version"/>
+                </xsl:attribute>
+                <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/SystemContext"/>
+                <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/PaymentContext"/>
+                <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/OrderContext"/>
+                <ConsumerTransactionId>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/ConsumerTransactionId"/>
+                </ConsumerTransactionId>
+                <Tender>
+                    <Type>
+                        <Code>
+                            <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Type/Code"/>
+                        </Code>
+                        <xsl:if test="$TenderSubType/root/TenderSubType">
+                            <SubCode>
+                                <xsl:value-of select="$TenderSubType/root/TenderSubType"/>
+                            </SubCode>
+                        </xsl:if>
+                    </Type>
+                    <xsl:choose>
+                        <xsl:when test="string-length($PAN/root/PlainTextPAN) > 0">
+                            <AccountNumber>
+                                <xsl:value-of select="$PAN/root/PlainTextPAN"/>
+                            </AccountNumber>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <Token>
+                                <xsl:attribute name="scheme">
+                                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scheme"/>
+                                </xsl:attribute>
+                                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scope">
+                                    <xsl:attribute name="scope">
+                                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scope"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@isTemporary">
+                                    <xsl:attribute name="isTemporary">
+                                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@isTemporary"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:attribute name="expiration">
+                                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@expiration"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token"/>
+                            </Token>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Tender>
+                <CardMetadata>
+                    <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardHolderName"/>
+                </CardMetadata>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/Pin">
+                    <Pin>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Pin"/>
+                    </Pin>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/CardVerificationCode">
+                    <CardVerificationCode>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/CardVerificationCode"/>
+                    </CardVerificationCode>
+                </xsl:if>
+                <IsCardNotPresent>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/IsCardNotPresent"/>
+                </IsCardNotPresent>
+                <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/BillingAddress"/>
+                <CurrencyCode>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/CurrencyCode"/>
+                </CurrencyCode>
+                <AuthorizationAmount>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/AuthorizationAmount"/>
+                </AuthorizationAmount>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/IncludedTaxAmount">
+                    <IncludedTaxAmount>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/IncludedTaxAmount"/>
+                    </IncludedTaxAmount>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/PaymentPlanCode">
+                    <PaymentPlanCode>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/PaymentPlanCode"/>
+                    </PaymentPlanCode>
+                </xsl:if>
+                <Purpose>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Purpose"/>
+                </Purpose>
+            </pfx:CreditCardAuthorizationRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>309</pd:x>
+        <pd:y>314</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="ValidateTenderSubcode">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>600</pd:x>
+        <pd:y>545</pd:y>
+        <config>
+            <processName>/CommonProcesses/CreditBinRange/ValidateTenderSubCode.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Authorization/CLE/TransactionType"/>
+                </TransactionType>
+                <RequestTenderSubCode>
+                    <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Type/SubCode"/>
+                </RequestTenderSubCode>
+                <EPSTenderType>
+                    <xsl:value-of select="$GetTenderSubTypeByBin/root/TenderSubCode"/>
+                </EPSTenderType>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignTenderSubType-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>598</pd:x>
+        <pd:y>418</pd:y>
+        <config>
+            <variableName>TenderSubType</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:if test="$ValidateTenderSubcode/root/EPSTenderSubCode">
+                    <TenderSubType>
+                        <xsl:value-of select="$ValidateTenderSubcode/root/EPSTenderSubCode"/>
+                    </TenderSubType>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignError-1-1-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>741</pd:x>
+        <pd:y>548</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$ValidateTenderSubcode/root/Error/Type"/>
+                    </Type>
+                    <xsl:if test="$ValidateTenderSubcode/root/Error/Detail">
+                        <Detail>
+                            <xsl:value-of select="$ValidateTenderSubcode/root/Error/Detail"/>
+                        </Detail>
+                    </xsl:if>
+                    <ErrorMessage>
+                        <xsl:value-of select="$ValidateTenderSubcode/root/Error/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+                <NotificationErrorCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/NotificationErrorCodes/INVALID_TENDER_SUBCODE_ERROR"/>
+                </NotificationErrorCode>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="NotifySupport">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>880</pd:x>
+        <pd:y>549</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/NotifySupport.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <ExceptionCode>
+                    <xsl:value-of select="$Process/root/NotificationErrorCode"/>
+                </ExceptionCode>
+                <ErrorMessage>
+                    <xsl:value-of select="$ValidateTenderSubcode/root/Error/ErrorMessage"/>
+                </ErrorMessage>
+                <TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Authorization/CLE/TransactionType"/>
+                </TransactionType>
+                <TransactionId>
+                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                </TransactionId>
+                <Payload>
+                    <xsl:value-of select="tib:render-xml($Start/pfx:CreditCardAuthorizationRequest)"/>
+                </Payload>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>AssignFailure</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogRequestValidationExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignFailure</pd:from>
+        <pd:to>LogRequestValidationExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPanfromLocalToken</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapCCRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapPLCCRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPANFromEComVault</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>AssignPAN</pd:to>
+        <pd:xpathDescription>TEXT_PAN</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/pfx:CreditCardAuthorizationRequest/Tender/AccountNumber) &gt;0
+or
+string-length($GetPanfromLocalToken/root/CardDetails/PAN)&gt;0
+or
+string-length($GetPANFromEComVault/root/CardDetails/PAN)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignPAN</pd:from>
+        <pd:to>GetTenderSubTypeByBin</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetTenderSubTypeByBin</pd:from>
+        <pd:to>AssignTenderSubType</pd:to>
+        <pd:xpathDescription>BIN match</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GetTenderSubTypeByBin/root/TenderSubCode) &gt;0
+and
+string-length($Start/pfx:CreditCardAuthorizationRequest/Tender/Type/SubCode)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetTenderSubTypeByBin</pd:from>
+        <pd:to>AssignInvalidCardNumber</pd:to>
+        <pd:xpathDescription>BIN mismatch</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignInvalidCardNumber</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>AssignTenderSubType</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPanfromLocalToken</pd:from>
+        <pd:to>GenerateError</pd:to>
+        <pd:xpathDescription>OnError</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GetPanfromLocalToken/root/Error/Type) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPANFromEComVault</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GetPANFromEComVault/root/Error/Type) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPANFromEComVault</pd:from>
+        <pd:to>AssignError</pd:to>
+        <pd:xpathDescription>No PAN</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length(tib:trim($GetPANFromEComVault/root/CardDetails/PAN))=0
+and
+string-length($GetPANFromEComVault/root/Error)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignError</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignError-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPanfromLocalToken</pd:from>
+        <pd:to>AssignError-1</pd:to>
+        <pd:xpathDescription>No PAN</pd:xpathDescription>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length(tib:trim($GetPanfromLocalToken/root/CardDetails/PAN))=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>GetPanfromLocalToken</pd:to>
+        <pd:xpathDescription>TEMP_TOKEN</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@isTemporary = $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/BooleanSuccess</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>GetPANFromEComVault</pd:to>
+        <pd:xpathDescription>ECOM_TOKEN</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Start/pfx:CreditCardAuthorizationRequest/Tender/Token/@scheme=concat($_globalVariables/ns2:GlobalVariables/PaymentService/TokenConstants/WSISavedCreditCardScheme,
+$_globalVariables/ns2:GlobalVariables/PaymentService/TokenConstants/EnvId)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignTenderSubType</pd:from>
+        <pd:to>AssignIsPLCC</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignIsPLCC</pd:from>
+        <pd:to>MapCCRequest</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignIsPLCC</pd:from>
+        <pd:to>MapPLCCRequest</pd:to>
+        <pd:xpathDescription>PLCC</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$IsPLCCTender/root/IsPLCCTender=$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/BooleanSuccess</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetTenderSubTypeByBin</pd:from>
+        <pd:to>ValidateTenderSubcode</pd:to>
+        <pd:xpathDescription>VALIDATE_SUBCODE</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GetTenderSubTypeByBin/root/TenderSubCode) &gt;0
+and
+string-length($Start/pfx:CreditCardAuthorizationRequest/Tender/Type/SubCode)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ValidateTenderSubcode</pd:from>
+        <pd:to>AssignTenderSubType-1</pd:to>
+        <pd:xpathDescription>REFINED_SUBCODE</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($ValidateTenderSubcode/root/EPSTenderSubCode) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ValidateTenderSubcode</pd:from>
+        <pd:to>AssignError-1-1-1</pd:to>
+        <pd:xpathDescription>ERROR_INVALID_SUBCODE</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignError-1-1-1</pd:from>
+        <pd:to>NotifySupport</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>NotifySupport</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignTenderSubType-1</pd:from>
+        <pd:to>AssignIsPLCC</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Map Payment Service to Payment Gateway Mapping here</pd:description>
+        <pd:x>364</pd:x>
+        <pd:y>36</pd:y>
+        <pd:width>204</pd:width>
+        <pd:height>70</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-6684775</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+    <pd:label>
+        <pd:name>Label (1)</pd:name>
+        <pd:description>Tender SubCode is overridden based on Bin range validation
+( Is it the correct approach? }- Artem, Daniel corrected and all EPS can do is
+bin range refinement, and not auto correction.</pd:description>
+        <pd:x>751</pd:x>
+        <pd:y>72</pd:y>
+        <pd:width>443</pd:width>
+        <pd:height>84</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-13108</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

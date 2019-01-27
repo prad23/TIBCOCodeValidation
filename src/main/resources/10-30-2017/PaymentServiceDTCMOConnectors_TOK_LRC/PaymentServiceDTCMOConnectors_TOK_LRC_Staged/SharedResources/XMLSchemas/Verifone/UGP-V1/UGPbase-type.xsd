@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by lchari (Williams-Sonoma, Inc.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:com="http://services.wsgc.com/2014/Payment/Verfione/UGP/base-type"
+	 targetNamespace="http://services.wsgc.com/2014/Payment/Verfione/UGP/base-type"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="UGPREQUEST">
+		<xs:sequence>
+			<xs:element name="FUNCTION_TYPE" type="com:FUNCTION_TYPETYPE">
+				<xs:annotation>
+					<xs:documentation>The type of Function PAYware Connect will perform. Each API call requires, at minimum, a valid FUNCTION_TYPE</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PAYMENT_TYPE" type="com:PAYMENT_TYPETYPE" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The type of payment that PAYware Connect will perform or the Payment type to be used for Batch Settlement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="COMMAND" type="com:COMMAND_TYPE">
+				<xs:annotation>
+					<xs:documentation>The type of command PAYware Connect will perform</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ACCOUNT" type="com:ACCOUNT_TYPE">
+				<xs:annotation>
+					<xs:documentation>The Merchant account assigned by Verifone. The Client ID values (ACCOUNT/SITE/TERM) used by the integrator or merchant determine which merchant account / terminal will be used to process the transaction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SITE" type="com:TEXT4_TYPE">
+				<xs:annotation>
+					<xs:documentation>The Merchant site or store associated with the merchant account
+The Client ID values (ACCOUNT/SITE/TERM)used by the integrator or merchant determine which merchant account / terminal will be used to process the transaction.
+Length: 4 digits (fixed – 0001 – 9999) Left zero padding required</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TERM" type="com:TERM_TYPE">
+				<xs:annotation>
+					<xs:documentation>The Merchant terminal ID/terminal number with the merchant account
+The Client ID values (ACCOUNT/SITE/TERM) used by the integrator or merchant determine which merchant account / terminal will be used to process the transaction.
+Length: 4 digits (fixed – 0001 – 9999) Left zero padding required.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SERIAL_NUM" type="com:TEXT50_TYPE">
+				<xs:annotation>
+					<xs:documentation>Serial Number
+Unique string sent to PAYware Connect. This string should accompany transactions when using a device in connection with PAYware Connect.
+Max Length: 50 Characters</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DEVTYPE" type="com:TEXT30_TYPE">
+				<xs:annotation>
+					<xs:documentation>This is a string sent to identify the device being used in connection with PAYware Connect. Device type is directly connected to SERIAL_NUM.
+Examples: MX870, VX670, MX830, POSAPP, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DEVICEKEY" type="com:TEXT64_TYPE">
+				<xs:annotation>
+					<xs:documentation>64Bit Token that is automatically provided to the device or application from the PAYware Connect Gateway as part of the Registration function</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="VER" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The VER attribute designates the version of the XML schema to which the request conforms.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LINE_ITEM_TYPE">
+		<xs:sequence>
+			<xs:element name="ITEM_DESC_1" type="com:ITEM_DESC_1_TYPE" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This field contains the Description of the Item to be displayed on the clients billing statement.  The field is limited by ADS to 40 characters in length.  [For ADS, Maps to field 50.4 of Settlement Spec]</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DUP_TAGS_TYPE">
+		<xs:sequence>
+			<xs:element name="DUP_ACCT_NUM" type="xs:string" minOccurs="0"/>
+			<xs:element name="DUP_AUTH_CODE" type="xs:string" minOccurs="0"/>
+			<xs:element name="DUP_CTROUTD" type="xs:string" minOccurs="0"/>
+			<xs:element name="DUP_INVOICE" type="xs:string" minOccurs="0"/>
+			<xs:element name="DUP_PAYMENT_MEDIA" type="xs:string" minOccurs="0"/>
+			<xs:element name="DUP_TRANS_AMOUNT" type="xs:string" minOccurs="0"/>
+			<xs:element name="DUP_TRANS_DATETIME" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TRANSACTION">
+		<xs:sequence>
+			<xs:element name="FUNCTION_TYPE" type="com:FUNCTION_TYPETYPE">
+				<xs:annotation>
+					<xs:documentation>The type of Function PAYware Connect will perform. Each API call requires, at minimum, a valid FUNCTION_TYPE</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PAYMENT_TYPE" type="com:PAYMENT_TYPETYPE">
+				<xs:annotation>
+					<xs:documentation>The type of payment that PAYware Connect will perform or the Payment type to be used for Batch Settlement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="COMMAND" type="com:COMMAND_TYPE">
+				<xs:annotation>
+					<xs:documentation>The type of command PAYware Connect will perform</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ACCOUNT" type="com:ACCOUNT_TYPE">
+				<xs:annotation>
+					<xs:documentation>The Merchant account assigned by Verifone. The Client ID values (ACCOUNT/SITE/TERM) used by the integrator or merchant determine which merchant account / terminal will be used to process the transaction.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SITE" type="com:TEXT4_TYPE">
+				<xs:annotation>
+					<xs:documentation>The Merchant site or store associated with the merchant account
+The Client ID values (ACCOUNT/SITE/TERM)used by the integrator or merchant determine which merchant account / terminal will be used to process the transaction.
+Length: 4 digits (fixed – 0001 – 9999) Left zero padding required</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TERM" type="com:TERM_TYPE">
+				<xs:annotation>
+					<xs:documentation>The Merchant terminal ID/terminal number with the merchant account
+The Client ID values (ACCOUNT/SITE/TERM) used by the integrator or merchant determine which merchant account / terminal will be used to process the transaction.
+Length: 4 digits (fixed – 0001 – 9999) Left zero padding required.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SERIAL_NUM" type="com:TEXT50_TYPE">
+				<xs:annotation>
+					<xs:documentation>Serial Number
+Unique string sent to PAYware Connect. This string should accompany transactions when using a device in connection with PAYware Connect.
+Max Length: 50 Characters</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DEVTYPE" type="com:TEXT30_TYPE">
+				<xs:annotation>
+					<xs:documentation>This is a string sent to identify the device being used in connection with PAYware Connect. Device type is directly connected to SERIAL_NUM.
+Examples: MX870, VX670, MX830, POSAPP, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DEVICEKEY" type="com:TEXT64_TYPE">
+				<xs:annotation>
+					<xs:documentation>64Bit Token that is automatically provided to the device or application from the PAYware Connect Gateway as part of the Registration function</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="VER" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The VER attribute designates the version of the XML schema to which the request conforms.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:simpleType name="ADDRESS_STREET_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ZIPCODE_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TWODIGIT_MONTH_TYPE">
+		<xs:annotation>
+			<xs:documentation>The Expiration Month on the card</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="2"/>
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="03"/>
+			<xs:enumeration value="04"/>
+			<xs:enumeration value="05"/>
+			<xs:enumeration value="06"/>
+			<xs:enumeration value="07"/>
+			<xs:enumeration value="08"/>
+			<xs:enumeration value="09"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TWODIGIT_YEAR_TYPE">
+		<xs:annotation>
+			<xs:documentation>The Expiration Year on the card</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FOURDIGIT_DATE_TYPE">
+		<xs:annotation>
+			<xs:documentation>Date format should be MMYY</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:totalDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ENUM_Y_N_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="Y"/>
+			<xs:enumeration value="N"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ENUM_TRUE_FALSE_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TRUE"/>
+			<xs:enumeration value="FALSE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ECOMM_GOODS_IND_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="P"/>
+			<xs:enumeration value="D"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ENUM_ZERO_ONE_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ENUM_ONE_TWO_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ENUM_TRANSID_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="2"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="20"/>
+			<xs:enumeration value="30"/>
+			<xs:enumeration value="40"/>
+			<xs:enumeration value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT2_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT4_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT5_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT6_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT9_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT10_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT12_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT16_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="16"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ABSOLUTE_TEXT16_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="16"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT17_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="17"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT20_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT23_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="23"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT24_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="24"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT25_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="25"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT30_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="30"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT40_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT50_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT64_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PRESENT_FLAG_TYPE">
+		<xs:annotation>
+			<xs:documentation>It is highly recommended to pass a Present Flag for all Business types. For retail and restaurant, you must pass a present flag value of either 2 for manually entered or 3 for swiped</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="FORCE_FLAG_TYPE">
+		<xs:annotation>
+			<xs:documentation>By passing the FORCE_FLAG with the transactions, allows the merchant to enter a duplicate transaction having the same account number and amount of another transaction in the same batch or on the same day. TRUE - Force duplicate, FALSE - Doesn't allow duplicate</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TRUE"/>
+			<xs:enumeration value="FALSE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AMOUNT_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="FUNCTION_TYPETYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PAYMENT"/>
+			<xs:enumeration value="BATCH"/>
+			<xs:enumeration value="ADMIN"/>
+			<xs:enumeration value="REPORT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PAYMENT_TYPETYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CREDIT"/>
+			<xs:enumeration value="DEBIT"/>
+			<xs:enumeration value="CHECK"/>
+			<xs:enumeration value="GIFT"/>
+			<xs:enumeration value="EBT"/>
+			<xs:enumeration value="CASH"/>
+			<xs:enumeration value="TOKEN"/>
+			<xs:enumeration value="PRIV_LBL"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="COMMAND_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PRE_AUTH"/>
+			<xs:enumeration value="SALE"/>
+			<xs:enumeration value="CREDIT"/>
+			<xs:enumeration value="VOID"/>
+			<xs:enumeration value="POST_AUTH"/>
+			<xs:enumeration value="COMPLETION"/>
+			<xs:enumeration value="COMMERCIAL"/>
+			<xs:enumeration value="ADD_TIP"/>
+			<xs:enumeration value="RESET_TIP"/>
+			<xs:enumeration value="VOICE_AUTH"/>
+			<xs:enumeration value="INQUIRY"/>
+			<xs:enumeration value="STATUS"/>
+			<xs:enumeration value="VERIFY"/>
+			<xs:enumeration value="AUTHORIZE"/>
+			<xs:enumeration value="REGISTER"/>
+			<xs:enumeration value="ADD_VALUE"/>
+			<xs:enumeration value="ACTIVATE"/>
+			<xs:enumeration value="GIFT_CLOSE"/>
+			<xs:enumeration value="BALANCE"/>
+			<xs:enumeration value="REPLACE"/>
+			<xs:enumeration value="ADD_POINTS"/>
+			<xs:enumeration value="REDEEM_POINTS"/>
+			<xs:enumeration value="REACTIVATE"/>
+			<xs:enumeration value="ISSUE"/>
+			<xs:enumeration value="QUERY"/>
+			<xs:enumeration value="TRANSEARCH"/>
+			<xs:enumeration value="REFUND"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EMP_NUM_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TRANSACTION_ID_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TRANSACTION_CD_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="PT_TRN_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:length value="1"/>
+			<xs:enumeration value="W"/>
+			<xs:enumeration value="H"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT3_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TRACK_DATA_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_PAYMENT_TYPE">
+		<xs:annotation>
+			<xs:documentation>Payment token representing a unique card</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TA_PAYMENT_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TEXT7_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ACCOUNT_TYPE">
+		<xs:restriction base="com:TEXT7_TYPE"/>
+	</xs:simpleType>
+	<xs:simpleType name="SITE_TYPE">
+		<xs:restriction base="com:TEXT4_TYPE"/>
+	</xs:simpleType>
+	<xs:simpleType name="TERM_TYPE">
+		<xs:restriction base="com:TEXT4_TYPE"/>
+	</xs:simpleType>
+	<xs:simpleType name="CARD_CLASS_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="PIN_BLOCK_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TA_TOKEN_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="COL_X_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_PROCESS_TYPE">
+		<xs:annotation>
+			<xs:documentation>1.	0 = OFF Do Not Tokenize
+2.	1 = Generate a Matching Token Tag:
+3.	2 = Generate a Payment Token Tag:
+4.	3 = Generate a Both Matching and Payment Token Tags: 
+</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_PAYENT_EXPDATE_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_CNAME_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_CADDR_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_CPCODE_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_CTYPE_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_EXPDATE_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_USED_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_MATCHING_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="ORDER_DATETIME_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="PROMO_CODE_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="CREDIT_PLAN_NBR_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="ITEM_DESC_1_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="PURCHASE_APR_TYPE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_STATUS_TYPE">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_RESULT_CODE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_RESULT_TEXT">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="TKN_EXPDATE">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:complexType name="SEARCHFIELDSTYPE">
+		<xs:sequence>
+			<xs:element name="PAYMENT_TYPE" type="xs:string"/>
+			<xs:element name="REQUEST_COMMAND" type="xs:string"/>
+			<xs:element name="START_TRANS_DATE" type="xs:string" minOccurs="0"/>
+			<xs:element name="END_TRANS_DATE" type="xs:string" minOccurs="0"/>
+			<xs:element name="START_TRANS_TIME" type="xs:string" minOccurs="0"/>
+			<xs:element name="END_TRANS_TIME" type="xs:string" minOccurs="0"/>
+			<xs:element name="INVOICE" type="xs:string"/>
+			<xs:element name="ACCT_NUM" type="xs:string"/>
+			<xs:element name="START_TRANS_AMOUNT" type="xs:string" minOccurs="0"/>
+			<xs:element name="END_TRANS_AMOUNT" type="xs:string" minOccurs="0"/>
+			<xs:element name="STATUS_CODE" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RECORDSTYPE">
+		<xs:sequence>
+			<xs:element name="RECORD" type="com:RECORDTYPE" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RECORDTYPE">
+		<xs:sequence>
+			<xs:element name="R_AUTH_CODE" type="xs:string" minOccurs="0"/>
+			<xs:element name="COMMAND" type="xs:string" minOccurs="0"/>
+			<xs:element name="CTROUTD" type="xs:string" minOccurs="0"/>
+			<xs:element name="INTRN_SEQ_NUM" type="xs:string" minOccurs="0"/>
+			<xs:element name="INVOICE" type="xs:string" minOccurs="0"/>
+			<xs:element name="PAYMENT_MEDIA" type="xs:string" minOccurs="0"/>
+			<xs:element name="PAYMENT_TYPE" type="xs:string" minOccurs="0"/>
+			<xs:element name="RESULT_CODE" type="xs:string" minOccurs="0"/>
+			<xs:element name="TRANS_AMOUNT" type="xs:string" minOccurs="0"/>
+			<xs:element name="TRANS_DATETIME" type="xs:string" minOccurs="0"/>
+			<xs:element name="TRANS_SEQ_NUM" type="xs:string" minOccurs="0"/>
+			<xs:element name="TROUTD" type="xs:string" minOccurs="0"/>
+			<xs:element name="CARD_CLASS" type="xs:string" minOccurs="0"/>
+			<xs:element name="AUTH_AMOUNT" type="xs:string" minOccurs="0"/>
+			<xs:element name="AMOUNT_BALANCE" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

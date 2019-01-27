@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:common="http://ecommerce.wsgc.com/2013/Common"
+           xmlns="http://services.wsgc.com/2014/Payment"
+           targetNamespace="http://services.wsgc.com/2014/Payment"
+           elementFormDefault="unqualified"
+           attributeFormDefault="unqualified">
+
+  <xs:import namespace="http://ecommerce.wsgc.com/2013/Common"
+             schemaLocation="../../2013/Common/base-types.xsd"/>
+
+  <xs:complexType name="RewardCertificateType">
+    <xs:sequence>
+      <xs:element name="CertificateType" type="xs:string"/>
+      <xs:element name="CertificateNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Plain text certificate number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Concept" type="common:ConceptCodeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Concept code to which reward certificate belongs to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CertificateStatus" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Status of the certificate. Possibile values are "ACTIVE","EXPIRED" and "CONSUMED".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CurrencyCode" type="common:CurrencyCodeType"/>
+      <xs:element name="CertificateAmount" type="common:CurrencyAmountType">
+        <xs:annotation>
+          <xs:documentation>Positive amount value with which the certificate was issued.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BalanceAmount" type="common:CurrencyAmountType">
+        <xs:annotation>
+          <xs:documentation>Positive reward certificate balance amount. This amount may be equal or less than the "CertificateAmount" value.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Expiration" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Reward certificate expiration date</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OwningAccountReference" type="common:MetadataType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Reference to the account that "owns" the certificate. The value of the element contains the reference, while the "type" attribute specifies the type of the reference (e.g. account id, matching token, etc.).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PaymentTransactionContextType">
+    <xs:sequence>
+      <xs:element name="ProcessingSystem" type="xs:string"/>
+      <xs:element name="TransactionId" type="xs:string"/>
+      <xs:element name="TransactionTime" type="xs:dateTime"/>
+      <xs:element name="TransactionTotalAmount" type="common:CurrencyAmountType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MinimalRewardCertificateType">
+    <xs:sequence>
+      <xs:element name="CertificateType" type="xs:string"/>
+      <xs:element name="CertificateNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Plain text certificate number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

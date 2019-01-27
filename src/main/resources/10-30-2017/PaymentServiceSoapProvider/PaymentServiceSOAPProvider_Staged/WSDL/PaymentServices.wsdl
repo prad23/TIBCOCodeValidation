@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns20="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement/Response" xmlns:ns21="http://www.sterlingcommerce.com/documentation/YFS/LRCBalance/Response" xmlns:ns22="http://www.sterlingcommerce.com/documentation/YFS/LRCRedemption/Response" xmlns:ns="http://www.sterlingcommerce.com/documentation/YFS/Payment/Token" xmlns:ns23="http://www.sterlingcommerce.com/documentation/YFS/LRCRedemption/Request" xmlns:ns24="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement_POSTHAUTH/Request" xmlns:ns25="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement_POSTAUTH/Response" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns26="http://www.sterlingcommerce.com/documentation/YFS/LRCReturn/Request" xmlns:ns27="http://www.sterlingcommerce.com/documentation/YFS/LRCReturn/Response" xmlns:ns2="http://www.sterlingcommerce.com/documentation/YFS/CCToken/Request" xmlns:ns3="http://www.sterlingcommerce.com/documentation/YFS/CCToken/Response" xmlns:ns4="http://www.sterlingcommerce.com/documentation/YFS/LRCBalance/Request" xmlns:ns5="http://www.sterlingcommerce.com/documentation/YFS/SVCActivation/Request" xmlns:ns6="http://www.sterlingcommerce.com/documentation/YFS/SVCBalance/Request" xmlns:ns7="http://www.sterlingcommerce.com/documentation/YFS/SVCRedemption/Request" xmlns:ns8="http://www.sterlingcommerce.com/documentation/YFS/SVCActivation/Response" xmlns:ns9="http://www.sterlingcommerce.com/documentation/YFS/SVCBalance/Response" xmlns:ns10="http://www.sterlingcommerce.com/documentation/YFS/SVCRedemption/Response" xmlns:ns11="http://www.sterlingcommerce.com/documentation/YFS/SvcVoid/Request" xmlns:ns12="http://www.sterlingcommerce.com/documentation/YFS/SvcVoid/Response" xmlns:ns13="http://www.sterlingcommerce.com/documentation/YFS/CCAuthorization/Request" xmlns:ns14="http://www.sterlingcommerce.com/documentation/YFS/CCAuthorization/Response" xmlns:ns15="http://www.sterlingcommerce.com/documentation/YFS/CCRefund/Request" xmlns:ns16="http://www.sterlingcommerce.com/documentation/YFS/CCRefund/Response" xmlns:ns17="http://www.sterlingcommerce.com/documentation/YFS/CCReverseAuth/Request" xmlns:ns18="http://www.sterlingcommerce.com/documentation/YFS/CCReverseAuth/Response" xmlns:ns19="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement/Request" xmlns:tns="http://services.wsgc.com/soap/paymentservice.wsdl" targetNamespace="http://services.wsgc.com/soap/paymentservice.wsdl">
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCRefund/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardRefundRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCRefund/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardRefundResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCReverseAuth/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardReverseAuthorizationRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCReverseAuth/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardReverseAuthorizationResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardSettlementRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardSettlementResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/SVCActivation/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/SvcActivationRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/SVCActivation/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/SvcActivationResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/SvcVoid/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/SvcVoidRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/SvcVoid/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/SvcVoidResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCAuthorization/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardAuthorizationRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCAuthorization/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardAuthorizationResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCToken/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardTokenRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCToken/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardTokenResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/SVCRedemption/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/SvcRedemptionRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/SVCRedemption/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/SvcRedemptionResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/SVCBalance/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/SvcBalanceEnquiryRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/SVCBalance/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/SvcBalanceEnquiryResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/LRCBalance/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/LRCBalanceEnquiryRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/LRCBalance/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/LRCBalanceEnquiryResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/LRCRedemption/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/LRCRedemptionRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/LRCRedemption/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/LRCRedemptionResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement_POSTHAUTH/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardPostAuthorizationRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement_POSTAUTH/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/CreditCardPostAuthorizationResponse.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/LRCReturn/Request" location="../SharedResources/XMLSchemas/Sterling/Payment/LRCReturnRequest.xsd"/>
+    <import namespace="http://www.sterlingcommerce.com/documentation/YFS/LRCReturn/Response" location="../SharedResources/XMLSchemas/Sterling/Payment/LRCReturnResponse.xsd"/>
+    <message name="CreditReturnRequest">
+        <part element="ns15:Payment" name="Request"/>
+    </message>
+    <message name="CreditReturnResponse">
+        <part element="ns16:CCRefundResponse" name="Response"/>
+    </message>
+    <message name="SvcActivationRequest">
+        <part element="ns5:WSISVCInfo" name="Request"/>
+    </message>
+    <message name="SvcActivationResponse">
+        <part element="ns8:SVCActivationResponse" name="Response"/>
+    </message>
+    <message name="SvcBalanceInquiryRequest">
+        <part name="Request" element="ns6:PaymentMethod"/>
+    </message>
+    <message name="SvcBalanceInquiryResponse">
+        <part name="Response" element="ns9:SVCBalance"/>
+    </message>
+    <message name="SvcRedemptionRequest">
+        <part name="Request" element="ns7:Payment"/>
+    </message>
+    <message name="SvcRedemptionResponse">
+        <part name="Response" element="ns10:SVCRedemption"/>
+    </message>
+    <message name="SvcVoidActivationRequest">
+        <part element="ns11:WSISVCInfo" name="Request"/>
+    </message>
+    <message name="SvcVoidActivationResponse">
+        <part element="ns12:SVCVoidResponse" name="Response"/>
+    </message>
+    <message name="CreditCaptureRequest">
+        <part element="ns19:Payment" name="Request"/>
+    </message>
+    <message name="CreditCaptureResponse">
+        <part element="ns20:CCSettlementResponse" name="Response"/>
+    </message>
+    <message name="CreditAuthorizationRequest">
+        <part element="ns13:Payment" name="Request"/>
+    </message>
+    <message name="CreditAuthorizationResponse">
+        <part element="ns14:CCAuthResponse" name="Response"/>
+    </message>
+    <message name="TokenizationRequest">
+        <part name="Request" element="ns2:PaymentMethod"/>
+    </message>
+    <message name="TokenizationResponse">
+        <part name="Response" element="ns3:CCTokenResponse"/>
+    </message>
+    <message name="LrcBalanceInquiryRequest">
+        <part name="Request" element="ns4:PaymentMethod"/>
+    </message>
+    <message name="LrcBalanceInquiryResponse">
+        <part name="Response" element="ns21:LRCBalance"/>
+    </message>
+    <message name="LrcRedemptionRequest">
+        <part name="Request" element="ns23:Payment"/>
+    </message>
+    <message name="LrcRedemptionResponse">
+        <part name="Response" element="ns22:LRCRedemption"/>
+    </message>
+    <message name="CreditPostAuthorizationRequest">
+        <part name="Request" element="ns24:Payment"/>
+    </message>
+    <message name="CreditPostAuthorizationResponse">
+        <part name="Response" element="ns25:CCSettlementResponse"/>
+    </message>
+    <message name="LrcReturnRequest">
+        <part name="Request" element="ns26:Payment"/>
+    </message>
+    <message name="LrcReturnResponse">
+        <part name="Response" element="ns27:LRCReturn"/>
+    </message>
+    <message name="StatusMessage">
+        <part name="Reponse" type="xsd:string"/>
+    </message>
+    <portType name="PaymentServices">
+        <operation name="SvcActivation">
+            <input message="tns:SvcActivationRequest"/>
+            <output message="tns:SvcActivationResponse"/>
+        </operation>
+        <operation name="SvcBalanceInquiry">
+            <input message="tns:SvcBalanceInquiryRequest"/>
+            <output message="tns:SvcBalanceInquiryResponse"/>
+        </operation>
+        <operation name="SvcRedemption">
+            <input message="tns:SvcRedemptionRequest"/>
+            <output message="tns:SvcRedemptionResponse"/>
+        </operation>
+        <operation name="SvcVoidActivation">
+            <input message="tns:SvcVoidActivationRequest"/>
+            <output message="tns:SvcVoidActivationResponse"/>
+        </operation>
+        <operation name="CreditReturn">
+            <input message="tns:CreditReturnRequest"/>
+            <output message="tns:CreditReturnResponse"/>
+        </operation>
+        <operation name="CreditCapture">
+            <input message="tns:CreditCaptureRequest"/>
+            <output message="tns:CreditCaptureResponse"/>
+        </operation>
+        <operation name="CreditAuthorization">
+            <input message="tns:CreditAuthorizationRequest"/>
+            <output message="tns:CreditAuthorizationResponse"/>
+        </operation>
+        <operation name="Tokenization">
+            <input message="tns:TokenizationRequest"/>
+            <output message="tns:TokenizationResponse"/>
+        </operation>
+        <operation name="LrcBalanceInquiry">
+            <input message="tns:LrcBalanceInquiryRequest"/>
+            <output message="tns:LrcBalanceInquiryResponse"/>
+        </operation>
+        <operation name="LrcRedemption">
+            <input message="tns:LrcRedemptionRequest"/>
+            <output message="tns:LrcRedemptionResponse"/>
+        </operation>
+        <operation name="CreditPostAuthorization">
+            <input message="tns:CreditPostAuthorizationRequest"/>
+            <output message="tns:CreditPostAuthorizationResponse"/>
+        </operation>
+        <operation name="LrcReturn">
+            <input message="tns:LrcReturnRequest"/>
+            <output message="tns:LrcReturnResponse"/>
+        </operation>
+        <operation name="GetStatus">
+            <output message="tns:StatusMessage"/>
+        </operation>
+    </portType>
+</definitions>

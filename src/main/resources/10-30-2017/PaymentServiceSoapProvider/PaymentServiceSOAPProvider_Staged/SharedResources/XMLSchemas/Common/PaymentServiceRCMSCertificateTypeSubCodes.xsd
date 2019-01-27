@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.wsgc.com/schemas/common/PaymentServiceRCMSCertificateTypeSubCodes"
+	 targetNamespace="http://www.wsgc.com/schemas/common/PaymentServiceRCMSCertificateTypeSubCodes"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="PaymentServiceRCMSCertificateTypeSubCodes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RCMSCertificateTypeSubCode" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RCMSCertificateType" type="xs:string"/>
+	<xs:element name="CertficateTenderSubCode" type="xs:string"/>
+	<xs:element name="RCMSCertificateTypeSubCode">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RCMSCertificateType"/>
+				<xs:element ref="CertficateTenderSubCode"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

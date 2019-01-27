@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns="http://www.wsgc.com/schemas/common/PaymentGatewayGenericResultCodes.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.wsgc.com/schemas/common/PaymentGatewaySVCStatusCodes.xsd" xmlns:ns2="http://www.wsgc.com/schemas/common/PaymentGatewayAuthorizationStatusCodes.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentServiceWSIDeclineRules.xsd" xmlns:pfx2="http://ecommerce.wsgc.com/2013/Common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/XMLSchemas/Verifone/GiftActivateResponse.xsd" xmlns:pfx4="http://services.wsgc.com/2014/Payment" xmlns:pfx6="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx7="http://www.wsgc.com/schemas/common/PaymentServiceProcessorReturnCodes.xsd" xmlns:pfx8="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorizationResponse" xmlns:pfx9="http://www.tibco.com/schemas/PaymentServices/SharedResources/PLCC_UGPResponse.xsd">
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2013/Common/base-types.xsd"/>
+    <xsd:import namespace="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorizationResponse" schemaLocation="/SharedResources/XMLSchemas/Verifone/UGP-V1/UGPCreditPreAuthorizationResponse.xsd"/>
+    <xsd:import namespace="http://www.wsgc.com/schemas/common/PaymentServiceProcessorReturnCodes.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentServiceProcessorReturnCodes.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/PaymentServices/SharedResources/PLCC_UGPResponse.xsd" schemaLocation="/SharedResources/XMLSchemas/PaymentServiceInternal/PLCC_UGPResponse.xsd"/>
+    <pd:name>BusinessProcesses/Common/ProcessPaymentGatewayResponse-PLCC.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="OperationScope" type="xsd:string" minOccurs="0"/>
+                    <xsd:element ref="pfx9:UGPRESPONSE" minOccurs="0"/>
+                    <xsd:element name="InterfaceCode" type="xsd:string"/>
+                    <xsd:element name="TransactionType" type="xsd:string"/>
+                    <xsd:element name="TransactionId" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>51</pd:startX>
+    <pd:startY>1012</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="(string-length($Variable0PaymentGatewayResultCodeTransalation/root/ErrorType) = 0) and&#xA;($Start/root/OperationScope=$_globalVariables/pfx6:GlobalVariables/Authorization/BWTransformation/OperationScope)">
+                <AuthorizationStatus>
+                    <xsl:value-of select="if (contains( $_globalVariables/pfx6:GlobalVariables/Authorization/PaymentGateway/SuccessResultCodes , $Start/root/pfx9:UGPRESPONSE/RESULT_CODE)&#xA;or&#xA;(string-length($Start/root/pfx9:UGPRESPONSE/DUP_TAGS/DUP_CTROUTD) > 0)&#xA;)&#xA;then&#xA;   $_globalVariables/pfx6:GlobalVariables/Authorization/Constants/ApprovedAuthorizationStatus&#xA;&#xA;else if   (not(   exists($GetProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[  $Start/root/pfx9:UGPRESPONSE/RESPONSE_CODE  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$_globalVariables/pfx6:GlobalVariables/Authorization/BWTransformation/OperationScope]/pfx7:WSIMessage)  ))&#xA;&#xA;then $_globalVariables/pfx6:GlobalVariables/Authorization/Constants/DeclinedAuthorizationStatus&#xA;else&#xA;$GetProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[ $Start/root/pfx9:UGPRESPONSE/RESPONSE_CODE  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$_globalVariables/pfx6:GlobalVariables/Authorization/BWTransformation/OperationScope]/pfx7:WSIMessage"/>
+                </AuthorizationStatus>
+            </xsl:if>
+            <xsl:if test="string-length($Variable0PaymentGatewayResultCodeTransalation/root/ErrorType) > 0">
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$Variable0PaymentGatewayResultCodeTransalation/root/ErrorType"/>
+                    </Type>
+                    <xsl:if test="string-length($Variable0PaymentGatewayResultCodeTransalation/root/ErrorDetail)>0">
+                        <xsl:if test="$Variable0PaymentGatewayResultCodeTransalation/root/ErrorDetail">
+                            <Detail>
+                                <xsl:value-of select="$Variable0PaymentGatewayResultCodeTransalation/root/ErrorDetail"/>
+                            </Detail>
+                        </xsl:if>
+                    </xsl:if>
+                    <ErrorMessage>
+                        <xsl:value-of select="$Variable0PaymentGatewayResultCodeTransalation/root/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="string-length($Variable0PaymentGatewayResultCodeTransalation/root/ErrorType)>0">
+                    <Success>
+                        <xsl:value-of select="&quot;false&quot;"/>
+                    </Success>
+                </xsl:when>
+                <xsl:otherwise>
+                    <Success>
+                        <xsl:value-of select="&quot;true&quot;"/>
+                    </Success>
+                </xsl:otherwise>
+            </xsl:choose>
+            <provideTokenOnError>
+                <xsl:value-of select="if($Variable0PaymentGatewayResultCodeTransalation/root/provideTokenOnError=&quot;true&quot;)&#xA;then&#xA; true()&#xA;else&#xA;false()"/>
+            </provideTokenOnError>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="AuthorizationStatus" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Error" type="pfx2:ErrorType" minOccurs="0"/>
+                    <xsd:element name="Success" type="xsd:boolean" minOccurs="0"/>
+                    <xsd:element name="provideTokenOnError" type="xsd:boolean" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>882</pd:endX>
+    <pd:endY>1013</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <InterimVars>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="RCFound" type="xsd:boolean" minOccurs="0"/>
+                        <xsd:element ref="pfx7:PaymentServiceProcessorReturnCodes" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </InterimVars>
+        <Variable0PaymentGatewayResultCodeTransalation>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ErrorType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorDetail" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorMessage" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ShouldNotify" type="xsd:boolean" minOccurs="0"/>
+                        <xsd:element name="provideTokenOnError" type="xsd:boolean" minOccurs="0"/>
+                        <xsd:element name="NotificationErrorCode" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Variable0PaymentGatewayResultCodeTransalation>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1418700207599</pd:targetNamespace>
+    <pd:activity name="LookupResultCode">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>59</pd:x>
+        <pd:y>1562</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceVerifoneGatewayResultCodes.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="AssignGenericError-2">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>461</pd:x>
+        <pd:y>1565</pd:y>
+        <config>
+            <variableName>Variable0PaymentGatewayResultCodeTransalation</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable name="var" select="$InterimVars/root/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[1]/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]"/>
+            <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                <xsl:when test="string-length($var/@errorType) >0">
+                    <root>
+                        <ErrorType>
+                            <xsl:value-of select="$var/@errorType"/>
+                        </ErrorType>
+                        <ErrorDetail>
+                            <xsl:value-of select="$var/text()"/>
+                        </ErrorDetail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$InterimVars/root/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[1]/pfx7:Description"/>
+                        </ErrorMessage>
+                        <ShouldNotify>
+                            <xsl:value-of select="$var/@shouldNotify"/>
+                        </ShouldNotify>
+                        <xsl:if test="$var/@provideTokenOnError">
+                            <provideTokenOnError>
+                                <xsl:value-of select="$var/@provideTokenOnError"/>
+                            </provideTokenOnError>
+                        </xsl:if>
+                        <NotificationErrorCode>
+                            <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/NotificationErrorCodes/NOTIFIABLE_RESULTCODE_ERROR"/>
+                        </NotificationErrorCode>
+                    </root>
+                </xsl:when>
+                <xsl:otherwise>
+                    <root/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LookupTerminationStatus">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>284</pd:x>
+        <pd:y>1120</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceVerifoneGatewayTerminationStatus.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="NotifySupport">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>471</pd:x>
+        <pd:y>1270</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/NotifySupport.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$Start/root/InterfaceCode"/>
+                </InterfaceCode>
+                <ExceptionCode>
+                    <xsl:value-of select="$Variable0PaymentGatewayResultCodeTransalation/root/NotificationErrorCode"/>
+                </ExceptionCode>
+                <ErrorMessage>
+                    <xsl:value-of select="concat($Variable0PaymentGatewayResultCodeTransalation/root/ErrorDetail, $_globalVariables/pfx6:GlobalVariables/PaymentService/CLE/ErrorMessageSeparator,  $Variable0PaymentGatewayResultCodeTransalation/root/ErrorMessage)"/>
+                </ErrorMessage>
+                <TransactionType>
+                    <xsl:value-of select="$Start/root/TransactionType"/>
+                </TransactionType>
+                <TransactionId>
+                    <xsl:value-of select="$Start/root/TransactionId"/>
+                </TransactionId>
+                <Payload>
+                    <xsl:value-of select="tib:render-xml($Start/root/pfx9:UGPRESPONSE)"/>
+                </Payload>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignGenericError">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>473</pd:x>
+        <pd:y>1115</pd:y>
+        <config>
+            <variableName>Variable0PaymentGatewayResultCodeTransalation</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                <xsl:when test="string-length($LookupTerminationStatus/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/TERMINATION_STATUS  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]/pfx7:WSIMessage/@errorType)>0">
+                    <root>
+                        <ErrorType>
+                            <xsl:value-of select="$LookupTerminationStatus/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/TERMINATION_STATUS  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]/pfx7:WSIMessage/@errorType"/>
+                        </ErrorType>
+                        <ErrorDetail>
+                            <xsl:value-of select="$LookupTerminationStatus/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/TERMINATION_STATUS  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]/pfx7:WSIMessage"/>
+                        </ErrorDetail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$LookupTerminationStatus/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/TERMINATION_STATUS  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]/pfx7:Description"/>
+                        </ErrorMessage>
+                        <ShouldNotify>
+                            <xsl:value-of select="$LookupTerminationStatus/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/TERMINATION_STATUS  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]/pfx7:WSIMessage/@shouldNotify"/>
+                        </ShouldNotify>
+                        <provideTokenOnError>
+                            <xsl:value-of select="if ($LookupTerminationStatus/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/TERMINATION_STATUS  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]/pfx7:WSIMessage/@provideTokenOnError = 'true') then true()&#xA;else false()"/>
+                        </provideTokenOnError>
+                        <NotificationErrorCode>
+                            <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/NotificationErrorCodes/NOTIFIABLE_TERMINATIONSTATUS_ERROR"/>
+                        </NotificationErrorCode>
+                    </root>
+                </xsl:when>
+                <xsl:otherwise>
+                    <root>
+                        <ErrorType>
+                            <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/Type"/>
+                        </ErrorType>
+                        <ErrorDetail>
+                            <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/Detail"/>
+                        </ErrorDetail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/ErrorMessage"/>
+                        </ErrorMessage>
+                        <ShouldNotify>
+                            <xsl:value-of select="true()"/>
+                        </ShouldNotify>
+                        <provideTokenOnError>
+                            <xsl:value-of select="true()"/>
+                        </provideTokenOnError>
+                        <NotificationErrorCode>
+                            <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/NotificationErrorCodes/UNDETERMINABLE_PAYMENT_GATEWAY_ERROR"/>
+                        </NotificationErrorCode>
+                    </root>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignResultCode">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>288</pd:x>
+        <pd:y>1567</pd:y>
+        <config>
+            <variableName>InterimVars</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <RCFound>
+                    <xsl:value-of select="string-length($LookupResultCode/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/RESULT_CODE  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]/pfx7:WSIMessage)>0"/>
+                </RCFound>
+                <pfx7:PaymentServiceProcessorReturnCodes>
+                    <xsl:for-each select="$LookupResultCode/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/RESULT_CODE  =  pfx7:ProcessorReturnCode][pfx7:WSIMessage/@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]">
+                        <pfx7:PaymentServiceProcessorReturnCode>
+                            <pfx7:ProcessorReturnCode>
+                                <xsl:value-of select="pfx7:ProcessorReturnCode"/>
+                            </pfx7:ProcessorReturnCode>
+                            <pfx7:Description>
+                                <xsl:value-of select="pfx7:Description"/>
+                            </pfx7:Description>
+                            <xsl:for-each select="pfx7:WSIMessage">
+                                <pfx7:WSIMessage>
+                                    <xsl:attribute name="operationScope">
+                                        <xsl:value-of select="@operationScope"/>
+                                    </xsl:attribute>
+                                    <xsl:if test="@errorType">
+                                        <xsl:attribute name="errorType">
+                                            <xsl:value-of select="@errorType"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="@shouldNotify">
+                                        <xsl:attribute name="shouldNotify">
+                                            <xsl:value-of select="@shouldNotify"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:if test="@provideTokenOnError">
+                                        <xsl:attribute name="provideTokenOnError">
+                                            <xsl:value-of select="@provideTokenOnError"/>
+                                        </xsl:attribute>
+                                    </xsl:if>
+                                    <xsl:value-of select="."/>
+                                </pfx7:WSIMessage>
+                            </xsl:for-each>
+                        </pfx7:PaymentServiceProcessorReturnCode>
+                    </xsl:for-each>
+                </pfx7:PaymentServiceProcessorReturnCodes>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetProcessorReturnCodes">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>720</pd:x>
+        <pd:y>1403</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServicePLCCProcessorReturnCodes.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="AssigngGenericError-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>617</pd:x>
+        <pd:y>1333</pd:y>
+        <config>
+            <variableName>Variable0PaymentGatewayResultCodeTransalation</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="var" select="$GetProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/RESPONSE_CODE  =  pfx7:ProcessorReturnCode]"/>
+                <ErrorType>
+                    <xsl:value-of select="$var/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope]/@errorType"/>
+                </ErrorType>
+                <ErrorDetail>
+                    <xsl:value-of select="$var/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope]"/>
+                </ErrorDetail>
+                <xsl:if test="$var/pfx7:Description">
+                    <ErrorMessage>
+                        <xsl:value-of select="$var/pfx7:Description"/>
+                    </ErrorMessage>
+                </xsl:if>
+                <xsl:if test="string-length($var/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope]/@shouldNotify) > 0">
+                    <xsl:if test="$var/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope]/@shouldNotify">
+                        <ShouldNotify>
+                            <xsl:value-of select="$var/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope]/@shouldNotify"/>
+                        </ShouldNotify>
+                    </xsl:if>
+                </xsl:if>
+                <provideTokenOnError>
+                    <xsl:value-of select="if($var/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope]/@provideTokenOnError='true')&#xA;then&#xA;true()&#xA;else&#xA;false()"/>
+                </provideTokenOnError>
+                <NotificationErrorCode>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/NotificationErrorCodes/NOTIFIABLE_PLCC_PROCESSORCODE_ERROR"/>
+                </NotificationErrorCode>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>594</pd:x>
+        <pd:y>1501</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="AssignGenericError-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>455</pd:x>
+        <pd:y>882</pd:y>
+        <config>
+            <variableName>Variable0PaymentGatewayResultCodeTransalation</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ErrorType>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/Type"/>
+                </ErrorType>
+                <ErrorDetail>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/Detail"/>
+                </ErrorDetail>
+                <ErrorMessage>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/ErrorMessage"/>
+                </ErrorMessage>
+                <ShouldNotify>
+                    <xsl:value-of select="true()"/>
+                </ShouldNotify>
+                <provideTokenOnError>
+                    <xsl:value-of select="true()"/>
+                </provideTokenOnError>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssigngGenericError-1-1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>542</pd:x>
+        <pd:y>1405</pd:y>
+        <config>
+            <variableName>Variable0PaymentGatewayResultCodeTransalation</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ErrorType>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/Type"/>
+                </ErrorType>
+                <xsl:choose>
+                    <xsl:when test="string-length($Start/root/pfx9:UGPRESPONSE/RESPONSE_TEXT) >0">
+                        <ErrorMessage>
+                            <xsl:value-of select="$Start/root/pfx9:UGPRESPONSE/RESPONSE_TEXT"/>
+                        </ErrorMessage>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/CommonErrors/REMOTE_FAILURE/ErrorMessage"/>
+                        </ErrorMessage>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <ShouldNotify>
+                    <xsl:value-of select="true()"/>
+                </ShouldNotify>
+                <provideTokenOnError>
+                    <xsl:value-of select="true()"/>
+                </provideTokenOnError>
+                <NotificationErrorCode>
+                    <xsl:value-of select="$_globalVariables/pfx6:GlobalVariables/PaymentService/NotificationErrorCodes/NOTIFIABLE_CREDIT_PROCESSORCODE_ERROR"/>
+                </NotificationErrorCode>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>DUP response</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/pfx9:UGPRESPONSE/DUP_TAGS/DUP_CTROUTD) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>LookupResultCode</pd:to>
+        <pd:xpathDescription>! DUP &amp; RESUTL_CODE exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/pfx9:UGPRESPONSE/DUP_TAGS/DUP_CTROUTD) =0
+and
+string-length($Start/root/pfx9:UGPRESPONSE/RESULT_CODE) &gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>LookupTerminationStatus</pd:to>
+        <pd:xpathDescription>TERM_STATUS</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/pfx9:UGPRESPONSE/DUP_TAGS/DUP_CTROUTD) =0
+and
+string-length($Start/root/pfx9:UGPRESPONSE/RESULT_CODE) =0
+and
+string-length($Start/root/pfx9:UGPRESPONSE/TERMINATION_STATUS) &gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError-2</pd:from>
+        <pd:to>NotifySupport</pd:to>
+        <pd:xpathDescription>Notify</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Variable0PaymentGatewayResultCodeTransalation/root/ShouldNotify='true'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LookupTerminationStatus</pd:from>
+        <pd:to>AssignGenericError</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError</pd:from>
+        <pd:to>NotifySupport</pd:to>
+        <pd:xpathDescription>Notify</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Variable0PaymentGatewayResultCodeTransalation/root/ShouldNotify='true'
+or
+$InterimVars/root/RCFound='false'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>NotifySupport</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError-2</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>Error-RC</pd:xpathDescription>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-39424</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Variable0PaymentGatewayResultCodeTransalation/root/ErrorType)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LookupResultCode</pd:from>
+        <pd:to>AssignResultCode</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignResultCode</pd:from>
+        <pd:to>LookupTerminationStatus</pd:to>
+        <pd:xpathDescription>RC Not Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-39424</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError-2</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>No Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetProcessorReturnCodes</pd:from>
+        <pd:to>AssigngGenericError-1</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-39424</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/pfx9:UGPRESPONSE/RESPONSE_CODE )=0
+and
+string-length($GetProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCodes/pfx7:PaymentServiceProcessorReturnCode[$Start/root/pfx9:UGPRESPONSE/RESPONSE_CODE =  pfx7:ProcessorReturnCode]/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope]/@errorType) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>GetProcessorReturnCodes</pd:to>
+        <pd:xpathDescription>FUNC Failure</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-39424</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>FUNC Success</pd:xpathDescription>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16776961</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$InterimVars/root/pfx7:PaymentServiceProcessorReturnCodes[1]/pfx7:PaymentServiceProcessorReturnCode/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]=$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/GATEWAY_FUNC_SUCCESS_RESPONSE</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignResultCode</pd:from>
+        <pd:to>AssignGenericError-2</pd:to>
+        <pd:xpathDescription>RC Found</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$InterimVars/root/RCFound='true'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssigngGenericError-1</pd:from>
+        <pd:to>NotifySupport</pd:to>
+        <pd:xpathDescription>Notify</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Variable0PaymentGatewayResultCodeTransalation/root/ShouldNotify='true'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssigngGenericError-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>AssignGenericError-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignGenericError-1</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetProcessorReturnCodes</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>Not Found</pd:xpathDescription>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16711681</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>AssigngGenericError-1-1</pd:to>
+        <pd:xpathDescription>No Response Code</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-39424</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$InterimVars/root/pfx7:PaymentServiceProcessorReturnCodes[1]/pfx7:PaymentServiceProcessorReturnCode/pfx7:WSIMessage[@operationScope=$Start/root/OperationScope|$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/AllOperationScope]!=$_globalVariables/pfx6:GlobalVariables/PaymentService/PaymentGateway/GATEWAY_FUNC_SUCCESS_RESPONSE
+and
+string-length($Start/root/pfx9:UGPRESPONSE/RESPONSE_CODE)=0
+and
+string-length($Start/root/pfx9:UGPRESPONSE/DUP_TAGS/DUP_CTROUTD)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssigngGenericError-1-1</pd:from>
+        <pd:to>NotifySupport</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-39424</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

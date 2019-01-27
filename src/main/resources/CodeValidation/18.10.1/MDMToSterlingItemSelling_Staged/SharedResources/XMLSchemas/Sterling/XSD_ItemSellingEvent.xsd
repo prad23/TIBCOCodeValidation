@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2017 sp2 (x64) (http://www.altova.com) by KNedunthuraikoe (Williams-Sonoma, Inc.) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:yfc="http://www.yantra.com/documentation/YCM/manageItemSelling/input" xmlns:yfctype="http://www.sterlingcommerce.com/documentation/types" targetNamespace="http://www.yantra.com/documentation/YCM/manageItemSelling/input" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation yfc:rootElement="ItemList" yfc:fileName="XSD_ItemSellingEvent.xsd">
+		<xsd:appinfo source="yfc:structure">
+			<ItemList hasAttributes="Y">
+				<Item hasAttributes="Y">
+					<!--Start: Added as part of BOPIS Project for Item Eligibility to be BOPIS Item-->
+					<PrimaryInformation hasAttributes="Y"/>
+					<!--End: Added as part of BOPIS Project for Item Eligibility to be BOPIS Item-->
+					<InventoryParameters hasAttributes="Y"/>
+					<Extn hasAttributes="Y">
+						<WSIAddnlItemDataList hasAttributes="Y">
+							<WSIAddnlItemData hasAttributes="Y"/>
+						</WSIAddnlItemDataList>
+					</Extn>
+				</Item>
+			</ItemList>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://www.sterlingcommerce.com/documentation/types" schemaLocation="datatypes.xsd"/>
+	<xsd:element name="ItemList" type="yfc:ItemListXSDType"/>
+	<xsd:complexType name="ItemListXSDType">
+		<xsd:all>
+			<xsd:element ref="yfc:Item" minOccurs="0"/>
+		</xsd:all>
+		<xsd:attribute name="EventType" type="yfctype:Text-20" use="required"/>
+	</xsd:complexType>
+	<xsd:element name="Item">
+		<xsd:annotation yfc:tableName="YFS_ITEM">
+			<xsd:documentation>The table stores product information.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="yfc:InventoryParameters" minOccurs="0"/>
+				<!--Start: Added as part of BOPIS Project for Item Eligibility to be BOPIS Item-->
+				<xsd:element ref="yfc:PrimaryInformation" minOccurs="0"/>
+				<!--End: Added as part of BOPIS Project for Item Eligibility to be BOPIS Item-->
+				<xsd:element name="Extn" minOccurs="0">
+					<xsd:complexType>
+						<xsd:all>
+							<xsd:element ref="yfc:WSIAddnlItemDataList" minOccurs="0"/>
+						</xsd:all>
+						<xsd:attribute name="ExtnRegShipRestID" type="yfctype:Text-1000">
+							<xsd:annotation yfc:columnName="EXTN_REG_SHIP_RESTID" yfc:tableName="YFS_ITEM">
+								<xsd:documentation>Stores regular service Ship Restriction ID of an Item</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="ExtnRushShipRestID" type="yfctype:Text-1000">
+							<xsd:annotation yfc:columnName="EXTN_RUSH_SHIP_RESTID" yfc:tableName="YFS_ITEM">
+								<xsd:documentation>Stores rush service Ship Restriction ID of an Item</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="ExtnSellInd" type="yfctype:Flag">
+							<xsd:annotation yfc:columnName="EXTN_SELL_IND" yfc:tableName="YFS_ITEM">
+								<xsd:documentation>Indicates whether the item is available for selling.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="ExtnIsShipToStore" type="yfctype:Flag" use="optional">
+							<xsd:annotation yfc:tableName="YFS_ITEM" yfc:columnName="EXTN_IS_SHIP_TO_STORE">
+								<xsd:documentation>This attribute indicates if the Item is Ship To Store eligible or not</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:all>
+			<xsd:attribute name="ItemID" type="yfctype:ItemID">
+				<xsd:annotation yfc:columnName="ITEM_ID" yfc:tableName="YFS_ITEM">
+					<xsd:documentation>The unique identifier for the item.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="OrganizationCode" type="yfctype:OrgCode">
+				<xsd:annotation yfc:columnName="ORGANIZATION_CODE" yfc:tableName="YFS_ITEM">
+					<xsd:documentation>The organization code whose product information is being stored.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="UnitOfMeasure" type="yfctype:UOM">
+				<xsd:annotation yfc:columnName="UOM" yfc:tableName="YFS_ITEM">
+					<xsd:documentation>The unit of measure for item quantity.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="Action" type="yfctype:Action"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InventoryParameters">
+		<xsd:annotation yfc:tableName="YFS_ITEM">
+			<xsd:documentation>The table stores product information.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="UseUnplannedInventory" type="yfctype:Flag">
+				<xsd:annotation yfc:columnName="USE_UNPLANNED_INV" yfc:tableName="YFS_ITEM">
+					<xsd:documentation>This flag indicates whether the item is allowed to use unplanned inventory. Default value: N.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<!--Start: Added as part of BOPIS Project for Item Eligibility to be BOPIS Item-->
+	<xsd:element name="PrimaryInformation">
+		<xsd:annotation yfc:tableName="YFS_ITEM">
+			<xsd:documentation>The table stores product information.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="IsPickupAllowed" type="yfctype:Flag" use="optional">
+				<xsd:annotation yfc:columnName="IS_PICKUP_ALLOWED" yfc:tableName="YFS_ITEM">
+					<xsd:documentation>This flag indicates whether the delivery method PICK is allowed for item. Default value: N.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<!--End: Added as part of BOPIS Project for Item Eligibility to be BOPIS Item-->
+	<xsd:element name="WSIAddnlItemDataList">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="yfc:WSIAddnlItemData" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="Reset" type="yfctype:Flag" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="WSIAddnlItemData">
+		<xsd:complexType>
+			<xsd:attribute name="EnterpriseCode" type="yfctype:OrgCode"/>
+			<xsd:attribute name="IsChngApplied" type="yfctype:Flag"/>
+			<xsd:attribute name="Type" type="yfctype:Text-20" use="required"/>
+			<xsd:attribute name="Value" type="yfctype:Text-20" use="required"/>
+			<xsd:attribute name="EffectiveStartTime" type="yfctype:TimeStamp" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

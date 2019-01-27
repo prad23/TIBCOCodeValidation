@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://mdm.wsgc.com/2014/CanonicalData"
+           xmlns:common="http://ecommerce.wsgc.com/2013/Common"
+           targetNamespace="http://mdm.wsgc.com/2014/CanonicalData"
+           version="1.0"
+           elementFormDefault="unqualified"
+           attributeFormDefault="unqualified">
+
+  <xs:import namespace="http://ecommerce.wsgc.com/2013/Common"
+             schemaLocation="../../2013/Common/base-types.xsd"/>
+
+  <xs:attributeGroup name="ItemEntityAttributes">
+    <xs:annotation>
+      <xs:documentation>Provides the core group of attributes used for all item entity elements.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="conceptCode" type="common:ConceptCodeType" use="required">
+      <xs:annotation>
+        <xs:documentation>A unique, alphanumeric code to identify the concept enterprise-wide.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="itemId" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Unique alphanumeric value that identifies an item</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="lastModifiedTime" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          Indicates entity update timestamp in source systems
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="isDelete" type="xs:boolean" default="false">
+      <xs:annotation>
+        <xs:documentation>If present and true, indicates that this update deletes the entity. Should be omitted if false.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="ConceptEntityAttributes">
+    <xs:annotation>
+      <xs:documentation>Provides the core group of attributes used for all concept level entity elements.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="conceptCode" type="common:ConceptCodeType" use="required">
+      <xs:annotation>
+        <xs:documentation>A unique, alphanumeric code to identify the concept enterprise-wide.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="lastModifiedTime" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          Indicates entity update timestamp in source systems
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="isDelete" type="xs:boolean" default="false">
+      <xs:annotation>
+        <xs:documentation>If present and true, indicates that this update deletes the entity. Should be omitted if false.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:simpleType name="MeasurementRestrictionType">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="12"/>
+      <xs:fractionDigits value="4"/>
+      <xs:minInclusive value="0"/>
+      <xs:maxExclusive value="100000000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="MeasurementType">
+    <xs:annotation>
+      <xs:documentation>
+        Provides a physical measurement with a specific unit of measure.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="MeasurementRestrictionType">
+        <xs:attribute name="uom" type="UomType" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="UomType">
+    <xs:restriction base="xs:string">
+      <!-- Removed length restriction as it's unnecessarily agressive -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CurrencyAmountType">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="15"/>
+      <xs:fractionDigits value="2"/>
+      <xs:minInclusive value="0"/>
+      <xs:maxExclusive value="10000000000000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CostType">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="13"/>
+      <xs:fractionDigits value="4"/>
+      <xs:minInclusive value="0"/>
+      <xs:maxExclusive value="1000000000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ScheduledStringType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+                Indicates Effective Start time for String typed Effective dated attributes e.g. AssociateDiscount
+                        </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="startTime" type="xs:dateTime" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ScheduledBooleanType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+               Indicates Effective Start time for boolean typed Effective dated attributes e.g.  IsNla, IsSellable
+                        </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:boolean">
+        <xs:attribute name="startTime" type="xs:dateTime" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!--  <xs:complexType name="PropertyTypeCodeType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Indicates Property Type Code as an attribute
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="typeCode" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType> -->
+
+  <xs:complexType name="PropertyTypeType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Indicates Property Type as an attribute
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="type" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ItemIdType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Indicates Item Id with conceptCode as an attribute
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="conceptCode" type="common:ConceptCodeType" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="ChargePercentType">
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="5"/>
+      <xs:fractionDigits value="2"/>
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="MerchHierarchyType">
+    <xs:annotation>
+      <xs:documentation>Contains elements to represent Williams-Sonoma Merchandise Hierarchy</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="DepartmentCode" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Indicates Department code to which the item is attached</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ClassCode" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Indicates Class code to which the item is attached</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubclassCode" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Indicates SubClass code to which the item is attached</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductCopyType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="type" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProductImageType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="type" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="MinimalProductInformationType">
+    <xs:sequence>
+      <xs:element name="Name">
+        <xs:annotation>
+          <xs:documentation>Name of the item as defined in the merchandizing system. This value cannot exceed 100 characters.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="100"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ShortName">
+        <xs:annotation>
+          <xs:documentation>"This name is the most visible of all descriptions. It appears on the customer's cash register receipt, is limited to a length of 20 characters,  and is printed on the item's DTC and Retail ticket. It is also used in the DC for receiving and picking, on purchase orders, in store POS systems, on Customer Care Center screens, on DTC invoices, and in IPMS inquiries.
+            Here is an example of a Cash Register Description: LP MAT 31X22 BLU"
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="20"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="MediumName">
+        <xs:annotation>
+          <xs:documentation>"This name is displayed on the Customer Care Center order-taking system and also on Gift Kiosk and Bridal Registry screens. The description for the style is entered in this field, and the Diff ID is added when the Diff information is entered on those tabs. The maximum number of characters for this description with Diff information is 35 characters; therefore it is recommended that this entry be 20 characters or less. See example below.
+            Description: LA PRVNCE CSHND MAT
+            Diff ID Code (1):  31x22
+            Diff ID Code (2): BLUE
+            35 Character Description: LA PRVNCE CSHND MAT 31X22 BLU"
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="35"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element minOccurs="0" name="LongName">
+        <xs:annotation>
+          <xs:documentation>Description of the item used in the eCommerce application.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:maxLength value="4000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ProductCopy" type="ProductCopyType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Contains descriptive copy, differentiated by type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProductImage" type="ProductImageType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="conceptCode" type="common:ConceptCodeType" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The concept code for the product.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="itemId" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The item identifier (within the specified concept) that serves as a reference for this product.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>

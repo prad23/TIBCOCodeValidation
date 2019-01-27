@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Murali (Williams-Sonoma, Inc.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ATPAppAuditSwitches="http://www.wsgc.com/schemas/common/ATPAppAuditSwitches.xsd" targetNamespace="http://www.wsgc.com/schemas/common/ATPAppAuditSwitches.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="ATPAppAuditSwitches">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ATPAppAuditSwitches:ATPAppAuditSwitch" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ATPAppAuditSwitch">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ATPAppAuditSwitches:InterfaceCode"/>
+				<xs:element ref="ATPAppAuditSwitches:AuditMessageType"/>
+				<xs:element ref="ATPAppAuditSwitches:AuditMessageFlag"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AuditMessageType" type="xs:string"/>
+	<xs:element name="AuditMessageFlag" type="xs:string"/>
+	<xs:element name="InterfaceCode" type="xs:string"/>
+</xs:schema>

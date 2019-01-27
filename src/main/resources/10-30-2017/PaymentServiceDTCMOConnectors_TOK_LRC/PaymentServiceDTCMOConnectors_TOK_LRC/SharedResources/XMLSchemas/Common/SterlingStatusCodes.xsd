@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.wsgc.com/schemas/common/STRECOStatusCodes.xsd"
+	 targetNamespace="http://www.wsgc.com/schemas/common/STRECOStatusCodes.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="StatusCodes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="StatusCode" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="FromStatusCode" minOccurs="0"/>
+							<xs:element ref="ToStatusCode" minOccurs="0"/>
+							<xs:element ref="TargetSystem" minOccurs="0"/>
+							<xs:element ref="ResultCode" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="StatusCode_type">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:element name="FromStatusCode" type="xs:string"/>
+	<xs:element name="ToStatusCode" type="xs:string"/>
+	<xs:element name="ResultCode" type="xs:string"/>
+	<xs:element name="TargetSystem" type="xs:string"/>
+</xs:schema>

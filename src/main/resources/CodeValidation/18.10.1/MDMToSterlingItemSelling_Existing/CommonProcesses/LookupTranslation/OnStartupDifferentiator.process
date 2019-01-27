@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://www.tibco.com/namespaces/tnt/plugins/file/v2" xmlns:ns="http://www.tibco.com/schemas/Phase1BWTemplate/SharedResources/SchemaDefinitions/Common/Schema.xsd" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pfx2="http://www.tibco.com/schemas/Phase1BWTemplate/SharedResources/SchemaDefinitions/Common/Schema.xsd2" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://www.wsgc.com/schemas/common/ItemConcepts.xsd" xmlns:pfx4="http://www.wsgc.com/schemas/common/RMSLocations.xsd" xmlns:pfx5="http://www.wsgc.com/schemas/common/ConceptFilters.xsd" xmlns:pfx6="http://www.wsgc.com/schemas/common/CLEFlags.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx7="http://www.tibco.com/schemas/OMS - Updated/UnitTest/Schema.xsd" xmlns:pfx8="http://www.wsgc.com/schemas/common/CountryCodes.xsd" xmlns:pfx9="http://www.tibco.com/schemas/TIBCOSharedResources/SharedResources/XMLSchemas/Common/Schema.xsd2">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/Phase1BWTemplate/SharedResources/SchemaDefinitions/Common/Schema.xsd" schemaLocation="/SharedResources/SchemaDefinitions/Common/LookupTranslations.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/ItemConcepts.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/ItemConcepts.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/ConceptFilters.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/ConceptFilters.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/RMSLocations.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/CLEFlags.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/CLEFlags.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.wsgc.com/schemas/common/CountryCodes.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/CountryCodes.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/TIBCOSharedResources/SharedResources/XMLSchemas/Common/Schema.xsd2" schemaLocation="/SharedResources/XMLSchemas/Common/Differentiator.xsd"/>
+    <pd:name>CommonProcesses/LookupTranslation/OnStartupDifferentiator.process</pd:name>
+    <pd:startName>onStartup</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="onStartup">
+        <pd:type>com.tibco.pe.core.OnStartupEventSource</pd:type>
+        <pd:resourceType>ae.activities.onStartup</pd:resourceType>
+        <pd:x>66</pd:x>
+        <pd:y>61</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>556</pd:endX>
+    <pd:endY>65</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1200594477234</pd:targetNamespace>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>297</pd:x>
+        <pd:y>61</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx9:Differentiator"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Read-File/ns2:ReadActivityOutputTextClass/fileContent/textContent"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Read File">
+        <pd:type>com.tibco.plugin.file.FileReadActivity</pd:type>
+        <pd:resourceType>ae.activities.FileReadActivity</pd:resourceType>
+        <pd:x>176</pd:x>
+        <pd:y>61</pd:y>
+        <config>
+            <encoding>text</encoding>
+        </config>
+        <pd:inputBindings>
+            <pfx:ReadActivityInputClass>
+                <fileName>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CommonFilePath/DifferentiatorLookup"/>
+                </fileName>
+                <encoding>
+                    <xsl:value-of select="&quot;UTF-8&quot;"/>
+                </encoding>
+            </pfx:ReadActivityInputClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetVariable">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>426</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-Differentiator.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Parse-XML/pfx9:Differentiator"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>onStartup</pd:from>
+        <pd:to>Read File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Read File</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>SetVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetVariable</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

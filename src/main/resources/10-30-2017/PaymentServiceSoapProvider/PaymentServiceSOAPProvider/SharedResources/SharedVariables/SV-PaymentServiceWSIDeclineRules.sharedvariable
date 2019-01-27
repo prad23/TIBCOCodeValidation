@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:pfx="http://www.wsgc.com/schemas/common/PaymentServiceWSIDeclineRules.xsd">
+    <import namespace="http://www.wsgc.com/schemas/common/PaymentServiceWSIDeclineRules.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentServiceWSIDeclineRules.xsd"/>
+    <name>SV-PaymentServiceWSIDeclineRules</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString ref="pfx:PaymentServiceWSIDeclineRules"/>
+    </config>
+</BWSharedResource>

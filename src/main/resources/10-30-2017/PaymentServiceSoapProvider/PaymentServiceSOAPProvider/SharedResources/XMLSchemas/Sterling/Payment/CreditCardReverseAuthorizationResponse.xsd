@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Project 	: OMSD2
+	Date		: December 4th, 2014
+	Author		: Cognizant Technology Solutions 
+	Interface	: Credit Card Reverse Authorization Response from 'Payment Service/Chase Bank' to 'Sterling OMS' via 'TIBCO'
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:yfc="http://www.sterlingcommerce.com/documentation/YFS/CCReverseAuth/Response" xmlns:yfctype="http://www.sterlingcommerce.com/documentation/types" targetNamespace="http://www.sterlingcommerce.com/documentation/YFS/CCReverseAuth/Response" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation yfc:fileName="OMSD2_CreditCardReverseAuthorizationResponse.xsd" yfc:rootElement="CCReverseAuthResponse">
+		<xsd:appinfo source="yfc:structure">
+			<CCReverseAuthResponse hasAttributes="Y">
+				<Payment hasAttributes="Y"/>
+				<Error hasAttributes="Y">
+					<ErrorDetail hasAttributes="Y"/>
+				</Error>
+			</CCReverseAuthResponse>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://www.sterlingcommerce.com/documentation/types" schemaLocation="datatypes.xsd"/>
+	<xsd:element name="CCReverseAuthResponse">
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element name="Payment" minOccurs="0">
+					<xsd:complexType>
+						<xsd:attribute name="OrderNo" type="yfctype:VarcharDocumentNo" use="optional"/>
+						<xsd:attribute name="ChargeTransactionKey" type="yfctype:Key" use="required"/>
+						<xsd:attribute name="ConfirmationID" type="yfctype:Text-40" use="required"/>
+						<xsd:attribute name="CreditCardNo" type="yfctype:Text-1000" use="required"/>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Error" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ErrorDetail" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:attribute name="Detail" type="yfctype:Text-50" use="required"/>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="ErrorType" type="yfctype:Text-50" use="required"/>
+						<xsd:attribute name="ErrorMessage" type="yfctype:Text-200" use="required"/>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:attribute name="EnvIdentifier" type="yfctype:Text-24" use="optional"/>
+			<xsd:attribute name="RegIdentifier" type="yfctype:Text-24" use="optional"/>
+			<xsd:attribute name="SourceSysID" type="yfctype:Text-50" use="optional"/>
+			<xsd:attribute name="MsgTransactionID" type="yfctype:Text-50" use="optional"/>
+			<xsd:attribute name="MsgTransactionTime" type="yfctype:TimeStamp" use="optional"/>
+			<xsd:attribute name="EnterpriseCode" type="yfctype:String" use="optional"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

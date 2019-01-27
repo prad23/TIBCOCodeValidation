@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:LockCodes="http://www.wsgc.com/schemas/common/LockCodes.xsd"
+	 targetNamespace="http://www.wsgc.com/schemas/common/LockCodes.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="LockCodes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="LockCodes:LockCode" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LockCode">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="LockCodes:InventoryStatusCode"/>
+				<xs:element ref="LockCodes:InventoryStatusCodeDesc"/>
+				<xs:element ref="LockCodes:InventoryStatus"/>
+				<xs:element ref="LockCodes:InventoryStatusDesc"/>
+				<xs:element ref="LockCodes:SterlingSupplyType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InventoryStatusCode" type="xs:string"/>
+	<xs:element name="InventoryStatusCodeDesc" type="xs:string"/>
+	<xs:element name="InventoryStatus" type="xs:string"/>
+	<xs:element name="InventoryStatusDesc" type="xs:string"/>
+	<xs:element name="SterlingSupplyType" type="xs:string"/>
+</xs:schema>

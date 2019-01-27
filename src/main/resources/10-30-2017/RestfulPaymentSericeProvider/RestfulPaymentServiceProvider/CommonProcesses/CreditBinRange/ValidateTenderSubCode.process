@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>CommonProcesses/CreditBinRange/ValidateTenderSubCode.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="TransactionType" type="xsd:string"/>
+                    <xsd:element name="RequestTenderSubCode" type="xsd:string"/>
+                    <xsd:element name="EPSTenderType" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>129</pd:startX>
+    <pd:startY>152</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="string-length($ValidatedTenderSubcode/root/EPSTenderSubCode) > 0">
+                <xsl:if test="$ValidatedTenderSubcode/root/EPSTenderSubCode">
+                    <EPSTenderSubCode>
+                        <xsl:value-of select="$ValidatedTenderSubcode/root/EPSTenderSubCode"/>
+                    </EPSTenderSubCode>
+                </xsl:if>
+            </xsl:if>
+            <xsl:if test="string-length($ValidatedTenderSubcode/root/EPSTenderSubCode) = 0">
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$_globalVariables/pfx:GlobalVariables/PaymentService/CommonErrors/INVALID_SUB_CODE/Type"/>
+                    </Type>
+                    <Detail>
+                        <xsl:value-of select="$_globalVariables/pfx:GlobalVariables/PaymentService/CommonErrors/INVALID_SUB_CODE/Detail"/>
+                    </Detail>
+                    <ErrorMessage>
+                        <xsl:value-of select="$_globalVariables/pfx:GlobalVariables/PaymentService/CommonErrors/INVALID_SUB_CODE/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </xsl:if>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="EPSTenderSubCode" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Error" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Type" type="xsd:string"/>
+                                <xsd:element name="Detail" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="ErrorMessage" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>682</pd:endX>
+    <pd:endY>154</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <ValidatedTenderSubcode>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="EPSTenderSubCode" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ValidatedTenderSubcode>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1450986062490</pd:targetNamespace>
+    <pd:activity name="Tok-Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>358</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableName>ValidatedTenderSubcode</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <EPSTenderSubCode>
+                    <xsl:value-of select="if(contains(upper-case($Start/root/RequestTenderSubCode),$_globalVariables/pfx:GlobalVariables/PaymentService/Constants/OtherTenderSubType))&#xA; then&#xA; $Start/root/EPSTenderType&#xA;else&#xA; if(contains($Start/root/EPSTenderType,upper-case($Start/root/RequestTenderSubCode)))&#xA;   then&#xA;   $Start/root/EPSTenderType&#xA;else&#xA;&quot;&quot;"/>
+                </EPSTenderSubCode>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="NonTok-Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>364</pd:x>
+        <pd:y>241</pd:y>
+        <config>
+            <variableName>ValidatedTenderSubcode</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <EPSTenderSubCode>
+                    <xsl:value-of select="if(contains($Start/root/EPSTenderType,upper-case($Start/root/RequestTenderSubCode)))&#xA;   then&#xA;   $Start/root/EPSTenderType&#xA;else&#xA;&quot;&quot;"/>
+                </EPSTenderSubCode>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Tok-Assign</pd:to>
+        <pd:xpathDescription>Tokenization</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Start/root/TransactionType=$_globalVariables/pfx:GlobalVariables/Tokenization/CLE/TransactionType</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>NonTok-Assign</pd:to>
+        <pd:xpathDescription>Auth/Return/PostAuth</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Start/root/TransactionType = $_globalVariables/pfx:GlobalVariables/Authorization/CLE/TransactionType
+or
+$Start/root/TransactionType = $_globalVariables/pfx:GlobalVariables/PostAuthorization/CLE/TransactionType
+or
+$Start/root/TransactionType = $_globalVariables/pfx:GlobalVariables/Return/CLE/TransactionType</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Tok-Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>NonTok-Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

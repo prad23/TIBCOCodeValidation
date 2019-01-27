@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx21="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd" xmlns:pfx="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" xmlns:ns="http://services.wsgc.com/2014/Payment" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:ns13="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/OutboundMessage" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentServiceDTCMOConceptsChannels.xsd" xmlns:pfx1="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/DataQueueWrite/DataQueueWrite" xmlns:ns4="http://www.tibco.com/pe/EngineTypes" xmlns:ns5="http://schemas.tibco.com/bw/plugins/ae/5.0/aeExceptions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pfx8="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCRedemptionSvcConsumer/DataQueueWrite/DataQueueWrite" xmlns:pfx9="http://ecommerce.wsgc.com/2013/Common">
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" schemaLocation="/AESchemas/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService.aeschema"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/lrc-redemption.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCRedemptionSvcConsumer/DataQueueWrite/DataQueueWrite" schemaLocation="/AESchemas/ae/as400/LRCRedemptionSvcConsumer/DataQueueWrite/DataQueueWrite.aeschema"/>
+    <pd:name>BusinessProcesses/LrcRedemption/ResponseProcessors/MapDTCMOResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="ns:LrcRedemptionResponse"/>
+                    <xsd:element name="OutboundDataQueue" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="OrderNumber" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="CertificateNumber" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>28</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$MapAdapterResponse/group/pfx8:RedeemSubscriber"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx8:RedeemSubscriber"/>
+    <pd:endX>729</pd:endX>
+    <pd:endY>39</pd:endY>
+    <pd:errorSchemas>
+        <ErrorSchema>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns12:ExceptionHandlerRequest" minOccurs="0"/>
+                        <xsd:element name="Error" type="pfx9:ErrorType" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ErrorSchema>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <Process>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Error" type="pfx9:ErrorType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Process>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1428698665830</pd:targetNamespace>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>515</pd:x>
+        <pd:y>195</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/Type"/>
+                    </Type>
+                    <Detail>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/Detail"/>
+                    </Detail>
+                    <ErrorMessage>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>380</pd:x>
+        <pd:y>195</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>654</pd:x>
+        <pd:y>196</pd:y>
+        <config>
+            <faultName>ErrorSchema</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns13:ActivityInput>
+                <data>
+                    <root>
+                        <ns12:ExceptionHandlerRequest>
+                            <ns12:envCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                            </ns12:envCode>
+                            <ns12:appCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                            </ns12:appCode>
+                            <ns12:interfaceCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/DTCInterfaceCode"/>
+                            </ns12:interfaceCode>
+                            <ns12:hostName>
+                                <xsl:value-of select="BW:getHostName()"/>
+                            </ns12:hostName>
+                            <ns12:timeStamp>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns12:timeStamp>
+                            <ns12:message>
+                                <xsl:value-of select="$_error/ns4:ErrorReport/Msg"/>
+                            </ns12:message>
+                            <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                                <xsl:when test="string-length($Start/root/ns:LrcRedemptionResponse) > 0">
+                                    <ns12:payload>
+                                        <xsl:value-of select="tib:render-xml($Start/root/ns:LrcRedemptionResponse)"/>
+                                    </ns12:payload>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <ns12:payload>
+                                        <xsl:value-of select="&quot;&quot;"/>
+                                    </ns12:payload>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <ns12:ErrorLevel>
+                                <ns12:errorCode>
+                                    <xsl:value-of select="$_error/ns4:ErrorReport/MsgCode"/>
+                                </ns12:errorCode>
+                            </ns12:ErrorLevel>
+                            <ns12:TransactionDetails>
+                                <ns12:transactionDomain>
+                                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                                </ns12:transactionDomain>
+                                <ns12:transactionType>
+                                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/TransactionType"/>
+                                </ns12:transactionType>
+                                <ns12:transactionID>
+                                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                                </ns12:transactionID>
+                            </ns12:TransactionDetails>
+                            <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_processContext/ns4:ProcessContext">
+                                <ns12:ProcessContextDetails>
+                                    <ns12:processId>
+                                        <xsl:value-of select="ProcessId"/>
+                                    </ns12:processId>
+                                    <ns12:projectName>
+                                        <xsl:value-of select="ProjectName"/>
+                                    </ns12:projectName>
+                                    <ns12:engineName>
+                                        <xsl:value-of select="EngineName"/>
+                                    </ns12:engineName>
+                                    <ns12:restartedFromCheckpoint>
+                                        <xsl:value-of select="RestartedFromCheckpoint"/>
+                                    </ns12:restartedFromCheckpoint>
+                                    <xsl:for-each select="TrackingInfo">
+                                        <ns12:trackingInfo>
+                                            <xsl:value-of select="."/>
+                                        </ns12:trackingInfo>
+                                    </xsl:for-each>
+                                </ns12:ProcessContextDetails>
+                            </xsl:for-each>
+                            <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns4:ErrorReport">
+                                <ns12:ErrorReportType>
+                                    <ns12:stackTrace>
+                                        <xsl:value-of select="StackTrace"/>
+                                    </ns12:stackTrace>
+                                    <ns12:msg>
+                                        <xsl:value-of select="Msg"/>
+                                    </ns12:msg>
+                                    <ns12:fullClass>
+                                        <xsl:value-of select="FullClass"/>
+                                    </ns12:fullClass>
+                                    <ns12:class>
+                                        <xsl:value-of select="Class"/>
+                                    </ns12:class>
+                                    <ns12:processStack>
+                                        <xsl:value-of select="ProcessStack"/>
+                                    </ns12:processStack>
+                                    <xsl:if test="MsgCode">
+                                        <ns12:msgCode>
+                                            <xsl:value-of select="MsgCode"/>
+                                        </ns12:msgCode>
+                                    </xsl:if>
+                                    <xsl:if test="Data">
+                                        <ns12:data>
+                                            <xsl:value-of select="tib:render-xml(Data)"/>
+                                        </ns12:data>
+                                    </xsl:if>
+                                </ns12:ErrorReportType>
+                            </xsl:for-each>
+                        </ns12:ExceptionHandlerRequest>
+                        <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="string-length($Process/root/Error/Type)>0">
+                            <xsl:copy-of select="$Process/root/Error"/>
+                        </xsl:if>
+                    </root>
+                </data>
+            </ns13:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>158</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/LrcRedemption/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetDTCConceptChannel">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>301</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceDTCMOConceptsChannels.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="MapAdapterResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>511</pd:x>
+        <pd:y>39</pd:y>
+        <config>
+            <element>
+                <xsd:element name="group">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="pfx8:RedeemSubscriber"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <group>
+                <pfx8:RedeemSubscriber>
+                    <xsl:variable name="Entry" select="$Start/root/ns:LrcRedemptionResponse"/>
+                    <xsl:variable name="varMetaDataType" select="$Entry/TransactionMetadata[@type=$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_CONCEPT]/@type"/>
+                    <xsl:variable name="var2" select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_CONCEPT"/>
+                    <xsl:variable name="varEPSCode" select="$Entry/TransactionMetadata[@type=$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_CONCEPT][1]"/>
+                    <Entry>
+                        <OutboundDataQueue>
+                            <xsl:choose>
+                                <xsl:when test="exists(tib:pad-and-limit($Start/root/OutboundDataQueue,20))">
+                                    <xsl:value-of select="tib:pad-and-limit($Start/root/OutboundDataQueue,20)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </OutboundDataQueue>
+                        <EnvironmentIdentifier>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/SystemContext/EnvironmentIdentifier,1,10),10)"/>
+                        </EnvironmentIdentifier>
+                        <RegionIdentifier>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/SystemContext/RegionIdentifier,1,10),10)"/>
+                        </RegionIdentifier>
+                        <SourceSystemIdentifier>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/SystemContext/SourceSystemIdentifier,1,50),50)"/>
+                        </SourceSystemIdentifier>
+                        <TransactionId>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/SystemContext/TransactionId,1,30),30)"/>
+                        </TransactionId>
+                        <ConsumerTransactionId>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/ConsumerTransactionId,1,30),30)"/>
+                        </ConsumerTransactionId>
+                        <xsl:if test="string-length($Entry/SystemContext/TransactionTime)>0">
+                            <TransactionTime>
+                                <xsl:value-of select="tib:pad(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateTimeFormat, $Entry/SystemContext/TransactionTime), 30)"/>
+                            </TransactionTime>
+                        </xsl:if>
+                        <xsl:variable name="var3" select="tib:trim($varEPSCode)"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length(tib:trim($varEPSCode))>0">
+                                <Concept>
+                                    <xsl:value-of select="tib:pad-and-limit($varEPSCode,5)"/>
+                                </Concept>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Concept>
+                                    <xsl:value-of select="tib:pad-and-limit($Entry/PaymentContext/Concept,5)"/>
+                                </Concept>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:variable name="var4" select="tib:trim($Start/root/ns:LrcRedemptionResponse/PaymentContext/Channel)"/>
+                        <Channel>
+                            <xsl:value-of select="tib:pad-and-limit($GetDTCConceptChannel/ns3:PaymentServiceDTCConceptsChannels/ns3:PaymentServiceDTCMOConceptChannel[ns3:EPSChannelCode=$var4][1]/ns3:DTCMOChannelCode,10)"/>
+                        </Channel>
+                        <AssociateId>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/PaymentContext/CareCenter/AssociateId,10)"/>
+                        </AssociateId>
+                        <xsl:choose>
+                            <xsl:when test="tib:trim($Entry/OrderContext/@omsOrderId)>0">
+                                <OrderNumber>
+                                    <xsl:choose>
+                                        <xsl:when test="exists(tib:pad-and-limit($Entry/OrderContext/@omsOrderId,12))">
+                                            <xsl:value-of select="tib:pad-and-limit($Entry/OrderContext/@omsOrderId,12)"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </OrderNumber>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <OrderNumber>
+                                    <xsl:choose>
+                                        <xsl:when test="exists(tib:pad-and-limit($Start/root/OrderNumber,12))">
+                                            <xsl:value-of select="tib:pad-and-limit($Start/root/OrderNumber,12)"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </OrderNumber>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <CurrencyCode>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/CurrencyCode,3)"/>
+                        </CurrencyCode>
+                        <RequestedAmount>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/RequestedAmount,10)"/>
+                        </RequestedAmount>
+                        <RedeemedAmount>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/RedeemedAmount,10)"/>
+                        </RedeemedAmount>
+                        <NewBalanceAmount>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/NewBalanceAmount,10)"/>
+                        </NewBalanceAmount>
+                        <xsl:variable name="var9" select="$Entry/TransactionMetadata[@type=$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_EXPIRY][1]/@type"/>
+                        <xsl:variable name="var10" select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_EXPIRY"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/TransactionMetadata[$var9=$var10][1])>0">
+                                <Expiration>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/TransactionMetadata[@type=$var9][1])),10)"/>
+                                </Expiration>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration>
+                                    <xsl:value-of select="tib:pad-and-limit($_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/Blank,10)"/>
+                                </Expiration>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/FinancialDate)>0">
+                                <FinancialDate>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-date($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/FinancialDate)),10)"/>
+                                </FinancialDate>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <FinancialDate>
+                                    <xsl:value-of select="tib:pad-and-limit($_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/Blank,10)"/>
+                                </FinancialDate>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Tender/Type/Code,40)"/>
+                        </Code>
+                        <SubCode>
+                            <xsl:choose>
+                                <xsl:when test="exists(tib:pad-and-limit($Entry/Tender/Type/SubCode,40))">
+                                    <xsl:value-of select="tib:pad-and-limit($Entry/Tender/Type/SubCode,40)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </SubCode>
+                        <xsl:choose>
+                            <xsl:when test="string-length(tib:trim($Entry/Tender/CertificateNumber))>0">
+                                <CertificateNumber>
+                                    <xsl:value-of select="tib:pad-and-limit($Entry/Tender/CertificateNumber,20)"/>
+                                </CertificateNumber>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <CertificateNumber>
+                                    <xsl:value-of select="tib:pad-and-limit($Start/root/CertificateNumber,20)"/>
+                                </CertificateNumber>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <ServiceConfirmationId>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/ConfirmationId,40)"/>
+                        </ServiceConfirmationId>
+                        <ErrorType>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Type,100)"/>
+                        </ErrorType>
+                        <ErrorDetail1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[1],100)"/>
+                        </ErrorDetail1>
+                        <ErrorDetail2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[2],100)"/>
+                        </ErrorDetail2>
+                        <ErrorDetail3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[3],100)"/>
+                        </ErrorDetail3>
+                        <ErrorDetail4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[4],100)"/>
+                        </ErrorDetail4>
+                        <ErrorDetail5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[5],100)"/>
+                        </ErrorDetail5>
+                        <ErrorDetail6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[6],100)"/>
+                        </ErrorDetail6>
+                        <ErrorDetail7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[7],100)"/>
+                        </ErrorDetail7>
+                        <ErrorDetail8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[8],100)"/>
+                        </ErrorDetail8>
+                        <ErrorDetail9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[9],100)"/>
+                        </ErrorDetail9>
+                        <ErrorDetail10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[10],100)"/>
+                        </ErrorDetail10>
+                        <ErrorDetail11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[11],100)"/>
+                        </ErrorDetail11>
+                        <ErrorDetail12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[12],100)"/>
+                        </ErrorDetail12>
+                        <ErrorDetail13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[13],100)"/>
+                        </ErrorDetail13>
+                        <ErrorDetail14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[14],100)"/>
+                        </ErrorDetail14>
+                        <ErrorDetail15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Error/Detail[15],100)"/>
+                        </ErrorDetail15>
+                        <ErrorMessage>
+                            <xsl:choose>
+                                <xsl:when test="exists(tib:pad-and-limit($Entry/Error/ErrorMessage,200))">
+                                    <xsl:value-of select="tib:pad-and-limit($Entry/Error/ErrorMessage,200)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </ErrorMessage>
+                    </Entry>
+                </pfx8:RedeemSubscriber>
+            </group>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>MapAdapterResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>GetDTCConceptChannel</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetDTCConceptChannel</pd:from>
+        <pd:to>MapAdapterResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

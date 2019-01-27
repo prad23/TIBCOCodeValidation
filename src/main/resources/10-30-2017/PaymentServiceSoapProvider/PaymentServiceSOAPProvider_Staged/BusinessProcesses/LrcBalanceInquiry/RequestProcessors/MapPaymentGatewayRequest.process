@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:ns="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentGatewayCredentials.xsd" xmlns:ns4="http://www.wsgc.com/schemas/common/PaymentServiceSVCBalanceInqPins.xsd" xmlns:ns5="http://www.wsgc.com/schemas/common/PaymentGatewayVerifoneCredentials.xsd" xmlns:pfx3="http://ecommerce.wsgc.com/2013/Common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="http://paymentservice.wsgc.com/2014/common/PaymentServices/SharedResources/LrcBalanceInquiryDTCMORequest" xmlns:pfx4="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Gift/BalanceInquiry" xmlns:ns7="http://www.wsgc.com/schemas/common/PaymentServiceDTCMOConceptsChannels.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions">
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2013/Common/base-types.xsd"/>
+    <xsd:import namespace="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Gift/BalanceInquiry" schemaLocation="/SharedResources/XMLSchemas/Verifone/UGP-V1/UGPGiftBalanceInquiryRequest.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/lrc-balance.xsd"/>
+    <pd:name>BusinessProcesses/LrcBalanceInquiry/RequestProcessors/MapPaymentGatewayRequest.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:LrcBalanceInquiryRequest"/>
+    <pd:startX>51</pd:startX>
+    <pd:startY>149</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="string-length($Process/root/Error/Type) > 0">
+                <pfx:LrcBalanceInquiryResponse>
+                    <xsl:attribute name="version">
+                        <xsl:value-of select="$Start/pfx:LrcBalanceInquiryRequest/@version"/>
+                    </xsl:attribute>
+                    <SystemContext>
+                        <EnvironmentIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                        </EnvironmentIdentifier>
+                        <RegionIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                        </RegionIdentifier>
+                        <SourceSystemIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix"/>
+                        </SourceSystemIdentifier>
+                        <TransactionId>
+                            <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/Constants/TransactionIdPrefix,$Start/pfx:LrcBalanceInquiryRequest/SystemContext/TransactionId)"/>
+                        </TransactionId>
+                        <TransactionTime>
+                            <xsl:value-of select="current-date()"/>
+                        </TransactionTime>
+                    </SystemContext>
+                    <xsl:copy-of select="$Start/pfx:LrcBalanceInquiryRequest/PaymentContext"/>
+                    <Error>
+                        <Type>
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </ErrorMessage>
+                    </Error>
+                </pfx:LrcBalanceInquiryResponse>
+            </xsl:if>
+            <paymentgatewayrequest>
+                <xsl:value-of select="$Render-Data/Text"/>
+            </paymentgatewayrequest>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:LrcBalanceInquiryResponse" minOccurs="0"/>
+                    <xsd:element name="paymentgatewayrequest" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>798</pd:endX>
+    <pd:endY>149</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Process>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Error" type="pfx3:ErrorType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Process>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1414172991752</pd:targetNamespace>
+    <pd:activity name="AssignSafeFailure">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>633</pd:x>
+        <pd:y>346</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:choose>
+                    <xsl:when test="$_error/ns1:ErrorReport/Class=$_globalVariables/ns2:GlobalVariables/PaymentService/ValidationConstants/BIND_EXCEPTION_CLASS">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>417</pd:x>
+        <pd:y>346</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>193</pd:x>
+        <pd:y>149</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/LrcBalanceInquiry/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetPaymentServiceDTCMOConceptsChannels">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>362</pd:x>
+        <pd:y>149</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceDTCMOConceptsChannels.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="LogRequestValidationExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>798</pd:x>
+        <pd:y>346</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns:ExceptionHandlerRequest>
+                <ns:envCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                </ns:envCode>
+                <ns:appCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                </ns:appCode>
+                <ns:interfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </ns:interfaceCode>
+                <ns:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns:hostName>
+                <ns:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns:timeStamp>
+                <ns:message>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ns:message>
+                <ns:payload>
+                    <xsl:value-of select="&quot;&quot;"/>
+                </ns:payload>
+                <ns:ErrorLevel>
+                    <ns:errorCode>
+                        <xsl:value-of select="concat($Process/root/Error/Type, $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$Process/root/Error/Detail[1])"/>
+                    </ns:errorCode>
+                </ns:ErrorLevel>
+                <ns:TransactionDetails>
+                    <ns:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns:transactionDomain>
+                    <ns:transactionType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/CLE/TransactionType"/>
+                    </ns:transactionType>
+                    <ns:transactionID>
+                        <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                    </ns:transactionID>
+                </ns:TransactionDetails>
+                <xsl:for-each select="$_error/ns1:ErrorReport">
+                    <ns:ErrorReportType>
+                        <ns:stackTrace>
+                            <xsl:value-of select="StackTrace"/>
+                        </ns:stackTrace>
+                        <ns:msg>
+                            <xsl:value-of select="Msg"/>
+                        </ns:msg>
+                        <ns:fullClass>
+                            <xsl:value-of select="FullClass"/>
+                        </ns:fullClass>
+                        <ns:class>
+                            <xsl:value-of select="Class"/>
+                        </ns:class>
+                        <ns:processStack>
+                            <xsl:value-of select="ProcessStack"/>
+                        </ns:processStack>
+                        <xsl:if test="MsgCode">
+                            <ns:msgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </ns:msgCode>
+                        </xsl:if>
+                        <ns:data>
+                            <xsl:value-of select="Data/*"/>
+                        </ns:data>
+                    </ns:ErrorReportType>
+                </xsl:for-each>
+            </ns:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Render Data">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>526</pd:x>
+        <pd:y>149</pd:y>
+        <config>
+            <ParseSharedConfig>/SharedResources/DataFormat/PaymentService/LrcBalanceInquiryRequest.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <ns6:LrcBalanceInquiryDTCMORequest>
+                    <ns6:TransactionID>
+                        <xsl:value-of select="concat(tib:right(tib:pad($Start/pfx:LrcBalanceInquiryRequest/SystemContext/TransactionId, 15, 0),15),tib:format-dateTime($_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/DTCMO/TimeFormat, current-dateTime()))"/>
+                    </ns6:TransactionID>
+                    <ns6:RequestType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/BWTransformation/RequestType"/>
+                    </ns6:RequestType>
+                    <ns6:PaymentType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/BWTransformation/PaymentType"/>
+                    </ns6:PaymentType>
+                    <ns6:LRCOverrideFlag>
+                        <xsl:value-of select="if(string-length($Start/pfx:LrcBalanceInquiryRequest/CanOverrideExpiration) > 0&#xA; and $Start/pfx:LrcBalanceInquiryRequest/CanOverrideExpiration='true')&#xA; then&#xA; $_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/BWTransformation/IsOverridden&#xA;else&#xA;$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/BWTransformation/IsNotOverridden"/>
+                    </ns6:LRCOverrideFlag>
+                    <xsl:if test="string-length($Start/pfx:LrcBalanceInquiryRequest/OrderContext/@omsOrderId)>0">
+                        <ns6:Concept>
+                            <xsl:value-of select="$GetPaymentServiceDTCMOConceptsChannels/ns7:PaymentServiceDTCConceptsChannels/ns7:PaymentServiceDTCMOConceptChannel[$Start/pfx:LrcBalanceInquiryRequest/PaymentContext/Concept  = ns7:EPSConceptCode]/ns7:DTCMOConceptCode"/>
+                        </ns6:Concept>
+                    </xsl:if>
+                    <ns6:Channel>
+                        <xsl:value-of select="$GetPaymentServiceDTCMOConceptsChannels/ns7:PaymentServiceDTCConceptsChannels/ns7:PaymentServiceDTCMOConceptChannel[$Start/pfx:LrcBalanceInquiryRequest/PaymentContext/Channel  = ns7:EPSChannelCode]/ns7:DTCMOChannelCode"/>
+                    </ns6:Channel>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Start/pfx:LrcBalanceInquiryRequest/OrderContext/@omsOrderId)>0">
+                            <ns6:OrderNumber>
+                                <xsl:value-of select="$Start/pfx:LrcBalanceInquiryRequest/OrderContext/@omsOrderId"/>
+                            </ns6:OrderNumber>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns6:OrderNumber>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/BWTransformation/DefaultOrderNumber"/>
+                            </ns6:OrderNumber>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ns6:CertificateNumber>
+                        <xsl:value-of select="$Start/pfx:LrcBalanceInquiryRequest/Tender/CertificateNumber"/>
+                    </ns6:CertificateNumber>
+                    <ns6:Transactiondate>
+                        <xsl:value-of select="tib:format-dateTime($_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/DTCMO/TransactionDateFormat,$Start/pfx:LrcBalanceInquiryRequest/SystemContext/TransactionTime)"/>
+                    </ns6:Transactiondate>
+                    <ns6:Transactiontime>
+                        <xsl:value-of select="tib:format-dateTime($_globalVariables/ns2:GlobalVariables/LrcBalanceInquiry/DTCMO/TransactionTimeFormat,$Start/pfx:LrcBalanceInquiryRequest/SystemContext/TransactionTime)"/>
+                    </ns6:Transactiontime>
+                </ns6:LrcBalanceInquiryDTCMORequest>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>AssignSafeFailure</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogRequestValidationExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignSafeFailure</pd:from>
+        <pd:to>LogRequestValidationExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>GetPaymentServiceDTCMOConceptsChannels</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Render Data</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPaymentServiceDTCMOConceptsChannels</pd:from>
+        <pd:to>Render Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Map Payment Service to Payment Gateway Mapping here</pd:description>
+        <pd:x>418</pd:x>
+        <pd:y>55</pd:y>
+        <pd:width>245</pd:width>
+        <pd:height>48</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-6684775</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

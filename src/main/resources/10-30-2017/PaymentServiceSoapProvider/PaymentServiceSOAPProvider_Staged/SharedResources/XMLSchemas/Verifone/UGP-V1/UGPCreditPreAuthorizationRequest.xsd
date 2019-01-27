@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by lchari (Williams-Sonoma, Inc.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorization" xmlns:com="http://services.wsgc.com/2014/Payment/Verfione/UGP/base-type" targetNamespace="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorization" elementFormDefault="unqualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
+	<xs:import namespace="http://services.wsgc.com/2014/Payment/Verfione/UGP/base-type" schemaLocation="UGPbase-type.xsd"/>
+	<xs:element name="UGPREQUEST">
+		<xs:annotation>
+			<xs:documentation>Root element for the operation CreditPreAuthorizationRequest</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="com:UGPREQUEST">
+					<xs:sequence>
+						<xs:element name="TRANS_AMOUNT" type="com:AMOUNT_TYPE">
+							<xs:annotation>
+								<xs:documentation>The Transaction / Purchase Amount.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="LANE" type="com:TEXT3_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Optional retail lane number where transaction was performed. This field is present when sent by the POS for SCA</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ACCT_NUM" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Account Number to be processed</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CUSTOMER_STREET" type="com:TEXT20_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The cardholder’s street address.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CUSTOMER_ZIP" type="com:TEXT9_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The cardholder's zip code.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="EXP_DATE" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Expiration Date (Month/Year) on the card.Format: MMYY or MMYYYY</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="INVOICE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Invoice or Ticket number defined by the merchant and associated with the transaction</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="com:TEXT17_TYPE"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="CARDHOLDER" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Cardholder’s name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CLERK_ID" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Clerk ID, Cashier number, or Server ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CVV2" type="com:TEXT4_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The CVV2 value for the transaction. The card verification value (CVV2 for Visa, CVC2 for MasterCard, and CID for AMEX and Discover) is a 3 or 4 digit number that is embossed in the signature panel for Visa, MasterCard, and Discover and on the front of the card for AMEX.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="FORCE_FLAG" type="com:FORCE_FLAG_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>By passing the FORCE_FLAG with the transactions, allows the merchant to enter a duplicate transaction having the same account number and amount of another transaction in the same batch or on the same day
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PRESENT_FLAG" type="com:PRESENT_FLAG_TYPE" minOccurs="0"/>
+						<xs:element name="TIP_AMOUNT" type="com:AMOUNT_TYPE" minOccurs="0"/>
+						<xs:element name="TRACK_DATA" type="com:TRACK_DATA_TYPE" minOccurs="0"/>
+						<xs:element name="CUSTOMER_LASTNAME" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Customer’s Last Name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="REF_CTROUTD" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Reference CTroutD Flag
+Used to run a new transaction referencing card information from a previous transaction or to re-process Sale, Pre-Auth, and Post-Auth transactions by passing the original CTroutD in this tag.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TKN_PAYMENT" type="com:TKN_PAYMENT_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Payment token representing a unique card</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TA_TOKEN" type="com:TA_TOKEN_TYPE" minOccurs="0"/>
+						<xs:element name="PARTIAL_AUTH" type="com:ENUM_Y_N_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Partial Authorization Support flag.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CUSTOMER_CODE" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Customer Code for purchasing cards</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PURCHASE_ID" type="com:TEXT17_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Purchase order number</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TAX_AMOUNT" type="com:AMOUNT_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The tax amount of the purchase.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="COL_3" type="com:COL_X_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cross Reference 3</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="COL_4" type="com:COL_X_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cross Reference 4</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="COL_5" type="com:COL_X_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cross Reference 	5</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="COL_6" type="com:COL_X_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cross Reference 6</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="COL_7" type="com:COL_X_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cross Reference 7</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="COL_8" type="com:COL_X_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cross Reference 8</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="COL_9" type="com:COL_X_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cross Reference 9</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="COL_10" type="com:COL_X_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Cross Reference 10</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TKN_PROCESS" type="com:TKN_PROCESS_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>1.	0 = OFF Do Not Tokenize
+2.	1 = Generate a Matching Token Tag: 
+3.	2 = Generate a Payment Token Tag: 
+4.	3 = Generate a Both Matching and Payment Token Tags: </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TKN_PAYENT_EXPDATE" type="com:TKN_PAYENT_EXPDATE_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The Payment Token expiration date . It is the expiration date of the underlying token</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TKN_CNAME" type="com:TKN_CNAME_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The cardholder name for the Token record</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TKN_CADDR" type="com:TKN_CADDR_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>5The cardholder address for the Token record</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TKN_CPCODE" type="com:TKN_CPCODE_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The cardholder postal code for the Token record</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TKN_CTYPE" type="com:TKN_CTYPE_TYPE" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>7.	The cardholder card type for the Token record</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TKN_RENEW" type="xs:string" minOccurs="0"/>
+						<xs:element name="TKN_RENEW_DAYS" type="xs:string" minOccurs="0"/>
+						<xs:element name="CDD_DATA" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Customer Defined Data. This will be used for settlement reconciliation</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

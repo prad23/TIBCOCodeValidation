@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:ns="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentServiceValidations.xsd" xmlns:ns4="http://www.wsgc.com/schemas/common/PaymentServiceErrorTypes.xsd" xmlns:ns5="http://schemas.tibco.com/bw/plugins/xml/5.0/xmlExceptions" xmlns:pfx2="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns6="http://www.wsgc.com/schemas/common/PaymentServiceRCMSCertificateAttributes" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://ecommerce.wsgc.com/2013/Common" xmlns:pfx4="http://www.wsgc.com/schemas/service/PaymentError.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions">
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2013/Common/base-types.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/lrc-redemption.xsd"/>
+    <xsd:import namespace="http://www.wsgc.com/schemas/service/PaymentError.xsd" schemaLocation="/SharedResources/XMLSchemas/PaymentServiceInternal/PaymentErrorSchema.xsd"/>
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/2013/Common/base-types.xsd"/>
+    <pd:name>BusinessProcesses/Common/GetLRCRequestURI.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="paymentservicerequest" type="xsd:string"/>
+                    <xsd:element name="transactionid" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="cleInterfaceCode" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>75</pd:startX>
+    <pd:startY>166</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <requesturi>
+                <xsl:value-of select="$Validate/xmlString"/>
+            </requesturi>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="requesturi" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>716</pd:endX>
+    <pd:endY>167</pd:endY>
+    <pd:errorSchemas>
+        <ErrorSchema>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns:ExceptionHandlerRequest" minOccurs="0"/>
+                        <xsd:element name="Error" type="pfx3:ErrorType" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ErrorSchema>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <Process>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Error" type="pfx3:ErrorType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Process>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1414172991752</pd:targetNamespace>
+    <pd:activity name="AssignError">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>538</pd:x>
+        <pd:y>282</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                    </Type>
+                    <Detail>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                    </Detail>
+                    <ErrorMessage>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignSafeFailure">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>454</pd:x>
+        <pd:y>385</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:choose>
+                    <xsl:when test="string-length($_error_Generate-Error/root/Error/Type)>0">
+                        <xsl:copy-of select="$Process/root/Error"/>
+                    </xsl:when>
+                    <xsl:when test="$_error/ns1:ErrorReport/Class=$_globalVariables/ns2:GlobalVariables/PaymentService/ValidationConstants/BIND_EXCEPTION_CLASS">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="$_error/ns1:ErrorReport/Class=$_globalVariables/ns2:GlobalVariables/PaymentService/ValidationConstants/XML_TRANSFORMATION_EXCEPTION_CLASS">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>320</pd:x>
+        <pd:y>383</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Gen_request_url_Err">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>605</pd:x>
+        <pd:y>388</pd:y>
+        <config>
+            <faultName>ErrorSchema</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ActivityInput>
+                <data>
+                    <root>
+                        <ns:ExceptionHandlerRequest>
+                            <ns:envCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                            </ns:envCode>
+                            <ns:appCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLEAppCode"/>
+                            </ns:appCode>
+                            <ns:interfaceCode>
+                                <xsl:value-of select="$Start/root/cleInterfaceCode"/>
+                            </ns:interfaceCode>
+                            <ns:hostName>
+                                <xsl:value-of select="BW:getHostName()"/>
+                            </ns:hostName>
+                            <ns:timeStamp>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns:timeStamp>
+                            <ns:message>
+                                <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                            </ns:message>
+                            <ns:payload>
+                                <xsl:value-of select="$Start/root/paymentservicerequest"/>
+                            </ns:payload>
+                            <ns:ErrorLevel>
+                                <ns:errorCode>
+                                    <xsl:value-of select="concat($Process/root/Error/Type, $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$Process/root/Error/Detail[1])"/>
+                                </ns:errorCode>
+                            </ns:ErrorLevel>
+                            <ns:TransactionDetails>
+                                <ns:transactionDomain>
+                                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                                </ns:transactionDomain>
+                                <ns:transactionType>
+                                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/TransactionType"/>
+                                </ns:transactionType>
+                                <ns:transactionID>
+                                    <xsl:value-of select="$Start/root/transactionid"/>
+                                </ns:transactionID>
+                            </ns:TransactionDetails>
+                            <xsl:for-each select="$_error/ns1:ErrorReport">
+                                <ns:ErrorReportType>
+                                    <ns:stackTrace>
+                                        <xsl:value-of select="StackTrace"/>
+                                    </ns:stackTrace>
+                                    <ns:msg>
+                                        <xsl:value-of select="Msg"/>
+                                    </ns:msg>
+                                    <ns:fullClass>
+                                        <xsl:value-of select="FullClass"/>
+                                    </ns:fullClass>
+                                    <ns:class>
+                                        <xsl:value-of select="Class"/>
+                                    </ns:class>
+                                    <ns:processStack>
+                                        <xsl:value-of select="ProcessStack"/>
+                                    </ns:processStack>
+                                    <xsl:if test="MsgCode">
+                                        <ns:msgCode>
+                                            <xsl:value-of select="MsgCode"/>
+                                        </ns:msgCode>
+                                    </xsl:if>
+                                    <ns:data>
+                                        <xsl:value-of select="Data/*"/>
+                                    </ns:data>
+                                </ns:ErrorReportType>
+                            </xsl:for-each>
+                        </ns:ExceptionHandlerRequest>
+                        <xsl:copy-of select="$Process/root/Error"/>
+                    </root>
+                </data>
+            </pfx2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>719</pd:x>
+        <pd:y>280</pd:y>
+        <config>
+            <faultName>ErrorSchema</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ActivityInput>
+                <message>
+                    <xsl:value-of select="concat($Process/root/Error/ErrorMessage,&quot;MISSING_REQUESTURI&quot;)"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$Process/root/Error/Type"/>
+                </messageCode>
+                <data>
+                    <root>
+                        <xsl:copy-of select="$Process/root/Error"/>
+                    </root>
+                </data>
+            </pfx2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetPaymentValidationParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>215</pd:x>
+        <pd:y>166</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceValidations.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Validate">
+        <pd:type>com.tibco.plugin.xml.XMLTransformActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLTransformActivity</pd:resourceType>
+        <pd:x>534</pd:x>
+        <pd:y>169</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <engine>Saxon</engine>
+        </config>
+        <pd:inputBindings>
+            <textInput>
+                <xmlString>
+                    <xsl:value-of select="$Start/root/paymentservicerequest"/>
+                </xmlString>
+                <stylesheet>
+                    <xsl:value-of select="$GetPaymentValidationParams/ns3:PaymentServiceValidations/ns3:PaymentServiceValidation[ns3:RuleName = $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/LRCRequestURIMappingXslt]/ns3:RuleContent"/>
+                </stylesheet>
+                <parameter>
+                    <name>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/ValidationConstants/XSLT_VALIDATION_PARAM"/>
+                    </name>
+                    <value>
+                        <xsl:value-of select="tib:render-xml($GetPaymentServiceRCMSCertificateAttributes/ns6:PaymentServiceRCMSCertificateAttributes)"/>
+                    </value>
+                    <isXMLDocument>
+                        <xsl:value-of select="true()"/>
+                    </isXMLDocument>
+                </parameter>
+            </textInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetPaymentServiceRCMSCertificateAttributes">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>369</pd:x>
+        <pd:y>167</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceRCMSCertificateAttributes.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetPaymentValidationParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>AssignSafeFailure</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignSafeFailure</pd:from>
+        <pd:to>Gen_request_url_Err</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPaymentValidationParams</pd:from>
+        <pd:to>GetPaymentServiceRCMSCertificateAttributes</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignError</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Validate</pd:from>
+        <pd:to>AssignError</pd:to>
+        <pd:xpathDescription>Missing RequestURI?</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>upper-case($Validate/xmlString) =""</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Validate</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPaymentServiceRCMSCertificateAttributes</pd:from>
+        <pd:to>Validate</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label (1) (2)</pd:name>
+        <pd:description>XML Request Validator</pd:description>
+        <pd:x>459</pd:x>
+        <pd:y>498</pd:y>
+        <pd:width>220</pd:width>
+        <pd:height>50</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-3342388</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

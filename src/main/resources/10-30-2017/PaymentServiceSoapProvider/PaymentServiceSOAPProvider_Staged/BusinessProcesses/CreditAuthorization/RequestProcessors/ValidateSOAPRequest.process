@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.wsgc.com/schemas/common/PaymentServiceValidations.xsd" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://www.sterlingcommerce.com/documentation/YFS/CCAuthorization/Request" xmlns:ns5="http://www.wsgc.com/schemas/common/PaymentServiceErrorTypes.xsd" xmlns:pfx3="http://services.wsgc.com/soap/paymentservice.wsdl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx4="http://www.tibco.com/schemas/Payment Services/CreditAuthRequest.xsd" xmlns:pfx5="http://ecommerce.wsgc.com/2013/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pfx41="http://www.wsgc.com/schemas/service/PaymentError.xsd">
+    <xsd:import namespace="http://www.tibco.com/schemas/Payment Services/CreditAuthRequest.xsd" schemaLocation="/SharedResources/XMLSchemas/Sterling/CreditAuthRequest.xsd"/>
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2013/Common/base-types.xsd"/>
+    <xsd:import namespace="http://www.sterlingcommerce.com/documentation/YFS/CCAuthorization/Request" schemaLocation="/SharedResources/XMLSchemas/Sterling/Payment/CreditCardAuthorizationRequest.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/credit-authorization.xsd"/>
+    <xsd:import namespace="http://www.wsgc.com/schemas/service/PaymentError.xsd" schemaLocation="/SharedResources/XMLSchemas/PaymentServiceInternal/PaymentErrorSchema.xsd"/>
+    <wsdl:import namespace="http://services.wsgc.com/soap/paymentservice.wsdl" location="/WSDL/PaymentServices.wsdl"/>
+    <pd:name>BusinessProcesses/CreditAuthorization/RequestProcessors/ValidateSOAPRequest.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="ns4:Payment"/>
+    <pd:startX>73</pd:startX>
+    <pd:startY>215</pd:startY>
+    <pd:returnCoercions>
+        <pd:coercion xpath="" type="pfx5:ErrorType"/>
+    </pd:returnCoercions>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="string-length($Process/root/Error/Type)>0">
+                <pfx:CreditCardAuthorizationResponse>
+                    <xsl:attribute name="version">
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Authorization/MessageVersion"/>
+                    </xsl:attribute>
+                    <SystemContext>
+                        <EnvironmentIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                        </EnvironmentIdentifier>
+                        <RegionIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                        </RegionIdentifier>
+                        <SourceSystemIdentifier>
+                            <xsl:value-of select="concat($_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix,BW:getHostName())"/>
+                        </SourceSystemIdentifier>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Start/ns4:Payment/@MsgTransactionID)>0">
+                                <TransactionId>
+                                    <xsl:value-of select="concat($_globalVariables/ns3:GlobalVariables/Authorization/Constants/TransactionIdPrefix,$Start/ns4:Payment/@MsgTransactionID)"/>
+                                </TransactionId>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <TransactionId>
+                                    <xsl:value-of select="concat($_globalVariables/ns3:GlobalVariables/Authorization/Constants/TransactionIdPrefix, tib:format-dateTime($_globalVariables/ns3:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns3:GlobalVariables/ENV   , BW:getHostName())"/>
+                                </TransactionId>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <TransactionTime>
+                            <xsl:value-of select="current-dateTime()"/>
+                        </TransactionTime>
+                    </SystemContext>
+                    <xsl:choose>
+                        <xsl:when test="string-length($ParseSOAPRequest/ns4:Payment/@EnvIdentifier)>0">
+                            <PaymentContext>
+                                <Concept>
+                                    <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@EnterpriseCode"/>
+                                </Concept>
+                                <Channel>
+                                    <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@EntryType"/>
+                                </Channel>
+                            </PaymentContext>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <PaymentContext>
+                                <Concept>
+                                    <xsl:value-of select="&quot;&quot;"/>
+                                </Concept>
+                                <Channel>
+                                    <xsl:value-of select="&quot;&quot;"/>
+                                </Channel>
+                            </PaymentContext>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:for-each select="$Process/root/Error">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="Type"/>
+                            </Type>
+                            <xsl:for-each select="Detail">
+                                <Detail>
+                                    <xsl:value-of select="."/>
+                                </Detail>
+                            </xsl:for-each>
+                            <ErrorMessage>
+                                <xsl:value-of select="ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:for-each>
+                </pfx:CreditCardAuthorizationResponse>
+            </xsl:if>
+            <xsl:if test="string-length($MapSOAPRequestToPaymentServiceRequest/pfx:CreditCardAuthorizationRequest/@version) > 0">
+                <xsl:copy-of select="$MapSOAPRequestToPaymentServiceRequest/pfx:CreditCardAuthorizationRequest"/>
+            </xsl:if>
+            <TransactionId>
+                <xsl:value-of select="$Process/root/TransactionId"/>
+            </TransactionId>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:CreditCardAuthorizationResponse" minOccurs="0"/>
+                    <xsd:element ref="pfx:CreditCardAuthorizationRequest" minOccurs="0"/>
+                    <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>913</pd:endX>
+    <pd:endY>336</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Process>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Error" type="pfx5:ErrorType"/>
+                        <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Process>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1414172991752</pd:targetNamespace>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>598</pd:x>
+        <pd:y>510</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:choose>
+                    <xsl:when test="$_error/ns1:ErrorReport/Class=$_globalVariables/ns3:GlobalVariables/PaymentService/ValidationConstants/BIND_EXCEPTION_CLASS">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="$_error/ns1:ErrorReport/Class=$_globalVariables/ns3:GlobalVariables/PaymentService/ValidationConstants/XML_TRANSFORMATION_EXCEPTION_CLASS">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <TransactionId>
+                    <xsl:value-of select="concat($_globalVariables/ns3:GlobalVariables/Authorization/Constants/TransactionIdPrefix,&#xA;tib:format-dateTime($_globalVariables/ns3:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   &#xA;BW:getHostName())"/>
+                </TransactionId>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignOtherError">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>701</pd:x>
+        <pd:y>336</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Error>
+                    <xsl:choose>
+                        <xsl:when test="exists($ParseValidationResponse/pfx41:Errors/pfx41:Error[./pfx41:Type=$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INCOMPLETE_REQUEST_MULTIPLE_ISSUES/Type])&#xA;and&#xA;exists($ParseValidationResponse/pfx41:Errors/pfx41:Error[./pfx41:Type=$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST_MULTIPLE_ISSUES/Type])">
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INCOMPLETE_INVALID_REQUEST_MULTIPLE_ISSUES/Type"/>
+                            </Type>
+                        </xsl:when>
+                        <xsl:when test="exists($ParseValidationResponse/pfx41:Errors/pfx41:Error[./pfx41:Type=$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INCOMPLETE_REQUEST_MULTIPLE_ISSUES/Type])">
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INCOMPLETE_REQUEST_MULTIPLE_ISSUES/Type"/>
+                            </Type>
+                        </xsl:when>
+                        <xsl:when test="exists($ParseValidationResponse/pfx41:Errors/pfx41:Error[./pfx41:Type=$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_TOKEN/Type])">
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_TOKEN/Type"/>
+                            </Type>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST_MULTIPLE_ISSUES/Type"/>
+                            </Type>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:for-each select="$ParseValidationResponse/pfx41:Errors/pfx41:Error/pfx41:Detail">
+                        <Detail>
+                            <xsl:value-of select="."/>
+                        </Detail>
+                    </xsl:for-each>
+                    <xsl:variable name="ErrMsg" select="tib:concat-sequence-format($ParseValidationResponse/pfx41:Errors/pfx41:Error/pfx41:ErrorMessage, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator, true())"/>
+                    <xsl:choose>
+                        <xsl:when test="string-length($ErrMsg)&lt;=200">
+                            <ErrorMessage>
+                                <xsl:value-of select="$ErrMsg"/>
+                            </ErrorMessage>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CommonErrors/GENERIC_ERROR/InvIncompleteReqErr"/>
+                            </ErrorMessage>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Error>
+                <TransactionId>
+                    <xsl:value-of select="concat($_globalVariables/ns3:GlobalVariables/Authorization/Constants/TransactionIdPrefix,&#xA;tib:format-dateTime($_globalVariables/ns3:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   &#xA;BW:getHostName())"/>
+                </TransactionId>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>319</pd:x>
+        <pd:y>510</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetPaymentServiceValidationParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>298</pd:x>
+        <pd:y>211</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceValidations.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="LogRequestValidationExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>912</pd:x>
+        <pd:y>509</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns:ExceptionHandlerRequest>
+                <ns:envCode>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/ENV"/>
+                </ns:envCode>
+                <ns:appCode>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/CLE/AppCode"/>
+                </ns:appCode>
+                <ns:interfaceCode>
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Authorization/CLE/SoapInterfaceCode"/>
+                </ns:interfaceCode>
+                <ns:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns:hostName>
+                <ns:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns:timeStamp>
+                <ns:message>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ns:message>
+                <ns:ErrorLevel>
+                    <ns:errorCode>
+                        <xsl:value-of select="concat($Process/root/Error/Type, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$Process/root/Error/Detail[1])"/>
+                    </ns:errorCode>
+                </ns:ErrorLevel>
+                <ns:TransactionDetails>
+                    <ns:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns:transactionDomain>
+                    <ns:transactionType>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Authorization/CLE/TransactionType"/>
+                    </ns:transactionType>
+                    <ns:transactionID>
+                        <xsl:value-of select="$Process/root/TransactionId"/>
+                    </ns:transactionID>
+                </ns:TransactionDetails>
+                <xsl:for-each select="$_error/ns1:ErrorReport">
+                    <ns:ErrorReportType>
+                        <ns:stackTrace>
+                            <xsl:value-of select="StackTrace"/>
+                        </ns:stackTrace>
+                        <ns:msg>
+                            <xsl:value-of select="Msg"/>
+                        </ns:msg>
+                        <ns:fullClass>
+                            <xsl:value-of select="FullClass"/>
+                        </ns:fullClass>
+                        <ns:class>
+                            <xsl:value-of select="Class"/>
+                        </ns:class>
+                        <ns:processStack>
+                            <xsl:value-of select="ProcessStack"/>
+                        </ns:processStack>
+                        <xsl:if test="MsgCode">
+                            <ns:msgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </ns:msgCode>
+                        </xsl:if>
+                        <ns:data>
+                            <xsl:value-of select="Data/*"/>
+                        </ns:data>
+                    </ns:ErrorReportType>
+                </xsl:for-each>
+            </ns:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapSOAPRequestToPaymentServiceRequest">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>919</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <element ref="pfx:CreditCardAuthorizationRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx:CreditCardAuthorizationRequest>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Authorization/MessageVersion"/>
+                </xsl:attribute>
+                <SystemContext>
+                    <EnvironmentIdentifier>
+                        <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@EnvIdentifier"/>
+                    </EnvironmentIdentifier>
+                    <RegionIdentifier>
+                        <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@RegIdentifier"/>
+                    </RegionIdentifier>
+                    <SourceSystemIdentifier>
+                        <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@SourceSysID"/>
+                    </SourceSystemIdentifier>
+                    <TransactionId>
+                        <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@MsgTransactionID"/>
+                    </TransactionId>
+                    <TransactionTime>
+                        <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@MsgTransactionTime"/>
+                    </TransactionTime>
+                </SystemContext>
+                <PaymentContext>
+                    <Concept>
+                        <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@EnterpriseCode"/>
+                    </Concept>
+                    <Channel>
+                        <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@EntryType"/>
+                    </Channel>
+                </PaymentContext>
+                <OrderContext>
+                    <xsl:attribute name="omsOrderId">
+                        <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@OrderNo"/>
+                    </xsl:attribute>
+                    <OrderTime>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </OrderTime>
+                </OrderContext>
+                <ConsumerTransactionId>
+                    <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@ChargeTransactionKey"/>
+                </ConsumerTransactionId>
+                <xsl:if test="string-length($ParseSOAPRequest/ns4:Payment/@OriginalTranRequestTime)>0">
+                    <OriginalRequest>
+                        <TransactionTime>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@OriginalTranRequestTime"/>
+                        </TransactionTime>
+                    </OriginalRequest>
+                </xsl:if>
+                <Tender>
+                    <Type>
+                        <Code>
+                            <xsl:value-of select="if($ParseSOAPRequest/ns4:Payment/@PaymentType=$_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/CCPaymentType|$_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/PLCCPaymentType) then $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/CCPaymentType else &quot;&quot;"/>
+                        </Code>
+                        <SubCode>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@PaymentReference3"/>
+                        </SubCode>
+                        <xsl:for-each select="tib:tokenize($ParseSOAPRequest/ns4:Payment/@ExtnPaymentTag,&quot;,&quot;)">
+                            <Tag>
+                                <xsl:attribute name="type">
+                                    <xsl:value-of select="substring-before(current(),&quot;=&quot;)"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="substring-after(current(),&quot;=&quot;)"/>
+                            </Tag>
+                        </xsl:for-each>
+                    </Type>
+                    <xsl:choose>
+                        <xsl:when test="string-length($ParseSOAPRequest/ns4:Payment/@ExtnPaymentToken)>0">
+                            <Token>
+                                <xsl:attribute name="scheme">
+                                    <xsl:value-of select="substring-after(tib:tokenize($ParseSOAPRequest/ns4:Payment/@PaymentReference8, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SterlingPaymentReferenceTokenizer)[1], $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/SchemeKey)"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="scope">
+                                    <xsl:value-of select="substring-after(tib:tokenize($ParseSOAPRequest/ns4:Payment/@PaymentReference8, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SterlingPaymentReferenceTokenizer)[2], $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/ScopeKey)"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="isTemporary">
+                                    <xsl:value-of select="substring-after(tib:tokenize($ParseSOAPRequest/ns4:Payment/@PaymentReference8, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SterlingPaymentReferenceTokenizer)[3], $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/IsTempKey)"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="expiration">
+                                    <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@PaymentReference7"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@ExtnPaymentToken"/>
+                            </Token>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <Token>
+                                <xsl:attribute name="scheme">
+                                    <xsl:value-of select="substring-after(tib:tokenize($ParseSOAPRequest/ns4:Payment/@PaymentReference8, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SterlingPaymentReferenceTokenizer)[1], $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/SchemeKey)"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="scope">
+                                    <xsl:value-of select="substring-after(tib:tokenize($ParseSOAPRequest/ns4:Payment/@PaymentReference8, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SterlingPaymentReferenceTokenizer)[2], $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/ScopeKey)"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="isTemporary">
+                                    <xsl:value-of select="substring-after(tib:tokenize($ParseSOAPRequest/ns4:Payment/@PaymentReference8, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SterlingPaymentReferenceTokenizer)[3], $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/IsTempKey)"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="expiration">
+                                    <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@PaymentReference7"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@CreditCardNo"/>
+                            </Token>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Tender>
+                <CardMetadata>
+                    <CardHolderName>
+                        <FullName>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@CreditCardName"/>
+                        </FullName>
+                    </CardHolderName>
+                    <xsl:if test="string-length($Start/ns4:Payment/@CreditCardExpirationDate)>0">
+                        <CardExpiration>
+                            <Year>
+                                <xsl:value-of select="substring-after($Start/ns4:Payment/@CreditCardExpirationDate, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/CreditCardExpirationSeparator)"/>
+                            </Year>
+                            <Month>
+                                <xsl:value-of select="substring-before($Start/ns4:Payment/@CreditCardExpirationDate, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/CreditCardExpirationSeparator)"/>
+                            </Month>
+                        </CardExpiration>
+                    </xsl:if>
+                </CardMetadata>
+                <IsCardNotPresent>
+                    <xsl:value-of select="true()"/>
+                </IsCardNotPresent>
+                <BillingAddress>
+                    <FullName>
+                        <xsl:value-of select="concat( $ParseSOAPRequest/ns4:Payment/@BillToFirstName, $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/CustomerNameSeparator, $ParseSOAPRequest/ns4:Payment/@BillToLastName)"/>
+                    </FullName>
+                    <Address>
+                        <AddressLine>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@BillToAddressLine1"/>
+                        </AddressLine>
+                        <xsl:if test="string-length($ParseSOAPRequest/ns4:Payment/@BillToAddressLine2)>0">
+                            <AddressLine>
+                                <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@BillToAddressLine2"/>
+                            </AddressLine>
+                        </xsl:if>
+                        <City>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@BillToCity"/>
+                        </City>
+                        <County>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@BillToCountry"/>
+                        </County>
+                        <StateProvince>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@BillToState"/>
+                        </StateProvince>
+                        <PostalCode>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@BillToZipCode"/>
+                        </PostalCode>
+                        <Country>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@BillToCountry"/>
+                        </Country>
+                    </Address>
+                </BillingAddress>
+                <CurrencyCode>
+                    <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@Currency"/>
+                </CurrencyCode>
+                <AuthorizationAmount>
+                    <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@RequestAmount"/>
+                </AuthorizationAmount>
+                <xsl:if test="$ParseSOAPRequest/ns4:Payment/@PaymentType = $_globalVariables/ns3:GlobalVariables/PaymentService/Constants/SOAP/PLCCPaymentType">
+                    <xsl:if test="$ParseSOAPRequest/ns4:Payment/@PaymentReference4">
+                        <PaymentPlanCode>
+                            <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@PaymentReference4"/>
+                        </PaymentPlanCode>
+                    </xsl:if>
+                </xsl:if>
+                <Purpose>
+                    <xsl:value-of select="$ParseSOAPRequest/ns4:Payment/@ExtnAuthPurpose"/>
+                </Purpose>
+            </pfx:CreditCardAuthorizationRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ParseValidationResponse">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>702</pd:x>
+        <pd:y>211</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx41:Errors"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Validate/xmlString"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ParseSOAPRequest">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>700</pd:x>
+        <pd:y>45</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="ns4:Payment"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="tib:render-xml($Start/ns4:Payment)"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Validate">
+        <pd:type>com.tibco.plugin.xml.XMLTransformActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLTransformActivity</pd:resourceType>
+        <pd:x>518</pd:x>
+        <pd:y>211</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <engine>Saxon</engine>
+        </config>
+        <pd:inputBindings>
+            <textInput>
+                <xmlString>
+                    <xsl:value-of select="tib:render-xml($Start/ns4:Payment)"/>
+                </xmlString>
+                <stylesheet>
+                    <xsl:value-of select="$GetPaymentServiceValidationParams/ns2:PaymentServiceValidations/ns2:PaymentServiceValidation[ns2:RuleName =$_globalVariables/ns3:GlobalVariables/Authorization/Validation/SoapRequestValidationXslt]/ns2:RuleContent"/>
+                </stylesheet>
+                <parameter>
+                    <name>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/ValidationConstants/XSLT_VALIDATION_PARAM"/>
+                    </name>
+                    <value>
+                        <xsl:value-of select="tib:render-xml($GetPaymentErrorType/ns5:PaymentServiceErrorTypes)"/>
+                    </value>
+                    <isXMLDocument>
+                        <xsl:value-of select="true()"/>
+                    </isXMLDocument>
+                </parameter>
+                <parameter>
+                    <name>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/ValidationConstants/XSLT_ENVID_PARAM"/>
+                    </name>
+                    <value>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/PaymentService/TokenConstants/EnvId"/>
+                    </value>
+                    <isXMLDocument>
+                        <xsl:value-of select="false()"/>
+                    </isXMLDocument>
+                </parameter>
+            </textInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetPaymentErrorType">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>303</pd:x>
+        <pd:y>111</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceErrorTypes.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapSOAPRequestToPaymentServiceRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetPaymentServiceValidationParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPaymentServiceValidationParams</pd:from>
+        <pd:to>Validate</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseSOAPRequest</pd:from>
+        <pd:to>MapSOAPRequestToPaymentServiceRequest</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Validate</pd:from>
+        <pd:to>ParseValidationResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseValidationResponse</pd:from>
+        <pd:to>AssignOtherError</pd:to>
+        <pd:xpathDescription>Failed</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($ParseValidationResponse/pfx41:Errors/pfx41:Error[1]/pfx41:Type)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignOtherError</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseValidationResponse</pd:from>
+        <pd:to>ParseSOAPRequest</pd:to>
+        <pd:xpathDescription>Success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogRequestValidationExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>LogRequestValidationExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetPaymentErrorType</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPaymentErrorType</pd:from>
+        <pd:to>Validate</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Transform SOAP to Xml here</pd:description>
+        <pd:x>818</pd:x>
+        <pd:y>115</pd:y>
+        <pd:width>191</pd:width>
+        <pd:height>40</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-3342388</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

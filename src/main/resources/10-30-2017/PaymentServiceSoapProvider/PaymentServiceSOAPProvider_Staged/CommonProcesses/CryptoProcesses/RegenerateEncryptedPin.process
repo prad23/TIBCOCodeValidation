@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx2="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:pfx3="http://ecommerce.wsgc.com/2013/Common" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="www.tibco.com/plugin/java/JavaMethodActivityOutput" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/EngineTypes">
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/base-types.xsd"/>
+    <pd:name>CommonProcesses/CryptoProcesses/RegenerateEncryptedPin.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="WSIEncryptedPin" type="xsd:string"/>
+                    <xsd:element name="FirstDataPinEncryptionScheme" type="xsd:string"/>
+                    <xsd:element name="FirstDataPinEncryptionKeyid" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>120</pd:startX>
+    <pd:startY>83</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <EncryptedPin>
+                <xsl:value-of select="substring-after($RegeneratePin/javaCodeActivityOutput/firstdataencryptedpin, $_globalVariables/ns1:GlobalVariables/PaymentService/TokenConstants/FirstDataEncryptedPinSeparator)"/>
+            </EncryptedPin>
+            <xsl:if test="string-length($Error/root/ErrorType)>0">
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$Error/root/ErrorType"/>
+                    </Type>
+                    <xsl:if test="$Error/root/ErrorDetail">
+                        <Detail>
+                            <xsl:value-of select="$Error/root/ErrorDetail"/>
+                        </Detail>
+                    </xsl:if>
+                    <ErrorMessage>
+                        <xsl:value-of select="$Error/root/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </xsl:if>
+            <xsl:if test="string-length($Error/root/CLE/ErrorReportType/pfx2:stackTrace)>0">
+                <CLEErrorReport>
+                    <xsl:if test="$Error/root/CLE/ErrorReportType/pfx2:stackTrace">
+                        <pfx2:stackTrace>
+                            <xsl:value-of select="$Error/root/CLE/ErrorReportType/pfx2:stackTrace"/>
+                        </pfx2:stackTrace>
+                    </xsl:if>
+                    <xsl:if test="$Error/root/CLE/ErrorReportType/pfx2:msg">
+                        <pfx2:msg>
+                            <xsl:value-of select="$Error/root/CLE/ErrorReportType/pfx2:msg"/>
+                        </pfx2:msg>
+                    </xsl:if>
+                    <xsl:if test="$Error/root/CLE/ErrorReportType/pfx2:fullClass">
+                        <pfx2:fullClass>
+                            <xsl:value-of select="$Error/root/CLE/ErrorReportType/pfx2:fullClass"/>
+                        </pfx2:fullClass>
+                    </xsl:if>
+                    <xsl:if test="$Error/root/CLE/ErrorReportType/pfx2:class">
+                        <pfx2:class>
+                            <xsl:value-of select="$Error/root/CLE/ErrorReportType/pfx2:class"/>
+                        </pfx2:class>
+                    </xsl:if>
+                    <xsl:if test="$Error/root/CLE/ErrorReportType/pfx2:processStack">
+                        <pfx2:processStack>
+                            <xsl:value-of select="$Error/root/CLE/ErrorReportType/pfx2:processStack"/>
+                        </pfx2:processStack>
+                    </xsl:if>
+                    <xsl:if test="$Error/root/CLE/ErrorReportType/pfx2:msgCode">
+                        <pfx2:msgCode>
+                            <xsl:value-of select="$Error/root/CLE/ErrorReportType/pfx2:msgCode"/>
+                        </pfx2:msgCode>
+                    </xsl:if>
+                    <xsl:if test="$Error/root/CLE/ErrorReportType/pfx2:data">
+                        <pfx2:data>
+                            <xsl:value-of select="$Error/root/CLE/ErrorReportType/pfx2:data"/>
+                        </pfx2:data>
+                    </xsl:if>
+                </CLEErrorReport>
+            </xsl:if>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="EncryptedPin" type="xsd:string"/>
+                    <xsd:element name="Error" type="pfx3:ErrorType" minOccurs="0"/>
+                    <xsd:element name="CLEErrorReport" type="pfx2:ErrorReportType" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>843</pd:endX>
+    <pd:endY>83</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Error>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ErrorType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorDetail" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorMessage" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="CLE" minOccurs="0">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="ErrorReportType" type="pfx2:ErrorReportType"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Error>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1434558035038</pd:targetNamespace>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>657</pd:x>
+        <pd:y>210</pd:y>
+        <config>
+            <variableName>Error</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ErrorType>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonInternalErrors/EncryptedPin/COMMON_INTERNAL_ERROR_ENCRYPTED_PIN/Type"/>
+                </ErrorType>
+                <ErrorDetail>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonInternalErrors/EncryptedPin/COMMON_INTERNAL_ERROR_ENCRYPTED_PIN/Detail"/>
+                </ErrorDetail>
+                <ErrorMessage>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonInternalErrors/EncryptedPin/COMMON_INTERNAL_ERROR_ENCRYPTED_PIN/ErrorMessage"/>
+                </ErrorMessage>
+                <CLE>
+                    <ErrorReportType>
+                        <xsl:if test="$_error/ns2:ErrorReport/StackTrace">
+                            <pfx2:stackTrace>
+                                <xsl:value-of select="$_error/ns2:ErrorReport/StackTrace"/>
+                            </pfx2:stackTrace>
+                        </xsl:if>
+                        <xsl:if test="$_error/ns2:ErrorReport/Msg">
+                            <pfx2:msg>
+                                <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                            </pfx2:msg>
+                        </xsl:if>
+                        <xsl:if test="$_error/ns2:ErrorReport/FullClass">
+                            <pfx2:fullClass>
+                                <xsl:value-of select="$_error/ns2:ErrorReport/FullClass"/>
+                            </pfx2:fullClass>
+                        </xsl:if>
+                        <xsl:if test="$_error/ns2:ErrorReport/Class">
+                            <pfx2:class>
+                                <xsl:value-of select="$_error/ns2:ErrorReport/Class"/>
+                            </pfx2:class>
+                        </xsl:if>
+                        <pfx2:processStack>
+                            <xsl:value-of select="$_error/ns2:ErrorReport/ProcessStack"/>
+                        </pfx2:processStack>
+                        <xsl:if test="$_error/ns2:ErrorReport/MsgCode">
+                            <pfx2:msgCode>
+                                <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                            </pfx2:msgCode>
+                        </xsl:if>
+                        <pfx2:data>
+                            <xsl:value-of select="tib:render-xml($_error/ns2:ErrorReport/Data/*)"/>
+                        </pfx2:data>
+                    </ErrorReportType>
+                </CLE>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AuditBeginLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>396</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/AuditLogMessage.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetTransactionDetails/root/InterfaceCode"/>
+                </InterfaceCode>
+                <AuditMessageType>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CryptoProcesses/CLE/IngrianRequest"/>
+                </AuditMessageType>
+                <payloadTrue>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CryptoProcesses/CLE/PayloadTrue"/>
+                </payloadTrue>
+                <pfx2:LogRequest>
+                    <pfx2:envCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                    </pfx2:envCode>
+                    <pfx2:appCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/AppCode"/>
+                    </pfx2:appCode>
+                    <pfx2:interfaceCode>
+                        <xsl:value-of select="$GetTransactionDetails/root/InterfaceCode"/>
+                    </pfx2:interfaceCode>
+                    <pfx2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx2:timestamp>
+                    <pfx2:message>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CryptoProcesses/CLE/IngrianRequestMsg"/>
+                    </pfx2:message>
+                    <pfx2:TransactionDetails>
+                        <pfx2:transactionDomain>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                        </pfx2:transactionDomain>
+                        <pfx2:transactionType>
+                            <xsl:value-of select="$GetTransactionDetails/root/TransactionType"/>
+                        </pfx2:transactionType>
+                        <pfx2:transactionID>
+                            <xsl:value-of select="$GetTransactionDetails/root/TransactionId"/>
+                        </pfx2:transactionID>
+                    </pfx2:TransactionDetails>
+                    <pfx2:AuditInfo>
+                        <pfx2:payload>
+                            <xsl:value-of select="''"/>
+                        </pfx2:payload>
+                        <pfx2:auditStep>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CryptoProcesses/CLE/IngrianRequest"/>
+                        </pfx2:auditStep>
+                    </pfx2:AuditInfo>
+                </pfx2:LogRequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AuditEndLog">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>733</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/AuditLogMessage.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetTransactionDetails/root/InterfaceCode"/>
+                </InterfaceCode>
+                <AuditMessageType>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CryptoProcesses/CLE/IngrianResponse"/>
+                </AuditMessageType>
+                <payloadTrue>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CryptoProcesses/CLE/PayloadTrue"/>
+                </payloadTrue>
+                <pfx2:LogRequest>
+                    <pfx2:envCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                    </pfx2:envCode>
+                    <pfx2:appCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/AppCode"/>
+                    </pfx2:appCode>
+                    <pfx2:interfaceCode>
+                        <xsl:value-of select="$GetTransactionDetails/root/InterfaceCode"/>
+                    </pfx2:interfaceCode>
+                    <pfx2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx2:timestamp>
+                    <pfx2:message>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CryptoProcesses/CLE/IngrianResponseMsg"/>
+                    </pfx2:message>
+                    <pfx2:TransactionDetails>
+                        <pfx2:transactionDomain>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                        </pfx2:transactionDomain>
+                        <pfx2:transactionType>
+                            <xsl:value-of select="$GetTransactionDetails/root/TransactionType"/>
+                        </pfx2:transactionType>
+                        <pfx2:transactionID>
+                            <xsl:value-of select="$GetTransactionDetails/root/TransactionId"/>
+                        </pfx2:transactionID>
+                    </pfx2:TransactionDetails>
+                    <pfx2:AuditInfo>
+                        <pfx2:payload>
+                            <xsl:value-of select="''"/>
+                        </pfx2:payload>
+                        <pfx2:auditStep>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CryptoProcesses/CLE/IngrianResponse"/>
+                        </pfx2:auditStep>
+                    </pfx2:AuditInfo>
+                </pfx2:LogRequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>429</pd:x>
+        <pd:y>212</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetConfigHandle">
+        <pd:type>com.tibco.plugin.java.JavaMethodActivity</pd:type>
+        <pd:resourceType>ae.activities.JavaMethodActivity</pd:resourceType>
+        <pd:x>514</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <ConstructDeclaredClass>false</ConstructDeclaredClass>
+            <CacheConstructedClass>false</CacheConstructedClass>
+            <InvokeCleanupMethod>false</InvokeCleanupMethod>
+            <JavaGlobalInstance>/CommonProcesses/CryptoProcesses/CryptoEnvironment.serviceagent</JavaGlobalInstance>
+            <MethodInfo>
+                <className>com.wsgc.ecommerce.tokenization.runtime.EnvironmentHandle</className>
+                <methodName>getConfigurationHandle</methodName>
+                <methodReturn>com.wsgc.ecommerce.tokenization.runtime.ConfigurationHandle</methodReturn>
+            </MethodInfo>
+        </config>
+        <pd:inputBindings>
+            <ns1:JavaMethodActivityInput xmlns:ns1="www.tibco.com/plugin/java/JavaMethodActivityInput"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetTransactionDetails">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>248</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <variableConfig>/CommonProcesses/InterfaceDetails.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="RegeneratePin">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>625</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <fileName>RegenerateEncryptedPinRegeneratePin</fileName>
+            <packageName>CommonProcesses.CryptoProcesses.RegenerateEncryptedPin</packageName>
+            <fullsource>package CommonProcesses.CryptoProcesses.RegenerateEncryptedPin;
+import java.util.*;
+import java.io.*;
+import com.wsgc.ecommerce.tokenization.runtime.ConfigurationHandle;
+import com.wsgc.ecommerce.tokenization.PinToken;
+import com.wsgc.ecommerce.tokenization.PaymentToken;
+import com.wsgc.ecommerce.tokenization.TokenizationContext;
+import com.wsgc.ecommerce.tokenization.TokenizationContexts;
+import com.wsgc.ecommerce.tokenization.CardExpiration;
+
+
+public class RegenerateEncryptedPinRegeneratePin{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected Object confighandle = null;
+	protected String environment = "";
+	protected String wsipinencryptionscheme = "";
+	protected String wsiencryptedpin = "";
+	protected String firstdataencryptionscheme = "";
+	protected String firstdataencryptionkeyid = "";
+	protected String firstdataencryptedpin = "";
+	protected String plainpin = "";
+	public Object getconfighandle() {
+		return confighandle;
+	}
+	public void setconfighandle(Object val) {
+		confighandle = val;
+	}
+	public String getenvironment() {
+		return environment;
+	}
+	public void setenvironment(String val) {
+		environment = val;
+	}
+	public String getwsipinencryptionscheme() {
+		return wsipinencryptionscheme;
+	}
+	public void setwsipinencryptionscheme(String val) {
+		wsipinencryptionscheme = val;
+	}
+	public String getwsiencryptedpin() {
+		return wsiencryptedpin;
+	}
+	public void setwsiencryptedpin(String val) {
+		wsiencryptedpin = val;
+	}
+	public String getfirstdataencryptionscheme() {
+		return firstdataencryptionscheme;
+	}
+	public void setfirstdataencryptionscheme(String val) {
+		firstdataencryptionscheme = val;
+	}
+	public String getfirstdataencryptionkeyid() {
+		return firstdataencryptionkeyid;
+	}
+	public void setfirstdataencryptionkeyid(String val) {
+		firstdataencryptionkeyid = val;
+	}
+	public String getfirstdataencryptedpin() {
+		return firstdataencryptedpin;
+	}
+	public void setfirstdataencryptedpin(String val) {
+		firstdataencryptedpin = val;
+	}
+	public String getplainpin() {
+		return plainpin;
+	}
+	public void setplainpin(String val) {
+		plainpin = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public RegenerateEncryptedPinRegeneratePin() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : Object confighandle
+	In  : String environment
+	In  : String wsipinencryptionscheme
+	In  : String wsiencryptedpin
+	In  : String firstdataencryptionscheme
+	In  : String firstdataencryptionkeyid
+	Out : String firstdataencryptedpin
+	Out : String plainpin
+* Available Variables: DO NOT MODIFY *****/
+
+
+//com.wsgc.ecommerce.tokenization.PaymentToken pt = null;
+try{
+com.wsgc.ecommerce.tokenization.runtime.ConfigurationHandle ch = (com.wsgc.ecommerce.tokenization.runtime.ConfigurationHandle) getconfighandle();
+
+TokenizationContext ctx =com.wsgc.ecommerce.tokenization.TokenizationContexts.forCurrentTime();
+
+com.wsgc.ecommerce.tokenization.PaymentToken wsipintoken = new PaymentToken(wsipinencryptionscheme,wsiencryptedpin,"CARD", true, new java.util.Date(  System.currentTimeMillis() + 100000 )   );
+com.wsgc.ecommerce.tokenization.AccountData ad = ch.getEnvironment(environment).getPaymentProvider().detokenize(wsipintoken , ctx);
+
+ plainpin = ad.getAccountNumberString();
+
+//PinToken pintoken = new PinToken (wsipinencryptionscheme, wsiencryptedpin);
+
+//byte[] pinbytes = ch.getEnvironment(environment).getPinProvider().detokenize( pintoken ,  ctx);
+
+com.wsgc.ecommerce.tokenization.PinToken pt = ch.getEnvironment(environment).getPinProvider().tokenize(firstdataencryptionscheme, firstdataencryptionkeyid, plainpin,  ctx);
+
+ firstdataencryptedpin = pt.getValue();
+
+} catch (Exception e) {
+
+e.printStackTrace();
+throw e;
+
+}
+
+
+}
+}
+</fullsource>
+            <inputData>
+                <row>
+                    <fieldName>confighandle</fieldName>
+                    <fieldType>ObjectReference</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>environment</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>wsipinencryptionscheme</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>wsiencryptedpin</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>firstdataencryptionscheme</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>firstdataencryptionkeyid</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>required</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>firstdataencryptedpin</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>plainpin</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>RegenerateEncryptedPinRegeneratePin</name>
+                    <byteCode>yv66vgAAADMAiAkAHwBJCQAfAEoJAB8ASwkAHwBMCQAfAE0JAB8ATgkAHwBPCQAfAFAKACAAUQgAUgoAHwBTBwBUCgBVAFYHAFcIAFgHAFkKAFoAWwUAAAAAAAGGoAoAEABcCgAOAF0LAAwAXgoAXwBgCwBhAGIKAGMAZAoAXwBlCwBmAGcKAGgAaQcAagoAHQBrBwBsBwBtAQAMY29uZmlnaGFuZGxlAQASTGphdmEvbGFuZy9PYmplY3Q7AQALZW52aXJvbm1lbnQBABJMamF2YS9sYW5nL1N0cmluZzsBABZ3c2lwaW5lbmNyeXB0aW9uc2NoZW1lAQAPd3NpZW5jcnlwdGVkcGluAQAZZmlyc3RkYXRhZW5jcnlwdGlvbnNjaGVtZQEAGGZpcnN0ZGF0YWVuY3J5cHRpb25rZXlpZAEAFWZpcnN0ZGF0YWVuY3J5cHRlZHBpbgEACHBsYWlucGluAQAPZ2V0Y29uZmlnaGFuZGxlAQAUKClMamF2YS9sYW5nL09iamVjdDsBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQAPc2V0Y29uZmlnaGFuZGxlAQAVKExqYXZhL2xhbmcvT2JqZWN0OylWAQAOZ2V0ZW52aXJvbm1lbnQBABQoKUxqYXZhL2xhbmcvU3RyaW5nOwEADnNldGVudmlyb25tZW50AQAVKExqYXZhL2xhbmcvU3RyaW5nOylWAQAZZ2V0d3NpcGluZW5jcnlwdGlvbnNjaGVtZQEAGXNldHdzaXBpbmVuY3J5cHRpb25zY2hlbWUBABJnZXR3c2llbmNyeXB0ZWRwaW4BABJzZXR3c2llbmNyeXB0ZWRwaW4BABxnZXRmaXJzdGRhdGFlbmNyeXB0aW9uc2NoZW1lAQAcc2V0Zmlyc3RkYXRhZW5jcnlwdGlvbnNjaGVtZQEAG2dldGZpcnN0ZGF0YWVuY3J5cHRpb25rZXlpZAEAG3NldGZpcnN0ZGF0YWVuY3J5cHRpb25rZXlpZAEAGGdldGZpcnN0ZGF0YWVuY3J5cHRlZHBpbgEAGHNldGZpcnN0ZGF0YWVuY3J5cHRlZHBpbgEAC2dldHBsYWlucGluAQALc2V0cGxhaW5waW4BAAY8aW5pdD4BAAMoKVYBAAZpbnZva2UBAA1TdGFja01hcFRhYmxlBwBqAQAKRXhjZXB0aW9ucwEAClNvdXJjZUZpbGUBAChSZWdlbmVyYXRlRW5jcnlwdGVkUGluUmVnZW5lcmF0ZVBpbi5qYXZhDAAhACIMACMAJAwAJQAkDAAmACQMACcAJAwAKAAkDAApACQMACoAJAwAQQBCAQAADAArACwBADtjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL3J1bnRpbWUvQ29uZmlndXJhdGlvbkhhbmRsZQcAbgwAbwBwAQAsY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9QYXltZW50VG9rZW4BAARDQVJEAQAOamF2YS91dGlsL0RhdGUHAHEMAHIAcwwAQQB0DABBAHUMAHYAdwcAeAwAeQB6BwB7DAB8AH0HAH4MAH8AMgwAgACBBwCCDACDAIQHAIUMAIYAMgEAE2phdmEvbGFuZy9FeGNlcHRpb24MAIcAQgEAWkNvbW1vblByb2Nlc3Nlcy9DcnlwdG9Qcm9jZXNzZXMvUmVnZW5lcmF0ZUVuY3J5cHRlZFBpbi9SZWdlbmVyYXRlRW5jcnlwdGVkUGluUmVnZW5lcmF0ZVBpbgEAEGphdmEvbGFuZy9PYmplY3QBADRjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL1Rva2VuaXphdGlvbkNvbnRleHRzAQAOZm9yQ3VycmVudFRpbWUBADcoKUxjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL1Rva2VuaXphdGlvbkNvbnRleHQ7AQAQamF2YS9sYW5nL1N5c3RlbQEAEWN1cnJlbnRUaW1lTWlsbGlzAQADKClKAQAEKEopVgEASihMamF2YS9sYW5nL1N0cmluZztMamF2YS9sYW5nL1N0cmluZztMamF2YS9sYW5nL1N0cmluZztaTGphdmEvdXRpbC9EYXRlOylWAQAOZ2V0RW52aXJvbm1lbnQBAE8oTGphdmEvbGFuZy9TdHJpbmc7KUxjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL3J1bnRpbWUvRW52aXJvbm1lbnRIYW5kbGU7AQA5Y29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9ydW50aW1lL0Vudmlyb25tZW50SGFuZGxlAQASZ2V0UGF5bWVudFByb3ZpZGVyAQA/KClMY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9QYXltZW50VG9rZW5pemF0aW9uUHJvdmlkZXI7AQA7Y29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9QYXltZW50VG9rZW5pemF0aW9uUHJvdmlkZXIBAApkZXRva2VuaXplAQCSKExjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL1BheW1lbnRUb2tlbjtMY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9Ub2tlbml6YXRpb25Db250ZXh0OylMY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9BY2NvdW50RGF0YTsBACtjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL0FjY291bnREYXRhAQAWZ2V0QWNjb3VudE51bWJlclN0cmluZwEADmdldFBpblByb3ZpZGVyAQA7KClMY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9QaW5Ub2tlbml6YXRpb25Qcm92aWRlcjsBADdjb20vd3NnYy9lY29tbWVyY2UvdG9rZW5pemF0aW9uL1BpblRva2VuaXphdGlvblByb3ZpZGVyAQAIdG9rZW5pemUBAJcoTGphdmEvbGFuZy9TdHJpbmc7TGphdmEvbGFuZy9TdHJpbmc7TGphdmEvbGFuZy9TdHJpbmc7TGNvbS93c2djL2Vjb21tZXJjZS90b2tlbml6YXRpb24vVG9rZW5pemF0aW9uQ29udGV4dDspTGNvbS93c2djL2Vjb21tZXJjZS90b2tlbml6YXRpb24vUGluVG9rZW47AQAoY29tL3dzZ2MvZWNvbW1lcmNlL3Rva2VuaXphdGlvbi9QaW5Ub2tlbgEACGdldFZhbHVlAQAPcHJpbnRTdGFja1RyYWNlACEAHwAgAAAACAAEACEAIgAAAAQAIwAkAAAABAAlACQAAAAEACYAJAAAAAQAJwAkAAAABAAoACQAAAAEACkAJAAAAAQAKgAkAAAAEgABACsALAABAC0AAAAdAAEAAQAAAAUqtAABsAAAAAEALgAAAAYAAQAAABcAAQAvADAAAQAtAAAAIgACAAIAAAAGKiu1AAGxAAAAAQAuAAAACgACAAAAGgAFABsAAQAxADIAAQAtAAAAHQABAAEAAAAFKrQAArAAAAABAC4AAAAGAAEAAAAdAAEAMwA0AAEALQAAACIAAgACAAAABiortQACsQAAAAEALgAAAAoAAgAAACAABQAhAAEANQAyAAEALQAAAB0AAQABAAAABSq0AAOwAAAAAQAuAAAABgABAAAAIwABADYANAABAC0AAAAiAAIAAgAAAAYqK7UAA7EAAAABAC4AAAAKAAIAAAAmAAUAJwABADcAMgABAC0AAAAdAAEAAQAAAAUqtAAEsAAAAAEALgAAAAYAAQAAACkAAQA4ADQAAQAtAAAAIgACAAIAAAAGKiu1AASxAAAAAQAuAAAACgACAAAALAAFAC0AAQA5ADIAAQAtAAAAHQABAAEAAAAFKrQABbAAAAABAC4AAAAGAAEAAAAvAAEAOgA0AAEALQAAACIAAgACAAAABiortQAFsQAAAAEALgAAAAoAAgAAADIABQAzAAEAOwAyAAEALQAAAB0AAQABAAAABSq0AAawAAAAAQAuAAAABgABAAAANQABADwANAABAC0AAAAiAAIAAgAAAAYqK7UABrEAAAABAC4AAAAKAAIAAAA4AAUAOQABAD0AMgABAC0AAAAdAAEAAQAAAAUqtAAHsAAAAAEALgAAAAYAAQAAADsAAQA+ADQAAQAtAAAAIgACAAIAAAAGKiu1AAexAAAAAQAuAAAACgACAAAAPgAFAD8AAQA/ADIAAQAtAAAAHQABAAEAAAAFKrQACLAAAAABAC4AAAAGAAEAAABBAAEAQAA0AAEALQAAACIAAgACAAAABiortQAIsQAAAAEALgAAAAoAAgAAAEQABQBFAAEAQQBCAAEALQAAAHAAAgABAAAANCq3AAkqAbUAASoSCrUAAioSCrUAAyoSCrUABCoSCrUABSoSCrUABioSCrUAByoSCrUACLEAAAABAC4AAAAqAAoAAABHAAQADgAJAA8ADwAQABUAEQAbABIAIQATACcAFAAtABUAMwBIAAEAQwBCAAIALQAAANwADAAGAAAAgSq2AAvAAAxMuAANTbsADlkqtAADKrQABBIPBLsAEFm4ABEUABJhtwAUtwAVTisqtAACuQAWAgC2ABctLLkAGAMAOgQqGQS2ABm1AAgrKrQAArkAFgIAtgAaKrQABSq0AAYqtAAILLkAGwUAOgUqGQW2ABy1AAenAApMK7YAHiu/sQABAAAAdgB5AB0AAgAuAAAAMgAMAAAAWAAIAFoADABcAC0AXQBDAF8ATABlAG0AZwB2AG4AeQBpAHoAawB+AGwAgABxAEQAAAAJAAL3AHkHAEUGAEYAAAAEAAEAHQABAEcAAAACAEg=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <confighandle>
+                    <xsl:value-of select="$GetConfigHandle/ns:JavaMethodActivityOutput/MethodReturnValue"/>
+                </confighandle>
+                <environment>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                </environment>
+                <wsipinencryptionscheme>
+                    <xsl:value-of select="tib:tokenize($Start/root/WSIEncryptedPin, $_globalVariables/ns1:GlobalVariables/PaymentService/TokenConstants/WSIEncryptedPinSchemeSeparator)[1]"/>
+                </wsipinencryptionscheme>
+                <wsiencryptedpin>
+                    <xsl:value-of select="tib:tokenize($Start/root/WSIEncryptedPin, $_globalVariables/ns1:GlobalVariables/PaymentService/TokenConstants/WSIEncryptedPinSchemeSeparator)[2]"/>
+                </wsiencryptedpin>
+                <firstdataencryptionscheme>
+                    <xsl:value-of select="$Start/root/FirstDataPinEncryptionScheme"/>
+                </firstdataencryptionscheme>
+                <firstdataencryptionkeyid>
+                    <xsl:value-of select="$Start/root/FirstDataPinEncryptionKeyid"/>
+                </firstdataencryptionkeyid>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetTransactionDetails</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetConfigHandle</pd:from>
+        <pd:to>RegeneratePin</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RegeneratePin</pd:from>
+        <pd:to>AuditEndLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AuditEndLog</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AuditBeginLog</pd:from>
+        <pd:to>GetConfigHandle</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetTransactionDetails</pd:from>
+        <pd:to>AuditBeginLog</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

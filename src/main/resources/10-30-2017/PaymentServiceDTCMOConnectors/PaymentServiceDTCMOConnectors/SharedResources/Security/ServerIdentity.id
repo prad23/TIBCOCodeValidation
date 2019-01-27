@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <identity>
+        <objectType>url</objectType>
+        <name>ServerIdentity</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <url>%%PaymentService/Security/SERVER_KEYSTORE%%</url>
+        <fileType>JKS</fileType>
+        <passPhrase>%%PaymentService/Security/SERVER_KEYSTORE_PASS%%</passPhrase>
+        <username>test</username>
+        <password>#!FWNb3wopMhpgSZsPDQC0CNz2pR2QW7sw</password>
+    </identity>
+</Repository:repository>

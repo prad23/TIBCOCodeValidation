@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns="http://www.tibco.com/xmlns/aemeta/types/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <designer>
+        <fixedChildren>
+            <fixed>
+                <resource>/Classes</resource>
+                <children>Entry</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/Entry</resource>
+                <children>OutputDataQueue,EnvironmentIdentifier,RegionIdentifier,SourceSystemIdentifier,TransactionId,TransactionTime,Concept,Channel,AssociateId,OrderNumber,MatchingToken,MatchingTokenScheme,MaxResults,PageToken</children>
+            </fixed>
+        </fixedChildren>
+        <lockedProperties/>
+        <resourceDescriptions/>
+    </designer>
+    <class name="Entry">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.20</attributeType>
+            <name>OutputDataQueue</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.10</attributeType>
+            <name>EnvironmentIdentifier</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.10</attributeType>
+            <name>RegionIdentifier</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.50</attributeType>
+            <name>SourceSystemIdentifier</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.30</attributeType>
+            <name>TransactionId</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.30</attributeType>
+            <name>TransactionTime</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.5</attributeType>
+            <name>Concept</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.10</attributeType>
+            <name>Channel</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.10</attributeType>
+            <name>AssociateId</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.12</attributeType>
+            <name>OrderNumber</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.70</attributeType>
+            <name>MatchingToken</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.20</attributeType>
+            <name>MatchingTokenScheme</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.5</attributeType>
+            <name>MaxResults</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.char.10</attributeType>
+            <name>PageToken</name>
+            <extendedProperties>
+                <description> </description>
+                <as400Type>A</as400Type>
+            </extendedProperties>
+        </attribute>
+    </class>
+</Repository:repository>

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://www.wsgc.com/schemas/common/ConceptFilters.xsd" xmlns:pfx4="http://www.wsgc.com/schemas/common/CLEFlags.xsd" xmlns:pfx="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/pe/EngineTypes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns2="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema">
+    <xsd:import namespace="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" schemaLocation="/SharedResources/XMLSchemas/CLE/GlobalErrorObject.xsd"/>
+    <xsd:import namespace="http://www.wsgc.com/schemas/common/ConceptFilters.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/ConceptFilters.xsd"/>
+    <xsd:import namespace="http://www.wsgc.com/schemas/common/CLEFlags.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/CLEFlags.xsd"/>
+    <pd:name>CommonProcesses/CLEClientStub/SendExceptionRequest.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:ExceptionHandlerRequest"/>
+    <pd:startX>105</pd:startX>
+    <pd:startY>196</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>703</pd:endX>
+    <pd:endY>364</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1202169483390</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>269</pd:x>
+        <pd:y>360</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.WriteToLogActivity</pd:type>
+        <pd:resourceType>ae.activities.log</pd:resourceType>
+        <pd:x>451</pd:x>
+        <pd:y>359</pd:y>
+        <config>
+            <role>User</role>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <message>
+                    <xsl:value-of select="concat(&quot;ERROR: &quot;,tib:render-xml($_error/ns:ErrorReport), &quot;, ***** PAYLOAD *****: &quot;, tib:render-xml($Start/pfx:ExceptionHandlerRequest))"/>
+                </message>
+                <xsl:if test="$_error/ns:ErrorReport/MsgCode">
+                    <msgCode>
+                        <xsl:value-of select="$_error/ns:ErrorReport/MsgCode"/>
+                    </msgCode>
+                </xsl:if>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Topic Publisher">
+        <pd:type>com.tibco.plugin.jms.JMSTopicPublishActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSTopicPublishActivity</pd:resourceType>
+        <pd:x>830</pd:x>
+        <pd:y>210</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%PrefixTopic%%.%%ENV%%.%%CLE/JMS/ExceptionTopicPostfix%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/SharedConnections/JMS/EMSCLE.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx:ExceptionHandlerRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx2:ActivityInput>
+                <Body>
+                    <pfx:ExceptionHandlerRequest>
+                        <pfx:envCode>
+                            <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:envCode"/>
+                        </pfx:envCode>
+                        <pfx:appCode>
+                            <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:appCode"/>
+                        </pfx:appCode>
+                        <pfx:interfaceCode>
+                            <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:interfaceCode"/>
+                        </pfx:interfaceCode>
+                        <xsl:if test="$Start/pfx:ExceptionHandlerRequest/pfx:hostName">
+                            <pfx:hostName>
+                                <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:hostName"/>
+                            </pfx:hostName>
+                        </xsl:if>
+                        <xsl:if test="$Start/pfx:ExceptionHandlerRequest/pfx:notificationList">
+                            <pfx:notificationList>
+                                <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:notificationList"/>
+                            </pfx:notificationList>
+                        </xsl:if>
+                        <pfx:timeStamp>
+                            <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:timeStamp"/>
+                        </pfx:timeStamp>
+                        <xsl:if test="$Start/pfx:ExceptionHandlerRequest/pfx:activityName">
+                            <pfx:activityName>
+                                <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:activityName"/>
+                            </pfx:activityName>
+                        </xsl:if>
+                        <pfx:message>
+                            <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:message"/>
+                        </pfx:message>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Mask/xmlString) > 0">
+                                <pfx:payload>
+                                    <xsl:value-of select="$Mask/xmlString"/>
+                                </pfx:payload>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:if test="$Start/pfx:ExceptionHandlerRequest/pfx:payload">
+                                    <pfx:payload>
+                                        <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:payload"/>
+                                    </pfx:payload>
+                                </xsl:if>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <pfx:ErrorLevel>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx:ExceptionHandlerRequest/pfx:ErrorLevel/pfx:errorCode) and ($Start/pfx:ExceptionHandlerRequest/pfx:ErrorLevel/pfx:errorCode !=&quot;&quot;)">
+                                    <pfx:errorCode>
+                                        <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:ErrorLevel/pfx:errorCode"/>
+                                    </pfx:errorCode>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <pfx:errorCode>
+                                        <xsl:value-of select="concat(&quot;TIB_&quot;, upper-case($Start/pfx:ExceptionHandlerRequest/pfx:interfaceCode), &quot;_UNKNOWN_EXCEPTION&quot;)"/>
+                                    </pfx:errorCode>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </pfx:ErrorLevel>
+                        <xsl:copy-of select="$Start/pfx:ExceptionHandlerRequest/pfx:TransactionDetails"/>
+                        <xsl:copy-of select="$Start/pfx:ExceptionHandlerRequest/pfx:ProcessContextDetails"/>
+                        <xsl:copy-of select="$Start/pfx:ExceptionHandlerRequest/pfx:ErrorReportType"/>
+                        <xsl:copy-of select="$Start/pfx:ExceptionHandlerRequest/pfx:AdditionalInformation"/>
+                    </pfx:ExceptionHandlerRequest>
+                </Body>
+            </pfx2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCLEFlags">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>277</pd:x>
+        <pd:y>196</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-CLEFlags.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="FindEntry">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>424</pd:x>
+        <pd:y>198</pd:y>
+        <config>
+            <element ref="pfx4:CLEFlags"/>
+        </config>
+        <pd:inputBindings>
+            <pfx4:CLEFlags>
+                <xsl:variable name="colAppCode" select="&quot;ApplicationCode&quot;"/>
+                <xsl:variable name="valAppCode" select="upper-case($Start/pfx:ExceptionHandlerRequest/pfx:appCode)"/>
+                <xsl:variable name="valInterfaceCode" select="upper-case($Start/pfx:ExceptionHandlerRequest/pfx:interfaceCode)"/>
+                <xsl:variable name="colInterfaceCode" select="&quot;InterfaceCode&quot;"/>
+                <xsl:for-each select="$GetCLEFlags/pfx4:CLEFlags/pfx4:CLEFlag[*[local-name()=$colInterfaceCode]=$valInterfaceCode][*[local-name()=$colAppCode]=$valAppCode]">
+                    <pfx4:CLEFlag>
+                        <pfx4:ApplicationCode>
+                            <xsl:value-of select="pfx4:ApplicationCode"/>
+                        </pfx4:ApplicationCode>
+                        <pfx4:InterfaceCode>
+                            <xsl:value-of select="pfx4:InterfaceCode"/>
+                        </pfx4:InterfaceCode>
+                        <pfx4:LoggingOn>
+                            <xsl:value-of select="pfx4:LoggingOn"/>
+                        </pfx4:LoggingOn>
+                        <pfx4:ExceptionOn>
+                            <xsl:value-of select="pfx4:ExceptionOn"/>
+                        </pfx4:ExceptionOn>
+                        <xsl:copy-of select="pfx4:Masks"/>
+                    </pfx4:CLEFlag>
+                </xsl:for-each>
+            </pfx4:CLEFlags>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>611</pd:x>
+        <pd:y>201</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.CriticalSectionGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>665</pd:x>
+        <pd:y>1</pd:y>
+        <pd:width>115</pd:width>
+        <pd:height>140</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>criticalSection</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:scope>single</pd:scope>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Mask</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Mask</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Mask">
+            <pd:type>com.tibco.plugin.xml.XMLTransformActivity</pd:type>
+            <pd:resourceType>ae.activities.XMLTransformActivity</pd:resourceType>
+            <pd:x>711</pd:x>
+            <pd:y>65</pd:y>
+            <config>
+                <inputStyle>text</inputStyle>
+                <engine>Saxon</engine>
+                <stylesheet>/SharedResources/XSLTs/CLEMask.xslt</stylesheet>
+            </config>
+            <pd:inputBindings>
+                <textInput>
+                    <xmlString>
+                        <xsl:value-of select="$Start/pfx:ExceptionHandlerRequest/pfx:payload"/>
+                    </xmlString>
+                    <parameter>
+                        <name>
+                            <xsl:value-of select="'paramdoc'"/>
+                        </name>
+                        <value>
+                            <xsl:value-of select="tib:render-xml($GetCLEFlags/pfx4:CLEFlags/pfx4:CLEFlag[pfx4:InterfaceCode=$Start/pfx:ExceptionHandlerRequest/pfx:interfaceCode]/pfx4:Masks)"/>
+                        </value>
+                        <isXMLDocument>
+                            <xsl:value-of select="true()"/>
+                        </isXMLDocument>
+                    </parameter>
+                </textInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEFlags</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Topic Publisher</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEFlags</pd:from>
+        <pd:to>FindEntry</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>FindEntry</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>FindEntry</pd:from>
+        <pd:to>End</pd:to>
+        <pd:xpathDescription>skip</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(count($FindEntry/pfx4:CLEFlags/pfx4:CLEFlag) &gt; 0)  and ($FindEntry/pfx4:CLEFlags/pfx4:CLEFlag[1]/pfx4:ExceptionOn = "false")</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>JMS Topic Publisher</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:xpathDescription>MaskEnabled</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>fn:string-length($Start/pfx:ExceptionHandlerRequest/pfx:payload) &gt;0 
+and
+fn:count($FindEntry/pfx4:CLEFlags/pfx4:CLEFlag[pfx4:InterfaceCode=$Start/pfx:ExceptionHandlerRequest/pfx:interfaceCode]/pfx4:Masks/pfx4:Mask) &gt; 0
+and
+fn:string-length($FindEntry/pfx4:CLEFlags/pfx4:CLEFlag[pfx4:InterfaceCode=$Start/pfx:ExceptionHandlerRequest/pfx:interfaceCode]/pfx4:Masks/pfx4:Mask[1]/pfx4:TargetParentElement) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>JMS Topic Publisher</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

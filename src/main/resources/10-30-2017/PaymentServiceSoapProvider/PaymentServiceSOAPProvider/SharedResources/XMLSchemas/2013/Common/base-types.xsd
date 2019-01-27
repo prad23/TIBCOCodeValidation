@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://ecommerce.wsgc.com/2013/Common"
+           xmlns:wsimeta="http://ecommerce.wsgc.com/2014/SchemaMetadata"
+           elementFormDefault="unqualified"
+           targetNamespace="http://ecommerce.wsgc.com/2013/Common">
+
+  <xs:simpleType name="ConceptCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        A simple type definition of ConceptCode to ensure it is used consistently
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="QuantityType">
+    <xs:annotation>
+      <xs:documentation>
+        A simple type definition of a quantity to ensure it is used consistently
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:integer"/>
+  </xs:simpleType>
+
+  <xs:complexType name="CookieType">
+    <xs:annotation>
+      <xs:documentation>
+        A general representation of a cookie, the cookie name is given as an
+        attribute, the value of the element is taken directly from the cookie
+        verbatim
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="ChargeType">
+    <xs:annotation>
+      <xs:documentation>
+        Very simply, a charge for something.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="type" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="TotalType">
+    <xs:annotation>
+      <xs:documentation>
+        A total for something on an order, merchandise, tax etc.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="type" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="PriceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="type" type="xs:string" use="required"/>
+        <xs:attribute name="modifier" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="PropertyType">
+    <xs:annotation>
+      <xs:documentation>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="GeoLocationType">
+    <xs:annotation>
+      <xs:documentation>
+        Defines a precise location on the globe via latitude and longitude
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Country" type="xs:string" minOccurs="0"/>
+      <xs:element name="State" type="xs:string" minOccurs="0"/>
+      <xs:element name="City" type="xs:string" minOccurs="0"/>
+      <xs:element name="MSA" type="xs:string" minOccurs="0"/>
+      <xs:element name="PMSA" type="xs:string" minOccurs="0"/>
+      <xs:sequence minOccurs="0">
+        <xs:element name="Latitude" type="xs:double"/>
+        <xs:element name="Longitude" type="xs:double"/>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ValueAddType">
+    <xs:sequence>
+      <xs:element name="Property" type="PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Charge" type="ChargeType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:appinfo>
+            <wsimeta:Deprecated version="UNKNOWN">Deprecated in favor of Price</wsimeta:Deprecated>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Price" type="PriceType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:appinfo>
+            <wsimeta:Since version="1.1.0"/>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The type code of the value added service being specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="location" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>
+          If applicable, a code or specification of the location to apply the value
+          added service with respect to the entity it is attached to.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:simpleType name="VersionType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a semantic version (semver.org) of the form
+        MAJOR.MINOR.PATCH where all three are non-negative integers.
+        MAJOR changes signify likely incompatibility between versions.
+        MINOR changes signify backwards-compatible introduction of new
+        features. PATCH changes signify backwards-compatible bug fixes
+        or documenation improvements.
+
+        The patch version may include pre-release information denoted by
+        a hyphen and then a series of alphanumeric and hyphen characters,
+        and the version may also be followd by build metadata denoted by
+        a plus sign then a series of alphanumeric and hyphen characters.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([1-9][0-9]*|0)[.]([1-9][0-9]*|0)[.]([1-9][0-9]*|0)([\-][0-9A-Za-z-]+)?([+][0-9A-Za-z-]+)?"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CountryCodeType">
+    <xs:annotation>
+      <xs:documentation>
+        Three character ISO 31661-1 alpha 3 country code (Ex: USA,IND,GBR)
+        OR Two character ISO 31661-1 alpha 2 country code (Ex: US,IN,GB).
+
+        We had hoped to standardize on just one of these, and
+        initially opted for the 2 character code to differentiate from
+        currency codes, but since then discovered that numerous
+        existing systems already used the 3 character codes, so we
+        have revised our recommendation to PREFER the 3 character
+        codes.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2"/>
+      <xs:maxLength value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CurrencyCodeType">
+    <xs:annotation>
+      <xs:documentation>Three character ISO 4217 currency code. Ex: USD,INR,EUR,JPY,GBP.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:length value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CurrencyAmountType">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+      <xs:fractionDigits value="2"/>
+      <xs:totalDigits value="15"/>
+      <xs:maxExclusive value="10000000000000"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ErrorType">
+    <xs:sequence>
+      <xs:element name="Type" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Type of the error occured Ex: SAFE.PERMANENT.INVALIDREQUEST - Denotes one or more information in the request is invalid</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Detail" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Provides supplimental detail on the error.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ErrorMessage" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            This element is to hold the human readable
+            message describing the error. The message is a hint to
+            support team on error reason. This is not intended for
+            business users, customers, or customer service
+            representatives.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="OrderNumberType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents an order number which identifies an order within one or
+        more order management systems. This may not actually be numeric,
+        but the terminology is well-established. Currently WSI sales order
+        numbers are numeric and 12 digits long.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="MetadataType">
+    <xs:annotation>
+      <xs:documentation>
+        Represents an element of arbitrary metadata, differentiated from other metadata by a type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="type" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation>
+              Identifies the type of metadata represented. This is context-dependent and will frequently be
+              system implementation specific. Particular uses of the metadata mechanism are permitted to define
+              standard types with well-defined meanings.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

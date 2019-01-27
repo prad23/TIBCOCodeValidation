@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:pfx="http://www.wsgc.com/schemas/common/PaymentServiceProcessorReturnCodes.xsd">
+    <import namespace="http://www.wsgc.com/schemas/common/PaymentServiceProcessorReturnCodes.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentServiceProcessorReturnCodes.xsd"/>
+    <name>SV-PaymentServicePLCCProcessorReturnCodes</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString ref="pfx:PaymentServiceProcessorReturnCodes"/>
+    </config>
+</BWSharedResource>

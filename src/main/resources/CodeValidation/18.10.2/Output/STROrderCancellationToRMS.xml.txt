@@ -1,0 +1,451 @@
+GV~GV Value in PROD XML~GV Value in Staged XML~Reason
+CommonFilePath/ATPAppAuditSwitches~C:\TIBCODEV\Commonxml\ATPAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/ATPAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/AVSResults~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\AVSResults.xml~"/app/tibco/lookup_files/prd1/AVSResults.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/CAFNAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNConceptConversionToPKMS~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNConceptConversionToPKMS.xml~"/app/tibco/lookup_files/prd1/CAFNConceptConversionToPKMS.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNInventoryStatusCode~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\POSInventoryStatusCode.xml~"/app/tibco/lookup_files/prd1/POSInventoryStatusCode.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNPKMSCountryCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNPKMSCountryCodes.xml~"/app/tibco/lookup_files/prd1/CAFNPKMSCountryCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNPKMSDropshipCarriers~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNPKMSDropshipCarriers.xml~"/app/tibco/lookup_files/prd1/CAFNPKMSDropshipCarriers.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNValidPKMSShipModes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNValidPKMSShipModes.xml~"/app/tibco/lookup_files/prd1/CAFNValidPKMSShipModes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNWarehouseCode~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\POSWarehouseCode.xml~"/app/tibco/lookup_files/prd1/POSWarehouseCode.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CCRAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CCRAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/CCRAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CFSSKUCsv~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CFS_SKU.csv~"/app/tibco/lookup_files/prd1/CFS_SKU.csv"~GV Present in Both XMLs but not matching
+CommonFilePath/CFSSkuLookup~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CFSSKUList.csv~"/app/tibco/lookup_files/prd1/CFSSKUList.csv"~GV Present in Both XMLs but not matching
+CommonFilePath/CLEXSLTFilePath~/app/tibco/lookup_files/xslts/*.xslt~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XSLTs\*.xslt"~GV Present in Both XMLs but not matching
+CommonFilePath/CardLookup~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SVCCardLookUpXML.xml~"/app/tibco/lookup_files/prd1/SVCCardLookUpXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CarrierServiceCodeLookUp~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CarrierServiceCodeLookUpXML.xml~"/app/tibco/lookup_files/prd1/CarrierServiceCodeLookUpXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/Carriers~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\Carriers.xml~"/app/tibco/lookup_files/prd1/Carriers.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptAndShipFromAddresses~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndShipFromAddresses.xml~"/app/tibco/lookup_files/prd1/ConceptsAndShipFromAddresses.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptCatalogMediaCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptCatalogMediaCodes.xml~"/app/tibco/lookup_files/prd1/ConceptCatalogMediaCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptFilters~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptFilters.xml~"/app/tibco/lookup_files/prd1/ConceptFilters.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptsAndResponsysURLs~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndResponsysURLs.xml~"/app/tibco/lookup_files/prd1/ConceptsAndResponsysURLs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptsAndReturnAddress~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndReturnsAddress.xml~"/app/tibco/lookup_files/prd1/ConceptsAndReturnsAddress.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/Countries~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\Countries.xml~"/app/tibco/lookup_files/prd1/Countries.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CountryLookUp~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CountryCodes.xml~"/app/tibco/lookup_files/prd1/CountryCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CriticalActionLines~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CriticalActionLines.xml~"/app/tibco/lookup_files/prd1/CriticalActionLines.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DC~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DCConversionToNumeric.xml~"/app/tibco/lookup_files/prd1/DCConversionToNumeric.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DCCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DCCodes.xml~"/app/tibco/lookup_files/prd1/DCCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DCPickup~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DCPickup.xml~"/app/tibco/lookup_files/prd1/DCPickup.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DSAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DSAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/DSAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DSUIStatusCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DSUIStatusCodes.xml~"/app/tibco/lookup_files/prd1/DSUIStatusCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DTCMOConceptFilters~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DTCMOConcept.csv~"/app/tibco/lookup_files/prd1/DTCMOConcept.csv"~GV Present in Both XMLs but not matching
+CommonFilePath/DeliveryWindowLookup~C:\TIBCODEV\XML\TerritoryDeliveryWindow.xml~"/app/tibco/lookup_files/prd1/TerritoryDeliveryWindow.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DifferentiatorLookup~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DifferentiatorLookupXML.xml~"/app/tibco/lookup_files/prd1/DifferentiatorLookupXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/EDIFreightTerms~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\EDIFreightTerms.xml~"/app/tibco/lookup_files/prd1/EDIFreightTerms.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/EcomReturnCodesWithDesc~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\EcomReturnCodesWithDesc.xml~"/app/tibco/lookup_files/prd1/EcomReturnCodesWithDesc.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/Exceptions~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\Exceptions.xml~"/app/tibco/lookup_files/prd1/Exceptions.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ExperianConfig~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ExperainConfig.xml~"/app/tibco/lookup_files/prd1/ExperainConfig.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ExperianFormIDs~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ExperianFormIDs.xml~"/app/tibco/lookup_files/prd1/ExperianFormIDs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ExperianKeysAndSecrets~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ExperianKeysAndSecrets.xml~"/app/tibco/lookup_files/prd1/ExperianKeysAndSecrets.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/FurnitureCarriers~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\FurnitureCarriers.xml~"/app/tibco/lookup_files/prd1/FurnitureCarriers.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/GCCAgentAndConceptList~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\GCCAgentAndConceptList.xml~"/app/tibco/lookup_files/prd1/GCCAgentAndConceptList.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/GTDMessageBrokerConfigFile~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\GTDMessageBrokerConfigFile.xml~"/app/tibco/lookup_files/prd1/GTDMessageBrokerConfigFile.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/HubNameLookup~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\HubDetail_CONFIRMAPPOINTMENT.xml~"/app/tibco/lookup_files/prd1/HubDetail_CONFIRMAPPOINTMENT.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/IVRAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\IVRAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/IVRAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/IVRStatusCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\IVRStatusCodes.xml~"/app/tibco/lookup_files/prd1/IVRStatusCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/InvMismatchThreshold~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\InvMismatchThreshold.xml~"/app/tibco/lookup_files/prd1/InvMismatchThreshold.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ItemConcepts~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ItemConcepts.xml~"/app/tibco/lookup_files/prd1/ItemConcepts.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ItemFeedConfig~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ItemFeedConfig.xml~"/app/tibco/lookup_files/prd1/ItemFeedConfig.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ItemTypeLookup~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ItemTypeLookupXML.xml~"/app/tibco/lookup_files/prd1/ItemTypeLookupXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/LPAccountingUnitLookup~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\LPAccountingUnitLookupXML.xml~"/app/tibco/lookup_files/prd1/LPAccountingUnitLookupXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/LockCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\LockCodes.xml~"/app/tibco/lookup_files/prd1/LockCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/MDMBWReplayLookup~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\MDMBWReplayLookup.xml~"/app/tibco/lookup_files/prd1/MDMBWReplayLookup.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/MDMCLEExceptionCodesFile~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ExceptionCodes.csv~"/app/tibco/lookup_files/prd1/ExceptionCodes.csv"~GV Present in Both XMLs but not matching
+CommonFilePath/ManufacturingStatuses~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ManufacturingStatuses.xml~"/app/tibco/lookup_files/prd1/ManufacturingStatuses.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OMSD2BrandFilter~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OMSD2BrandFilter.xml~"/app/tibco/lookup_files/prd1/OMSD2BrandFilter.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OrgHierConcepts~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OrgHierConcepts.xml~"/app/tibco/lookup_files/prd1/OrgHierConcepts.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OrgHierVWHs~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OrgHierVWHs.xml~"/app/tibco/lookup_files/prd1/OrgHierVWHs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OrgHierWHs~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OrgHierWHs.xml~"/app/tibco/lookup_files/prd1/OrgHierWHs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OutletDepts~C:/TIBCODEV/TIBCOSharedResources/SharedResources/XMLFiles1/OutletDepts.xml~"/app/tibco/lookup_files/prd1/OutletDepts.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/POSReasonCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\POSReasonCodes.xml~"/app/tibco/lookup_files/prd1/POSReasonCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceReports~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceReports.xml~"/app/tibco/lookup_files/prd1/paymentservices/PaymentServiceReports.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentTypes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentTypes.xml~"/app/tibco/lookup_files/prd1/PaymentTypes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PkMSCLEErrorDistroList~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PkMSCLEErrorDistroList.xml~"/app/tibco/lookup_files/prd1/PkMSCLEErrorDistroList.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSInventoryCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryCodes.xml~"/app/tibco/lookup_files/prd1/RMSInventoryCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSInventoryCodesForATP~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryCodesForATP.xml~"/app/tibco/lookup_files/prd1/RMSInventoryCodesForATP.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSInventoryTypes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryTypes.xml~"/app/tibco/lookup_files/prd1/RMSInventoryTypes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSLocationVWHs~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSLocationVWHs.xml~"/app/tibco/lookup_files/prd1/RMSLocationVWHs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSPOPaymentTerms~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSPOPaymentTerms.xml~"/app/tibco/lookup_files/prd1/RMSPOPaymentTerms.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSPOTPFilterListForGXS~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSPOTPFilterListForGXS.xml~"/app/tibco/lookup_files/prd1/RMSPOTPFilterListForGXS.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RPAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RPAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/RPAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RetQtyReasonCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RetQtyReasonCodes.xml~"/app/tibco/lookup_files/prd1/RetQtyReasonCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ReturnsAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TIBCOSharedResourcesAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/ReturnsAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RoutePlannerRetryAndErrorCodes~C:\TIBCODEV\COV3_Pilot_TIBCOSharedResources_0004\SharedResources\XMLFiles\RoutePlannerRetryAndErrorCodes.xml~"/app/tibco/lookup_files/prd1/RoutePlannerRetryAndErrorCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/SCACCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SCACCodes.xml~"/app/tibco/lookup_files/prd1/SCACCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/STRAppointmentCallType~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\STRAppointmentCallTypes.xml~"/app/tibco/lookup_files/prd1/STRAppointmentCallTypes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ShipModes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ShipModes.xml~"/app/tibco/lookup_files/prd1/ShipModes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ShipmentOptimizationCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ShipmentOptimizationCodes.xml~"/app/tibco/lookup_files/prd1/ShipmentOptimizationCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/SiteCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SiteCodes.xml~"/app/tibco/lookup_files/prd1/SiteCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/SterlingUPSServiceCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SterlingUPSServiceCodes.xml~"/app/tibco/lookup_files/prd1/SterlingUPSServiceCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/StoreConcepts~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\StoreConcepts.xml~"/app/tibco/lookup_files/prd1/StoreConcepts.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/TENConfigFile~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TENInitFileSample.txt~"/app/tibco/lookup_files/prd1/TENInitFileSample.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/TENInterfaceConfigFile~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TENInterfaceConfigSample.xml~"/app/tibco/lookup_files/prd1/TENInterfaceConfigSample.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/TMSAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TMSAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/TMSAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/UPSAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\UPSAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/UPSAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/UPSServiceCodes~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\UPSServiceCodes.xml~"/app/tibco/lookup_files/prd1/UPSServiceCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/WISMOAppAuditSwitches~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\WISMOAppAuditSwitches.xml~"/app/tibco/lookup_files/prd1/WISMOAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/WISSterlingStatusCode~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SterlingStatusCodes.xml~"/app/tibco/lookup_files/prd1/SterlingStatusCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/WSIPreServiceAndServiceTime~C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\WSIPreServiceAndServiceTime.xml~"/app/tibco/lookup_files/prd1/WSIPreServiceAndServiceTime.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/XRefConfigFilePath~/app/tibco/lookup_files/dev1/XrefConf.xml~"/app/tibco/lookup_files/prd1/XrefConf.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/XSLTFilePath~/app/tibco/lookup_files/xslts/ ~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XSLTs\"~GV Present in Both XMLs but not matching
+HTTPConnections/Descartes/IdentityFile/password~#!TtyuVyZp3YdBJ6OLAW91KTo6zlFxfPUG59kqvjWyLiQ=~"#!lPuOKh2OpQyUZZ/OdjC00ZqETgXAGZc6bh8dGKwz2J8="~GV Present in Both XMLs but not matching
+HTTPConnections/MDMConnection/Password~#!kZdDG1B5JUUgMKkGg1n2w8lFCL2ejWok~"#!Ghs7tVL68/HhM3MGI6bvmwVyR4RWNlmT"~GV Present in Both XMLs but not matching
+JDBCConnections/AXDB/Password~#!YVK2Wsh9CX9S/3SbzzfD7eNjtmnNcCev~"#!UpdLpA4d/pld4corGrmlQ1KEGrKuPMRI"~GV Present in Both XMLs but not matching
+JDBCConnections/CLEDB/Password~#!DfcKRXrI2YVUIr+BzEpNbgjiVS3n5LAjepzbb+EAo9g=~"#!aQ8AErE8R/ywEqUUmQbSFQzMY8k9HNGiGjbyqaTyMnc="~GV Present in Both XMLs but not matching
+JDBCConnections/CheckpointDB/Password~#!WKPm7Uvx60RT63HXPawE3J8ssnAGpLz1B+OxzraASOg=~"#!e3Vk54FR39NQr6mY/CCEJmsMFSMLKSo9w1eLhzfF1mw="~GV Present in Both XMLs but not matching
+JDBCConnections/KRONOSDB/Password~#!6K8uizl2x4ugv4WNduhgUOe3z0zFDN7h0LQ0l36Zi/M=~"#!cQe5fKNvWNc7Z9rL/JnT/90uKISU72Pc5i51LKRTs98="~GV Present in Both XMLs but not matching
+JDBCConnections/MDM/Password~#!naVvMMjh+x7FF5EWcrDWf165ZncxjGnSAnEJftfnU6Y=~"#!s/wVAGY+kxR0Wzdj6DpgUvXqFJWD/mzlhf6QJDc3hVY="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSD2FraudServiceDB/Password~#!/vcwSGYjfFwbCoxNTIwhZRAeM2qUF6+B2olNmjddzv4=~"#!VVYqHLiIUaaNYRlpxAmQurindHju0L++lvDR9k+A3oA="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSSterlingDB/DatabaseURL~jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=yes)(ADDRESS=(PROTOCOL=TCP)(HOST=STORCK-SCAN.WSGC.COM)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))~"jdbc:tibcosoftwareinc:oracle://scomdbdevmp1p:1521;SID=yandev"~GV Present in Both XMLs but not matching
+JDBCConnections/OMSSterlingDB/Password~#!+AgtUsLzFB7YqfroWmwpB68f9gia7oq/D0kbqXkWA3I=~"#!nqErlDu6rmOJOl5wHYkZR41t0IXARNl+fJZ7RkNIvZ8="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSSterlingDB/UserName~return_owner~"yantra_dev1_owner"~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB-IBMDB2/Password~#!OYu8dWgnv1spfN4lBDVoWsV8MrDjxjEhzPtzOHIgo00=~"#!0FAObWhE25dxB5qWUX1aOJJPbVIZ4zmOkuAw/W1IvZQ="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB/Password~#!X4nLJcgcrKX+gtZKsfbvRV80ixWE+v1hqccbQanQE7k=~"#!jiDhUly6hKfqv7JPY3CIPdKpIDWwpSn6/VpPi0hwfqQ="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDBMEMRPT/Password~#!5pvFbOpB8IrJgNcTyg6gmtojhx9NDyNYpHlPHPlXyQI=~"#!n8QWmSP+ObR5ivwoMQy/SQ4PTdBrxLpLwiH20WKgd9Y="~GV Present in Both XMLs but not matching
+JDBCConnections/PaymentServiceDB/Password~#!3HfIrHsdLGv5UUbL1uAJOb4zlWz0peG+~"#!rm8uI06NqhctdBeywvB6SShxemusKVR2"~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDB/Password~#!GGQN8iVfMVOJf5v4kh+++6EOu5unccRk8JH5M+BOL7w=~"#!8s2givU06G08zx0xCzbeBdfGkz9qnCnzVVgjlWOkA3k="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDBThin/Password~#!Gt0ekQjKUD2BMSBBI5q/IXQv+CjuALNezStM2B4e95M=~"#!o6HGx0PpZp5pyqUEX8f+vJZmqE+TqdoIDmMQuI8RAVc="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDEV2/Password~#!Iaba+4YOqDvjVdN2kQlLxKOjqPJsDeevwglJkCvrT6w=~"#!NTpKsRxjn2iA28JQI7KRAmXkwiTd9Vk1zcnwAV/M9bU="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnDB/DatabaseURL~jdbc:tibcosoftwareinc:oracle://STORCK-VCAX001.WSGC.COM:1521;SID=yanprd5~"jdbc:tibcosoftwareinc:oracle://scomdbprdrk5p:1521;SID=yanprd3"~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnDB/Password~#!VWQkQoIw9bG7yW5N9faE0NU9kpVNqwLrfLR2F8B4oI4=~"#!guo7F0EvE8NgMaW/0DEsYhTOxfslxzSzTT3FDwo02no="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnsAppUIDB/DatabaseURL~jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=yes)(ADDRESS=(PROTOCOL=TCP)(HOST=STORCK-SCAN.WSGC.COM)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))~"jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=scomdbprdrk5p-vip)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=scomdbprdrk6p-vip)(PORT=1521)))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))"~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnsAppUIDB/Password~#!QVItI5SsezdyYPBHNePnju0IemEcx3jqTO2Bc3BksME=~"#!KhEU+/n6B9K4LWQVOFrZh2udVLyKzUVaZWdUvUpK+Lw="~GV Present in Both XMLs but not matching
+JDBCConnections/SDM-TeraData-DB/Password~#!JGlirsSS4XmYgoEUkZGMz/6G1CxLAAd7b6it83ENx+k=~"#!gnS6PhZpmmBobZtim4o4m4MovlPFMrE1tmmMBgCbL9M="~GV Present in Both XMLs but not matching
+JDBCConnections/SterlingDB/DatabaseURL~jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=yes)(ADDRESS=(PROTOCOL=TCP)(HOST=STORCK-SCAN.WSGC.COM)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))~"jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=scomdbprdrk5p-vip)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=scomdbprdrk6p-vip)(PORT=1521)))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=yanprd_srvc)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))"~GV Present in Both XMLs but not matching
+JDBCConnections/SterlingDB/JDBCDriver~tibcosoftwareinc.jdbc.oracle.OracleDriver~"tibcosoftwareinc.jdbc.oracle.OracleDriver "~GV Present in Both XMLs but not matching
+JDBCConnections/SterlingDB/Password~#!fIlcvcppDokSR2WutkGCLjNqsHU5m4vC30joK5UJ7B0=~"#!J3ova4LYsdfPQ93ySzURl1BeudKuor30l1rAtmejNWs="~GV Present in Both XMLs but not matching
+JDBCConnections/TMSDB/Password~#!7qFFEsjcyv7SJbvelwbpJX1qQl4ue4yl~"#!PUD173Q01BErYcmf7my0hOEPbISF0E33"~GV Present in Both XMLs but not matching
+JDBCConnections/TPMDB/Password~#!BkWZ4HkWnf71svVC/n9AYHccuURXK3r0jXdUva/batDA2QEGTzV3EQ==~"#!7s/0ykjqUx9I/jsSuOW6eItizSkZ+mXJniAo/+v9kc2131k9DfObvA=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMCDCDB/Password~#!ekIWVI+DM2i0l/rRj6Ks8tZeAzUYrC6QGux2vZnizhN+lUq2AUy0Nw==~"#!1ofYSo/SdcdeVlNL/sOw0bs3+wDRd0VYGIB4ZSncqug/honHMd5Ndw=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMDB/Password~#!sSjS1DsG5kogqlvfpBNepn+IGMXW+sx+byi7tqVJrqyTf+ehlpIuHA==~"#!0gmkXeCmZRwjsf43geZGj5Vw4oIeIbiZl8JaZceYPKvCOGOsCohyYA=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMINTDB/Password~#!CIR90TxFhc9Ef5I4HtK2EYVeWBzJaLRVCWv5UDu7TT3GMM8dHMTBdQ==~"#!V4QoUDgya0GdJWfqOCjBPW3m4MuJtYjkALVFQb2nHUnG+qWuYw0Xng=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMOBMDB/Password~#!nAb08Q5Isc/5w5nN5YwtSnM5S99L2SScD3tIrYZjq9dBf9lygEPTyQ==~"#!7RyRdnWBg2AuPwE07OSoedDfEbub5ES662r77LDgxwM9dwq1qpw5Cw=="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/JNDIPassword~#!f0zzXSmxd+2/jyFan8cWvd4FkMmlKB0JWIMMIOkyzZY=~"#!hrz/8VeNW+u6G3j0E5PBnU/4WMw97WKpyPMztTn74D4="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/Password~#!f9Ojl0ZJ2yLUUuDRwNTA307XiRGEdmayTldxSPZjwJc=~"#!6EIQc8H0Oh4N6a46K+2O6/OMOrcGRxJ5mMEog/qL1VA="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/JNDIPassword~#!Aje3GsbtMezaI6I+g9o+Vw2Vq1O4MyxZLjxM15wXimI=~"#!uTAhy9SNwDDGFAk3VLcxwLdZTNLZGo7thrR1m2ATQBI="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/Password~#!ydWZtn8AhAWGYdzTlhDZ5TyjjWeh79SPG/J52eGF/Y8=~"#!PtmrH177VFaFAy8yo11vjFOk1ia5V+elutyX4InOn+o="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/JNDIPassword~#!Uk2KqHY8jE56sLLZX4dIvBh7pYsmqupmohj/lSxMuwQ=~"#!bSZwNDDb46k1K3eTRzCYA7416/NUsJkiXWKPHJuqupQ="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/Password~#!uazhauAaatyakuUhcRiQHwjwfw+ZNWm8QJj7EBHj03k=~"#!A3XPLlnh3BDr6qYe6nb77QZhGAeRcnOeroQo0xOg1aY="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/JNDIPassword~#!GMbowLHVIwxwL2QJmoItL6J8P1t4fFf4Cz43Zv2x9ac=~"#!4ClmvwEw5CwCcBP9xGnx39cuL3Ckt3qgeVwT970Sscs="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/Password~#!98dvok54jEBSi+MMqwvIJGBd9wXNfRGgQnshGzSPHHY=~"#!NByMFIQNsqvCl+dapG9xV8CPpiIBLmgVFG31LBzyYbU="~GV Present in Both XMLs but not matching
+JMSConnections/EMSELSSECURE/JNDIPassword~#!6BoDVlgxwu9rgNsaQmK8TUwdl6tKXmAo~"#!p3x3f/zlTxSLX/lm8g/3EAoCecCR+zEX"~GV Present in Both XMLs but not matching
+JMSConnections/EMSELSSECURE/Password~#!3blNA6uRZ/dYTXs1hKVT/oWbAmk+rjhy~"#!Yrm8w0I3id7LL/ePTmXUumR7zs7llHIS"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/JNDIPassword~#!9ubPGpEILnzsegdQ/UqgE2x2ZhDZ4dV2~"#!nfuPe3vn+FBRdAfX997jnny8dKiZY5Fs"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/Password~#!UF4igIQ0OBH74WhDxs8g+LPafuc8mrbS~"#!oHathkS3wmi+z+9cloJzXp2uOXovFlg8"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/JNDIPassword~#!hrAjdAVj8Fxg3QnhideYPo+xFMLvVPF0aWjVPFDxadc=~"#!bCTfz+HL0hSTdVgtieMHu7sd/d3BbmeW9ubnjDubUoE="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/Password~#!jA1/gJiRM34acjvd6gVBFpnn8RoEh14Ia1KT/LmmPwM=~"#!DWZ4sfAVs/K5kP1mVAL40eoMSfBD9mr5OsPyGacRTiM="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/JNDIPassword~#!hg8pbVKkK7SKZFDiY4PY+dz9KWeU4UXEkPVB+pdpI9M=~"#!8nUexCeMndl7O/1TQwMyO3k/o1GHiQN+1FUayUiXNXo="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/Password~#!gWjo0RhsaLu66BIIVRWMq6t1BPw6CvPZ47huxl2ahaE=~"#!JVrP+6qa+dnkXhl4QCz5tOHzN/BfAfOEbfmAepv03PI="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/JNDIPassword~#!RUpOqlTM3o/anRN/HwaxhIB6wwWF1MFbE/yr8niImwA=~"#!PTpRUcYJx63PIiN9Dob8xQcxfG/xM445H7f5vg+HtcY="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/Password~#!RHWEcw3JCoRVlzerFltb+g/JYQulWSFwQjUyG+9zFJE=~"#!4USvqd8gT5fix8bg3Y2wZMPDhzbfwQEEHOOzPhvK+aM="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/JNDIPassword~#!eCVaMiK9gy2yJWMqoue0CDqJ2Xjs8HBvk5+3ljhSSQc=~"#!Tn1rfB5DVA11rCzZIDHDShJ6Drb8pZsPx4G2hCmoG9M="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/Password~#!hXAZfjXikinc8Sz+7ovT5fBefrqUKkXl90qqh2PiATQ=~"#!vqOPG3oP6yzTthSWAA1EXXSNLPSu9h+FwCEMmFp9QbI="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/JNDIPassword~#!1+YR1B6ayRQ4Aufx3GQdyUe64dTTTPjumYdcXw3Ouzc=~"#!Dr7e7PbqKKXLm68xR+wn7cih8LVkfxOvOYuQ0pV4O2s="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/Password~#!uxN8Jw064zltvyESCQEoCGqs/aWZXTK8xbXt4nphcZk=~"#!tegipHGqG0wPRL3S6xRoys3DRIIhoc13rlNrdm+9snI="~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/JNDIContextURL~file:/app/tibco/MQSeries/JNDI/TMS/prd1~"file:/C:\JNDI-Directory"~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/JNDIPassword~#!jh6W6mDmBiSwK6pp2ExnpA==~""~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/Password~#!clhNZDn7Elb+wRAjyeF7rA==~""~GV Present in Both XMLs but not matching
+JMSConnections/TMSMQ/QueueConnectionFactory~WSI_PROD_QCF~"TIBQCF"~GV Present in Both XMLs but not matching
+STROrderCancellationToRMS/CLE/RMSSPOutputMSG~PUBLISH ORDER LINE TO RMS QUEUE~"RECEIVED RMS STORED PROCEDUE RESPONSE"~GV Present in Both XMLs but not matching
+STREnterpriseOMSEventsToENT/Constants/Charges/LineMerchDiscount~LineMerchDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/FilterAuditMSG~SKIPPED THE COMPONENT INVOICE PROCESSING BASED ON HEADER LEVEL INDICATOR~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineSurchargeDiscount~LineSurchargeDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VASFromName~from~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/LineGiftWrapEffective~LineGiftWrapEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/REVIEW~REVIEW~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/NotificationList~rranjan@wsgc.com~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/EndStatus~SUCCESS~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/InterfaceCode~RMS_STR.PURCHASEORDERS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/ReplayEnd~REPLAY-END~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VASTypeMono~monogramming~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/GiftWrapTax~GiftWrapTax~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/RequestedAction/RP~RP~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineShippingDiscount~LineShippingDiscount~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/JDBC/AssociateDiscountCategoryTableName~STAGE_MDM_WSI_ASSOC_DISCT_CATG~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/HeaderModificationReasonText~Sterling Receipt Change Type - ~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/DATA_ERROR~DATA_ERROR~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/PersDiscount~PersDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OpenStatus~OPEN~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/StartStatus~STARTED~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/DEFERRED~DEFERRED~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/REGION~Region~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeCheck~REFUND_CHECK~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Dates/ECDDDeliveryDate~ECDDDeliveryDate~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/No~N~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeCash~CASH~""~GV not present in Staged XML
+PurchaseOrdersADBAdapter/Constants/DSN~RMSDEV2DSN~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/TransactionType~PO~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/JMSComm/EMSConstants/JMSExpiration~0~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/giftwrap~giftwrap~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/RequestedAction/CR~CR~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineMonoPZDiscount~LineMonoPZDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/PHONEORDER~PHONEORDER~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/PickUP/DCMemphis~DC/MEMPHIS~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CancelCode_L~L~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/SurchargeAdjustment~SurchargeAdjustment~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CancelCode_C~C~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/OrderClosedTT~ORDER-CLOSED~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/JMSComm/EMSConstants/DeliveryMode~PERSISTENT~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/No~N~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VASPropertyName~center~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/PZMonoTxt1~Text1~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/Verified~verified~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypePoCash~POS_CASH~""~GV not present in Staged XML
+STROrderCancellationToRMS/CLE/AuditReportMsg~REPORT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VASToName~to~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/TransactionDomain~PURCHASE-ORDERS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/AppAuditSwitch~ON~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/NOFREIGHTTAX~NOFREIGHTTAX~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/TenderCodePrepaid~PREPAID~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/Color~Color~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/Price~Price~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VASType2~giftmessage~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/surcharge~surcharge~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/CLE/InterfaceCode~MDM_SDM.ASSOCIATEDISCOUNTS~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/QuantityOrdered~10000~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/monogramming~VAS_MONO~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeLoyalty~LOYALTY~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/shipping~shipping~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineSurchargeEffective~LineSurchargeEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/message~message~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/Personalize~Personalize~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VasGift~giftwrap~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineInfoAdjustment~LineInfoAdjustment~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/RootElementInvoice~InvoiceDetail~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Classification/AP~AP~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/WSITax~WSITax~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Promotions/Eligibility/InEligible~INELIGIBLE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/TAXED~TAXED~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CC_B_MRText~Buyer Cancelled~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/ConditionYes~Y~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/SCH~SCH~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/JMSComm/DurableName~STRDURABLE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineCharges~LineCharges~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/JMS/MaxSession~1~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/msrp~msrp~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/MerchAppease~MerchAppease~""~GV not present in Staged XML
+PurchaseOrdersADBAdapter/Constants/PSThreadsCount~1~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/DoNotDeliverBeforeDate~DONOTDELIVERBEFOREDATE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/MonoPZTax~MonoPZTax~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/NameSpaceInvoice~xmlns="http://www.sterlingcommerce.com/documentation/YFS/SEND_INVOICE/output"~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Reason/ReasonText~SUPPORT CANCELLATION~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/TenderSubCodeSalesOrder~SALESORDER~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/OrderInvoiceTT~ORDER-INVOICE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/PersAdjustment~PersAdjustment~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/False~false~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CC_L_MRText~Change Location~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/Style~Style~""~GV not present in Staged XML
+PurchaseOrdersADBAdapter/Constants/FileLimit~10485760~""~GV not present in Staged XML
+STROrderCancellationToRMS/CLE/AuditFilterMsg~FILTERED ORDERLINES WITH NO NEGATIVE CHANGEINQTY~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineInfoDiscount~LineInfoDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Events/EventAction~WSIEventAction~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/DocumentType1~0001~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/InterfaceCode~STR_ENT.ENTERPRISEOMSEVENTS~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/CLE/AuditBeginMsg~RECEIVED ASSOCIATE DISCOUNTS MESSAGE FROM MDM~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Secondary~secondary~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/RequestedAction/Refund~REFUND~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/ReplayAuditStrtMsg~REPLAYED PURCHASE ORDERS MESSAGE FROM TIBCO CLE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/Font~Font~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/AppAuditSwitch~ON~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/JMSComm/EMSConstants/MaxSession~1~""~GV not present in Staged XML
+PurchaseOrdersADBAdapter/Constants/PollingInterval~5000~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/REFUND~REFUND~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Promotions/Eligibility/Active~ACTIVE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VASType3~LABELMSG~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VASType1~giftcard~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeCredit~CREDIT_CARD~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/OTHERS~OTHERS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/message3~message3~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/OrderInvoiceReturnTT~ORDER-INVOICE-RETURN~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/JMSComm/ExceptionReplayQueue~RMS.PURCHASEORDERS.PUBLISH.REPLAY~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/StartStatus~STARTED~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/VASTypePersonalization~personalization~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Classification/Military~Military~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/Type~6~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/JMSComm/EMSConstants/Priority~0~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Promotions/Eligibility/NoEffect~NOEFFECT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/NameSpaceOrder~xmlns="http://www.sterlingcommerce.com/documentation/YFS/createOrder/input"~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/JMSComm/EMSConstants/DeliveryMode~PERSISTENT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Valid~valid~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/ReservationStatus~BOWITHPO~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/EXEMPT~EXEMPT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/rush~Rush~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/OrderReturnTT~ORDER-RETURN~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/INVOICEContentType~INVOICE-REQUEST~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/CreditCardTypePLCC~PLCC~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/TargetSystem~ECOM~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/CLE/AuditCatReportMsg~SENT ASSOCIATE DISCOUNTS MESSAGE FOR CATEGORY-EFFECTIVE-DISCOUNTPERCENT TO SDM~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/regular~REGULAR~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/JMSComm/STRQueuePostFix~STERLING.RMSPO.UPDATE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/ReplayAuditStrtMsg~REPLAYED ENTERPRISE EVENT MESSAGE FROM TIBCO CLE~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/NotificationList~rranjan@wsgc.com~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/unitFull~unitFull~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/UnitofMeasure~EACH~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/AppAuditSwitch~ON~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Events/OrderClosed~SO_CLOSE~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/NotificationList~srao1@wsgc.com~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/True~true~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/PAPERORDER~PAPERORDER~""~GV not present in Staged XML
+PurchaseOrdersADBAdapter/Constants/FileCount~20~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Primary~primary~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/PickUP/Memphis~MEMPHIS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Classification/PO~PO~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Classification/PostOfficeBox~PostOfficeBox~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/SurchargeDiscount~SurchargeDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/RUSH~RUSH~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/ReplayStart~REPLAY-STARTED~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/AuditStartMsg~RECEIVED PURCHASE ORDERS MESSAGE FROM RMS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Events/OrderInvoice~SO_INVOICE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/destination~destination~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderNumber~OrderNo~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Reason/ReasonCode~SC~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/monogramming~monogramming~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/TransactionDomain~ENTERPRISE-EVENTS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Component~COMPONENT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/Property/ColorName~color~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/MasterCard~MASTERCARD~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/REJECT~REJECT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/DestinationSurchargeTax~DestinationSurchargeTax~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/BrandCode~ConceptCode~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/JMSComm/EMSConstants/Priority~4~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineShippingEffective~LineShippingEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/WSICharge~WSICharge~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/svcmsg~SVC_MSG~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/AuditEndmsg~PUBLISHED PURCHASE ORDERS MESSAGE ON STERLING QUEUE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/TYPE~Type~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/OrderCreateTT~ORDER-CREATE~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/ReplayEnd~REPLAY-END~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeDueBill~DUE_BILL~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderHoldType/PendingFraud~PENDING_FRAUD~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/OrderCancelTT~ORDER-CANCEL~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/REASONCODE_PREFIX~RMS_~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeMerch~MERCH_CARD~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineInfo~LineInfo~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/JMSComm/ReplayQueue~BW.ORDERDETAILS.PUBLISH.REPLAY~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/MerchTax~MerchTax~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/giftwrap~giftwrap~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderHoldType/ReviewFraud~REVIEW_FRAUD~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/MerchDiscount~MerchDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/vasgmsg~VAS_GMSG~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/JMSComm/SterlingInputQueue~BW.ORDERDETAILS.PUBLISH~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/Valid~valid~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Bundle~BUNDLE~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/PackIndicator_PK~PK~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/EXTERNAL~EXTERNAL~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CC_C_MRText~Customer Cancelled~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/VISAWS~VISA/WS~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/JMSComm/EMSConstants/JMSExpiration~0~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/PZMonoTxt3~Text3~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/LineCharges~LineCharges~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypePrepaid~PREPAID~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/REPLACEMENT~REPLACEMENT~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CC_Else_MRText~Unknown Reason Code~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Events/OrderCreate~SO_CREATE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/MERCH_APPEASE~MERCH_APPEASE~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/JMSComm/ClientID~STRCLIENTID~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/AuditStartMsg~RECEIVED ENTERPRISE EVENT MESSAGE FROM STERLING~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeCert~CERTIFICATE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/REGISTRY~REGISTRY~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/NOTAX~NOTAX~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/SurchargeTax~SurchargeTax~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/message5~message5~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineMerchEffective~LineMerchEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/PART_REPLACEMENT~PART_REPLACEMENT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Dates/QuotedItemAvailabilityDate~QuotedItemAvailabilityDate~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/message4~message4~""~GV not present in Staged XML
+STROrderCancellationToRMS/JMSComm/RMSOutputQueue~RMS.ALLOCORDER.RECEIVE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineGiftWrapDiscount~LineGiftWrapDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Events/OrderCancel~SO_CANCEL~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/ChangeType~AI~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/shipping~shipping~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeLRC~LRC~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Classification/Residential~Residential~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineGiftWrapEffective~LineGiftWrapEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/Monogram~Monogram~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/monogramming~monogramming~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CancelCode_V~V~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CancelCode_W~W~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/CLE/AuditServiceReportMsg~SENT ASSOCIATE DISCOUNTS MESSAGE FOR SERVICE TO SDM~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/TransactionType~ASSOCIATE DISCOUNTS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Dates/ECDDShipDate~ECDDShipDate~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/standard~Standard~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Designer~designer~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/JDBC/TimeOut~10~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/destination~destination~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/ConditionNo~N~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/surcharge~surcharge~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/DocumentType2~0002~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/ReservationStatus1~BOWITHNOPO~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/MerchAdjustment~MerchAdjustment~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeMaster~MASTER~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/Yes~Y~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Events/OrderReturnInvoice~RO_INVOICE~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CC_V_MRText~Vendor Cancelled~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/ReturnInvoiceStatus~RETURNED~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/unit~unit~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineDestinationSurchargeDiscount~LineDestinationSurchargeDiscount~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/RequestedAction/Replace~REPLACE~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/Yes~Y~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/RootElementOrder~Order~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/merch~merch~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/ShippingTax~ShippingTax~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/COMPLIMENTARY~COMPLIMENTARY~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/CREDIT~CREDIT~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/TransactionDomain~DISCOUNTS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/LineShippingEffective~LineShippingEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/ExtnCustomerTypeBusiness~BUSINESS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Classification/Commercial~Commercial~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/GIFT~GIFT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/message6~message6~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/LEGACY~LEGACY~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Promotions/Eligibility/Conflict~CONFLICT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/CLE/AuditEndmsg~PUBLISHED ENTERPRISE EVENT MESSAGE ON TOPIC~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/HeaderModificationReasonCode~Sterling Change Type - ~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/HSH~HSH~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/JMS/InputQueue~MDM.ASSOCIATEDISCOUNTS.SDM.RECEIVE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeVoucherAdjustment~VOUCHER.ADJUSTMENT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeSVC~STORED_VALUE_CARD~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Sales~SALES~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/Overridden~overridden~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/ACCEPT~ACCEPT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/DocumentType3~0003~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/ReplayStart~REPLAY-STARTED~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/JMSComm/ActivityTimeOut~60~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeVoucher~VOUCHER~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/CreditCardTypeCoBrand~CO_BRANDED~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CancelCode_B~B~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/JDBC/SchemaName~STERLING_STAGE_D~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/GiftWrap~GiftWrap~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/CLE/EndStatus~SUCCESS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Status/Unverified~unverified~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/ORDERContentType~ORDER-REQUEST~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/SALES~SALES~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/JDBC/AssociateDiscountServiceTableName~STAGE_MDM_WSI_ASSOC_DISCT_SRVC~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Classification/RS~RS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeGift~GIFT_CARD~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/RequestedAction/None~NONE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Events/Unknown~UNKNOWN_EVENT~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/personalization~VAS_PZ~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/WEB~WEB~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Payment/PaymentTypeEGift~E_GIFT_CARD~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Events/OrderReturn~RO_RECEIVE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/LineMonoPZEffective~LineMonoPZEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/merch~merch~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/ExtnCustomerTypeEmployee~EMPLOYEE~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/PZMonoTxt2~Text2~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/OrderTypes/DES_STUDIO~DES_STUDIO~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/Personalization~Personalization~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/INTERNAL~INTERNAL~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/Property/FontName~font~""~GV not present in Staged XML
+RMSPurchaseOrdersToSTR/Constants/CC_W_MRText~Cancelled because of receipt happening at wrong location~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/LineSurchargeEffective~LineSurchargeEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Tax/LineDestinationSurchargeEffective~LineDestinationSurchargeEffective~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/JMSComm/TIBCOOutputTopic~BW.ENTERPRISEEVENTS.CANONICAL.PUBLISH~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/CLE/AuditEndMsg~COMPLETED  ASSOCIATE DISCOUNTS MESSAGE PROCESSING~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/LineDestinationSurchargeEffective~LineDestinationSurchargeEffective~""~GV not present in Staged XML
+MDMAssociateDiscountsToSDM/Constants/ConceptCD~ConceptCode~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Charges/ShippingSurcharge~ShippingSurcharge~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Classification/CS~CS~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/Promotions/Eligibility/Unknown~UNKNOWN~""~GV not present in Staged XML
+PurchaseOrdersADBAdapter/Constants/TopicPostFix~RMS.PURCHASEORDERS.PUBLISH~""~GV not present in Staged XML
+STREnterpriseOMSEventsToENT/Constants/VAS/message2~message2~""~GV not present in Staged XML

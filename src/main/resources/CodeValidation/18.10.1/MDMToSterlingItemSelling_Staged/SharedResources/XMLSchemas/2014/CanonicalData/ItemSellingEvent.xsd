@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://mdm.wsgc.com/2014/CanonicalData"
+           xmlns:common="http://ecommerce.wsgc.com/2013/Common"
+           targetNamespace="http://mdm.wsgc.com/2014/CanonicalData"
+           version="1.0"
+           elementFormDefault="unqualified"
+           attributeFormDefault="unqualified">
+
+  <xs:import namespace="http://ecommerce.wsgc.com/2013/Common"
+             schemaLocation="../../2013/Common/common-all.xsd"/>
+
+  <xs:include schemaLocation="base-types.xsd"/>
+
+  <xs:complexType name="ItemSellingType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">Contains item selling elements and attributes. Also holds core attributes that helps associate information, represented by this data type, to a specific item</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="IsSellable" type="BooleanValueScheduleType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Indicates Selling Indicators of an item with effective dates</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsNla" type="BooleanValueScheduleType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">Indicates No Longer Available Indicators of an item with effective dates</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ShippingServiceLevel" type="ServiceLevelType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>
+            Enumerates the available customer shipping service levels for the item, together with
+            their restrictions.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PickupServiceLevel" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Enumerates codes for the available customer pickup service levels for the item.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="code" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>The service level code.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="ItemEntityAttributes"/>
+  </xs:complexType>
+
+  <xs:complexType name="BooleanValueScheduleType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines a schedule of boolean values.
+                        </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Value" type="ScheduledBooleanType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Each scheduled value change (publishing systems are advised to filter the list down to actual changes), each with a start time. Values must occur in ascending start time order.
+                                        </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceLevelType">
+    <xs:annotation>
+      <xs:documentation>Represents an available customer-selected shipping service level</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RestrictionId" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>
+            If present, provides a shipping restriction identifier for this service level. The service
+            level is allowed only if the requested address is not restricted by ANY of the listed restrictions.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="code" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The service level code.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ItemSellingEventType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">This type represents the item selling event which gets triggered when any selling attributes, defined by ItemSellingType, are updated in MDM</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SystemContext" type="common:SystemContextType"/>
+      <xs:element name="ItemSelling" type="ItemSellingType"/>
+    </xs:sequence>
+    <xs:attribute name="version" type="common:VersionType" use="required"/>
+  </xs:complexType>
+
+  <xs:element name="ItemSellingEvent" type="ItemSellingEventType"/>
+</xs:schema>

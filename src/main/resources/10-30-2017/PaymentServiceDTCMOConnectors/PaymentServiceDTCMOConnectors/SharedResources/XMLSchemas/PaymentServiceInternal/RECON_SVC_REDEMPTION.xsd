@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/PaymentServices/SharedResources/PaymentServiceInternal/RECON_SVC_REDEMPTION.xsd"
+	 xmlns:ns0="http://services.wsgc.com/2014/Payment"
+	 targetNamespace="http://www.tibco.com/schemas/PaymentServices/SharedResources/PaymentServiceInternal/RECON_SVC_REDEMPTION.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="../2014/Payment/svc-redemption.xsd"/>
+	<xs:element name="RECON_SVC_REDEMPTION">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FinancialDate" type="xs:string"/>
+				<xs:element name="CardClass" type="xs:string"/>
+				<xs:element name="AuthorizationAmount" type="xs:decimal"/>
+				<xs:element name="SvcRedemptionRequest" type="ns0:SvcRedemptionRequestType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="string">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+</xs:schema>

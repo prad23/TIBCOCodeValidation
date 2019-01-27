@@ -1,0 +1,1382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx21="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd" xmlns:pfx10="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LrcLookupSvcConsumer/DataQueueWrite/DataQueueWrite" xmlns:pfx="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" xmlns:ns="http://services.wsgc.com/2014/Payment" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:ns13="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/OutboundMessage" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentServiceDTCMOConceptsChannels.xsd" xmlns:pfx1="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/DataQueueWrite/DataQueueWrite" xmlns:ns4="http://www.tibco.com/pe/EngineTypes" xmlns:pfx2="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCLookup/DataQueueWrite/Data_Structures/LookupSubscriber" xmlns:ns5="http://schemas.tibco.com/bw/plugins/ae/5.0/aeExceptions" xmlns:pfx3="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCLookup/DataQueueWrite/DataQueueWrite" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx5="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Authorization/OutboundMessage/OutboundMessage" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pfx9="http://ecommerce.wsgc.com/2013/Common">
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" schemaLocation="/AESchemas/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Authorization/OutboundMessage/OutboundMessage" schemaLocation="/AESchemas/ae/as400/Authorization/OutboundMessage/OutboundMessage.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LrcLookupSvcConsumer/DataQueueWrite/DataQueueWrite" schemaLocation="/AESchemas/ae/as400/LrcLookupSvcConsumer/DataQueueWrite/DataQueueWrite.aeschema"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/lrc-lookup.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCLookup/DataQueueWrite/Data_Structures/LookupSubscriber" schemaLocation="/AESchemas/ae/as400/LRCLookup/DataQueueWrite/Data_Structures/LookupSubscriber.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCLookup/DataQueueWrite/DataQueueWrite" schemaLocation="/AESchemas/ae/as400/LRCLookup/DataQueueWrite/DataQueueWrite.aeschema"/>
+    <pd:name>BusinessProcesses/LrcLookup/ResponseProcessors/MapDTCMOResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="ns:LrcLookupResponse"/>
+                    <xsd:element name="OutboundDataQueue" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="MatchingHashToken" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="MatchingScheme" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>36</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$MapAdapterResponse/group/pfx3:LookupSubscriber"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:LookupSubscriber"/>
+    <pd:endX>729</pd:endX>
+    <pd:endY>39</pd:endY>
+    <pd:errorSchemas>
+        <ErrorSchema>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns12:ExceptionHandlerRequest" minOccurs="0"/>
+                        <xsd:element name="Error" type="pfx9:ErrorType" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ErrorSchema>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <Process>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Error" type="pfx9:ErrorType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Process>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1428698665830</pd:targetNamespace>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>515</pd:x>
+        <pd:y>195</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Error>
+                    <Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/Type"/>
+                    </Type>
+                    <Detail>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/Detail"/>
+                    </Detail>
+                    <ErrorMessage>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/ErrorMessage"/>
+                    </ErrorMessage>
+                </Error>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>380</pd:x>
+        <pd:y>195</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>654</pd:x>
+        <pd:y>196</pd:y>
+        <config>
+            <faultName>ErrorSchema</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns13:ActivityInput>
+                <data>
+                    <root>
+                        <ns12:ExceptionHandlerRequest>
+                            <ns12:envCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                            </ns12:envCode>
+                            <ns12:appCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                            </ns12:appCode>
+                            <ns12:interfaceCode>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcLookup/CLE/DTCInterfaceCode"/>
+                            </ns12:interfaceCode>
+                            <ns12:hostName>
+                                <xsl:value-of select="BW:getHostName()"/>
+                            </ns12:hostName>
+                            <ns12:timeStamp>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns12:timeStamp>
+                            <ns12:message>
+                                <xsl:value-of select="$_error/ns4:ErrorReport/Msg"/>
+                            </ns12:message>
+                            <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                                <xsl:when test="string-length($Start/root/ns:LrcLookupResponse) > 0">
+                                    <ns12:payload>
+                                        <xsl:value-of select="tib:render-xml($Start/root/ns:LrcLookupResponse)"/>
+                                    </ns12:payload>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <ns12:payload>
+                                        <xsl:value-of select="&quot;&quot;"/>
+                                    </ns12:payload>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <ns12:ErrorLevel>
+                                <ns12:errorCode>
+                                    <xsl:value-of select="$_error/ns4:ErrorReport/MsgCode"/>
+                                </ns12:errorCode>
+                            </ns12:ErrorLevel>
+                            <ns12:TransactionDetails>
+                                <ns12:transactionDomain>
+                                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                                </ns12:transactionDomain>
+                                <ns12:transactionType>
+                                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcLookup/CLE/TransactionType"/>
+                                </ns12:transactionType>
+                                <ns12:transactionID>
+                                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                                </ns12:transactionID>
+                            </ns12:TransactionDetails>
+                            <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_processContext/ns4:ProcessContext">
+                                <ns12:ProcessContextDetails>
+                                    <ns12:processId>
+                                        <xsl:value-of select="ProcessId"/>
+                                    </ns12:processId>
+                                    <ns12:projectName>
+                                        <xsl:value-of select="ProjectName"/>
+                                    </ns12:projectName>
+                                    <ns12:engineName>
+                                        <xsl:value-of select="EngineName"/>
+                                    </ns12:engineName>
+                                    <ns12:restartedFromCheckpoint>
+                                        <xsl:value-of select="RestartedFromCheckpoint"/>
+                                    </ns12:restartedFromCheckpoint>
+                                    <xsl:for-each select="TrackingInfo">
+                                        <ns12:trackingInfo>
+                                            <xsl:value-of select="."/>
+                                        </ns12:trackingInfo>
+                                    </xsl:for-each>
+                                </ns12:ProcessContextDetails>
+                            </xsl:for-each>
+                            <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns4:ErrorReport">
+                                <ns12:ErrorReportType>
+                                    <ns12:stackTrace>
+                                        <xsl:value-of select="StackTrace"/>
+                                    </ns12:stackTrace>
+                                    <ns12:msg>
+                                        <xsl:value-of select="Msg"/>
+                                    </ns12:msg>
+                                    <ns12:fullClass>
+                                        <xsl:value-of select="FullClass"/>
+                                    </ns12:fullClass>
+                                    <ns12:class>
+                                        <xsl:value-of select="Class"/>
+                                    </ns12:class>
+                                    <ns12:processStack>
+                                        <xsl:value-of select="ProcessStack"/>
+                                    </ns12:processStack>
+                                    <xsl:if test="MsgCode">
+                                        <ns12:msgCode>
+                                            <xsl:value-of select="MsgCode"/>
+                                        </ns12:msgCode>
+                                    </xsl:if>
+                                    <xsl:if test="Data">
+                                        <ns12:data>
+                                            <xsl:value-of select="tib:render-xml(Data)"/>
+                                        </ns12:data>
+                                    </xsl:if>
+                                </ns12:ErrorReportType>
+                            </xsl:for-each>
+                        </ns12:ExceptionHandlerRequest>
+                        <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="string-length($Process/root/Error/Type)>0">
+                            <xsl:copy-of select="$Process/root/Error"/>
+                        </xsl:if>
+                    </root>
+                </data>
+            </ns13:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>158</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/LrcLookup/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetDTCConceptChannel">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>301</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceDTCMOConceptsChannels.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="MapAdapterResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>512</pd:x>
+        <pd:y>39</pd:y>
+        <config>
+            <element>
+                <xsd:element name="group">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="pfx3:LookupSubscriber"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <group>
+                <pfx3:LookupSubscriber>
+                    <xsl:variable name="varBlank" select="$_globalVariables/ns2:GlobalVariables/PaymentService/DTCMOErrors/Blank"/>
+                    <xsl:variable name="Entry" select="$Start/root/ns:LrcLookupResponse"/>
+                    <Entry>
+                        <OutboundDataQueue>
+                            <xsl:choose>
+                                <xsl:when test="exists(tib:pad-and-limit($Start/root/OutboundDataQueue,20))">
+                                    <xsl:value-of select="tib:pad-and-limit($Start/root/OutboundDataQueue,20)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </OutboundDataQueue>
+                        <EnvironmentIdentifier>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/SystemContext/EnvironmentIdentifier,1,10),10)"/>
+                        </EnvironmentIdentifier>
+                        <RegionIdentifier>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/SystemContext/RegionIdentifier,1,10),10)"/>
+                        </RegionIdentifier>
+                        <SourceSystemIdentifier>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/SystemContext/SourceSystemIdentifier,1,50),50)"/>
+                        </SourceSystemIdentifier>
+                        <TransactionId>
+                            <xsl:value-of select="tib:pad-and-limit(substring($Entry/SystemContext/TransactionId,1,30),30)"/>
+                        </TransactionId>
+                        <xsl:if test="string-length($Entry/SystemContext/TransactionTime)>0">
+                            <TransactionTime>
+                                <xsl:value-of select="tib:pad(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateTimeFormat, $Entry/SystemContext/TransactionTime), 30)"/>
+                            </TransactionTime>
+                        </xsl:if>
+                        <xsl:variable name="var3" select="tib:trim($Start/root/ns:LrcLookupResponse/PaymentContext/Concept)"/>
+                        <Concept>
+                            <xsl:value-of select="tib:pad-and-limit($Start/root/ns:LrcLookupResponse/PaymentContext/Concept,5)"/>
+                        </Concept>
+                        <xsl:variable name="var4" select="tib:trim($Start/root/ns:LrcLookupResponse/PaymentContext/Channel)"/>
+                        <Channel>
+                            <xsl:value-of select="tib:pad-and-limit($GetDTCConceptChannel/ns3:PaymentServiceDTCConceptsChannels/ns3:PaymentServiceDTCMOConceptChannel[ns3:EPSChannelCode=$var4][1]/ns3:DTCMOChannelCode,10)"/>
+                        </Channel>
+                        <AssociateId>
+                            <xsl:value-of select="tib:pad-and-limit($Start/root/ns:LrcLookupResponse/PaymentContext/CareCenter/AssociateId,10)"/>
+                        </AssociateId>
+                        <OrderNumber>
+                            <xsl:choose>
+                                <xsl:when test="exists(tib:pad-and-limit(tib:trim($Entry/OrderContext/@omsOrderId),12))">
+                                    <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/OrderContext/@omsOrderId),12)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </OrderNumber>
+                        <CertificateType1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/CertificateType,10)"/>
+                        </CertificateType1>
+                        <CertificateConcept1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/Concept,5)"/>
+                        </CertificateConcept1>
+                        <CertificateStatus1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/CertificateStatus,10)"/>
+                        </CertificateStatus1>
+                        <CertificateCurrency1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/CurrencyCode,3)"/>
+                        </CertificateCurrency1>
+                        <CertificateAmount1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/CertificateAmount,10)"/>
+                        </CertificateAmount1>
+                        <BalanceAmount1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/BalanceAmount,10)"/>
+                        </BalanceAmount1>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[1]/Expiration)>0">
+                                <Expiration1>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[1]/Expiration)),10)"/>
+                                </Expiration1>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration1>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration1>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/Tender/Type/Code,40)"/>
+                        </Code1>
+                        <SubCode1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/Tender/Type/SubCode,40)"/>
+                        </SubCode1>
+                        <CertificateNumber1>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[1]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber1>
+                        <CertificateType2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/CertificateType,10)"/>
+                        </CertificateType2>
+                        <CertificateConcept2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/Concept,5)"/>
+                        </CertificateConcept2>
+                        <CertificateStatus2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/CertificateStatus,10)"/>
+                        </CertificateStatus2>
+                        <CertificateCurrency2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/CurrencyCode,3)"/>
+                        </CertificateCurrency2>
+                        <CertificateAmount2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/CertificateAmount,10)"/>
+                        </CertificateAmount2>
+                        <BalanceAmount2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/BalanceAmount,10)"/>
+                        </BalanceAmount2>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[2]/Expiration)>0">
+                                <Expiration2>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[2]/Expiration)),10)"/>
+                                </Expiration2>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration2>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration2>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/Tender/Type/Code,40)"/>
+                        </Code2>
+                        <SubCode2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/Tender/Type/SubCode,40)"/>
+                        </SubCode2>
+                        <CertificateNumber2>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[2]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber2>
+                        <CertificateType3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/CertificateType,10)"/>
+                        </CertificateType3>
+                        <CertificateConcept3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/Concept,5)"/>
+                        </CertificateConcept3>
+                        <CertificateStatus3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/CertificateStatus,10)"/>
+                        </CertificateStatus3>
+                        <CertificateCurrency3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/CurrencyCode,3)"/>
+                        </CertificateCurrency3>
+                        <CertificateAmount3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/CertificateAmount,10)"/>
+                        </CertificateAmount3>
+                        <BalanceAmount3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/BalanceAmount,10)"/>
+                        </BalanceAmount3>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[3]/Expiration)>0">
+                                <Expiration3>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[3]/Expiration)),10)"/>
+                                </Expiration3>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration3>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration3>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/Tender/Type/Code,40)"/>
+                        </Code3>
+                        <SubCode3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/Tender/Type/SubCode,40)"/>
+                        </SubCode3>
+                        <CertificateNumber3>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[3]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber3>
+                        <CertificateType4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/CertificateType,10)"/>
+                        </CertificateType4>
+                        <CertificateConcept4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/Concept,5)"/>
+                        </CertificateConcept4>
+                        <CertificateStatus4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/CertificateStatus,10)"/>
+                        </CertificateStatus4>
+                        <CertificateCurrency4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/CurrencyCode,3)"/>
+                        </CertificateCurrency4>
+                        <CertificateAmount4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/CertificateAmount,10)"/>
+                        </CertificateAmount4>
+                        <BalanceAmount4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/BalanceAmount,10)"/>
+                        </BalanceAmount4>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[4]/Expiration)>0">
+                                <Expiration4>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[4]/Expiration)),10)"/>
+                                </Expiration4>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration4>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration4>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/Tender/Type/Code,40)"/>
+                        </Code4>
+                        <SubCode4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/Tender/Type/SubCode,40)"/>
+                        </SubCode4>
+                        <CertificateNumber4>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[4]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber4>
+                        <CertificateType5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/CertificateType,10)"/>
+                        </CertificateType5>
+                        <CertificateConcept5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/Concept,5)"/>
+                        </CertificateConcept5>
+                        <CertificateStatus5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/CertificateStatus,10)"/>
+                        </CertificateStatus5>
+                        <CertificateCurrency5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/CurrencyCode,3)"/>
+                        </CertificateCurrency5>
+                        <CertificateAmount5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/CertificateAmount,10)"/>
+                        </CertificateAmount5>
+                        <BalanceAmount5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/BalanceAmount,10)"/>
+                        </BalanceAmount5>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[5]/Expiration)>0">
+                                <Expiration5>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[5]/Expiration)),10)"/>
+                                </Expiration5>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration5>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration5>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/Tender/Type/Code,40)"/>
+                        </Code5>
+                        <SubCode5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/Tender/Type/SubCode,40)"/>
+                        </SubCode5>
+                        <CertificateNumber5>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[5]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber5>
+                        <CertificateType6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/CertificateType,10)"/>
+                        </CertificateType6>
+                        <CertificateConcept6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/Concept,5)"/>
+                        </CertificateConcept6>
+                        <CertificateStatus6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/CertificateStatus,10)"/>
+                        </CertificateStatus6>
+                        <CertificateCurrency6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/CurrencyCode,3)"/>
+                        </CertificateCurrency6>
+                        <CertificateAmount6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/CertificateAmount,10)"/>
+                        </CertificateAmount6>
+                        <BalanceAmount6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/BalanceAmount,10)"/>
+                        </BalanceAmount6>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[6]/Expiration)>0">
+                                <Expiration6>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[6]/Expiration)),10)"/>
+                                </Expiration6>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration6>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration6>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/Tender/Type/Code,40)"/>
+                        </Code6>
+                        <SubCode6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/Tender/Type/SubCode,40)"/>
+                        </SubCode6>
+                        <CertificateNumber6>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[6]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber6>
+                        <CertificateType7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/CertificateType,10)"/>
+                        </CertificateType7>
+                        <CertificateConcept7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/Concept,5)"/>
+                        </CertificateConcept7>
+                        <CertificateStatus7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/CertificateStatus,10)"/>
+                        </CertificateStatus7>
+                        <CertificateCurrency7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/CurrencyCode,3)"/>
+                        </CertificateCurrency7>
+                        <CertificateAmount7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/CertificateAmount,10)"/>
+                        </CertificateAmount7>
+                        <BalanceAmount7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/BalanceAmount,10)"/>
+                        </BalanceAmount7>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[7]/Expiration)>0">
+                                <Expiration7>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[7]/Expiration)),10)"/>
+                                </Expiration7>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration7>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration7>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/Tender/Type/Code,40)"/>
+                        </Code7>
+                        <SubCode7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/Tender/Type/SubCode,40)"/>
+                        </SubCode7>
+                        <CertificateNumber7>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[7]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber7>
+                        <CertificateType8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/CertificateType,10)"/>
+                        </CertificateType8>
+                        <CertificateConcept8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/Concept,5)"/>
+                        </CertificateConcept8>
+                        <CertificateStatus8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/CertificateStatus,10)"/>
+                        </CertificateStatus8>
+                        <CertificateCurrency8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/CurrencyCode,3)"/>
+                        </CertificateCurrency8>
+                        <CertificateAmount8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/CertificateAmount,10)"/>
+                        </CertificateAmount8>
+                        <BalanceAmount8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/BalanceAmount,10)"/>
+                        </BalanceAmount8>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[8]/Expiration)>0">
+                                <Expiration8>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[8]/Expiration)),10)"/>
+                                </Expiration8>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration8>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration8>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/Tender/Type/Code,40)"/>
+                        </Code8>
+                        <SubCode8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/Tender/Type/SubCode,40)"/>
+                        </SubCode8>
+                        <CertificateNumber8>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[8]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber8>
+                        <CertificateType9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/CertificateType,10)"/>
+                        </CertificateType9>
+                        <CertificateConcept9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/Concept,5)"/>
+                        </CertificateConcept9>
+                        <CertificateStatus9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/CertificateStatus,10)"/>
+                        </CertificateStatus9>
+                        <CertificateCurrency9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/CurrencyCode,3)"/>
+                        </CertificateCurrency9>
+                        <CertificateAmount9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/CertificateAmount,10)"/>
+                        </CertificateAmount9>
+                        <BalanceAmount9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/BalanceAmount,10)"/>
+                        </BalanceAmount9>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[9]/Expiration)>0">
+                                <Expiration9>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[9]/Expiration)),10)"/>
+                                </Expiration9>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration9>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration9>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/Tender/Type/Code,40)"/>
+                        </Code9>
+                        <SubCode9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/Tender/Type/SubCode,40)"/>
+                        </SubCode9>
+                        <CertificateNumber9>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[9]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber9>
+                        <CertificateType10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/CertificateType,10)"/>
+                        </CertificateType10>
+                        <CertificateConcept10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/Concept,5)"/>
+                        </CertificateConcept10>
+                        <CertificateStatus10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/CertificateStatus,10)"/>
+                        </CertificateStatus10>
+                        <CertificateCurrency10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/CurrencyCode,3)"/>
+                        </CertificateCurrency10>
+                        <CertificateAmount10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/CertificateAmount,10)"/>
+                        </CertificateAmount10>
+                        <BalanceAmount10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/BalanceAmount,10)"/>
+                        </BalanceAmount10>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[10]/Expiration)>0">
+                                <Expiration10>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[10]/Expiration)),10)"/>
+                                </Expiration10>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration10>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration10>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/Tender/Type/Code,40)"/>
+                        </Code10>
+                        <SubCode10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/Tender/Type/SubCode,40)"/>
+                        </SubCode10>
+                        <CertificateNumber10>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[10]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber10>
+                        <CertificateType11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/CertificateType,10)"/>
+                        </CertificateType11>
+                        <CertificateConcept11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/Concept,5)"/>
+                        </CertificateConcept11>
+                        <CertificateStatus11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/CertificateStatus,10)"/>
+                        </CertificateStatus11>
+                        <CertificateCurrency11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/CurrencyCode,3)"/>
+                        </CertificateCurrency11>
+                        <CertificateAmount11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/CertificateAmount,10)"/>
+                        </CertificateAmount11>
+                        <BalanceAmount11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/BalanceAmount,10)"/>
+                        </BalanceAmount11>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[11]/Expiration)>0">
+                                <Expiration11>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[11]/Expiration)),10)"/>
+                                </Expiration11>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration11>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration11>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/Tender/Type/Code,40)"/>
+                        </Code11>
+                        <SubCode11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/Tender/Type/SubCode,40)"/>
+                        </SubCode11>
+                        <CertificateNumber11>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[11]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber11>
+                        <CertificateType12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/CertificateType,10)"/>
+                        </CertificateType12>
+                        <CertificateConcept12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/Concept,5)"/>
+                        </CertificateConcept12>
+                        <CertificateStatus12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/CertificateStatus,10)"/>
+                        </CertificateStatus12>
+                        <CertificateCurrency12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/CurrencyCode,3)"/>
+                        </CertificateCurrency12>
+                        <CertificateAmount12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/CertificateAmount,10)"/>
+                        </CertificateAmount12>
+                        <BalanceAmount12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/BalanceAmount,10)"/>
+                        </BalanceAmount12>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[12]/Expiration)>0">
+                                <Expiration12>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[12]/Expiration)),10)"/>
+                                </Expiration12>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration12>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration12>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/Tender/Type/Code,40)"/>
+                        </Code12>
+                        <SubCode12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/Tender/Type/SubCode,40)"/>
+                        </SubCode12>
+                        <CertificateNumber12>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[12]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber12>
+                        <CertificateType13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/CertificateType,10)"/>
+                        </CertificateType13>
+                        <CertificateConcept13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/Concept,5)"/>
+                        </CertificateConcept13>
+                        <CertificateStatus13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/CertificateStatus,10)"/>
+                        </CertificateStatus13>
+                        <CertificateCurrency13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/CurrencyCode,3)"/>
+                        </CertificateCurrency13>
+                        <CertificateAmount13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/CertificateAmount,10)"/>
+                        </CertificateAmount13>
+                        <BalanceAmount13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/BalanceAmount,10)"/>
+                        </BalanceAmount13>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[13]/Expiration)>0">
+                                <Expiration13>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[13]/Expiration)),10)"/>
+                                </Expiration13>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration13>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration13>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/Tender/Type/Code,40)"/>
+                        </Code13>
+                        <SubCode13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/Tender/Type/SubCode,40)"/>
+                        </SubCode13>
+                        <CertificateNumber13>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[13]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber13>
+                        <CertificateType14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/CertificateType,10)"/>
+                        </CertificateType14>
+                        <CertificateConcept14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/Concept,5)"/>
+                        </CertificateConcept14>
+                        <CertificateStatus14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/CertificateStatus,10)"/>
+                        </CertificateStatus14>
+                        <CertificateCurrency14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/CurrencyCode,3)"/>
+                        </CertificateCurrency14>
+                        <CertificateAmount14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/CertificateAmount,10)"/>
+                        </CertificateAmount14>
+                        <BalanceAmount14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/BalanceAmount,10)"/>
+                        </BalanceAmount14>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[14]/Expiration)>0">
+                                <Expiration14>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[14]/Expiration)),10)"/>
+                                </Expiration14>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration14>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration14>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/Tender/Type/Code,40)"/>
+                        </Code14>
+                        <SubCode14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/Tender/Type/SubCode,40)"/>
+                        </SubCode14>
+                        <CertificateNumber14>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[14]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber14>
+                        <CertificateType15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/CertificateType,10)"/>
+                        </CertificateType15>
+                        <CertificateConcept15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/Concept,5)"/>
+                        </CertificateConcept15>
+                        <CertificateStatus15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/CertificateStatus,10)"/>
+                        </CertificateStatus15>
+                        <CertificateCurrency15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/CurrencyCode,3)"/>
+                        </CertificateCurrency15>
+                        <CertificateAmount15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/CertificateAmount,10)"/>
+                        </CertificateAmount15>
+                        <BalanceAmount15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/BalanceAmount,10)"/>
+                        </BalanceAmount15>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[15]/Expiration)>0">
+                                <Expiration15>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[15]/Expiration)),10)"/>
+                                </Expiration15>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration15>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration15>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/Tender/Type/Code,40)"/>
+                        </Code15>
+                        <SubCode15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/Tender/Type/SubCode,40)"/>
+                        </SubCode15>
+                        <CertificateNumber15>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[15]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber15>
+                        <CertificateType16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/CertificateType,10)"/>
+                        </CertificateType16>
+                        <CertificateConcept16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/Concept,5)"/>
+                        </CertificateConcept16>
+                        <CertificateStatus16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/CertificateStatus,10)"/>
+                        </CertificateStatus16>
+                        <CertificateCurrency16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/CurrencyCode,3)"/>
+                        </CertificateCurrency16>
+                        <CertificateAmount16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/CertificateAmount,10)"/>
+                        </CertificateAmount16>
+                        <BalanceAmount16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/BalanceAmount,10)"/>
+                        </BalanceAmount16>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[16]/Expiration)>0">
+                                <Expiration16>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[16]/Expiration)),10)"/>
+                                </Expiration16>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration16>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration16>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/Tender/Type/Code,40)"/>
+                        </Code16>
+                        <SubCode16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/Tender/Type/SubCode,40)"/>
+                        </SubCode16>
+                        <CertificateNumber16>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[16]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber16>
+                        <CertificateType17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/CertificateType,10)"/>
+                        </CertificateType17>
+                        <CertificateConcept17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/Concept,5)"/>
+                        </CertificateConcept17>
+                        <CertificateStatus17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/CertificateStatus,10)"/>
+                        </CertificateStatus17>
+                        <CertificateCurrency17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/CurrencyCode,3)"/>
+                        </CertificateCurrency17>
+                        <CertificateAmount17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/CertificateAmount,10)"/>
+                        </CertificateAmount17>
+                        <BalanceAmount17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/BalanceAmount,10)"/>
+                        </BalanceAmount17>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[17]/Expiration)>0">
+                                <Expiration17>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[17]/Expiration)),10)"/>
+                                </Expiration17>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration17>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration17>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/Tender/Type/Code,40)"/>
+                        </Code17>
+                        <SubCode17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/Tender/Type/SubCode,40)"/>
+                        </SubCode17>
+                        <CertificateNumber17>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[17]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber17>
+                        <CertificateType18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/CertificateType,10)"/>
+                        </CertificateType18>
+                        <CertificateConcept18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/Concept,5)"/>
+                        </CertificateConcept18>
+                        <CertificateStatus18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/CertificateStatus,10)"/>
+                        </CertificateStatus18>
+                        <CertificateCurrency18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/CurrencyCode,3)"/>
+                        </CertificateCurrency18>
+                        <CertificateAmount18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/CertificateAmount,10)"/>
+                        </CertificateAmount18>
+                        <BalanceAmount18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/BalanceAmount,10)"/>
+                        </BalanceAmount18>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[18]/Expiration)>0">
+                                <Expiration18>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[18]/Expiration)),10)"/>
+                                </Expiration18>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration18>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration18>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/Tender/Type/Code,40)"/>
+                        </Code18>
+                        <SubCode18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/Tender/Type/SubCode,40)"/>
+                        </SubCode18>
+                        <CertificateNumber18>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[18]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber18>
+                        <CertificateType19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/CertificateType,10)"/>
+                        </CertificateType19>
+                        <CertificateConcept19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/Concept,5)"/>
+                        </CertificateConcept19>
+                        <CertificateStatus19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/CertificateStatus,10)"/>
+                        </CertificateStatus19>
+                        <CertificateCurrency19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/CurrencyCode,3)"/>
+                        </CertificateCurrency19>
+                        <CertificateAmount19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/CertificateAmount,10)"/>
+                        </CertificateAmount19>
+                        <BalanceAmount19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/BalanceAmount,10)"/>
+                        </BalanceAmount19>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[19]/Expiration)>0">
+                                <Expiration19>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[19]/Expiration)),10)"/>
+                                </Expiration19>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration19>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration19>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/Tender/Type/Code,40)"/>
+                        </Code19>
+                        <SubCode19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/Tender/Type/SubCode,40)"/>
+                        </SubCode19>
+                        <CertificateNumber19>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[19]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber19>
+                        <CertificateType20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/CertificateType,10)"/>
+                        </CertificateType20>
+                        <CertificateConcept20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/Concept,5)"/>
+                        </CertificateConcept20>
+                        <CertificateStatus20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/CertificateStatus,10)"/>
+                        </CertificateStatus20>
+                        <CertificateCurrency20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/CurrencyCode,3)"/>
+                        </CertificateCurrency20>
+                        <CertificateAmount20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/CertificateAmount,10)"/>
+                        </CertificateAmount20>
+                        <BalanceAmount20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/BalanceAmount,10)"/>
+                        </BalanceAmount20>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[20]/Expiration)>0">
+                                <Expiration20>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[20]/Expiration)),10)"/>
+                                </Expiration20>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration20>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration20>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/Tender/Type/Code,40)"/>
+                        </Code20>
+                        <SubCode20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/Tender/Type/SubCode,40)"/>
+                        </SubCode20>
+                        <CertificateNumber20>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[20]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber20>
+                        <CertificateType21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/CertificateType,10)"/>
+                        </CertificateType21>
+                        <CertificateConcept21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/Concept,5)"/>
+                        </CertificateConcept21>
+                        <CertificateStatus21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/CertificateStatus,10)"/>
+                        </CertificateStatus21>
+                        <CertificateCurrency21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/CurrencyCode,3)"/>
+                        </CertificateCurrency21>
+                        <CertificateAmount21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/CertificateAmount,10)"/>
+                        </CertificateAmount21>
+                        <BalanceAmount21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/BalanceAmount,10)"/>
+                        </BalanceAmount21>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[21]/Expiration)>0">
+                                <Expiration21>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[21]/Expiration)),10)"/>
+                                </Expiration21>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration21>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration21>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/Tender/Type/Code,40)"/>
+                        </Code21>
+                        <SubCode21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/Tender/Type/SubCode,40)"/>
+                        </SubCode21>
+                        <CertificateNumber21>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[21]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber21>
+                        <CertificateType22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/CertificateType,10)"/>
+                        </CertificateType22>
+                        <CertificateConcept22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/Concept,5)"/>
+                        </CertificateConcept22>
+                        <CertificateStatus22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/CertificateStatus,10)"/>
+                        </CertificateStatus22>
+                        <CertificateCurrency22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/CurrencyCode,3)"/>
+                        </CertificateCurrency22>
+                        <CertificateAmount22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/CertificateAmount,10)"/>
+                        </CertificateAmount22>
+                        <BalanceAmount22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/BalanceAmount,10)"/>
+                        </BalanceAmount22>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[22]/Expiration)>0">
+                                <Expiration22>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[22]/Expiration)),10)"/>
+                                </Expiration22>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration22>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration22>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/Tender/Type/Code,40)"/>
+                        </Code22>
+                        <SubCode22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/Tender/Type/SubCode,40)"/>
+                        </SubCode22>
+                        <CertificateNumber22>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[22]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber22>
+                        <CertificateType23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/CertificateType,10)"/>
+                        </CertificateType23>
+                        <CertificateConcept23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/Concept,5)"/>
+                        </CertificateConcept23>
+                        <CertificateStatus23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/CertificateStatus,10)"/>
+                        </CertificateStatus23>
+                        <CertificateCurrency23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/CurrencyCode,3)"/>
+                        </CertificateCurrency23>
+                        <CertificateAmount23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/CertificateAmount,10)"/>
+                        </CertificateAmount23>
+                        <BalanceAmount23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/BalanceAmount,10)"/>
+                        </BalanceAmount23>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[23]/Expiration)>0">
+                                <Expiration23>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[23]/Expiration)),10)"/>
+                                </Expiration23>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration23>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration23>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/Tender/Type/Code,40)"/>
+                        </Code23>
+                        <SubCode23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/Tender/Type/SubCode,40)"/>
+                        </SubCode23>
+                        <CertificateNumber23>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[23]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber23>
+                        <CertificateType24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/CertificateType,10)"/>
+                        </CertificateType24>
+                        <CertificateConcept24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/Concept,5)"/>
+                        </CertificateConcept24>
+                        <CertificateStatus24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/CertificateStatus,10)"/>
+                        </CertificateStatus24>
+                        <CertificateCurrency24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/CurrencyCode,3)"/>
+                        </CertificateCurrency24>
+                        <CertificateAmount24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/CertificateAmount,10)"/>
+                        </CertificateAmount24>
+                        <BalanceAmount24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/BalanceAmount,10)"/>
+                        </BalanceAmount24>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[24]/Expiration)>0">
+                                <Expiration24>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[24]/Expiration)),10)"/>
+                                </Expiration24>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration24>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration24>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/Tender/Type/Code,40)"/>
+                        </Code24>
+                        <SubCode24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/Tender/Type/SubCode,40)"/>
+                        </SubCode24>
+                        <CertificateNumber24>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[24]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber24>
+                        <CertificateType25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/CertificateType,10)"/>
+                        </CertificateType25>
+                        <CertificateConcept25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/Concept,5)"/>
+                        </CertificateConcept25>
+                        <CertificateStatus25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/CertificateStatus,10)"/>
+                        </CertificateStatus25>
+                        <CertificateCurrency25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/CurrencyCode,3)"/>
+                        </CertificateCurrency25>
+                        <CertificateAmount25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/CertificateAmount,10)"/>
+                        </CertificateAmount25>
+                        <BalanceAmount25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/BalanceAmount,10)"/>
+                        </BalanceAmount25>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Entry/Certificate[25]/Expiration)>0">
+                                <Expiration25>
+                                    <xsl:value-of select="tib:pad-and-limit(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DTC/DateFormat,tib:trim($Entry/Certificate[25]/Expiration)),10)"/>
+                                </Expiration25>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <Expiration25>
+                                    <xsl:value-of select="tib:pad-and-limit($varBlank,10)"/>
+                                </Expiration25>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Code25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/Tender/Type/Code,40)"/>
+                        </Code25>
+                        <SubCode25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/Tender/Type/SubCode,40)"/>
+                        </SubCode25>
+                        <CertificateNumber25>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/Certificate[25]/Tender/CertificateNumber,20)"/>
+                        </CertificateNumber25>
+                        <NextPageToken>
+                            <xsl:value-of select="tib:pad-and-limit($Entry/NextPageToken,10)"/>
+                        </NextPageToken>
+                        <ErrorType>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Type),100)"/>
+                        </ErrorType>
+                        <ErrorDetail1>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[1]),100)"/>
+                        </ErrorDetail1>
+                        <ErrorDetail2>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[2]),100)"/>
+                        </ErrorDetail2>
+                        <ErrorDetail3>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[3]),100)"/>
+                        </ErrorDetail3>
+                        <ErrorDetail4>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[4]),100)"/>
+                        </ErrorDetail4>
+                        <ErrorDetail5>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[5]),100)"/>
+                        </ErrorDetail5>
+                        <ErrorDetail6>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[6]),100)"/>
+                        </ErrorDetail6>
+                        <ErrorDetail7>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[7]),100)"/>
+                        </ErrorDetail7>
+                        <ErrorDetail8>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[8]),100)"/>
+                        </ErrorDetail8>
+                        <ErrorDetail9>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[9]),100)"/>
+                        </ErrorDetail9>
+                        <ErrorDetail10>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[10]),100)"/>
+                        </ErrorDetail10>
+                        <ErrorDetail11>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[11]),100)"/>
+                        </ErrorDetail11>
+                        <ErrorDetail12>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[12]),100)"/>
+                        </ErrorDetail12>
+                        <ErrorDetail13>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[13]),100)"/>
+                        </ErrorDetail13>
+                        <ErrorDetail14>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[14]),100)"/>
+                        </ErrorDetail14>
+                        <ErrorDetail15>
+                            <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/Detail[15]),100)"/>
+                        </ErrorDetail15>
+                        <ErrorMessage>
+                            <xsl:choose>
+                                <xsl:when test="exists(tib:pad-and-limit(tib:trim($Entry/Error/ErrorMessage),200))">
+                                    <xsl:value-of select="tib:pad-and-limit(tib:trim($Entry/Error/ErrorMessage),200)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </ErrorMessage>
+                    </Entry>
+                </pfx3:LookupSubscriber>
+            </group>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>MapAdapterResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>GetDTCConceptChannel</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetDTCConceptChannel</pd:from>
+        <pd:to>MapAdapterResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

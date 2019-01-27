@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.wsgc.com/schemas/common/PaymentGatewayVerifoneCredentials.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://www.wsgc.com/schemas/common/PaymentGatewayVerifoneCredentials.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentGatewayVerifoneCredentials.xsd"/>
+    <pd:name>CommonProcesses/Decrypt.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="PaymentGatewayCredential">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ConceptCode" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="ChannelCode" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="DeviceKey" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="DevType" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="SerialNum" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Account" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="ClientId" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Site" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Term" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>50</pd:startX>
+    <pd:startY>69</pd:startY>
+    <pd:returnBindings>
+        <xsl:for-each select="$Start/PaymentGatewayCredential">
+            <PaymentGatewayVerifoneCredential>
+                <ConceptCode>
+                    <xsl:value-of select="ConceptCode"/>
+                </ConceptCode>
+                <ChannelCode>
+                    <xsl:value-of select="ChannelCode"/>
+                </ChannelCode>
+                <DeviceKey>
+                    <xsl:value-of select="$DecryptKey/javaCodeActivityOutput/Output"/>
+                </DeviceKey>
+                <DevType>
+                    <xsl:value-of select="DevType"/>
+                </DevType>
+                <SerialNum>
+                    <xsl:value-of select="SerialNum"/>
+                </SerialNum>
+                <Account>
+                    <xsl:value-of select="Account"/>
+                </Account>
+                <ClientId>
+                    <xsl:value-of select="ClientId"/>
+                </ClientId>
+                <Site>
+                    <xsl:value-of select="Site"/>
+                </Site>
+                <Term>
+                    <xsl:value-of select="Term"/>
+                </Term>
+            </PaymentGatewayVerifoneCredential>
+        </xsl:for-each>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="PaymentGatewayVerifoneCredential">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ConceptCode" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="ChannelCode" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="DeviceKey" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="DevType" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="SerialNum" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Account" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="ClientId" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Site" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Term" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>482</pd:endX>
+    <pd:endY>72</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1420533987211</pd:targetNamespace>
+    <pd:activity name="DecryptKey">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>302</pd:x>
+        <pd:y>70</pd:y>
+        <config>
+            <fileName>DecryptDecryptKey</fileName>
+            <packageName>CommonProcesses.Decrypt</packageName>
+            <fullsource>package CommonProcesses.Decrypt;
+import java.util.*;
+import java.io.*;
+import com.tibco.security.ObfuscationEngine;
+public class DecryptDecryptKey{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String Input = "";
+	protected String Output = "";
+	public String getInput() {
+		return Input;
+	}
+	public void setInput(String val) {
+		Input = val;
+	}
+	public String getOutput() {
+		return Output;
+	}
+	public void setOutput(String val) {
+		Output = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+  public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String Input
+	Out : String Output
+* Available Variables: DO NOT MODIFY *****/
+String var = new String(ObfuscationEngine.decrypt(Input));
+ Output=var;
+}
+}
+
+
+</fullsource>
+            <inputData>
+                <row>
+                    <fieldName>Input</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <outputData>
+                <row>
+                    <fieldName>Output</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <byteCode>
+                <class>
+                    <name>DecryptDecryptKey</name>
+                    <byteCode>yv66vgAAADMAKwoACQAcCAAdCQAIAB4JAAgAHwcAIAoAIQAiCgAFACMHACQHACUBAAVJbnB1dAEAEkxqYXZhL2xhbmcvU3RyaW5nOwEABk91dHB1dAEABjxpbml0PgEAAygpVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBAAhnZXRJbnB1dAEAFCgpTGphdmEvbGFuZy9TdHJpbmc7AQAIc2V0SW5wdXQBABUoTGphdmEvbGFuZy9TdHJpbmc7KVYBAAlnZXRPdXRwdXQBAAlzZXRPdXRwdXQBAAZpbnZva2UBAApFeGNlcHRpb25zBwAmAQAKU291cmNlRmlsZQEAFkRlY3J5cHREZWNyeXB0S2V5LmphdmEMAA0ADgEAAAwACgALDAAMAAsBABBqYXZhL2xhbmcvU3RyaW5nBwAnDAAoACkMAA0AKgEAKUNvbW1vblByb2Nlc3Nlcy9EZWNyeXB0L0RlY3J5cHREZWNyeXB0S2V5AQAQamF2YS9sYW5nL09iamVjdAEAE2phdmEvbGFuZy9FeGNlcHRpb24BACRjb20vdGliY28vc2VjdXJpdHkvT2JmdXNjYXRpb25FbmdpbmUBAAdkZWNyeXB0AQAWKExqYXZhL2xhbmcvU3RyaW5nOylbQwEABShbQylWACEACAAJAAAAAgAEAAoACwAAAAQADAALAAAABgABAA0ADgABAA8AAAAxAAIAAQAAABEqtwABKhICtQADKhICtQAEsQAAAAEAEAAAAA4AAwAAAAUABAAHAAoACAABABEAEgABAA8AAAAdAAEAAQAAAAUqtAADsAAAAAEAEAAAAAYAAQAAAAoAAQATABQAAQAPAAAAIgACAAIAAAAGKiu1AAOxAAAAAQAQAAAACgACAAAADQAFAA4AAQAVABIAAQAPAAAAHQABAAEAAAAFKrQABLAAAAABABAAAAAGAAEAAAAQAAEAFgAUAAEADwAAACIAAgACAAAABiortQAEsQAAAAEAEAAAAAoAAgAAABMABQAUAAEAFwAOAAIADwAAADUAAwACAAAAFbsABVkqtAADuAAGtwAHTCortQAEsQAAAAEAEAAAAA4AAwAAABsADwAcABQAHQAYAAAABAABABkAAQAaAAAAAgAb</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <Input>
+                    <xsl:value-of select="$Start/PaymentGatewayCredential/DeviceKey"/>
+                </Input>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>DecryptKey</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>DecryptKey</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

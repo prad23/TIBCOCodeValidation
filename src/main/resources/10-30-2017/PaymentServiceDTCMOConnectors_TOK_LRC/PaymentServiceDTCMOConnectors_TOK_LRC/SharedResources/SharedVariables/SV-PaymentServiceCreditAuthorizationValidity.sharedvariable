@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:pfx2="http://www.wsgc.com/PaymentGatewayCredentials.xsd" xmlns:pfx3="http://www.wsgc.com/PGCredentials.xsd" xmlns:pfx4="http://www.wsgc.com/schemas/common/PaymentServiceCreditAuthorizationValidity.xsd" xmlns:pfx="http://www.wsgc.com/schemas/common/PaymentGatewayCredentials.xsd">
+    <import namespace="http://www.wsgc.com/schemas/common/PaymentServiceCreditAuthorizationValidity.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentServiceCreditAuthorizationValidity.xsd"/>
+    <name>SV-PaymentServiceCreditAuthorizationValidity</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString ref="pfx4:PaymentServiceCreditAuthorizationValidity"/>
+    </config>
+</BWSharedResource>

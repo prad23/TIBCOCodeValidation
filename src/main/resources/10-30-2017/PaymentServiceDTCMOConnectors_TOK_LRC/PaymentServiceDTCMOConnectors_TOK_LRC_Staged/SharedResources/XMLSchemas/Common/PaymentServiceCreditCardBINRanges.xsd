@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.wsgc.com/schemas/common/PaymentServiceCreditCardBINRanges.xsd"
+	 targetNamespace="http://www.wsgc.com/schemas/common/PaymentServiceCreditCardBINRanges.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="PaymentServiceCreditCardBINRanges">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PaymentServiceCreditCardBINRange" type="PaymentServiceCreditCardBINRangeType" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="PaymentServiceCreditCardBINRangeType">
+		<xs:sequence>
+			<xs:element name="TenderCode" type="xs:string"/>
+			<xs:element name="TenderSubCode" type="xs:string"/>
+			<xs:element name="AccountNumberRangeFrom">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="AccountNumberRangeTo">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="20"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ValidateExpirationDate" type="xs:string" minOccurs="0"/>
+			<xs:element name="DefaultExpirationDate" type="xs:string" minOccurs="0"/>
+			<xs:element name="ValidCCLength" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:decimal">
+						<xs:totalDigits value="2"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

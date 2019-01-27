@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://ecommerce.wsgc.com/2013/Common"
+           elementFormDefault="unqualified"
+           targetNamespace="http://ecommerce.wsgc.com/2013/Common">
+
+  <xs:annotation>
+    <xs:documentation>
+      This schema defines common user profile data types that have broad application.
+
+      Note: The closest definition of a "customer" name is the name associated with the
+      BillingAddressType by virtue of the extension of the ContactMailType.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="contact-types.xsd"/>
+
+  <xs:complexType name="BillingAddressType">
+    <xs:annotation>
+      <xs:documentation>
+        All standard elements for a billing address
+
+        A billing address is essentially a physical address in the
+        context of billing information. That context is applied here
+        through the RoleContactType
+
+        This structure allows for any number of contact details
+        (phone, email, social profile) to be added to an address
+        and each one can be designated with a role, which may be
+        as simple as primary or alternate, but could be others.
+        If an email is included as a contact here, it is distinct
+        from the email on the ProfileType, which is presently
+        used as the customer's login.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ContactMailType">
+        <xs:sequence>
+          <xs:element name="RoleContact" type="RoleContactType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ShippingAddressType">
+    <xs:annotation>
+      <xs:documentation>
+        A shipping address extends a billing address to include a nickname as
+        a convenience to the user.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="BillingAddressType">
+        <xs:attribute name="addressNickName" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ProfileType">
+    <xs:annotation>
+      <xs:documentation>
+        All details for a user with a profile on a WSI site.
+
+        The profileId represents an alphanumeric identifier that is
+        unique to a user at a site. This identifier will never
+        change regardless of whether or not the user changes their
+        email address.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="BillingAddress" type="BillingAddressType" minOccurs="0"/>
+      <xs:element name="ShippingAddress" type="ShippingAddressType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Email" type="ContactEmailType"/>
+      <xs:element name="EmailConfirmed" type="xs:boolean" minOccurs="0" default="false"/>
+      <xs:element name="ProfileCreateTime" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="profileId" type="xs:string" use="required"/>
+  </xs:complexType>
+</xs:schema>

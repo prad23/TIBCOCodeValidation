@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:pfx2="http://www.wsgc.com/schemas/common/PaymentServiceDTCMOConceptsChannels.xsd" xmlns:pfx="http://www.wsgc.com/schemas/common/PaymentServiceCreditCardBINRanges.xsd">
+    <import namespace="http://www.wsgc.com/schemas/common/PaymentServiceCreditCardBINRanges.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentServiceCreditCardBINRanges.xsd"/>
+    <import namespace="http://www.wsgc.com/schemas/common/PaymentServiceDTCMOConceptsChannels.xsd" schemaLocation="/SharedResources/XMLSchemas/Common/PaymentServiceDTCMOConceptsChannels.xsd"/>
+    <name>SV-PaymentServiceDTCMOConceptsChannels</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString ref="pfx2:PaymentServiceDTCConceptsChannels"/>
+    </config>
+</BWSharedResource>

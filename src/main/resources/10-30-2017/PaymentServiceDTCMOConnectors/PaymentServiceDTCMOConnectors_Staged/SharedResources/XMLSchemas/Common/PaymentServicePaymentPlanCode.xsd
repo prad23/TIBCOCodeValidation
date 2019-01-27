@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.wsgc.com/schemas/common/PaymentServicePaymentPlanCode.xsd"
+	 targetNamespace="http://www.wsgc.com/schemas/common/PaymentServicePaymentPlanCode.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="PaymentServicePaymentPlanCode">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PaymentServicePaymentPlanPromoCode" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PaymentPlanCode" type="xs:string"/>
+							<xs:element name="PromoCode" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Akhil (Williams-Sonoma, Inc.) -->
+<!-- 
+	Project 	: OMSD2
+	Date		: February 9th, 2015
+	Author		: Cognizant Technology Solutions 
+	Interface	: Credit Card Token Interface from 'Payment Service' to 'Sterling OMS' via 'TIBCO'
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:yfc="http://www.sterlingcommerce.com/documentation/YFS/CCToken/Request" xmlns:yfctype="http://www.sterlingcommerce.com/documentation/types" targetNamespace="http://www.sterlingcommerce.com/documentation/YFS/CCToken/Request" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation yfc:fileName="OMSD2_CreditCardTokenRequest.xsd" yfc:rootElement="PaymentMethod">
+		<xsd:appinfo source="yfc:structure">
+			<PaymentMethod hasAttributes="Y">
+				<Extn hasAttributes="Y"/>
+			</PaymentMethod>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://www.sterlingcommerce.com/documentation/types" schemaLocation="datatypes.xsd"/>
+	<xsd:element name="PaymentMethod">
+		<xsd:complexType>
+			<xsd:all minOccurs="0">
+				<xsd:element name="Extn" minOccurs="0">
+					<xsd:complexType>
+						<xsd:attribute name="ExtnPaymentToken" type="yfctype:Text-1000"/>
+						<!-- added as part of OMSD3 -->
+						<xsd:attribute name="ExtnPaymentTag" type="yfctype:Text-1000" use="optional"/>	
+						<!-- end -->
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:all>
+			<xsd:attribute name="EnvIdentifier" type="yfctype:Text-24" use="required"/>
+			<xsd:attribute name="RegIdentifier" type="yfctype:Text-24" use="required"/>
+			<xsd:attribute name="SourceSysID" type="yfctype:Text-50" use="required"/>
+			<xsd:attribute name="MsgTransactionID" type="yfctype:Text-50" use="required"/>
+			<xsd:attribute name="MsgTransactionTime" type="yfctype:TimeStamp" use="required"/>
+			<xsd:attribute name="CreditCardExpDate" type="yfctype:CreditCardExpDate" use="required"/>
+			<xsd:attribute name="CreditCardName" type="yfctype:Text-300" use="required"/>
+			<xsd:attribute name="CreditCardNo" type="yfctype:Text-1000"/>
+			<xsd:attribute name="CreditCardType" type="yfctype:Text-32" use="required"/>
+			<xsd:attribute name="PaymentKey" type="yfctype:Key" use="required"/>
+			<xsd:attribute name="EnterpriseCode" type="yfctype:String" use="required"/>
+			<xsd:attribute name="EntryType" type="yfctype:Text-20" use="required"/>
+			<xsd:attribute name="PaymentReference1" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference2" type="yfctype:Text-100" use="required"/>
+			<xsd:attribute name="PaymentReference3" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference4" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference5" type="yfctype:Text-100" use="required"/>
+			<xsd:attribute name="PaymentReference6" type="yfctype:Text-100" use="required"/>
+			<xsd:attribute name="PaymentReference7" type="yfctype:Text-100" use="required"/>
+			<xsd:attribute name="PaymentReference8" type="yfctype:Text-100" use="required"/>
+			<xsd:attribute name="PaymentReference9" type="yfctype:Text-100" use="required"/>
+			<xsd:attribute name="PaymentType" type="yfctype:Text-20" use="required"/>
+			<xsd:attribute name="OrderNo" type="yfctype:VarcharDocumentNo" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

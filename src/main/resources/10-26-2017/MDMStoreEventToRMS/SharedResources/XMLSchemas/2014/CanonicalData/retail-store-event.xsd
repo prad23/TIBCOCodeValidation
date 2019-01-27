@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://mdm.wsgc.com/2014/CanonicalData"
+           xmlns:common="http://ecommerce.wsgc.com/2013/Common"
+           targetNamespace="http://mdm.wsgc.com/2014/CanonicalData"
+           version="1.0"
+           elementFormDefault="unqualified"
+           attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:documentation>This schema contains structures that define the canonical data expression for the Williams-Sonoma, Inc. retail stores.</xs:documentation>
+  </xs:annotation>
+
+  <xs:import namespace="http://ecommerce.wsgc.com/2013/Common"
+             schemaLocation="../../2013/Common/common-all.xsd"/>
+
+  <xs:complexType name="OpenHoursType">
+    <xs:sequence>
+      <xs:element name="Open" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Time period during which the retail location is open.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="start" type="xs:time" use="required">
+            <xs:annotation>
+              <xs:documentation>Time of the day when the period starts, using the 24h clock, e.g. 09:00. The period start value must be less than the period end value. The smaller permitted value for the period end is 00:00, which represents the start of day.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="end" type="xs:time" use="required">
+            <xs:annotation>
+              <xs:documentation>Time of the day when the period ends, using the 24h clock, e.g. 20:00. The period end value must be greater than the period start value. The largest permitted value for the period end is 24:00, which represents the end of day.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RetailStoreType">
+    <xs:annotation>
+      <xs:documentation>Defines the retail store entity structure.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence minOccurs="0">
+      <xs:element name="Concept" type="xs:string" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The concept to which the retail store belongs.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The name of the store, e.g. "University Village". As retail stores become increasingly poly-conceptual, the names of the stores should avoid including brand names. For instance, "University Village" is acceptable, while "University Village Pottery Barn" is not.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DisplayName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If present, the name of the store for display purposes, e.g. surfacing the store information on the e-commerce web site.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MallName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the shopping mall where the store is located, e.g. "Streets of Southpoint".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Address" type="common:ContactAddressType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Physical location of the store. This element SHOULD be present whenever the data is available. This element may be omitted for those stores that do not have a permanent physical location, e.g. a "mobile" store that travels within a certain sales area. This element may also be omitted for those "permanent" locations that do not have a physical address (e.g. a farmers' market pop-up), but can be referenced by coordinates--in such cases the Coordinates element MUST be present.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Coordinates" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Geographic coordinates of the store expressed in the WGS84 terrestrial reference system and geodetic datum. This element SHOULD be included when the data is available. This element may be omitted for those stores that do not have a permanent physical location, e.g. a "mobile" store that travels within a certain sales area. It may also be omitted in those situations when obtaining the data is not practical (e.g. when emitting historical information) or impossible (e.g. a future physical location has not been surveyed and built yet).</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Latitude" type="xs:decimal">
+              <xs:annotation>
+                <xs:documentation>Latitude coordinate of the store location, e.g. 37.8058802.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="Longitude" type="xs:decimal">
+              <xs:annotation>
+                <xs:documentation>Longitude coordinate of the store location, e.g. -122.4245975.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TimeZoneId" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The operating time zone of the store is located, as defined by the IANA's "tz database" (a.k.a. "tzdata"), for instance "America/Los_Angeles".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Phone" type="common:ContactPhoneType">
+        <xs:annotation>
+          <xs:documentation>Primary phone number associated with the store.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Email" type="common:ContactEmailType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Primary email address associated with the store.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Fax" type="common:ContactPhoneType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Primary number of a facsimile device associated with the store.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PickupLocationCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The unique reference code assigned to the store so that it may serve as a pick-up location. This value is consistent with the Pickup/LocationCode value used by the order capture and management systems.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsPickupEnabled" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If present and true, the retail store can serve as a destination for DTC pick-up orders.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsOutlet" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If present and true, indicates that the store is an "outlet". This indicator may drive special behaviors in systems that consume this entity.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsPopup" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If present and true, indicates that the store is a "pop-up". Pop-ups are typically temporary retail locations that are established outside of WSI retail premises.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IsStoreInStore" type="xs:boolean" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If present and true, indicates that the store is a "store-in-store". Store-in-stores are "independent" retail stores that operate within premises of another store.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Hours">
+        <xs:annotation>
+          <xs:documentation>Hours during which the store serves retail customers.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Schedule" minOccurs="0" maxOccurs="7">
+              <xs:annotation>
+                <xs:documentation>A set of durations during which the store is open on a particular day. The durations are represented as ranges with the period start and the period end. There may be multiple periods for a single day. If the store is closed on a particular day, the "Schedule" element for that day is not emitted. If a store is open twenty four hours, that day has one open period with the start time of 00:00 and the end time of 24:00.
+NOTE: This element SHOULD NOT be empty.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:complexContent>
+                  <xs:extension base="OpenHoursType">
+                    <xs:attribute name="day" type="xs:string" use="required">
+                      <xs:annotation>
+                        <xs:documentation>The day of the week for which the hours are provided. Possible values are: MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY and SUNDAY.</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:extension>
+                </xs:complexContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Override" minOccurs="0" maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>A set of open periods that override the schedule definitions for the store for a specific date. If a store is closed on a particular date, the element contains no Open elements.</xs:documentation>
+              </xs:annotation>
+              <xs:complexType>
+                <xs:complexContent>
+                  <xs:extension base="OpenHoursType">
+                    <xs:sequence>
+                      <xs:element name="Description" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                          <xs:documentation>The description or a reason for this override that can be displayed to customers.</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="date" type="xs:date" use="required">
+                      <xs:annotation>
+                        <xs:documentation>The date for which the open hours differ from the "scheduled" hours, e.g. 2017-04-27.</xs:documentation>
+                      </xs:annotation>
+                    </xs:attribute>
+                  </xs:extension>
+                </xs:complexContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OpenedDate" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the retail store was opened, or is planned to open.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ClosedDate" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the retail store was closed, or is planned to close.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="storeId" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Unique value that identifies the store.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="lastModifiedTime" type="xs:dateTime" use="required">
+      <xs:annotation>
+        <xs:documentation>Indicates when the entity has been updated in source systems.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="isDelete" type="xs:boolean" default="false">
+      <xs:annotation>
+        <xs:documentation>If present and true, indicates that this update deletes the entity. Should be omitted if false.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="RetailStoreEventType">
+    <xs:annotation>
+      <xs:documentation>Defines the structure of the Retail Store entity.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SystemContext" type="common:SystemContextType"/>
+      <xs:element name="RetailStore" type="RetailStoreType">
+        <xs:annotation>
+          <xs:documentation>The structure that contains the canonical representation of a retail store entity within the WSI enterprise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="version" type="common:VersionType" use="required"/>
+  </xs:complexType>
+
+  <xs:element name="RetailStoreEvent" type="RetailStoreEventType">
+    <xs:annotation>
+      <xs:documentation>The event object that contains the information about a single WSI retail store.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

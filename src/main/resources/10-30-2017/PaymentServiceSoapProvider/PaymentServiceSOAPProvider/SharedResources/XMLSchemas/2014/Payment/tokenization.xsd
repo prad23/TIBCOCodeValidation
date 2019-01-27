@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:common="http://ecommerce.wsgc.com/2013/Common"
+           xmlns="http://services.wsgc.com/2014/Payment"
+           targetNamespace="http://services.wsgc.com/2014/Payment"
+           elementFormDefault="unqualified"
+           attributeFormDefault="unqualified">
+
+  <xs:include schemaLocation="base-types.xsd"/>
+
+  <xs:import namespace="http://ecommerce.wsgc.com/2013/Common"
+             schemaLocation="../../2013/Common/common-all.xsd"/>
+
+  <xs:complexType name="TokenizationRequestType">
+    <xs:sequence>
+      <xs:element name="SystemContext" type="common:SystemContextType"/>
+      <xs:element name="PaymentContext" type="PaymentContextType"/>
+      <xs:element name="OrderContext" type="PaymentOrderContextType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Context of the order for which the transaction is being performed, if applicable</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Tender" type="AccountRequestTenderType">
+        <xs:annotation>
+          <xs:documentation>This is a WSI specific classification payment types,</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CardMetadata" type="CardMetadataType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Card metadata like card holder name, expiration, raw magnetic track data and PIN.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Longevity" type="xs:string" default="LONG" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation> Token's life span. Ex: SHORT,LONG. "LONG" will be defaulted.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ExpectedUsage" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Expected usage of the token. Ex: LOOKUP,PAYMENT,etc.In future value of this element can determine the behaviour of the operation</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="version" type="common:VersionType" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="TokenizationResponseType">
+    <xs:sequence>
+      <xs:element name="SystemContext" type="common:SystemContextType"/>
+      <xs:element name="PaymentContext" type="PaymentContextType"/>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element name="OrderContext" type="PaymentOrderContextType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Order context from the request.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Tender" type="TokenResponseTenderType">
+            <xs:annotation>
+              <xs:documentation>Tender information to be used in the transaction</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:element name="Error" type="common:ErrorType"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="version" type="common:VersionType" use="required"/>
+  </xs:complexType>
+
+  <xs:element name="TokenizationRequest" type="TokenizationRequestType">
+    <xs:annotation>
+      <xs:documentation>A request to tokenize the credit card.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="TokenizationResponse" type="TokenizationResponseType">
+    <xs:annotation>
+      <xs:documentation> The response containing the token and zero or more hashes.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

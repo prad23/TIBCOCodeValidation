@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx42="http://www.sterlingcommerce.com/documentation/YFS/SVCActivation/Response" xmlns:pfx43="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd" xmlns:pfx21="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/XMLSchemas/Verifone/CreditPreAuthorizationResponse.xsd" xmlns:pfx="http://www.tibco.com/schemas/Payment Services/CreditAuthResponseSchema.xsd" xmlns:pfx22="http://www.tibco.com/ns/no_namespace_schema_location/JSON_GEN_Schemas/TEST.xsd" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.wsgc.com/schemas/common/PaymentGatewaySVCStatusCodes.xsd" xmlns:ns4="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/XMLSchemas/Verifone/GiftActivateResponse.xsd" xmlns:ns5="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Gift/RedemptionResponse" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="http://www.wsgc.com/schemas/common/PaymentServiceSVCCardClasss.xsd" xmlns:ns7="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:ns8="http://paymentservice.wsgc.com/2014/common/PaymentServices/SharedResources/LrcRedemptionDTCMOResponse" xmlns:ns9="http://www.wsgc.com/schemas/common/PaymentServiceDTCMOConceptsChannels.xsd" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:ns13="http://paymentservice.wsgc.com/2014/common/PaymentServices/SharedResources/LrcBalanceInquiryDTCMOResponse" xmlns:pfx1="http://www.tibco.com/schemas/REST-POC/Schemas/Schema.xsd" xmlns:pfx2="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/XMLSchemas/Verifone/CreditPreLrcRedemptionResponse.xsd" xmlns:pfx3="http://services.wsgc.com/2014/Payment" xmlns:pfx4="http://www.services.wsgc.com/2014/Payment/Verfione/Gift/RedemptionResponse" xmlns:pfx5="http://ecommerce.wsgc.com/2013/Common" xmlns:pfx6="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pd="http://xmlns.tibco.com/bw/process/2003">
+    <xsd:import namespace="http://www.tibco.com/schemas/Payment Services/CreditAuthResponseSchema.xsd" schemaLocation="/CreditAuthResponse Schema.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/lrc-cancel-return.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/reward-service-cancel.xsd"/>
+    <pd:name>BusinessProcesses/LrcCancelReturn/ResponseProcessors/MapRCMSPaymentServiceResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="paymentgatewayresponse" type="xsd:string"/>
+                    <xsd:element ref="pfx3:LrcCancelReturnRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>43</pd:startX>
+    <pd:startY>253</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$MapPaymentServiceResponse/pfx3:LrcCancelReturnResponse"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:LrcCancelReturnResponse"/>
+    <pd:endX>777</pd:endX>
+    <pd:endY>260</pd:endY>
+    <pd:errorSchemas>
+        <ErrorSchema>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="ns12:ExceptionHandlerRequest" minOccurs="0"/>
+                        <xsd:element name="Error" type="pfx5:ErrorType" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ErrorSchema>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <Process>
+            <xsd:element name="Error" type="pfx5:ErrorType"/>
+        </Process>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1414172991752</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>355</pd:x>
+        <pd:y>392</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>169</pd:x>
+        <pd:y>255</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/LrcCancelReturn/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="MapPaymentServiceResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>614</pd:x>
+        <pd:y>258</pd:y>
+        <config>
+            <element ref="pfx3:LrcCancelReturnResponse"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="count($ParseRCMSRespXML/pfx3:CancelResponse/Error)>0 and not (empty($ParseRCMSRespXML/pfx3:CancelResponse/Error))">
+                    <pfx3:LrcCancelReturnResponse>
+                        <xsl:attribute name="version">
+                            <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/@version"/>
+                        </xsl:attribute>
+                        <xsl:copy-of select="$Start/root/pfx3:LrcCancelReturnRequest/SystemContext"/>
+                        <xsl:copy-of select="$Start/root/pfx3:LrcCancelReturnRequest/PaymentContext"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($ProcessRCMSResponseReturnCode/root/Error/Type)>0">
+                                <xsl:for-each select="$ProcessRCMSResponseReturnCode/root/Error">
+                                    <Error>
+                                        <Type>
+                                            <xsl:value-of select="Type"/>
+                                        </Type>
+                                        <xsl:for-each select="Detail">
+                                            <Detail>
+                                                <xsl:value-of select="."/>
+                                            </Detail>
+                                        </xsl:for-each>
+                                        <ErrorMessage>
+                                            <xsl:value-of select="ErrorMessage"/>
+                                        </ErrorMessage>
+                                    </Error>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:for-each select="$ParseRCMSRespXML/pfx3:CancelResponse/Error">
+                                    <Error>
+                                        <Type>
+                                            <xsl:value-of select="Type"/>
+                                        </Type>
+                                        <xsl:for-each select="Detail">
+                                            <Detail>
+                                                <xsl:value-of select="."/>
+                                            </Detail>
+                                        </xsl:for-each>
+                                        <ErrorMessage>
+                                            <xsl:value-of select="ErrorMessage"/>
+                                        </ErrorMessage>
+                                    </Error>
+                                </xsl:for-each>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </pfx3:LrcCancelReturnResponse>
+                </xsl:when>
+                <xsl:otherwise>
+                    <pfx3:LrcCancelReturnResponse>
+                        <xsl:attribute name="version">
+                            <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/@version"/>
+                        </xsl:attribute>
+                        <xsl:copy-of select="$Start/root/pfx3:LrcCancelReturnRequest/SystemContext"/>
+                        <xsl:copy-of select="$Start/root/pfx3:LrcCancelReturnRequest/PaymentContext"/>
+                        <xsl:for-each select="$Start/root/pfx3:LrcCancelReturnRequest/OrderContext">
+                            <OrderContext>
+                                <xsl:attribute name="omsOrderId">
+                                    <xsl:value-of select="@omsOrderId"/>
+                                </xsl:attribute>
+                                <xsl:if test="string-length(OrderTime)>0">
+                                    <OrderTime>
+                                        <xsl:value-of select="OrderTime"/>
+                                    </OrderTime>
+                                </xsl:if>
+                            </OrderContext>
+                        </xsl:for-each>
+                        <ConsumerTransactionId>
+                            <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/ConsumerTransactionId"/>
+                        </ConsumerTransactionId>
+                        <ConfirmationId>
+                            <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/CancellationId"/>
+                        </ConfirmationId>
+                        <xsl:if test="string-length($ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/CertificateStatus)>0">
+                            <TransactionMetadata>
+                                <xsl:attribute name="type">
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_STATUS"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/CertificateStatus"/>
+                            </TransactionMetadata>
+                        </xsl:if>
+                        <xsl:if test="string-length($ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/CertificateAmount)>0">
+                            <TransactionMetadata>
+                                <xsl:attribute name="type">
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_AMOUNT"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/CertificateAmount"/>
+                            </TransactionMetadata>
+                        </xsl:if>
+                        <xsl:if test="string-length($ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/Concept)>0">
+                            <TransactionMetadata>
+                                <xsl:attribute name="type">
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_CONCEPT"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/Concept"/>
+                            </TransactionMetadata>
+                        </xsl:if>
+                        <xsl:if test="string-length($ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/CurrencyCode)>0">
+                            <TransactionMetadata>
+                                <xsl:attribute name="type">
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_CURRENCY_CODE"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/CurrencyCode"/>
+                            </TransactionMetadata>
+                        </xsl:if>
+                        <xsl:if test="string-length($ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/Expiration)>0">
+                            <TransactionMetadata>
+                                <xsl:attribute name="type">
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/TransactionMetaData/CERTIFICATE_EXPIRY"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/Expiration"/>
+                            </TransactionMetadata>
+                        </xsl:if>
+                        <xsl:if test="exists($ParseRCMSRespXML/pfx3:CancelResponse/TransactionMetadata) and not(empty($ParseRCMSRespXML/pfx3:CancelResponse/TransactionMetadata))">
+                            <xsl:copy-of select="$ParseRCMSRespXML/pfx3:CancelResponse/TransactionMetadata"/>
+                        </xsl:if>
+                        <Tender>
+                            <Type>
+                                <Code>
+                                    <xsl:value-of select="$Start/root/pfx3:LrcCancelReturnRequest/Tender/Type/Code"/>
+                                </Code>
+                                <SubCode>
+                                    <xsl:value-of select="upper-case(concat($_globalVariables/ns:GlobalVariables/PaymentService/Constants/RCMSLRCSUBCODEPREFIX,$ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/CertificateType))"/>
+                                </SubCode>
+                            </Type>
+                            <CertificateNumber>
+                                <xsl:value-of select="$ParseRCMSRespXML/pfx3:CancelResponse/RewardCertificate/CertificateNumber"/>
+                            </CertificateNumber>
+                        </Tender>
+                    </pfx3:LrcCancelReturnResponse>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ParseRCMSRespXML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>301</pd:x>
+        <pd:y>256</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx3:CancelResponse"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/root/paymentgatewayresponse"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignPymtGwayResponse">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>466</pd:x>
+        <pd:y>397</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="exists($_error_ParseRCMSRespXML/ActivityErrors) and not(empty($_error_ParseRCMSRespXML/ActivityErrors))">
+                    <Error>
+                        <Type>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/Type"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/Detail"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/INVALIDRESPONSE/ErrorMessage"/>
+                        </ErrorMessage>
+                    </Error>
+                </xsl:when>
+                <xsl:when test="$_error/ns1:ErrorReport/Class=$_globalVariables/ns:GlobalVariables/PaymentService/ValidationConstants/BIND_EXCEPTION_CLASS">
+                    <Error>
+                        <Type>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                        </ErrorMessage>
+                    </Error>
+                </xsl:when>
+                <xsl:otherwise>
+                    <Error>
+                        <Type>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                        </ErrorMessage>
+                    </Error>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Gen_PymtSvc_Map_Rsp">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>621</pd:x>
+        <pd:y>395</pd:y>
+        <config>
+            <faultName>ErrorSchema</faultName>
+        </config>
+        <pd:inputBindings>
+            <pfx6:ActivityInput>
+                <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                    <message>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                    </message>
+                </xsl:if>
+                <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                    <messageCode>
+                        <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                    </messageCode>
+                </xsl:if>
+                <data>
+                    <root>
+                        <ns12:ExceptionHandlerRequest>
+                            <ns12:envCode>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ENV"/>
+                            </ns12:envCode>
+                            <ns12:appCode>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/AppCode"/>
+                            </ns12:appCode>
+                            <ns12:interfaceCode>
+                                <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                            </ns12:interfaceCode>
+                            <ns12:hostName>
+                                <xsl:value-of select="BW:getHostName()"/>
+                            </ns12:hostName>
+                            <ns12:timeStamp>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </ns12:timeStamp>
+                            <ns12:message>
+                                <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                            </ns12:message>
+                            <ns12:payload>
+                                <xsl:value-of select="$Start/root/paymentgatewayresponse"/>
+                            </ns12:payload>
+                            <ns12:ErrorLevel>
+                                <ns12:errorCode>
+                                    <xsl:value-of select="concat($MapPaymentServiceResponse/pfx3:LrcCancelReturnResponse/Error/Type, $_globalVariables/ns:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$MapPaymentServiceResponse/pfx3:LrcCancelReturnResponse/Error/Detail[1])"/>
+                                </ns12:errorCode>
+                            </ns12:ErrorLevel>
+                            <ns12:TransactionDetails>
+                                <ns12:transactionDomain>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                                </ns12:transactionDomain>
+                                <ns12:transactionType>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/LrcCancelReturn/CLE/TransactionType"/>
+                                </ns12:transactionType>
+                                <ns12:transactionID>
+                                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                                </ns12:transactionID>
+                            </ns12:TransactionDetails>
+                            <xsl:for-each select="$_error/ns1:ErrorReport">
+                                <ns12:ErrorReportType>
+                                    <ns12:stackTrace>
+                                        <xsl:value-of select="StackTrace"/>
+                                    </ns12:stackTrace>
+                                    <ns12:msg>
+                                        <xsl:value-of select="Msg"/>
+                                    </ns12:msg>
+                                    <ns12:fullClass>
+                                        <xsl:value-of select="FullClass"/>
+                                    </ns12:fullClass>
+                                    <ns12:class>
+                                        <xsl:value-of select="Class"/>
+                                    </ns12:class>
+                                    <ns12:processStack>
+                                        <xsl:value-of select="ProcessStack"/>
+                                    </ns12:processStack>
+                                    <xsl:if test="MsgCode">
+                                        <ns12:msgCode>
+                                            <xsl:value-of select="MsgCode"/>
+                                        </ns12:msgCode>
+                                    </xsl:if>
+                                    <ns12:data>
+                                        <xsl:value-of select="Data/*"/>
+                                    </ns12:data>
+                                </ns12:ErrorReportType>
+                            </xsl:for-each>
+                        </ns12:ExceptionHandlerRequest>
+                        <xsl:if test="string-length($Process/Error/Type)>0">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="$Process/Error/Type"/>
+                                </Type>
+                                <xsl:for-each select="$Process/Error/Detail">
+                                    <Detail>
+                                        <xsl:value-of select="."/>
+                                    </Detail>
+                                </xsl:for-each>
+                                <ErrorMessage>
+                                    <xsl:value-of select="$Process/Error/ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:if>
+                    </root>
+                </data>
+            </pfx6:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ProcessRCMSResponseReturnCode">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>492</pd:x>
+        <pd:y>330</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/ProcessRCMSResponseReturnCode.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <OperationScope>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/LrcCancelReturn/BWTransformation/OperationScope"/>
+                </OperationScope>
+                <TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/LrcCancelReturn/CLE/TransactionType"/>
+                </TransactionType>
+                <TransactionId>
+                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                </TransactionId>
+                <xsl:copy-of select="$ParseRCMSRespXML/pfx3:CancelResponse/Error"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapPaymentServiceResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>AssignPymtGwayResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>ParseRCMSRespXML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseRCMSRespXML</pd:from>
+        <pd:to>ProcessRCMSResponseReturnCode</pd:to>
+        <pd:xpathDescription>ErrorExists</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($ParseRCMSRespXML/pfx3:CancelResponse/Error/Type)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignPymtGwayResponse</pd:from>
+        <pd:to>Gen_PymtSvc_Map_Rsp</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessRCMSResponseReturnCode</pd:from>
+        <pd:to>MapPaymentServiceResponse</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseRCMSRespXML</pd:from>
+        <pd:to>MapPaymentServiceResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Map Payment Gateway Response to Payment Service Response Mapping here </pd:description>
+        <pd:x>624</pd:x>
+        <pd:y>112</pd:y>
+        <pd:width>191</pd:width>
+        <pd:height>65</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-6684775</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

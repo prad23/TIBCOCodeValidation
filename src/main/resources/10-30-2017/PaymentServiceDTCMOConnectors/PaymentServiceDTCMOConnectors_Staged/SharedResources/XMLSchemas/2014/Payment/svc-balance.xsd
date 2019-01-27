@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Vignes Inpanathan (Williams-Sonoma, Inc.) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:common="http://ecommerce.wsgc.com/2013/Common"
+           xmlns="http://services.wsgc.com/2014/Payment"
+           targetNamespace="http://services.wsgc.com/2014/Payment"
+           elementFormDefault="unqualified"
+           attributeFormDefault="unqualified">
+
+  <xs:include schemaLocation="base-types.xsd"/>
+
+  <xs:import namespace="http://ecommerce.wsgc.com/2013/Common"
+             schemaLocation="../../2013/Common/common-all.xsd"/>
+
+  <xs:complexType name="SvcBalanceInquiryRequestType">
+    <xs:sequence>
+      <xs:element name="SystemContext" type="common:SystemContextType"/>
+      <xs:element name="PaymentContext" type="PaymentContextType"/>
+      <xs:element name="OrderContext" type="PaymentOrderContextType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Context of the order for which the transaction is being performed, if applicable</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Tender" type="SvcTenderType">
+        <xs:annotation>
+          <xs:documentation>Tender information to be used in the transaction</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Pin" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>SVC PIN</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="version" type="common:VersionType" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="SvcBalanceInquiryResponseType">
+    <xs:sequence>
+      <xs:element name="SystemContext" type="common:SystemContextType"/>
+      <xs:element name="PaymentContext" type="PaymentContextType"/>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element name="OrderContext" type="PaymentOrderContextType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Order context from the request.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Authorization" type="AuthorizationType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Authorization code provided by the payment gateway.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="IsPinVerified" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>Indicates whether PIN verification was done as a part of transaction.  "True" indicates verfication was done, "False" indicated verification was not done, by the service</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CurrencyCode" type="common:CurrencyCodeType"/>
+          <xs:element name="BalanceAmount" type="common:CurrencyAmountType">
+            <xs:annotation>
+              <xs:documentation> Positive balance amount in the card</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TransactionMetadata" type="common:MetadataType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Transaction meta data, like the date and time when a transaction is performed and the unique id to determine the transaction in a given scope. The attribute "type" defines the scope of the transaction id.Ex: id = 213324 type = gateway, means this transaction can be identified in the payment gateway with id = 213324</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Tender" type="SvcTenderType">
+            <xs:annotation>
+              <xs:documentation>Tender information used in the transaction</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:element name="Error" type="common:ErrorType"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="version" type="common:VersionType" use="required"/>
+  </xs:complexType>
+
+  <xs:element name="SvcBalanceInquiryRequest" type="SvcBalanceInquiryRequestType">
+    <xs:annotation>
+      <xs:documentation>Request for SVC balace inquiry</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="SvcBalanceInquiryResponse" type="SvcBalanceInquiryResponseType">
+    <xs:annotation>
+      <xs:documentation>Response with the status of the transaction and the result of the transaction</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

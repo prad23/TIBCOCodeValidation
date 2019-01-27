@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx2="http://ecommerce.wsgc.com/2013/Common" xmlns:pfx3="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions">
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/svc-reload.xsd"/>
+    <pd:name>BusinessProcesses/SvcReload/RequestProcessors/GeneratePins.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:SvcReloadRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>129</pd:startX>
+    <pd:startY>146</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <FDEncryptedPin>
+                <xsl:value-of select="$Response/root/FDEncryptedPin"/>
+            </FDEncryptedPin>
+            <WSIEncryptedPin>
+                <xsl:value-of select="$Response/root/WSIEncryptedPin"/>
+            </WSIEncryptedPin>
+            <xsl:copy-of select="$Response/root/Error"/>
+            <xsl:copy-of select="$Response/root/CLEErrorReport"/>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="FDEncryptedPin" type="xsd:string"/>
+                    <xsd:element name="WSIEncryptedPin" type="xsd:string"/>
+                    <xsd:element name="Error" type="pfx2:ErrorType" minOccurs="0"/>
+                    <xsd:element name="CLEErrorReport" type="pfx3:ErrorReportType" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>693</pd:endX>
+    <pd:endY>142</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Response>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="FDEncryptedPin" type="xsd:string"/>
+                        <xsd:element name="WSIEncryptedPin" type="xsd:string"/>
+                        <xsd:element name="Error" type="pfx2:ErrorType" minOccurs="0"/>
+                        <xsd:element name="CLEErrorReport" type="pfx3:ErrorReportType" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Response>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1434926757999</pd:targetNamespace>
+    <pd:activity name="GetEncryptedPins">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>312</pd:x>
+        <pd:y>50</pd:y>
+        <config>
+            <processName>/CommonProcesses/CryptoProcesses/GetEncryptedPins.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <Pin>
+                    <xsl:value-of select="$Start/root/pfx:SvcReloadRequest/Pin"/>
+                </Pin>
+                <FirstDataPinEncryptionScheme>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/PinEncryptionScheme,&#xA;$_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/EnvId)"/>
+                </FirstDataPinEncryptionScheme>
+                <FirstDataKeyId>
+                    <xsl:value-of select="$Start/root/pfx:SvcReloadRequest/PaymentContext/Concept"/>
+                </FirstDataKeyId>
+                <WSIPinEncryptionScheme>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/WSIPinEncryptionScheme,&#xA;$_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/EnvId)"/>
+                </WSIPinEncryptionScheme>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RegenerateEncryptedPin">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>209</pd:x>
+        <pd:y>288</pd:y>
+        <config>
+            <processName>/CommonProcesses/CryptoProcesses/RegenerateEncryptedPin.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <WSIEncryptedPin>
+                    <xsl:value-of select="$Start/root/pfx:SvcReloadRequest/Authorization/Metadata[ @type = $_globalVariables/ns:GlobalVariables/SvcBalanceInquiry/AuthorizationMetaData/EAN]"/>
+                </WSIEncryptedPin>
+                <FirstDataPinEncryptionScheme>
+                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/PinEncryptionScheme,&#xA;$_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/EnvId)"/>
+                </FirstDataPinEncryptionScheme>
+                <FirstDataPinEncryptionKeyid>
+                    <xsl:value-of select="$Start/root/pfx:SvcReloadRequest/PaymentContext/Concept"/>
+                </FirstDataPinEncryptionKeyid>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignResponse">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>492</pd:x>
+        <pd:y>53</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <FDEncryptedPin>
+                    <xsl:value-of select="$GetEncryptedPins/root/FirstDataEncryptedPin"/>
+                </FDEncryptedPin>
+                <WSIEncryptedPin>
+                    <xsl:value-of select="$GetEncryptedPins/root/WSIEncryptedPin"/>
+                </WSIEncryptedPin>
+                <xsl:copy-of select="$GetEncryptedPins/root/Error"/>
+                <xsl:copy-of select="$GetEncryptedPins/root/CLEErrorReport"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignResponse2">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>552</pd:x>
+        <pd:y>288</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <FDEncryptedPin>
+                    <xsl:value-of select="$RegenerateEncryptedPin/root/EncryptedPin"/>
+                </FDEncryptedPin>
+                <WSIEncryptedPin>
+                    <xsl:value-of select="$Start/root/pfx:SvcReloadRequest/Authorization/Metadata[   @type =     $_globalVariables/ns:GlobalVariables/SvcBalanceInquiry/AuthorizationMetaData/EAN]"/>
+                </WSIEncryptedPin>
+                <xsl:copy-of select="$RegenerateEncryptedPin/root/Error"/>
+                <xsl:copy-of select="$RegenerateEncryptedPin/root/CLEErrorReport"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetEncryptedPins</pd:to>
+        <pd:xpathDescription>Pin Present?</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/pfx:SvcReloadRequest/Pin) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RegenerateEncryptedPin</pd:to>
+        <pd:xpathDescription>Authorization Block Present</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/pfx:SvcReloadRequest/Authorization/Code) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RegenerateEncryptedPin</pd:from>
+        <pd:to>AssignResponse2</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignResponse2</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetEncryptedPins</pd:from>
+        <pd:to>AssignResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

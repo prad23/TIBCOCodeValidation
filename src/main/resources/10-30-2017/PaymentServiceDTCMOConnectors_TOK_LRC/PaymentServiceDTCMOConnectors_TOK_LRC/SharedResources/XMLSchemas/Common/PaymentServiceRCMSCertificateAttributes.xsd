@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.wsgc.com/schemas/common/PaymentServiceRCMSCertificateAttributes"
+	 targetNamespace="http://www.wsgc.com/schemas/common/PaymentServiceRCMSCertificateAttributes"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="PaymentServiceRCMSCertificateAttributes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="RCMSCertificateAttribute" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CertificateAttributeType" type="xs:string"/>
+	<xs:element name="QueryStringParameter" type="xs:string"/>
+	<xs:element name="RCMSCertificateAttribute">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CertificateAttributeType"/>
+				<xs:element ref="QueryStringParameter"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

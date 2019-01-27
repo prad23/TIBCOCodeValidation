@@ -1,0 +1,4 @@
+timestamp,consumerCount,producerCount,topicCount,queueCount,msgMem,pendingMessageCount,connectionCount,sessionCount,durableCount,pendingMessageSize,inboundMessageCount,inboundMessageRate,outboundMessageCount,outboundMessageRate,diskReadRate,diskWriteRate,asyncDBSize,syncDBSize,outboundBytesRate,diskReadOperationsRate,diskWriteOperationsRate,inboundBytesRate,msgMemPooled,routeRecoverCount,RespTime
+Fri Apr 27 15:57:17 328 PDT 2018,4,21,8,35,7183624,171,23,23,0,6826796,761650,0,923078,0,0,0,536873472,536870912,3387,0,0,211,475136,0,15
+Fri Apr 27 15:57:37 413 PDT 2018,4,21,8,35,7183624,171,23,23,0,6826796,761654,0,923082,0,0,0,536873472,536870912,0,0,0,0,475136,0,10
+Fri Apr 27 15:57:57 448 PDT 2018,4,21,8,35,7142513,171,23,23,0,6826796,761658,0,923086,0,0,0,536873472,536870912,0,0,0,0,475136,0,10

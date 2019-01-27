@@ -1,0 +1,263 @@
+GV~GV Value in PROD XML~GV Value in Staged XML~Reason
+CommonFilePath/ADSFileFeedAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ADSFileFeedAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ADSFileFeedAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ADSFileFeedConfigFile~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ADSFileFeedConfig.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ADSFileFeedConfig.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ADSFileLookupConfig~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ADSFileNameLookupConfig.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ADSFileNameLookupConfig.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/AVSResults~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\AVSResults.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\AVSResults.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CAFNAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNConceptConversionToPKMS~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CAFNConceptConversionToPKMS.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNConceptConversionToPKMS.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNInventoryStatusCode~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\POSInventoryStatusCode.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\POSInventoryStatusCode.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNPKMSCountryCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CAFNPKMSCountryCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNPKMSCountryCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNPKMSDropshipCarriers~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CAFNPKMSDropshipCarriers.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNPKMSDropshipCarriers.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNValidPKMSShipModes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CAFNValidPKMSShipModes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CAFNValidPKMSShipModes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CAFNWarehouseCode~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\POSWarehouseCode.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\POSWarehouseCode.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CCRAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CCRAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CCRAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CFSSKUCsv~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CFS_SKU.csv~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CFS_SKU.csv"~GV Present in Both XMLs but not matching
+CommonFilePath/CFSSkuLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CFSSKUList.csv~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CFSSKUList.csv"~GV Present in Both XMLs but not matching
+CommonFilePath/CardLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\SVCCardLookUpXML.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SVCCardLookUpXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CarrierServiceCodeLookUp~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CarrierServiceCodeLookUpXML.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CarrierServiceCodeLookUpXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/Carriers~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\Carriers.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\Carriers.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CaseMgmtAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CaseMgmtAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CaseMgmtAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CityCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CityCodes_TMS.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CityCodes_TMS.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptAndShipFromAddresses~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndShipFromAddresses.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndShipFromAddresses.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptCatalogMediaCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ConceptCatalogMediaCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptCatalogMediaCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptFilters~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ConceptFilters.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptFilters.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptsAndResponsysURLs~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndResponsysURLs.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndResponsysURLs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ConceptsAndReturnAddress~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndReturnsAddress.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ConceptsAndReturnsAddress.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/Countries~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\Countries.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\Countries.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CountryLookUp~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CountryCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CountryCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/CriticalActionLines~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CriticalActionLines.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\CriticalActionLines.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DC~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\DCConversionToNumeric.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DCConversionToNumeric.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DCCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\DCCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DCCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DCPickup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\DCPickup.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DCPickup.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DSAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\DSAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DSAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DSUIStatusCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\DSUIStatusCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DSUIStatusCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/DTCMOConceptFilters~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\DTCMOConcept.csv~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DTCMOConcept.csv"~GV Present in Both XMLs but not matching
+CommonFilePath/DifferentiatorLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\DifferentiatorLookupXML.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\DifferentiatorLookupXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/EDIFreightTerms~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\EDIFreightTerms.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\EDIFreightTerms.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/EcomReturnCodesWithDesc~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\EcomReturnCodesWithDesc.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\EcomReturnCodesWithDesc.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/Exceptions~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\Exceptions.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\Exceptions.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ExperianConfig~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ExperainConfig.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ExperainConfig.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ExperianFormIDs~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ExperianFormIDs.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ExperianFormIDs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ExperianKeysAndSecrets~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ExperianKeysAndSecrets.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ExperianKeysAndSecrets.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/FranchiseLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\FranchiseLookup.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\FranchiseLookup.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/FurnitureCarriers~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\FurnitureCarriers.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\FurnitureCarriers.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/GCCAgentAndConceptList~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\GCCAgentAndConceptList.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\GCCAgentAndConceptList.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/GTDMessageBrokerConfigFile~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\GTDMessageBrokerConfigFile.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\GTDMessageBrokerConfigFile.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/GiftRegistryCarriers~~"X:\Shared\Rajeev\SVN\FinalDeleverables_RobustOrder\SharedResource_SharedSchemas\Branch\PROJ_OMSD4_TIBCOSharedResources_20160225\TIBCOSharedResources\SharedResources\XMLFiles\GiftRegistryCarriers.xml"~GV not present in PROD XML
+CommonFilePath/HubDetailsPath~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\HubDetails.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\HubDetails.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/HubNameLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\HubDetail_CONFIRMAPPOINTMENT.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\HubDetail_CONFIRMAPPOINTMENT.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/IVRAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\IVRAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\IVRAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/IVRStatusCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\IVRStatusCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\IVRStatusCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/InvMismatchThreshold~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\InvMismatchThreshold.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\InvMismatchThreshold.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ItemConcepts~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ItemConcepts.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ItemConcepts.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ItemFeedConfig~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ItemFeedConfig.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ItemFeedConfig.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ItemTypeLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ItemTypeLookupXML.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ItemTypeLookupXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/LPAccountingUnitLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\LPAccountingUnitLookupXML.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\LPAccountingUnitLookupXML.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/LocationLookUp~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\LocationLookUp.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\LocationLookUp.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/LockCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\LockCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\LockCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/MDMBWReplayLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\MDMBWReplayLookup.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\MDMBWReplayLookup.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ManufacturingStatuses~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ManufacturingStatuses.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ManufacturingStatuses.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OMSD2BrandFilter~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\OMSD2BrandFilter.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OMSD2BrandFilter.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OMSD2_AppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\OMSD2_AppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OMSD2_AppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OMSD4_AppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\OMSD4_AppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OMSD4_AppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OrgHierConcepts~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\OrgHierConcepts.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OrgHierConcepts.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OrgHierVWHs~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\OrgHierVWHs.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OrgHierVWHs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OrgHierWHs~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\OrgHierWHs.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OrgHierWHs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/OutletDepts~C:/TIBCODEV/TIBCOSharedResources/SharedResources/XMLFiles1/OutletDepts.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\OutletDepts.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/POSReasonCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\POSReasonCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\POSReasonCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentGatewayVerifoneCredentials~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentGatewayVerifoneCredentials.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentGatewayVerifoneCredentials.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceCCProcessorReturnCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceCCProcessorReturnCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceCCProcessorReturnCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceCreditAuthorizationValidity~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceCreditAuthorizationValidity.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceCreditAuthorizationValidity.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceCreditCardBINRangesLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceCreditCardBINRangesLookup.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceCreditCardBINRangesLookup.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceCreditCardStoreIDs~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceCreditCardStoreIDs.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceCreditCardStoreIDs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceDTCMOConceptsChannels~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceDTCMOConceptsChannels.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceDTCMOConceptsChannels.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceErrorTypes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceErrorTypes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceErrorTypes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceLRCStatuses~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceLRCStatuses.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceLRCStatuses.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServicePLCCProcessorReturnCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServicePLCCProcessorReturnCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServicePLCCProcessorReturnCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServicePLCCStoreIDs~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServicePLCCStoreIDs.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServicePLCCStoreIDs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServicePPCVTypeValues~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServicePPCVTypeValues.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServicePPCVTypeValues.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServicePaymentPlanCode~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServicePaymentPlanCode.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServicePaymentPlanCode.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceRCMSCertificateAttributes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceRCMSCertificateAttributes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceRCMSCertificateAttributes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceRCMSCertificateTypeSubCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceRCMSCertificateTypeSubCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceRCMSCertificateTypeSubCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceReports~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceReports.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceReports.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceSVCCardClasss~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceSVCCardClasss.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceSVCCardClasss.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceSVCProcessorReturnCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceSVCProcessorReturnCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceSVCProcessorReturnCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceSVCStoreIDs~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceSVCStoreIDs.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceSVCStoreIDs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceTokenProcessorReturnCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceTokenProcessorResultCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceTokenProcessorResultCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceValidationRules~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceValidationRules.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceValidationRules.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceValidationXSLTsPath~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XSLTs\~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XSLTs\"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceVerifoneGatewayResultCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceVerifoneGatewayResultCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceVerifoneGatewayResultCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceVerifoneGatewayTerminationStatus~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceVerifoneGatewayTerminationStatus.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceVerifoneGatewayTerminationStatus.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentServiceWSIDeclineRules~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceWSIDeclineRules.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceWSIDeclineRules.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PaymentTypes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentTypes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PaymentTypes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/PkMSCLEErrorDistroList~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PkMSCLEErrorDistroList.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\PkMSCLEErrorDistroList.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RCMSServiceProcessReturnCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RCMSServiceProcessReturnCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RCMSServiceProcessReturnCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSInventoryCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSInventoryCodesForATP~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryCodesForATP.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryCodesForATP.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSInventoryTypes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryTypes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSInventoryTypes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSLocationVWHs~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RMSLocationVWHs.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSLocationVWHs.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSPOPaymentTerms~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RMSPOPaymentTerms.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSPOPaymentTerms.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RMSPOTPFilterListForGXS~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RMSPOTPFilterListForGXS.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RMSPOTPFilterListForGXS.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RPAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RPAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RPAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/RetQtyReasonCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\RetQtyReasonCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\RetQtyReasonCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ReturnsAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\TIBCOSharedResourcesAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TIBCOSharedResourcesAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/SCACCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\SCACCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SCACCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/SSPAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\SSPAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SSPAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/STRAppointmentCallType~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\STRAppointmentCallTypes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\STRAppointmentCallTypes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ServiceErrorTypes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ProjectName_ServiceErrorTypes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ProjectName_ServiceErrorTypes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ServiceValidationRules~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ProjectName_ServiceValidationRules.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ProjectName_ServiceValidationRules.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ServiceValidationXSLTsPath~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XSLTs\~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XSLTs\"~GV Present in Both XMLs but not matching
+CommonFilePath/ServiceValidationXSLTsPathAndPrefix~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XSLTs\SERVICESPECIFICPREFIX*.xslt~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XSLTs\SERVICESPECIFICPREFIX*.xslt"~GV Present in Both XMLs but not matching
+CommonFilePath/ShipModes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ShipModes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ShipModes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/ShipmentOptimizationCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ShipmentOptimizationCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\ShipmentOptimizationCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/SiteCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\SiteCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SiteCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/SterlingUPSServiceCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\SterlingUPSServiceCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SterlingUPSServiceCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/StoreConcepts~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\StoreConcepts.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\StoreConcepts.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/TENConfigFile~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\TENInitFileSample.txt~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TENInitFileSample.txt"~GV Present in Both XMLs but not matching
+CommonFilePath/TENInterfaceConfigFile~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\TENInterfaceConfigSample.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TENInterfaceConfigSample.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/TMSAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\TMSAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TMSAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/TrackingScanCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\TrackingScanCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\TrackingScanCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/UPSAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\UPSAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\UPSAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/UPSServiceCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\UPSServiceCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\UPSServiceCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/Vendors~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\Vendors_TMS.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\Vendors_TMS.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/WISMOAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\WISMOAppAuditSwitches.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\WISMOAppAuditSwitches.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/WISSterlingStatusCode~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\SterlingStatusCodes.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\SterlingStatusCodes.xml"~GV Present in Both XMLs but not matching
+CommonFilePath/WSIPreServiceAndServiceTime~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\WSIPreServiceAndServiceTime.xml~"C:\TIBCODEV\TIBCOSharedResources\SharedResources\XMLFiles\WSIPreServiceAndServiceTime.xml"~GV Present in Both XMLs but not matching
+HTTPConnections/Descartes/IdentityFile/password~#!T2dFGg/pG1SCb5x8bAHWHJxfYC4oV9U48tevkFCdwes=~"#!6NJCSDziF/XK1SUFiIv2LdM1APoeydvl7vhN07c/98o="~GV Present in Both XMLs but not matching
+JDBCConnections/AXDB/Password~#!8MyQXVQy3HoDPNtDN12NTDJaZSRvwlKX~"#!bcGAD3KBcqmSc5Mqr1KZrhjTp9MzAALx"~GV Present in Both XMLs but not matching
+JDBCConnections/CLEDB/Password~#!VPXXxS/zosBl1CNmrB3CaCVGuzS9TfHBH0MJH70ro8A=~"#!4p2d5cWFTdE+p/pbSzNHaYHxeN1GNhkd3zHz7DwWV6I="~GV Present in Both XMLs but not matching
+JDBCConnections/CheckpointDB/Password~#!ZlbElKQGU1eNqGtV+EYxukp5fMbK5LyDhC1Cdj+H5ps=~"#!pNAoafcKLDiYv8Q0yow2W0dp2iXCoTbhUeHpPox3dx4="~GV Present in Both XMLs but not matching
+JDBCConnections/KRONOSDB/Password~#!fVWFK/d5IksUPwZD9Aq14sRjLm5YPt1S7v9IwZ0tvcU=~"#!du3dWEDE3pSiyGc4YJjcudtDvo4tNED93Avp527BQPc="~GV Present in Both XMLs but not matching
+JDBCConnections/MDM/Password~#!gmi3Lic0wGyaizDRDVtfUpUXu630G2vPh0Q3k9dDSWQ=~"#!wz7MSi1MhnoIXEQ0F2mDikFLV1dBzLFmicbpNZcKuHg="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSD2FraudServiceDB/Password~#!OMdgzCajiKeoqrWM8xriaAvBsLu9f6/hfqOh9EC1DY4=~"#!XsW5oejajgcIhvRgViRgtxnYNCQwrS1VBdXckLL2Ito="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSSterlingDB/Password~#!TbDF7M3LOwUXD0sf4LE8005ZuzeU3JH5T6l1pDEec+8=~"#!NcfsWVzTJXwjrtEjrmPGsK0jgYj300YjeJYhuW7NExA="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB-IBMDB2/Password~#!tGtON6nZBKQ0nJDBB72UWP5pOjqL28eGOSvWR2J8WFY=~"#!c/6xgNte/Rd/6+IBBDh+mFjpHP0wNmXju+MDM82db54="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB/Password~#!X9x7MiLWZpt+hEA+3sfwFgAFz2Y9MRyX2wzyQhWgbyo=~"#!G++17Apqay2zlfyy4KmRUFS2NB+/CRUWI6X+rs1AJak="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDBMEMRPT/Password~#!NG45QUXOfN03tFtQ3Ft4fftt15hIkwTsnOuk5bus1G0=~"#!HcG0CovYTY8WJccj9/zhdyDpt2VP90C/3lTuPVSiRnc="~GV Present in Both XMLs but not matching
+JDBCConnections/PaymentServiceDB/Password~#!pxgXA+5hvwcga3tjhW6g28o4zVMm1oCZ~"#!actxVUmw49VWvAClTbuAJ5GOdGjaPlGS"~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDB/Password~#!ef10XsDRjBwnyQhRPtYJeo2tHoZGLrR80sRGn70gx3k=~"#!oKX7tdGL416sCsPtLDqeEMJ2H7+gC0h9ne3I1ghd79k="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDBThin/Password~#!iYjAfObhS3nEahb8Fcvsaqqp3UwGXykdX7s8fPf8LZw=~"#!SKFG4dSugX/VNyCXVeBJ2Pt/yyw7+ElSNLhXoWGV45w="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDEV2/Password~#!2wERAOOs5Ggwb7lK0f0i4227Z73MGvWFeYOL4f4L5Ic=~"#!cn+gzUmxSCHRApri/Ewhkf7hVTsdX+Lssh290zR8Eig="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnDB/Password~#!de0PZTOfsgNf05hUIANgphLTRpQRTuuw9I8fzlDHMCU=~"#!K3DIKnUsreqnVL8Czti1xrnLJWLCVUPP2lp0DDHwwu8="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnsAppUIDB/Password~#!yfdCpFO0vHCK3pIFyqNHhmUC6X63WwEfftJSVb5V2e4=~"#!rVNXI4Kma2xrGrS68oqR3RHGeyjKagUcJDY2k1iKEXU="~GV Present in Both XMLs but not matching
+JDBCConnections/SDM-TeraData-DB/Password~#!i4kUmlvr9d10n0JyiFB3p4LGXhMZkWXpbBtpHsa46SI=~"#!qTf6uDAaASdI1S33VjAzNLFy5FRwKWG/+/wfJpjf7CE="~GV Present in Both XMLs but not matching
+JDBCConnections/SterlingDB/Password~#!t7uyRXE5qF921i583CC2EeqRqHILEspbUuMFhhZZf1M=~"#!LLgjr3u0zPFH/bifFRHYpdi//o60qOoax5fZEWchO2c="~GV Present in Both XMLs but not matching
+JDBCConnections/TMSDB/Password~#!o7HrKdvAnmKptRDUVHnKup3yH9R4Nkjf~"#!lR6/8QC1j/pXtjDe7O/IuocwphdLOvMc"~GV Present in Both XMLs but not matching
+JDBCConnections/TPMDB/Password~#!MlQsaJ9Nk7MoLCE2mYRGzri0MhlrlYWDxpjYqlUQcCvEq+xvG85nRQ==~"#!kexofdppSsCIykqBej5rEcnTSJDPifPOrNVz581V7Gu+vO6MbH8F7A=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMCDCDB/Password~#!+Y30rd47r+M/wWCv3vCO4goA64TbX7P0RePIATnigmHdE6xcPGgFGw==~"#!wOVBFouL3xyMJcKIIfayTJMmNQWiFFPSggY6FTDmu601/80DcbJW3w=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMDB/Password~#!UadE2YypTkiSU+YlS21AsRAytEWwe1mYxbruphtQnEif+oacwl50tg==~"#!p/iuLOfdgN0SKgTi0L0j5asdCLDsDHhfqfzAUOF2kTRAD7yaYzh+Pg=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMINTDB/Password~#!qEz7jl32f55/FNSasXHM7/vUeLGy2/eCfjWwWlmufAkGOTwMfKvylw==~"#!c/O2lJFaLSJU8KQaPrJsRmYx+f3shSithvsG0Caj1mgeK4d05+d9zw=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMOBMDB/Password~#!bp44b27An57LStNW1J435EyOBnTvqEKMBfybpfvW74pmt/zVgn4Gbw==~"#!PXPIPsj2TUwJ6+NTJ+ltregSCVtSymqg95VYrcDmuvlHk2VpuvKkmw=="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/JNDIPassword~#!T+JdlyGwf9zkCmVfARb3euvQbb9JJ0scmW2OKIuf5Wg=~"#!jQJBhSF7+fUdikWyDl/eClsSI/6QTdacmFlsxkSeowo="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/Password~#!ADgwwZYO+c639a2Bg4j/UxqT2L5EkQ4m/j7GmC3MLiY=~"#!/b76L68MvO3naqmnAkNKNtZElOUFIBpx8yW9BaeBOPE="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/JNDIPassword~#!Hr7bMPPbecaGqzpcqNjYGdP9GV8ht6eaIRXKHiNBQTo=~"#!E5kRGkAE90ZuPDUVar+5VU6pxXHKzyxSZPhJg2lEMvQ="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/Password~#!PHR0W+le3gvN30f+pR1XeQCUYhriRS/eiNll/NxGQ88=~"#!0f9HoCDw3MPeOorDziEzKLCK7mTJty5PvFAOCcS/Q3A="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/JNDIPassword~#!BJM/9aQEXPEGZfjyjcO0I9o7i3rOOoq1WcVPK6BZOdc=~"#!e4w+B0D6rw6g9uE8rR5HDDMRLZVcnjavQu7ZaIu7O6c="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/Password~#!NEnx5QZRwbj2UHFca/q1MfU/46RtnSZx0xwYq4fmTA4=~"#!qzz4zQFc6umJ2zGFN8b+++6LXq3xGQIuhUYK/doW4gg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/JNDIPassword~#!JBJC5DQde9I9hqQacvV7PLrX8zJ+gri4tTVW11Z+GlE=~"#!2spu3m6FScGzG7yM8oYcW9NBfuHhib2txxZJEXEgolg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/Password~#!gvzKMtuxfGKwFRCqQx0WNnkBSvNSPFc9yHzc6hEI+/E=~"#!+OsZp2DjKa5qqqPIY6zLtf++6NasN9v4uu/pO7jDNAQ="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/JNDIPassword~#!Jchu+UgJFPYwt3/wtd9SZ0sY5EABrIQga9vzBHiiExQ=~"#!Ko/SKuLbhaXc4sCiI8aZw7jtB1G3tBnHmOsGJ55AFuM="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/Password~#!1B+GThbG6tZcc5ZlCy6+tDJCF9UMEqnPP11G7FPw2OE=~"#!kGicJ3F5Z48YLxN7Nj/c6H4lcydv0DRXamr7RlXoRvY="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/JNDIPassword~#!qyHlMx8jrt5vCcpfuaLeg7w54R+jfSKR+Waq/TeVCVw=~"#!izDqCwYpuQgtulzS638smfiELEbeFFaRRsCJ1e5gYNc="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/Password~#!x88PfNDHJwHQ//I4qOYwlIEyVIg/t68yFmB/f+PbSP8=~"#!WZ4Hf295ouW1KE/UH2/VZ8rWXZ5ZwSKYMnpiMJXfUUw="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/JNDIPassword~#!iRLdAPMs2jCX35pK6trkcGcTWRXftlQjArvuk2nUZuQ=~"#!07DAdJUDOHtcdFA4YjUV6FEt0wP5MMr7gafMWIQLGnk="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/Password~#!0Ex5EUSIFj1EjLXFvWxLSQX+10ud1WJjgfU2xO0chpA=~"#!XMT3b25Ew0Q1npxItXw41p8RkkT4Fzxl6bXSwLNXH44="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/JNDIPassword~#!OfzS3hMEaVgTVdKPVpAbHXxbZYVzsYkss9iwNRhJuuo=~"#!YcNKp7IQ65KpxNISxTG+T/LnCV5hp2ASIxtdC8pEDJg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/Password~#!t0itUK3S683BcHh3apeYJKlntHXZs8/L4JNEo9GZjEw=~"#!ViCePrgw2ScJWzc1OJkb5NoWufAI1tS2O5UPshFUJbg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/JNDIPassword~#!/pjcAYRZ5c4DpYlXq4udJjer+ZLz/zd2tYdBhqldBE8=~"#!1yZXjJjnvPL687yQrVq0tgBMGjtY+KW5VGHeOUziRuc="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/Password~#!S+n4JelyZhBBDOUVOwBKuN5Ykz1f97YN0IrqrB9BQBI=~"#!O2ElcqpN3Xvf4zXmwzgAwfWDNQOXGIff+szTFm5Y/vg="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/JNDIPassword~#!QHLK8qQ7dPsMiwbnW63Nc07IKQxnIwYoui1d3zK3EM8=~"#!RRE1blmn+K2Vy6s6HllHeZ+7loX9hlkBF7gtGb1Mv3A="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/Password~#!7VpDj8Yidsz4+rYsmiD7M/ovaGla2MT9nfDPI5LWe6s=~"#!RkEUhak71UANnmGMxDzD6u2I7KfOPfc8DbFJAnpmEO4="~GV Present in Both XMLs but not matching
+MDM_Realtime/RMS_MDM_FEED/ConceptsForNLAIndY~WE,PK,PB~"WE,PK"~GV Present in Both XMLs but not matching
+MDM_Realtime/RMS_MDM_FEED/ConceptsForSurchargeZero~PT,WE,PB~"PT,WE"~GV Present in Both XMLs but not matching
+MDM_Realtime/RMS_MDM_FEED/LockMgmt/DbConn/Password~#!NMYMTAnCQlxn0pj9WK3jqcAviyHBm2RdM/30jgE1blI=~"#!jiwWhdLjeT0sVuTicKtVCFbrviXE0MzaAicQM8qU4v0="~GV Present in Both XMLs but not matching
+JMSConnections/DTCMQ/JNDIContextFactory~com.sun.jndi.fscontext.RefFSContextFactory~""~GV not present in Staged XML
+Constants/VALUE_INGRIANREQUEST~INGRIANREQUEST~""~GV not present in Staged XML
+JMSConnections/DTCMQ/QueueConnectionFactory~TIBQCF~""~GV not present in Staged XML
+Constants/VALUE_XSLTRESPONSE~RESPONSE~""~GV not present in Staged XML
+JMSConnections/EMSRMS/JMSSSLProviderURL~~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/JNDIUserName~apptibco~""~GV not present in Staged XML
+CommonFilePath/ELSConnectorsAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ELSConnectorsAppAuditSwitches.xml~""~GV not present in Staged XML
+JDBCConnections/PSDB/QueryTimeOutSec~30~""~GV not present in Staged XML
+JMSConnections/DTCMQ/JNDIPassword~~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/TopicConnectionFactory~SSLTopicConnectionFactory~""~GV not present in Staged XML
+CommonFilePath/CarriersScanEvent~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CarriersScanEvent.csv~""~GV not present in Staged XML
+Constants/VALUE_MDMDTC_FILTEREVENT~FILTEREVENT~""~GV not present in Staged XML
+JMSConnections/DTCMQ/JNDIContextURL~file:/C:/JNDI-Directory~""~GV not present in Staged XML
+CLE/Constants/AuditEndReplay~REPLAY_END~""~GV not present in Staged XML
+JMSConnections/EMSRMS/Password~#!KeZWYOHcwvtBW7uTzWX3XiOIh+eciH+T~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/URL~ssl://tibinttstmp3p.wsgc.com:20043~""~GV not present in Staged XML
+CLE/Constants/AuditBeginStatus~STARTED~""~GV not present in Staged XML
+Jmx.Enabled~true~""~GV not present in Staged XML
+CommonFilePath/DefaultInvalidRequestExceptionPrefix~INVALID.REQUEST~""~GV not present in Staged XML
+CommonFilePath/BOPIS_AppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\BOPIS_AppAuditSwitches.xml~""~GV not present in Staged XML
+JMSConnections/EMSRMS/JNDIPassword~#!U8vWdOkOQPKLcE0XlZZRBq3MZfqRZj7z~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/Password~#!V65yMz8QMLF+NcZ2lwwEL3frKgEsJjhO~""~GV not present in Staged XML
+Constants/VALUE_MDMDTC_OUTEVENT~OUTBOUNDEVENT~""~GV not present in Staged XML
+Constants/VALUE_MDMDTC_INEVENT~INBOUNDEVENT~""~GV not present in Staged XML
+CommonFilePath/PaymentServiceBTProcessorReturnCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceBTProcessorReturnCodes.xml~""~GV not present in Staged XML
+JMSConnections/DTCMQ/JNDIUserName~mqm~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/UserName~TIBCODATA2~""~GV not present in Staged XML
+CommonFilePath/InventorySnapshotFeedToConsume~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\InventorySnapshotFeedToConsume.xml~""~GV not present in Staged XML
+JMSConnections/EMSRMS/TopicConnectionFactory~TopicConnectionFactory~""~GV not present in Staged XML
+CryptoProcesses/ConfigFile~C:/Testing/CryptoTest/mob-crypto-config-dev.properties~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/Password~#!PGPaGxTRCUAHv1UclBLuAUNYCvKsbbRP1sJJ0d+ds6M=~""~GV not present in Staged XML
+JMSConnections/DTCMQ/JMSProviderURL~~""~GV not present in Staged XML
+Constants/VALUE_XSLTREQUEST~REQUEST~""~GV not present in Staged XML
+CommonFilePath/JENAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\JENAppAuditSwitches.xml~""~GV not present in Staged XML
+Constants/VALUE_RMSJENSITES_WAREHOUSES~WAREHOUSES~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/JNDIContextFactory~com.tibco.tibjms.naming.TibjmsInitialContextFactory~""~GV not present in Staged XML
+CLE/Constants/AuditEndMsg~SENT RESPONSE TO JMS QUEUE~""~GV not present in Staged XML
+CommonFilePath/PaymentServiceBTTxnSearchResponseCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceBTTxnSearchResponseCodes.xml~""~GV not present in Staged XML
+CLE/Constants/AuditEndReplayStatus~REPLAY_COMPLETED~""~GV not present in Staged XML
+CLE/Constants/AuditBeginReplay~REPLAY_BEGIN~""~GV not present in Staged XML
+CLE/Constants/AuditExceptionStatusReplay~REPLAY_EXCEPTION~""~GV not present in Staged XML
+Constants/VALUE_TRUE~true~""~GV not present in Staged XML
+CommonFilePath/CarriersServiceCode~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CarriersServiceCode.csv~""~GV not present in Staged XML
+JMSConnections/EMSRMS/QueueConnectionFactory~QueueConnectionFactory~""~GV not present in Staged XML
+JMSConnections/EMSRMS/JNDIContextURL~tibjmsnaming://tibintdevmp6p:40000~""~GV not present in Staged XML
+Constants/VALUE_DESCARTESRESPONSE~DESCARTESRESPONSE~""~GV not present in Staged XML
+Constants/VALUE_DESCARTESREQUEST~DESCARTESREQUEST~""~GV not present in Staged XML
+CommonFilePath/MDMEventsLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\MDMEvents.xml~""~GV not present in Staged XML
+CommonFilePath/DefaultInvalidResponseExceptionPrefix~INVALID.RESPONSE~""~GV not present in Staged XML
+JDBCConnections/PSDB/DatabaseURL~jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=yes)(ADDRESS=(PROTOCOL=TCP)(HOST=PSHPDBPRD-SCAN.WSGC.COM)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME= mmtprod)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))~""~GV not present in Staged XML
+CommonFilePath/EnterpriseEventsCarriers~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\EnterpriseEventsCarriers.xml~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/MaxConnections~10~""~GV not present in Staged XML
+CommonFilePath/PaymentServiceBTValidationErrorCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\PaymentServiceBTValidationErrorCodes.xml~""~GV not present in Staged XML
+CommonFilePath/XSLTFilePath~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XSLTs\~""~GV not present in Staged XML
+JDBCConnections/PSDB/MaxConnections~10~""~GV not present in Staged XML
+CommonFilePath/EmailHashScheme~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\EmailHashScheme.xml~""~GV not present in Staged XML
+JDBCConnections/PSDB/UserName~tibco_user~""~GV not present in Staged XML
+JDBCConnections/PSDB/MaxRows~0~""~GV not present in Staged XML
+java.extended.properties~~""~GV not present in Staged XML
+CLE/Constants/AuditBeginReplayStatus~REPLAY_STARTED~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/QueueConnectionFactory~SSLQueueConnectionFactory~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/JDBCDriver~com.ibm.db2.jcc.DB2Driver~""~GV not present in Staged XML
+RuntimeCertificatesDirectory~C:/security/JMSSSL/~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/DatabaseURL~jdbc:db2://memrpt.wsgc.com:446/MEMPHIS2~""~GV not present in Staged XML
+CLE/Constants/AuditExceptionStatus~EXCEPTION~""~GV not present in Staged XML
+CommonFilePath/CLEXSLTFilePath~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XSLTs\*.xslt~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/JNDIPassword~#!AoudGrvTY5AT7JtQi6flSLEg3j/hpt5c~""~GV not present in Staged XML
+CommonFilePath/ELSServiceProcessReturnCodes~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\ELSServiceProcessReturnCodes.xml~""~GV not present in Staged XML
+JMSConnections/EMSRMS/JNDIContextFactory~com.tibco.tibjms.naming.TibjmsInitialContextFactory~""~GV not present in Staged XML
+CommonFilePath/EnterpriseEventsOrderType~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\EnterpriseEventsOrderType.xml~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/JNDIContextURL~tibjmsnaming://tibinttstmp3p.wsgc.com:20043~""~GV not present in Staged XML
+CLE/Constants/AuditEndStatus~COMPLETED~""~GV not present in Staged XML
+JDBCConnections/PSDB/JDBCDriver~oracle.jdbc.driver.OracleDriver (thin)~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/LoginTimeOut~0~""~GV not present in Staged XML
+CommonFilePath/DirPathSeparator~/~""~GV not present in Staged XML
+CommonFilePath/COVAppAuditSwitches~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\COVAppAuditSwitches.xml~""~GV not present in Staged XML
+JMSConnections/EMSRMS/JMSProviderURL~tcp://tibintdevmp6p:40000~""~GV not present in Staged XML
+JMSConnections/EMSRMS/UserName~appdev1~""~GV not present in Staged XML
+JMSConnections/EMSRMS/JNDIUserName~appdev1~""~GV not present in Staged XML
+JDBCConnections/PSDB/LoginTimeoutSec~10~""~GV not present in Staged XML
+Constants/VALUE_RMSREQUEST~RMSREQUEST~""~GV not present in Staged XML
+JDBCConnections/PSDB/Password~#!PKi4xt/QSHvo0NxslpPmQctSMDf+j1Eq9tzjIeozMioC+bNhMx1Qqw==~""~GV not present in Staged XML
+JMSConnections/DTCMQ/Password~~""~GV not present in Staged XML
+JMSConnections/DTCMQ/UserName~mqm~""~GV not present in Staged XML
+Constants/VALUE_RMSJENSITES_STORES~STORES~""~GV not present in Staged XML
+JMSConnections/EMSELSSECURE/UserName~apptibco~""~GV not present in Staged XML
+Constants/VALUE_INGRIANRESPONSE~INGRIANRESPONSE~""~GV not present in Staged XML
+JMSConnections/DTCMQ/JMSSSLProviderURL~~""~GV not present in Staged XML
+CommonFilePath/CarriersFeedToConsume~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CarriersFeedToConsume.xml~""~GV not present in Staged XML

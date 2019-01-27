@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://services.wsgc.com/2014/Payment" xmlns:ns="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentGatewayCredentials.xsd" xmlns:ns4="http://www.wsgc.com/schemas/common/PaymentGatewayVerifoneCredentials.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://ecommerce.wsgc.com/2013/Common" xmlns:pfx4="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorization" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions">
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2014/Payment/credit-authorization.xsd"/>
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2013/Common/base-types.xsd"/>
+    <xsd:import namespace="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorization" schemaLocation="/SharedResources/XMLSchemas/Verifone/UGP-V1/UGPCreditPreAuthorizationRequest.xsd"/>
+    <pd:name>BusinessProcesses/CreditAuthorization/RequestProcessors/MapPaymentGatewayRequest-CC.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:CreditCardAuthorizationRequest"/>
+    <pd:startX>30</pd:startX>
+    <pd:startY>320</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="string-length($Process/root/Error/Type) > 0">
+                <pfx:CreditCardAuthorizationResponse>
+                    <xsl:attribute name="version">
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/@version"/>
+                    </xsl:attribute>
+                    <SystemContext>
+                        <EnvironmentIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                        </EnvironmentIdentifier>
+                        <RegionIdentifier>
+                            <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                        </RegionIdentifier>
+                        <SourceSystemIdentifier>
+                            <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix,BW:getHostName())"/>
+                        </SourceSystemIdentifier>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Start/pfx:CreditCardAuthorizationRequest/SystemContext/TransactionId)>0">
+                                <TransactionId>
+                                    <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/Authorization/Constants/TransactionIdPrefix,$Start/pfx:CreditCardAuthorizationRequest/SystemContext/TransactionId)"/>
+                                </TransactionId>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <TransactionId>
+                                    <xsl:value-of select="concat($_globalVariables/ns2:GlobalVariables/Authorization/Constants/TransactionIdPrefix, tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns2:GlobalVariables/ENV   , BW:getHostName())"/>
+                                </TransactionId>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <TransactionTime>
+                            <xsl:value-of select="current-dateTime()"/>
+                        </TransactionTime>
+                    </SystemContext>
+                    <xsl:copy-of select="$Start/pfx:CreditCardAuthorizationRequest/PaymentContext"/>
+                    <xsl:for-each select="$Process/root/Error">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="Type"/>
+                            </Type>
+                            <xsl:if test="string-length(Detail[1])>0">
+                                <xsl:for-each select="Detail">
+                                    <Detail>
+                                        <xsl:value-of select="."/>
+                                    </Detail>
+                                </xsl:for-each>
+                            </xsl:if>
+                            <ErrorMessage>
+                                <xsl:value-of select="ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:for-each>
+                </pfx:CreditCardAuthorizationResponse>
+            </xsl:if>
+            <paymentgatewayrequest>
+                <xsl:value-of select="tib:render-xml($MapPaymentGatewayRequest/pfx4:UGPREQUEST)"/>
+            </paymentgatewayrequest>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:CreditCardAuthorizationResponse" minOccurs="0"/>
+                    <xsd:element name="paymentgatewayrequest" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="provider" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>993</pd:endX>
+    <pd:endY>316</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Process>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Error" type="pfx3:ErrorType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Process>
+        <Provider>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ProviderName" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Provider>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1414172991752</pd:targetNamespace>
+    <pd:activity name="MapPaymentGatewayRequest">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>781</pd:x>
+        <pd:y>317</pd:y>
+        <config>
+            <element ref="pfx4:UGPREQUEST"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable name="inchannel" select="$Start/pfx:CreditCardAuthorizationRequest/PaymentContext/Channel"/>
+            <xsl:variable name="inconcept" select="$Start/pfx:CreditCardAuthorizationRequest/PaymentContext/Concept"/>
+            <pfx4:UGPREQUEST>
+                <xsl:attribute name="VER">
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/Version"/>
+                </xsl:attribute>
+                <FUNCTION_TYPE>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/FUNCTION_TYPE"/>
+                </FUNCTION_TYPE>
+                <PAYMENT_TYPE>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/CREDIT_PAYMENT_TYPE"/>
+                </PAYMENT_TYPE>
+                <COMMAND>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Authorization/PaymentGateway/Command"/>
+                </COMMAND>
+                <ACCOUNT>
+                    <xsl:value-of select="$PaymentGatewayVerifoneCredentialsParams/ns4:PaymentGatewayVerifoneCredentials/ns4:PaymentGatewayVerifoneCredential[$inconcept  = ns4:ConceptCode][ns4:ChannelCode=$inchannel]/ns4:Account"/>
+                </ACCOUNT>
+                <SITE>
+                    <xsl:value-of select="$PaymentGatewayVerifoneCredentialsParams/ns4:PaymentGatewayVerifoneCredentials/ns4:PaymentGatewayVerifoneCredential[$inconcept  = ns4:ConceptCode][ns4:ChannelCode=$inchannel]/ns4:Site"/>
+                </SITE>
+                <TERM>
+                    <xsl:value-of select="$PaymentGatewayVerifoneCredentialsParams/ns4:PaymentGatewayVerifoneCredentials/ns4:PaymentGatewayVerifoneCredential[$inconcept  = ns4:ConceptCode][ns4:ChannelCode=$inchannel]/ns4:Term"/>
+                </TERM>
+                <SERIAL_NUM>
+                    <xsl:value-of select="$PaymentGatewayVerifoneCredentialsParams/ns4:PaymentGatewayVerifoneCredentials/ns4:PaymentGatewayVerifoneCredential[$inconcept  = ns4:ConceptCode][ns4:ChannelCode=$inchannel]/ns4:SerialNum"/>
+                </SERIAL_NUM>
+                <DEVTYPE>
+                    <xsl:value-of select="$PaymentGatewayVerifoneCredentialsParams/ns4:PaymentGatewayVerifoneCredentials/ns4:PaymentGatewayVerifoneCredential[$inconcept  = ns4:ConceptCode][ns4:ChannelCode=$inchannel]/ns4:DevType"/>
+                </DEVTYPE>
+                <DEVICEKEY>
+                    <xsl:value-of select="$PaymentGatewayVerifoneCredentialsParams/ns4:PaymentGatewayVerifoneCredentials/ns4:PaymentGatewayVerifoneCredential[$inconcept  = ns4:ConceptCode][ns4:ChannelCode=$inchannel]/ns4:DeviceKey"/>
+                </DEVICEKEY>
+                <TRANS_AMOUNT>
+                    <xsl:value-of select="tib:string-round-fraction($Start/pfx:CreditCardAuthorizationRequest/AuthorizationAmount,$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/AmountFractionalDigits)"/>
+                </TRANS_AMOUNT>
+                <xsl:if test="string-length($Start/pfx:CreditCardAuthorizationRequest/Tender/AccountNumber) >0">
+                    <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/Tender/AccountNumber">
+                        <ACCT_NUM>
+                            <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/AccountNumber"/>
+                        </ACCT_NUM>
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="string-length(tib:concat-sequence($Start/pfx:CreditCardAuthorizationRequest/BillingAddress/Address/AddressLine)) >0">
+                    <CUSTOMER_STREET>
+                        <xsl:value-of select="tib:left(tib:concat-sequence-format($Start/pfx:CreditCardAuthorizationRequest/BillingAddress/Address/AddressLine, &quot;,&quot;), 20)"/>
+                    </CUSTOMER_STREET>
+                </xsl:if>
+                <xsl:if test="string-length($Start/pfx:CreditCardAuthorizationRequest/BillingAddress/Address/PostalCode)>0">
+                    <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/BillingAddress/Address/PostalCode">
+                        <CUSTOMER_ZIP>
+                            <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/BillingAddress/Address/PostalCode"/>
+                        </CUSTOMER_ZIP>
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="(string-length($Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardExpiration/Year)>0) or&#xA;(string-length($Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardExpiration/Month)>0)">
+                    <EXP_DATE>
+                        <xsl:value-of select="concat(tib:pad-front($Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardExpiration/Month, 2, '0'),$Start/pfx:CreditCardAuthorizationRequest/CardMetadata/CardExpiration/Year)"/>
+                    </EXP_DATE>
+                </xsl:if>
+                <INVOICE>
+                    <xsl:value-of select="tib:right(concat($Start/pfx:CreditCardAuthorizationRequest/ConsumerTransactionId,$Start/pfx:CreditCardAuthorizationRequest/OrderContext/@omsOrderId),$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/InvoiceLength)"/>
+                </INVOICE>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/CardVerificationCode">
+                    <CVV2>
+                        <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/CardVerificationCode"/>
+                    </CVV2>
+                </xsl:if>
+                <xsl:if test="$GetForceFlag/root/ForceFlag = $_globalVariables/ns2:GlobalVariables/Authorization/ForceFlagOn">
+                    <FORCE_FLAG>
+                        <xsl:value-of select="$GetForceFlag/root/ForceFlag"/>
+                    </FORCE_FLAG>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/IsCardNotPresent=&quot;true&quot;">
+                    <PRESENT_FLAG>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Authorization/Constants/PresentFlag"/>
+                    </PRESENT_FLAG>
+                </xsl:if>
+                <xsl:if test="string-length($Start/pfx:CreditCardAuthorizationRequest/Tender/Token)>0">
+                    <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token">
+                        <TKN_PAYMENT>
+                            <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/Tender/Token"/>
+                        </TKN_PAYMENT>
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/AuthorizationAmount !=$Start/pfx:CreditCardAuthorizationRequest/IncludedTaxAmount">
+                    <xsl:if test="$Start/pfx:CreditCardAuthorizationRequest/IncludedTaxAmount">
+                        <TAX_AMOUNT>
+                            <xsl:value-of select="$Start/pfx:CreditCardAuthorizationRequest/IncludedTaxAmount"/>
+                        </TAX_AMOUNT>
+                    </xsl:if>
+                </xsl:if>
+                <TKN_PROCESS>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/TOKEN_PROCESS"/>
+                </TKN_PROCESS>
+                <TKN_RENEW>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/TKN_RENEW"/>
+                </TKN_RENEW>
+                <CDD_DATA>
+                    <xsl:value-of select="tib:right(concat($Start/pfx:CreditCardAuthorizationRequest/ConsumerTransactionId,$Start/pfx:CreditCardAuthorizationRequest/OrderContext/@omsOrderId),$_globalVariables/ns2:GlobalVariables/PaymentService/Constants/CDD_DATALength)"/>
+                </CDD_DATA>
+            </pfx4:UGPREQUEST>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>124</pd:x>
+        <pd:y>545</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="LogRequestValidationExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>987</pd:x>
+        <pd:y>540</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns:ExceptionHandlerRequest>
+                <ns:envCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                </ns:envCode>
+                <ns:appCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                </ns:appCode>
+                <ns:interfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </ns:interfaceCode>
+                <ns:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns:hostName>
+                <ns:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns:timeStamp>
+                <ns:message>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ns:message>
+                <ns:payload>
+                    <xsl:value-of select="tib:render-xml($Start/pfx:CreditCardAuthorizationRequest)"/>
+                </ns:payload>
+                <ns:ErrorLevel>
+                    <ns:errorCode>
+                        <xsl:value-of select="concat($Process/root/Error/Type, $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$Process/root/Error/Detail[1])"/>
+                    </ns:errorCode>
+                </ns:ErrorLevel>
+                <ns:TransactionDetails>
+                    <ns:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns:transactionDomain>
+                    <ns:transactionType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Authorization/CLE/TransactionType"/>
+                    </ns:transactionType>
+                    <xsl:choose>
+                        <xsl:when test="string-length($GetCLEParams/root/TransactionId) > 0">
+                            <ns:transactionID>
+                                <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                            </ns:transactionID>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns:transactionID>
+                                <xsl:value-of select="concat(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns2:GlobalVariables/ENV   , BW:getHostName())"/>
+                            </ns:transactionID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </ns:TransactionDetails>
+            </ns:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="PaymentGatewayVerifoneCredentialsParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>377</pd:x>
+        <pd:y>321</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentGatewayVerifoneCredentials.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="AssignFailure">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>382</pd:x>
+        <pd:y>540</pd:y>
+        <config>
+            <variableName>Process</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:choose>
+                    <xsl:when test="$_error/ns1:ErrorReport/Class=$_globalVariables/ns2:GlobalVariables/PaymentService/ValidationConstants/BIND_EXCEPTION_CLASS">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>203</pd:x>
+        <pd:y>319</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/CreditAuthorization/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetForceFlag">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>558</pd:x>
+        <pd:y>318</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/CreditAuthorization/AdditionalRequestParameters.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapPaymentGatewayRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>AssignFailure</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogRequestValidationExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignFailure</pd:from>
+        <pd:to>LogRequestValidationExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>PaymentGatewayVerifoneCredentialsParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PaymentGatewayVerifoneCredentialsParams</pd:from>
+        <pd:to>GetForceFlag</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetForceFlag</pd:from>
+        <pd:to>MapPaymentGatewayRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Map Payment Service to Payment Gateway Mapping here</pd:description>
+        <pd:x>616</pd:x>
+        <pd:y>198</pd:y>
+        <pd:width>204</pd:width>
+        <pd:height>70</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-6684775</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

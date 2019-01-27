@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://ecommerce.wsgc.com/2013/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/LRCRedemption/DataQueueWrite/DataQueueWrite" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.tibco.com/bw/plugins/ae/5.0/aeExceptions" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns3="http://www.tibco.com/pe/EngineTypes">
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/2013/Common/base-types.xsd"/>
+    <pd:name>BusinessProcesses/LrcRedemption/Gateway/InvokeGateway.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="PaymentGatewayRequest" type="xsd:string"/>
+                    <xsd:element name="InterfaceCode" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="transactionid" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>59</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:if test="string-length($Invoke-DTCMO-Request-Response-Service/aeRequestOutputType/ns:__caret_reply_caret_LRCRedempitonRequestResponseService_caret_DQWrite/Response/Line)>0">
+                <PaymentGatewayResponse>
+                    <xsl:value-of select="concat($Invoke-DTCMO-Request-Response-Service/aeRequestOutputType/ns:__caret_reply_caret_LRCRedempitonRequestResponseService_caret_DQWrite/Key/CorrelationId,$Invoke-DTCMO-Request-Response-Service/aeRequestOutputType/ns:__caret_reply_caret_LRCRedempitonRequestResponseService_caret_DQWrite/Response/Line)"/>
+                </PaymentGatewayResponse>
+            </xsl:if>
+            <xsl:if test="string-length($Variable0/root/Error/Type)>0">
+                <xsl:copy-of select="$Variable0/root/Error"/>
+            </xsl:if>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="PaymentGatewayResponse" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Error" type="pfx:ErrorType" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>496</pd:endX>
+    <pd:endY>59</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Variable0>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Error" type="pfx:ErrorType" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Variable0>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1435320819426</pd:targetNamespace>
+    <pd:activity name="Assign-Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>333</pd:x>
+        <pd:y>205</pd:y>
+        <config>
+            <variableName>Variable0</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                    <xsl:when test="string-length($_error_Invoke-DTCMO-Request-Response-Service/ActivityErrors/ns1:TransportException/msg)>0">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/REMOTE_UNAVAILABLE/Type"/>
+                            </Type>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/EXCEPTION/TRANSPORT_EXCPETION_MESSAGE"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="string-length($_error_Invoke-DTCMO-Request-Response-Service/ActivityErrors/ns1:SerializationException/msg)>0">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/REMOTE_UNAVAILABLE/Type"/>
+                            </Type>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/EXCEPTION/SERIALIZATION_EXCEPTION_EXCEPTION_MESSAGE"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="string-length($_error_Invoke-DTCMO-Request-Response-Service/ActivityErrors/ns1:DeSerializationException/msg)>0">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/REMOTE_UNAVAILABLE/Type"/>
+                            </Type>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/EXCEPTION/DESERIALIZATION_EXCEPTION_EXCEPTION_MESSAGE"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="string-length($_error_Invoke-DTCMO-Request-Response-Service/ActivityErrors/ns1:ConfirmationException/msg)>0">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/REMOTE_UNAVAILABLE/Type"/>
+                            </Type>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/EXCEPTION/CONFIRMATION_EXCEPTION_MESSAGE"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="string-length($_error_Invoke-DTCMO-Request-Response-Service/ActivityErrors/ns1:TimeoutException/msg)>0">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/REMOTE_TIMEOUT/Type"/>
+                            </Type>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/EXCEPTION/TIME_OUT_EXCEPTION_MESSAGE"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:when test="string-length($_error_Invoke-DTCMO-Request-Response-Service/ActivityErrors/ns:__caret_fault_caret_LRCRedempitonRequestResponseService_caret_DQWrite/Error)>0">
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/REMOTE_TIMEOUT/Type"/>
+                            </Type>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/EXCEPTION/TIME_OUT_EXCEPTION_MESSAGE"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Error>
+                            <Type>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                            </Type>
+                            <Detail>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                            </Detail>
+                            <ErrorMessage>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                            </ErrorMessage>
+                        </Error>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>152</pd:x>
+        <pd:y>201</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Invoke DTCMO Request-Response Service">
+        <pd:type>com.tibco.plugin.ae.AERPCRequestReplyActivity</pd:type>
+        <pd:resourceType>ae.aepalette.aeOpClientReqActivity</pd:resourceType>
+        <pd:x>321</pd:x>
+        <pd:y>74</pd:y>
+        <config>
+            <ae.aepalette.sharedProperties.transportChoice>default</ae.aepalette.sharedProperties.transportChoice>
+            <ae.aepalette.sharedProperties.useRequestReply>false</ae.aepalette.sharedProperties.useRequestReply>
+            <ae.aepalette.sharedProperties.adapterService>/Adapters/LRCRedemption.adas400#adapterService.LRCRedempitonRequestResponseService</ae.aepalette.sharedProperties.adapterService>
+            <tpPluginEndpointName>LRCRedempitonRequestResponseServiceEndPoint</tpPluginEndpointName>
+            <ae.aepalette.sharedProperties.transportType>jmsQueue</ae.aepalette.sharedProperties.transportType>
+            <ae.aepalette.sharedProperties.jmsQueueSessionQueue>%%PrefixQueue%%.%%ENV%%.%%LrcRedemption/AS400Adapter/JMS/AS400QueueNameReqRespSuffix%%</ae.aepalette.sharedProperties.jmsQueueSessionQueue>
+            <ae.aepalette.sharedProperties.deliveryMode>NONPERSISTENT</ae.aepalette.sharedProperties.deliveryMode>
+            <ae.aepalette.sharedProperties.timeToLive>0</ae.aepalette.sharedProperties.timeToLive>
+            <ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>%%JMSConnections/EMSMain/QueueConnectionFactory%%</ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.jmsSessionUsername>%%JMSConnections/EMSMain/UserName%%</ae.aepalette.sharedProperties.jmsSessionUsername>
+            <ae.aepalette.sharedProperties.jmsSessionPassword>%%JMSConnections/EMSMain/Password%%</ae.aepalette.sharedProperties.jmsSessionPassword>
+            <ae.aepalette.sharedProperties.jmsSessionProviderURL>%%JMSConnections/EMSMain/JMSProviderURL%%</ae.aepalette.sharedProperties.jmsSessionProviderURL>
+            <ae.aepalette.aeOpClientReqActivity.ops>DQWrite</ae.aepalette.aeOpClientReqActivity.ops>
+            <ae.aepalette.sharedProperties.outputMeta>
+                <aeMeta>/AESchemas/ae/as400/LRCRedemption/DataQueueWrite/DataQueueWrite.aeschema#rpcClass.LRCRedempitonRequestResponseService</aeMeta>
+            </ae.aepalette.sharedProperties.outputMeta>
+        </config>
+        <pd:inputBindings>
+            <aeRequestInputType>
+                <ns:__caret_request_caret_LRCRedempitonRequestResponseService_caret_DQWrite>
+                    <Key>
+                        <CorrelationId>
+                            <xsl:value-of select="tib:left($Start/root/PaymentGatewayRequest,30)"/>
+                        </CorrelationId>
+                    </Key>
+                    <Request>
+                        <Line>
+                            <xsl:value-of select="tib:right($Start/root/PaymentGatewayRequest,270)"/>
+                        </Line>
+                    </Request>
+                </ns:__caret_request_caret_LRCRedempitonRequestResponseService_caret_DQWrite>
+            </aeRequestInputType>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LogPaymentGatewayExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>496</pd:x>
+        <pd:y>205</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionHandlerRequest>
+                <ns12:envCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ENV"/>
+                </ns12:envCode>
+                <ns12:appCode>
+                    <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/CLE/AppCode"/>
+                </ns12:appCode>
+                <ns12:interfaceCode>
+                    <xsl:value-of select="$Start/root/InterfaceCode"/>
+                </ns12:interfaceCode>
+                <ns12:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:hostName>
+                <ns12:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns12:timeStamp>
+                <ns12:message>
+                    <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                </ns12:message>
+                <ns12:payload>
+                    <xsl:value-of select="$Start/root/PaymentGatewayRequest"/>
+                </ns12:payload>
+                <ns12:ErrorLevel>
+                    <ns12:errorCode>
+                        <xsl:value-of select="concat($Variable0/root/Error/Type, $_globalVariables/ns2:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator, $Variable0/root/Error/Detail[1])"/>
+                    </ns12:errorCode>
+                </ns12:ErrorLevel>
+                <ns12:TransactionDetails>
+                    <ns12:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns12:transactionDomain>
+                    <ns12:transactionType>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/LrcRedemption/CLE/TransactionType"/>
+                    </ns12:transactionType>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="string-length($Start/root/transactionid) > 0">
+                            <ns12:transactionID>
+                                <xsl:value-of select="$Start/root/transactionid"/>
+                            </ns12:transactionID>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns12:transactionID>
+                                <xsl:value-of select="concat(tib:format-dateTime($_globalVariables/ns2:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns3:ProcessContext/ProcessId,  $_globalVariables/ns2:GlobalVariables/ENV   , BW:getHostName())"/>
+                            </ns12:transactionID>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </ns12:TransactionDetails>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns3:ErrorReport">
+                    <ns12:ErrorReportType>
+                        <ns12:stackTrace>
+                            <xsl:value-of select="StackTrace"/>
+                        </ns12:stackTrace>
+                        <ns12:msg>
+                            <xsl:value-of select="Msg"/>
+                        </ns12:msg>
+                        <ns12:fullClass>
+                            <xsl:value-of select="FullClass"/>
+                        </ns12:fullClass>
+                        <ns12:class>
+                            <xsl:value-of select="Class"/>
+                        </ns12:class>
+                        <ns12:processStack>
+                            <xsl:value-of select="ProcessStack"/>
+                        </ns12:processStack>
+                        <xsl:if test="MsgCode">
+                            <ns12:msgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </ns12:msgCode>
+                        </xsl:if>
+                        <ns12:data>
+                            <xsl:value-of select="Data/*"/>
+                        </ns12:data>
+                    </ns12:ErrorReportType>
+                </xsl:for-each>
+            </ns12:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Invoke DTCMO Request-Response Service</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Invoke DTCMO Request-Response Service</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign-Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign-Error</pd:from>
+        <pd:to>LogPaymentGatewayExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogPaymentGatewayExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>PaymentService-DB</name>
+    <resourceType>ae.shared.JDBCSharedResource</resourceType>
+    <config>
+        <driver>oracle.jdbc.driver.OracleDriver (thin)</driver>
+        <maxConnections>%%JDBCConnections/PaymentServiceDB/MaxConnections%%</maxConnections>
+        <loginTimeout>%%JDBCConnections/PaymentServiceDB/TimeOut%%</loginTimeout>
+        <connectionType>JDBC</connectionType>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <location>%%JDBCConnections/PaymentServiceDB/DatabaseURL%%</location>
+        <password>%%JDBCConnections/PaymentServiceDB/Password%%</password>
+        <user>%%JDBCConnections/PaymentServiceDB/UserName%%</user>
+    </config>
+</BWSharedResource>

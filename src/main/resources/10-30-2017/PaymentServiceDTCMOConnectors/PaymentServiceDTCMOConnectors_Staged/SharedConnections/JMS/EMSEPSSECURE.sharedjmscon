@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>EMSEPSSECURE</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>%%JMSConnections/EMSEPSSECURE/URL%%</ProviderURL>
+            <NamingURL>%%JMSConnections/EMSEPSSECURE/JNDIContextURL%%</NamingURL>
+            <NamingInitialContextFactory>%%JMSConnections/EMSEPSSECURE/JNDIContextFactory%%</NamingInitialContextFactory>
+            <TopicFactoryName>%%JMSConnections/EMSEPSSECURE/TopicConnectionFactory%%</TopicFactoryName>
+            <QueueFactoryName>%%JMSConnections/EMSEPSSECURE/QueueConnectionFactory%%</QueueFactoryName>
+            <NamingPrincipal>%%JMSConnections/EMSEPSSECURE/UserName%%</NamingPrincipal>
+            <NamingCredential>%%JMSConnections/EMSEPSSECURE/Password%%</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>%%JMSConnections/EMSEPSSECURE/UserName%%</username>
+            <password>%%JMSConnections/EMSEPSSECURE/Password%%</password>
+            <clientID/>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <UseXACF>false</UseXACF>
+        <useSsl>true</useSsl>
+        <ns0:ssl xmlns:ns0="http://www.tibco.com/xmlns/aemeta/services/2002">
+            <ns0:trace>true</ns0:trace>
+            <ns0:debugTrace>true</ns0:debugTrace>
+            <ns0:verifyHostName>false</ns0:verifyHostName>
+            <ns0:strongCipherSuitesOnly>true</ns0:strongCipherSuitesOnly>
+            <ns0:runtimeCertificateDir>%%RuntimeCertificatesDirectory%%</ns0:runtimeCertificateDir>
+            <ns0:cert isRef="true">%%RuntimeCertificatesDirectory%%</ns0:cert>
+        </ns0:ssl>
+    </config>
+</BWSharedResource>

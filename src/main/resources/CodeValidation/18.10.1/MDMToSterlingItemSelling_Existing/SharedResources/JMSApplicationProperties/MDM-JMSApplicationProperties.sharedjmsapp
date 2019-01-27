@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>MDM-JMSApplicationProperties</name>
+    <resourceType>ae.shared.JMSAppPropResource</resourceType>
+    <config>
+        <Properties>
+            <row>
+                <PropertyName>Concept</PropertyName>
+                <Type>string</Type>
+                <Cardinality>optional</Cardinality>
+            </row>
+            <row>
+                <PropertyName>ItemId</PropertyName>
+                <Type>string</Type>
+                <Cardinality>optional</Cardinality>
+            </row>
+            <row>
+                <PropertyName>EventType</PropertyName>
+                <Type>string</Type>
+                <Cardinality>optional</Cardinality>
+            </row>
+        </Properties>
+    </config>
+</BWSharedResource>

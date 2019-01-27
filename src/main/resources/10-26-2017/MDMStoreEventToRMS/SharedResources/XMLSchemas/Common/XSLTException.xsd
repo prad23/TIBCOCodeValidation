@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.wsgc.com/schemas/common/XSLTException.xsd"
+	 targetNamespace="http://www.wsgc.com/schemas/common/XSLTException.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="XSLTException">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="XSLTExceptionDtl" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ValidationType" type="validationTypeValues">
+								<xs:annotation>
+									<xs:documentation>This field represents the type of validation like MISSINGDATA, INVALIDDATA etc.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Field" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>This field represents the request payload field which is validated.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Description" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>This field gives you flexibility to add your custom message in XSLT and pass to CLE.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="validationTypeValues">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MISSINGDATA"/>
+			<xs:enumeration value="INVALIDDATA"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="XSLTExceptionByType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="XSLTExceptionByTypeDtl" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ValidationType" type="xs:string"/>
+							<xs:element name="ErrorDtl" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Field" type="xs:string"/>
+										<xs:element name="Description" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

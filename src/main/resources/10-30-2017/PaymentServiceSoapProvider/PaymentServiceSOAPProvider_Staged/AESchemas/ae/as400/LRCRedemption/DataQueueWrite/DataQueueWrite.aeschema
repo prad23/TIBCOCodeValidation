@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns="http://www.tibco.com/xmlns/aemeta/types/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <designer>
+        <fixedChildren>
+            <fixed>
+                <resource>/Classes</resource>
+                <children>LRCRedempitonRequestResponseService</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/LRCRedempitonRequestResponseService</resource>
+                <children>DQWrite</children>
+            </fixed>
+            <fixed>
+                <resource>/Classes/LRCRedempitonRequestResponseService/DQWrite/Parameters</resource>
+                <children>Key,Request,Response</children>
+            </fixed>
+        </fixedChildren>
+        <lockedProperties/>
+        <resourceDescriptions/>
+    </designer>
+    <rpcClass name="LRCRedempitonRequestResponseService">
+        <operation>
+            <oneway>false</oneway>
+            <name>DQWrite</name>
+            <parameter>
+                <direction>inout</direction>
+                <name>Key</name>
+                <parameterType isRef="true">/AESchemas/ae/as400/LRCRedemption/DataQueueWrite/Data_Structures/LRCRedempitonRequestResponseService.aeschema#class.Key</parameterType>
+            </parameter>
+            <parameter>
+                <direction>in</direction>
+                <name>Request</name>
+                <parameterType isRef="true">/AESchemas/ae/as400/LRCRedemption/DataQueueWrite/Data_Structures/LRCRedempitonRequestResponseService.aeschema#class.Request</parameterType>
+            </parameter>
+            <parameter>
+                <direction>out</direction>
+                <name>Response</name>
+                <parameterType isRef="true">/AESchemas/ae/as400/LRCRedemption/DataQueueWrite/Data_Structures/LRCRedempitonRequestResponseService.aeschema#class.Response</parameterType>
+            </parameter>
+            <returnType isRef="true">/AESchemas/ae.aeschema#scalar.boolean</returnType>
+            <raises>
+                <name>Error</name>
+                <raisesType isRef="true">/AESchemas/ae.aeschema#scalar.string</raisesType>
+            </raises>
+            <raises>
+                <name>OperationError</name>
+                <raisesType isRef="true">/AESchemas/ae.aeschema#scalar.string</raisesType>
+            </raises>
+        </operation>
+    </rpcClass>
+</Repository:repository>

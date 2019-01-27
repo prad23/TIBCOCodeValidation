@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" xmlns:ns="http://services.wsgc.com/2014/Payment" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pfx2="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/OutboundMessage/OutboundMessage" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx3="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/OutboundMessage/Data_Structures/TokenizationPublisher" xmlns:pfx4="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Authorization/DataQueueWrite/Data_Structures/AuthorizationSubscriber" xmlns:pfx5="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Authorization/OutboundMessage/OutboundMessage" xmlns:pfx6="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Authorization/OutboundMessage/Data_Structures/AuthorizationPublisher" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions">
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService" schemaLocation="/AESchemas/ae/as400/IBMiAdapterConfiguration/OutboundMessage/Data_Structures/PublicationService.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/OutboundMessage/OutboundMessage" schemaLocation="/AESchemas/ae/as400/Tokenization/OutboundMessage/OutboundMessage.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Tokenization/OutboundMessage/Data_Structures/TokenizationPublisher" schemaLocation="/AESchemas/ae/as400/Tokenization/OutboundMessage/Data_Structures/TokenizationPublisher.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Authorization/DataQueueWrite/Data_Structures/AuthorizationSubscriber" schemaLocation="/AESchemas/ae/as400/Authorization/DataQueueWrite/Data_Structures/AuthorizationSubscriber.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Authorization/OutboundMessage/OutboundMessage" schemaLocation="/AESchemas/ae/as400/Authorization/OutboundMessage/OutboundMessage.aeschema"/>
+    <xsd:import namespace="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/as400/Authorization/OutboundMessage/Data_Structures/AuthorizationPublisher" schemaLocation="/AESchemas/ae/as400/Authorization/OutboundMessage/Data_Structures/AuthorizationPublisher.aeschema"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/credit-authorization.xsd"/>
+    <pd:name>BusinessProcesses/CreditAuthorization/RequestProcessors/ValidateDTCMORequest.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx6:Entry"/>
+    <pd:startX>28</pd:startX>
+    <pd:startY>36</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <xsl:choose>
+                <xsl:when test="string-length($MapRequestValidationErrorResponse/ns:CreditCardAuthorizationResponse) >0">
+                    <xsl:copy-of select="$MapRequestValidationErrorResponse/ns:CreditCardAuthorizationResponse"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="$ValidateXmlRequest/root/ns:CreditCardAuthorizationResponse"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:copy-of select="$ValidateXmlRequest/root/ns:CreditCardAuthorizationRequest"/>
+            <xsl:if test="$ValidateXmlRequest/root/TransactionId">
+                <TransactionId>
+                    <xsl:value-of select="$ValidateXmlRequest/root/TransactionId"/>
+                </TransactionId>
+            </xsl:if>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="ns:CreditCardAuthorizationResponse" minOccurs="0"/>
+                    <xsd:element ref="ns:CreditCardAuthorizationRequest" minOccurs="0"/>
+                    <xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>490</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1428698665830</pd:targetNamespace>
+    <pd:activity name="MapAdapterRequest">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>160</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <element ref="ns:CreditCardAuthorizationRequest"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable name="Entry" select="$Start/pfx6:Entry"/>
+            <ns:CreditCardAuthorizationRequest>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="tib:trim($Entry/Version)"/>
+                </xsl:attribute>
+                <SystemContext>
+                    <EnvironmentIdentifier>
+                        <xsl:value-of select="tib:trim($Entry/EnvironmentIdentifier)"/>
+                    </EnvironmentIdentifier>
+                    <RegionIdentifier>
+                        <xsl:value-of select="tib:trim($Entry/RegionIdentifier)"/>
+                    </RegionIdentifier>
+                    <SourceSystemIdentifier>
+                        <xsl:value-of select="tib:trim($Entry/SourceSystemIdentifier)"/>
+                    </SourceSystemIdentifier>
+                    <TransactionId>
+                        <xsl:value-of select="tib:trim($Entry/TransactionId)"/>
+                    </TransactionId>
+                    <TransactionTime>
+                        <xsl:value-of select="tib:trim($Entry/TransactionTime)"/>
+                    </TransactionTime>
+                </SystemContext>
+                <PaymentContext>
+                    <Concept>
+                        <xsl:value-of select="tib:trim($Entry/Concept)"/>
+                    </Concept>
+                    <Channel>
+                        <xsl:value-of select="tib:trim($Entry/Channel)"/>
+                    </Channel>
+                    <CareCenter/>
+                </PaymentContext>
+                <OrderContext>
+                    <xsl:attribute name="omsOrderId">
+                        <xsl:value-of select="tib:trim($Entry/OrderNumber)"/>
+                    </xsl:attribute>
+                    <OrderTime>
+                        <xsl:value-of select="tib:trim($Entry/OrderTime)"/>
+                    </OrderTime>
+                </OrderContext>
+                <ConsumerTransactionId>
+                    <xsl:value-of select="tib:trim($Entry/ConsumerTransactionId)"/>
+                </ConsumerTransactionId>
+                <Tender>
+                    <Type>
+                        <Code>
+                            <xsl:value-of select="tib:trim($Entry/Code)"/>
+                        </Code>
+                        <SubCode>
+                            <xsl:value-of select="tib:trim($Entry/SubCode)"/>
+                        </SubCode>
+                    </Type>
+                    <xsl:choose>
+                        <xsl:when test="string-length(tib:trim($Entry/AccountNumber))>0">
+                            <AccountNumber>
+                                <xsl:value-of select="tib:trim($Entry/AccountNumber)"/>
+                            </AccountNumber>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <Token>
+                                <xsl:attribute name="scheme">
+                                    <xsl:value-of select="tib:trim($Entry/Scheme)"/>
+                                </xsl:attribute>
+                                <xsl:if test="not(($Entry/Scope/@xsi:nil=(&quot;true&quot;)) or ($Entry/Scope/@xsi:nil=(&quot;1&quot;)))">
+                                    <xsl:attribute name="scope">
+                                        <xsl:value-of select="tib:trim($Entry/Scope)"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="upper-case(tib:trim($Entry/IsTemporary))='Y'">
+                                        <xsl:attribute name="isTemporary">
+                                            <xsl:value-of select="1"/>
+                                        </xsl:attribute>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:attribute name="isTemporary">
+                                            <xsl:value-of select="0"/>
+                                        </xsl:attribute>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:attribute name="expiration">
+                                    <xsl:value-of select="tib:trim($Entry/Expiration)"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="tib:trim($Entry/Token)"/>
+                            </Token>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Tender>
+                <CardMetadata>
+                    <CardHolderName>
+                        <FullName>
+                            <xsl:value-of select="tib:trim($Entry/FullName)"/>
+                        </FullName>
+                    </CardHolderName>
+                    <xsl:if test="string-length(tib:trim($Entry/Year))>0">
+                        <CardExpiration>
+                            <Year>
+                                <xsl:value-of select="tib:trim($Entry/Year)"/>
+                            </Year>
+                            <Month>
+                                <xsl:value-of select="tib:trim($Entry/Month)"/>
+                            </Month>
+                        </CardExpiration>
+                    </xsl:if>
+                </CardMetadata>
+                <IsCardNotPresent>
+                    <xsl:value-of select="tib:trim($Entry/IsCardNotPresent)"/>
+                </IsCardNotPresent>
+                <BillingAddress>
+                    <FullName>
+                        <xsl:value-of select="tib:trim($Entry/FullNameBillTo)"/>
+                    </FullName>
+                    <Address>
+                        <xsl:if test="not(($Entry/AddressLine1/@xsi:nil=(&quot;true&quot;)) or ($Entry/AddressLine1/@xsi:nil=(&quot;1&quot;)))">
+                            <AddressLine>
+                                <xsl:value-of select="tib:trim($Entry/AddressLine1)"/>
+                            </AddressLine>
+                        </xsl:if>
+                        <xsl:if test="not(($Entry/City/@xsi:nil=(&quot;true&quot;)) or ($Entry/City/@xsi:nil=(&quot;1&quot;)))">
+                            <City>
+                                <xsl:value-of select="tib:trim($Entry/City)"/>
+                            </City>
+                        </xsl:if>
+                        <xsl:if test="not(($Entry/County/@xsi:nil=(&quot;true&quot;)) or ($Entry/County/@xsi:nil=(&quot;1&quot;)))">
+                            <County>
+                                <xsl:value-of select="tib:trim($Entry/County)"/>
+                            </County>
+                        </xsl:if>
+                        <xsl:if test="not(($Entry/StateProvince/@xsi:nil=(&quot;true&quot;)) or ($Entry/StateProvince/@xsi:nil=(&quot;1&quot;)))">
+                            <StateProvince>
+                                <xsl:value-of select="tib:trim($Entry/StateProvince)"/>
+                            </StateProvince>
+                        </xsl:if>
+                        <xsl:if test="not(($Entry/PostalCode/@xsi:nil=(&quot;true&quot;)) or ($Entry/PostalCode/@xsi:nil=(&quot;1&quot;)))">
+                            <PostalCode>
+                                <xsl:value-of select="tib:trim($Entry/PostalCode)"/>
+                            </PostalCode>
+                        </xsl:if>
+                        <xsl:if test="not(($Entry/Country/@xsi:nil=(&quot;true&quot;)) or ($Entry/Country/@xsi:nil=(&quot;1&quot;)))">
+                            <Country>
+                                <xsl:value-of select="tib:trim($Entry/Country)"/>
+                            </Country>
+                        </xsl:if>
+                        <xsl:if test="not(($Entry/VerificationStatus/@xsi:nil=(&quot;true&quot;)) or ($Entry/VerificationStatus/@xsi:nil=(&quot;1&quot;)))">
+                            <VerificationStatus>
+                                <xsl:value-of select="tib:trim($Entry/VerificationStatus)"/>
+                            </VerificationStatus>
+                        </xsl:if>
+                        <xsl:if test="not(($Entry/Classification/@xsi:nil=(&quot;true&quot;)) or ($Entry/Classification/@xsi:nil=(&quot;1&quot;)))">
+                            <Classification>
+                                <xsl:value-of select="tib:trim($Entry/Classification)"/>
+                            </Classification>
+                        </xsl:if>
+                    </Address>
+                </BillingAddress>
+                <CurrencyCode>
+                    <xsl:value-of select="tib:trim($Entry/CurrencyCode)"/>
+                </CurrencyCode>
+                <AuthorizationAmount>
+                    <xsl:value-of select="tib:trim($Entry/AuthorizationAmount)"/>
+                </AuthorizationAmount>
+                <PaymentPlanCode>
+                    <xsl:value-of select="tib:trim($Entry/PaymentPlanCode)"/>
+                </PaymentPlanCode>
+                <Purpose>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/Constants/DTC/SaleOfGoods"/>
+                </Purpose>
+            </ns:CreditCardAuthorizationRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ValidateXmlRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>323</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <processName>/BusinessProcesses/CreditAuthorization/RequestProcessors/ValidateXmlRequest.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <paymentservicerequest>
+                    <xsl:value-of select="tib:render-xml($MapAdapterRequest/ns:CreditCardAuthorizationRequest)"/>
+                </paymentservicerequest>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SendExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>361</pd:x>
+        <pd:y>154</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionHandlerRequest>
+                <ns12:envCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ENV"/>
+                </ns12:envCode>
+                <ns12:appCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/CLE/AppCode"/>
+                </ns12:appCode>
+                <ns12:interfaceCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Authorization/CLE/DTCMOInterfaceCode"/>
+                </ns12:interfaceCode>
+                <ns12:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:hostName>
+                <ns12:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns12:timeStamp>
+                <ns12:message>
+                    <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                </ns12:message>
+                <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                    <xsl:when test="string-length($Start/pfx6:Entry) > 0">
+                        <ns12:payload>
+                            <xsl:value-of select="tib:render-xml($Start/pfx6:Entry)"/>
+                        </ns12:payload>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ns12:payload>
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </ns12:payload>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <ns12:ErrorLevel>
+                    <ns12:errorCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ns12:errorCode>
+                </ns12:ErrorLevel>
+                <ns12:TransactionDetails>
+                    <ns12:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns12:transactionDomain>
+                    <ns12:transactionType>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Authorization/CLE/TransactionType"/>
+                    </ns12:transactionType>
+                    <ns12:transactionID>
+                        <xsl:value-of select="$Start/pfx6:Entry/TransactionId"/>
+                    </ns12:transactionID>
+                </ns12:TransactionDetails>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_processContext/ns2:ProcessContext">
+                    <ns12:ProcessContextDetails>
+                        <ns12:processId>
+                            <xsl:value-of select="ProcessId"/>
+                        </ns12:processId>
+                        <ns12:projectName>
+                            <xsl:value-of select="ProjectName"/>
+                        </ns12:projectName>
+                        <ns12:engineName>
+                            <xsl:value-of select="EngineName"/>
+                        </ns12:engineName>
+                        <ns12:restartedFromCheckpoint>
+                            <xsl:value-of select="RestartedFromCheckpoint"/>
+                        </ns12:restartedFromCheckpoint>
+                        <xsl:for-each select="TrackingInfo">
+                            <ns12:trackingInfo>
+                                <xsl:value-of select="."/>
+                            </ns12:trackingInfo>
+                        </xsl:for-each>
+                    </ns12:ProcessContextDetails>
+                </xsl:for-each>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$_error/ns2:ErrorReport">
+                    <ns12:ErrorReportType>
+                        <ns12:stackTrace>
+                            <xsl:value-of select="StackTrace"/>
+                        </ns12:stackTrace>
+                        <ns12:msg>
+                            <xsl:value-of select="Msg"/>
+                        </ns12:msg>
+                        <ns12:fullClass>
+                            <xsl:value-of select="FullClass"/>
+                        </ns12:fullClass>
+                        <ns12:class>
+                            <xsl:value-of select="Class"/>
+                        </ns12:class>
+                        <ns12:processStack>
+                            <xsl:value-of select="ProcessStack"/>
+                        </ns12:processStack>
+                        <xsl:if test="MsgCode">
+                            <ns12:msgCode>
+                                <xsl:value-of select="MsgCode"/>
+                            </ns12:msgCode>
+                        </xsl:if>
+                        <xsl:if test="Data">
+                            <ns12:data>
+                                <xsl:value-of select="tib:render-xml(Data)"/>
+                            </ns12:data>
+                        </xsl:if>
+                    </ns12:ErrorReportType>
+                </xsl:for-each>
+            </ns12:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapRequestValidationErrorResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>492</pd:x>
+        <pd:y>153</pd:y>
+        <config>
+            <element ref="ns:CreditCardAuthorizationResponse"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="Entry" select="$Start/pfx6:Entry"/>
+            <ns:CreditCardAuthorizationResponse>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Authorization/MessageVersion"/>
+                </xsl:attribute>
+                <SystemContext>
+                    <EnvironmentIdentifier>
+                        <xsl:value-of select="$Start/pfx6:Entry/EnvironmentIdentifier"/>
+                    </EnvironmentIdentifier>
+                    <RegionIdentifier>
+                        <xsl:value-of select="$Start/pfx6:Entry/RegionIdentifier"/>
+                    </RegionIdentifier>
+                    <SourceSystemIdentifier>
+                        <xsl:value-of select="$Start/pfx6:Entry/SourceSystemIdentifier"/>
+                    </SourceSystemIdentifier>
+                    <TransactionId>
+                        <xsl:value-of select="$Start/pfx6:Entry/TransactionId"/>
+                    </TransactionId>
+                    <TransactionTime>
+                        <xsl:value-of select="$Start/pfx6:Entry/TransactionTime"/>
+                    </TransactionTime>
+                </SystemContext>
+                <PaymentContext>
+                    <Concept>
+                        <xsl:value-of select="$Start/pfx6:Entry/Concept"/>
+                    </Concept>
+                    <Channel>
+                        <xsl:value-of select="$Start/pfx6:Entry/Channel"/>
+                    </Channel>
+                </PaymentContext>
+                <xsl:for-each select="$_error/ns2:ErrorReport">
+                    <Error>
+                        <Type>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/PaymentService/CommonErrors/INVALID_REQUEST/Type"/>
+                        </Type>
+                        <Detail>
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </Detail>
+                        <ErrorMessage>
+                            <xsl:value-of select="Msg"/>
+                        </ErrorMessage>
+                    </Error>
+                </xsl:for-each>
+            </ns:CreditCardAuthorizationResponse>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>222</pd:x>
+        <pd:y>157</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>MapAdapterRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapAdapterRequest</pd:from>
+        <pd:to>ValidateXmlRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ValidateXmlRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>SendExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendExceptionRequest</pd:from>
+        <pd:to>MapRequestValidationErrorResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapRequestValidationErrorResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

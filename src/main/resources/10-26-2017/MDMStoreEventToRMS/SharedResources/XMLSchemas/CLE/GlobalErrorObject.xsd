@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd"
+	 targetNamespace="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ExceptionHandlerRequest" type="ExceptionHandlerRequestType"/>
+	<xs:element name="LogRequest" type="LogRequestType"/>
+	<xs:complexType name="ExceptionHandlerRequestType">
+		<xs:sequence>
+			<xs:element name="envCode" type="xs:string"/>
+			<xs:element name="appCode" type="xs:string"/>
+			<xs:element name="interfaceCode" type="xs:string"/>
+			<xs:element name="hostName" type="xs:string" minOccurs="0"/>
+			<xs:element name="notificationList" type="xs:string" minOccurs="0"/>
+			<xs:element name="timeStamp" type="xs:dateTime"/>
+			<xs:element name="activityName" type="xs:string" minOccurs="0"/>
+			<xs:element name="message" type="xs:string"/>
+			<xs:element name="payload" type="xs:string" minOccurs="0"/>
+			<xs:element name="ErrorLevel" type="ErrorLevelType"/>
+			<xs:element name="TransactionDetails" type="TransactionDetailsType" minOccurs="0"/>
+			<xs:element name="ProcessContextDetails" type="ProcessContextType" minOccurs="0"/>
+			<xs:element name="ErrorReportType" type="ErrorReportType" minOccurs="0"/>
+			<xs:element name="AdditionalInformation" type="AdditionalInformationType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProcessContextType">
+		<xs:sequence>
+			<xs:element name="processId" type="xs:string"/>
+			<xs:element name="projectName" type="xs:string"/>
+			<xs:element name="engineName" type="xs:string"/>
+			<xs:element name="restartedFromCheckpoint" type="xs:boolean"/>
+			<xs:element name="trackingInfo" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ErrorReportType">
+		<xs:sequence>
+			<xs:element name="stackTrace" type="xs:string" minOccurs="0"/>
+			<xs:element name="msg" type="xs:string" minOccurs="0"/>
+			<xs:element name="fullClass" type="xs:string" minOccurs="0"/>
+			<xs:element name="class" type="xs:string" minOccurs="0"/>
+			<xs:element name="processStack" type="xs:string" minOccurs="0"/>
+			<xs:element name="msgCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="data" type="xs:anyType" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TransactionDetailsType">
+		<xs:sequence>
+			<xs:element name="transactionDomain" type="xs:string" minOccurs="0"/>
+			<xs:element name="transactionType" type="xs:string" minOccurs="0"/>
+			<xs:element name="transactionID" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ErrorLevelType">
+		<xs:choice>
+			<xs:element name="errorCode" type="xs:string"/>
+			<xs:element name="ErrorConfig">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="severity" type="xs:string"/>
+						<xs:element name="errorType" type="xs:string"/>
+						<xs:element name="category" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="LogRequestType">
+		<xs:sequence>
+			<xs:element name="envCode" type="xs:string"/>
+			<xs:element name="appCode" type="xs:string"/>
+			<xs:element name="interfaceCode" type="xs:string"/>
+			<xs:element name="timestamp" type="xs:string"/>
+			<xs:element name="status" type="xs:string" minOccurs="0"/>
+			<xs:element name="message" type="xs:string" minOccurs="0"/>
+			<xs:element name="TransactionDetails" type="TransactionDetailsType" minOccurs="0"/>
+			<xs:element name="AuditInfo" type="AuditLogType" minOccurs="0"/>
+			<xs:element name="AdditionalInformation" type="AdditionalInformationType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AuditLogType">
+		<xs:sequence>
+			<xs:element name="payload" type="xs:string"/>
+			<xs:element name="auditStep" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AdditionalInformationType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="value" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx10="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/CompletionResponse" xmlns:pfx11="http://paymentservice.wsgc.com/2014/common/PaymentServices/SharedResources/LrcBalanceInquiryDTCMORequest" xmlns:pfx12="http://paymentservice.wsgc.com/2014/common/PaymentServices/SharedResources/LrcBalanceInquiryDTCMOResponse" xmlns:ns21="http://www.wsgc.com/schemas/common/PaymentGatewayAuthorizationStatusCodes.xsd" xmlns:ns="http://www.wsgc.com/schemas/common/PaymentGatewayGenericResultCodes.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.wsgc.com/schemas/common/PaymentGatewaySVCStatusCodes.xsd" xmlns:ns2="http://www.wsgc.com/schemas/common/PaymentServiceProcessorReturnCodes.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.wsgc.com/schemas/common/PaymentServiceLRCStatuses.xsd" xmlns:pfx2="http://ecommerce.wsgc.com/2013/Common" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/XMLSchemas/Verifone/GiftActivateResponse.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx4="http://services.wsgc.com/2014/Payment" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx7="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx9="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorizationResponse">
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/PaymentServices/2013/Common/base-types.xsd"/>
+    <xsd:import namespace="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/PreAuthorizationResponse" schemaLocation="/SharedResources/XMLSchemas/Verifone/UGP/CreditPreAuthorizationResponse.xsd"/>
+    <xsd:import namespace="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/CompletionResponse" schemaLocation="/SharedResources/XMLSchemas/Verifone/UGP/CreditCompletionResponse.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/lrc-balance.xsd"/>
+    <xsd:import namespace="http://paymentservice.wsgc.com/2014/common/PaymentServices/SharedResources/LrcBalanceInquiryDTCMORequest" schemaLocation="/SharedResources/XMLSchemas/PaymentServiceInternal/LrcBalanceInquiryDTCMORequest.xsd"/>
+    <xsd:import namespace="http://paymentservice.wsgc.com/2014/common/PaymentServices/SharedResources/LrcBalanceInquiryDTCMOResponse" schemaLocation="/SharedResources/XMLSchemas/PaymentServiceInternal/LrcBalanceInquiryDTCMOResponse.xsd"/>
+    <pd:name>BusinessProcesses/LrcBalanceInquiry/ResponseProcessors/ProcessPaymentGatewayResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx12:LrcBalanceInquiryDTCMOResponse"/>
+                    <xsd:element name="InterfaceCode" type="xsd:string"/>
+                    <xsd:element name="TransactionType" type="xsd:string"/>
+                    <xsd:element name="TransactionId" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>96</pd:startX>
+    <pd:startY>193</pd:startY>
+    <pd:returnBindings>
+        <root>
+            <Error>
+                <Type>
+                    <xsl:value-of select="$Variable0DTCMOLRCResponse/root/ErrorType"/>
+                </Type>
+                <xsl:if test="$Variable0DTCMOLRCResponse/root/ErrorDetail">
+                    <Detail>
+                        <xsl:value-of select="$Variable0DTCMOLRCResponse/root/ErrorDetail"/>
+                    </Detail>
+                </xsl:if>
+                <xsl:if test="string-length(tib:trim($Start/root/pfx12:LrcBalanceInquiryDTCMOResponse/pfx12:FutureField))>0">
+                    <Detail>
+                        <xsl:value-of select="tib:trim($Start/root/pfx12:LrcBalanceInquiryDTCMOResponse/pfx12:FutureField)"/>
+                    </Detail>
+                </xsl:if>
+                <ErrorMessage>
+                    <xsl:value-of select="$Variable0DTCMOLRCResponse/root/ErrorMessage"/>
+                </ErrorMessage>
+            </Error>
+            <xsl:choose>
+                <xsl:when test="string-length($Variable0DTCMOLRCResponse/root/ErrorType)>0">
+                    <Success>
+                        <xsl:value-of select="$_globalVariables/pfx7:GlobalVariables/PaymentService/Constants/BooleanFailure"/>
+                    </Success>
+                </xsl:when>
+                <xsl:otherwise>
+                    <Success>
+                        <xsl:value-of select="$_globalVariables/pfx7:GlobalVariables/PaymentService/Constants/BooleanSuccess"/>
+                    </Success>
+                </xsl:otherwise>
+            </xsl:choose>
+        </root>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Error" type="pfx2:ErrorType" minOccurs="0"/>
+                    <xsd:element name="Success" type="xsd:boolean" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>781</pd:endX>
+    <pd:endY>188</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Variable0DTCMOLRCResponse>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ErrorType" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorDetail" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ErrorMessage" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="ShouldNotify" type="xsd:boolean" minOccurs="0"/>
+                        <xsd:element name="provideTokenOnError" type="xsd:base64Binary" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Variable0DTCMOLRCResponse>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1418700207599</pd:targetNamespace>
+    <pd:activity name="AssignDTCMOResponse">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>472</pd:x>
+        <pd:y>191</pd:y>
+        <config>
+            <variableName>Variable0DTCMOLRCResponse</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable name="var" select="$LookupDTCMOStatus/ns3:PaymentServiceLRCStatuses/ns3:PaymentServiceLRCStatus[ns3:OperationStatus=tib:trim($Start/root/pfx12:LrcBalanceInquiryDTCMOResponse/pfx12:OperationStatus) and ns3:CertificateStatus=tib:trim($Start/root/pfx12:LrcBalanceInquiryDTCMOResponse/pfx12:Certificatestatus) ]"/>
+            <root>
+                <xsl:if test="$var/ns3:WSIMessage[@operationScope=$_globalVariables/pfx7:GlobalVariables/LrcBalanceInquiry/BWTransformation/OperationScope]/@errorType">
+                    <ErrorType>
+                        <xsl:value-of select="$var/ns3:WSIMessage[@operationScope=$_globalVariables/pfx7:GlobalVariables/LrcBalanceInquiry/BWTransformation/OperationScope]/@errorType"/>
+                    </ErrorType>
+                </xsl:if>
+                <xsl:if test="$var/ns3:WSIMessage[@operationScope=$_globalVariables/pfx7:GlobalVariables/LrcBalanceInquiry/BWTransformation/OperationScope]">
+                    <ErrorDetail>
+                        <xsl:value-of select="$var/ns3:WSIMessage[@operationScope=$_globalVariables/pfx7:GlobalVariables/LrcBalanceInquiry/BWTransformation/OperationScope]"/>
+                    </ErrorDetail>
+                </xsl:if>
+                <xsl:if test="$var/ns3:Description">
+                    <ErrorMessage>
+                        <xsl:value-of select="$var/ns3:Description"/>
+                    </ErrorMessage>
+                </xsl:if>
+                <xsl:if test="$var/ns3:WSIMessage[@operationScope=$_globalVariables/pfx7:GlobalVariables/LrcBalanceInquiry/BWTransformation/OperationScope]/@shouldNotify">
+                    <ShouldNotify>
+                        <xsl:value-of select="$var/ns3:WSIMessage[@operationScope=$_globalVariables/pfx7:GlobalVariables/LrcBalanceInquiry/BWTransformation/OperationScope]/@shouldNotify"/>
+                    </ShouldNotify>
+                </xsl:if>
+                <xsl:if test="$var/ns3:WSIMessage[@operationScope=$_globalVariables/pfx7:GlobalVariables/LrcBalanceInquiry/BWTransformation/OperationScope]/@provideTokenOnError">
+                    <provideTokenOnError>
+                        <xsl:value-of select="$var/ns3:WSIMessage[@operationScope=$_globalVariables/pfx7:GlobalVariables/LrcBalanceInquiry/BWTransformation/OperationScope]/@provideTokenOnError"/>
+                    </provideTokenOnError>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LookupDTCMOStatus">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>318</pd:x>
+        <pd:y>190</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServiceLRCStatuses.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="NotifySupport">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>597</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/NotifySupport.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$Start/root/InterfaceCode"/>
+                </InterfaceCode>
+                <xsl:if test="$Variable0DTCMOLRCResponse/root/ErrorType">
+                    <ExceptionCode>
+                        <xsl:value-of select="$_globalVariables/pfx7:GlobalVariables/PaymentService/NotificationErrorCodes/PAYMENT_GATEWAY_RESPONSE_VALIDATION_ERROR"/>
+                    </ExceptionCode>
+                </xsl:if>
+                <ErrorMessage>
+                    <xsl:value-of select="concat(  $Variable0DTCMOLRCResponse/root/ErrorDetail  ,   $_globalVariables/pfx7:GlobalVariables/PaymentService/CLE/ErrorMessageSeparator  ,   $Variable0DTCMOLRCResponse/root/ErrorMessage  )"/>
+                </ErrorMessage>
+                <TransactionType>
+                    <xsl:value-of select="$Start/root/TransactionType"/>
+                </TransactionType>
+                <TransactionId>
+                    <xsl:value-of select="$Start/root/TransactionId"/>
+                </TransactionId>
+                <Payload>
+                    <xsl:value-of select="tib:render-xml($Start/root/pfx12:LrcBalanceInquiryDTCMOResponse)"/>
+                </Payload>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>LookupDTCMOStatus</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LookupDTCMOStatus</pd:from>
+        <pd:to>AssignDTCMOResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignDTCMOResponse</pd:from>
+        <pd:to>NotifySupport</pd:to>
+        <pd:xpathDescription>OnNotify</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Variable0DTCMOLRCResponse/root/ShouldNotify="true"</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>NotifySupport</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignDTCMOResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>EMSSterling</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>%%JMSConnections/EMSMain/JMSProviderURL%%</ProviderURL>
+            <NamingURL>%%JMSConnections/EMSSterling/JNDIContextURL%%</NamingURL>
+            <NamingInitialContextFactory>%%JMSConnections/EMSSterling/JNDIContextFactory%%</NamingInitialContextFactory>
+            <TopicFactoryName>%%JMSConnections/EMSSterling/TopicConnectionFactory%%</TopicFactoryName>
+            <QueueFactoryName>%%JMSConnections/EMSSterling/QueueConnectionFactory%%</QueueFactoryName>
+            <NamingPrincipal>%%JMSConnections/EMSSterling/JNDIUserName%%</NamingPrincipal>
+            <NamingCredential>%%JMSConnections/EMSSterling/JNDIPassword%%</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>%%JMSConnections/EMSSterling/UserName%%</username>
+            <password>%%JMSConnections/EMSSterling/Password%%</password>
+            <clientID/>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <UseXACF>false</UseXACF>
+    </config>
+</BWSharedResource>

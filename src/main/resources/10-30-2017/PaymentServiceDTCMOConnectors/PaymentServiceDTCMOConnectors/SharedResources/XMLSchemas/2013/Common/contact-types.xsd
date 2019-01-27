@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://ecommerce.wsgc.com/2013/Common"
+           elementFormDefault="unqualified"
+           targetNamespace="http://ecommerce.wsgc.com/2013/Common">
+
+  <xs:annotation>
+    <xs:documentation>
+      This schema defines common user contact data types that have broad application.
+
+      Note: Nothing in this schema definition names a "customer". See profile_types.xsd
+      for a note about the name of a customer as part of the BillingAddress.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="base-types.xsd"/>
+
+  <xs:complexType name="CompoundNameType">
+    <xs:annotation>
+      <xs:documentation>
+        Provides a more conventional model of a name where the full name
+        is represented by its component pieces.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Title" type="xs:string" minOccurs="0"/>
+      <xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+      <xs:element name="MiddleName" type="xs:string" minOccurs="0"/>
+      <xs:element name="LastName" type="xs:string" minOccurs="0"/>
+      <xs:element name="Suffix" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ContactType">
+    <xs:annotation>
+      <xs:documentation>
+        The ContactType is akin to a marker interface in Java. It's
+        presence as the base type for all the various ways in which
+        we model contact information is likely to be beneficial in the
+        future or when using the various code generation tools.
+
+        Over time it is likely that elements and attributes common
+        to all contact methods will be pushed into this type definition.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:complexType>
+
+  <xs:complexType name="RoleContactType">
+    <xs:annotation>
+      <xs:documentation>
+        The RoleContactType simply applies context to a ContactType.
+
+        The values for role are:
+            primary (currently recorded as "Day" on the sites)
+            alternate (currently recorded as "Evening" on the sites)
+
+        An example is when a user identifies a phone number as
+        the primary one to use.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Detail" type="ContactType"/>
+    </xs:sequence>
+    <xs:attribute name="role" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ContactAddressType">
+    <xs:annotation>
+      <xs:documentation>
+        All standard elements for any address around the world.
+        Depending on the country, different elements are used.
+
+        The values for VerificationStatus are:
+            valid = Verified by the address verification system (AVS)
+            overridden = run through AVS but overridden by the user
+            unverified = not verified through AVS
+
+                Values for StateProvince and County are not abbreviated.
+
+        Values for Country are according to the 3 digit ISO Country Code
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ContactType">
+        <xs:sequence>
+          <xs:element name="AddressLine" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="City" type="xs:string" minOccurs="0"/>
+          <xs:element name="County" type="xs:string" minOccurs="0"/>
+          <xs:element name="StateProvince" type="xs:string" minOccurs="0"/>
+          <xs:element name="PostalCode" type="xs:string" minOccurs="0"/>
+          <xs:element name="Country" type="CountryCodeType" minOccurs="0" default="USA"/>
+          <xs:element name="VerificationStatus" type="xs:string" minOccurs="0"/>
+          <xs:element name="Classification" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>
+                Indicates the address classification if known:
+
+                Residential
+                Commercial
+                Military
+                PostOfficeBox
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ContactPhoneType">
+    <xs:annotation>
+      <xs:documentation>
+        The CountryCode is the international dialing prefix.
+
+        The values for PhoneType are:
+                mobile
+                home
+                business
+                unspecified (used for numbers existing before this was collected)
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ContactType">
+        <xs:sequence>
+          <xs:element name="CountryCode" type="xs:string" minOccurs="0"/>
+          <xs:element name="Number" type="xs:string">
+            <xs:annotation>
+              <xs:documentation>The value for Number includes only the digits dialed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Extension" type="xs:string" minOccurs="0"/>
+          <xs:element name="PhoneType" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ContactEmailType">
+    <xs:annotation>
+      <xs:documentation>
+        The values for ContentFormat are:
+                text
+                html
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ContactType">
+        <xs:sequence>
+          <xs:element name="Address" type="xs:string"/>
+          <xs:element name="ContentFormat" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ContactMailType">
+    <xs:annotation>
+      <xs:documentation>
+        This type represents a physical mailing address.
+
+        In the case of DP, the name is a single string field.
+        In the case of Registry, the name is broken into up to 5 string fields.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ContactType">
+        <xs:sequence>
+          <xs:choice>
+            <xs:element name="FullName" type="xs:string"/>
+            <xs:element name="Name" type="CompoundNameType"/>
+          </xs:choice>
+          <xs:element name="Address" type="ContactAddressType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ContactMailAddressOnlyType">
+    <xs:annotation>
+      <xs:documentation>
+        This type represents a physical mailing address without name.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ContactType">
+        <xs:sequence>
+          <xs:element name="Address" type="ContactAddressType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ContactSocialType">
+    <xs:annotation>
+      <xs:documentation>
+        A social contact type is used to capture things like a users
+        Facebook account or Twitter account.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ContactType">
+        <xs:sequence>
+          <xs:element name="Provider" type="xs:string"/>
+          <xs:element name="Id" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

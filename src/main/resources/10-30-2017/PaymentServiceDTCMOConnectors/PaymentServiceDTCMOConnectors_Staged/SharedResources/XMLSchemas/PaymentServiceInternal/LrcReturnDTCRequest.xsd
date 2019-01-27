@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://paymentservices.wsgc.com/Schemas/LrcReturnDTCRequest"
+	 targetNamespace="http://paymentservices.wsgc.com/Schemas/LrcReturnDTCRequest"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="EnvironmentIdentifier" type="xs:string" minOccurs="0"/>
+				<xs:element name="RegionIdentifier" type="xs:string" minOccurs="0"/>
+				<xs:element name="SourceSystemIdentifier" type="xs:string" minOccurs="0"/>
+				<xs:element name="TransactionId" type="xs:string" minOccurs="0"/>
+				<xs:element name="TransactionTime" type="xs:string" minOccurs="0"/>
+				<xs:element name="Concept" type="xs:string" minOccurs="0"/>
+				<xs:element name="Channel" type="xs:string" minOccurs="0"/>
+				<xs:element name="AssociateId" type="xs:string" minOccurs="0"/>
+				<xs:element name="OrderNumber" type="xs:string" minOccurs="0"/>
+				<xs:element name="ConsumerTransactionId" type="xs:string" minOccurs="0"/>
+				<xs:element name="CertificateNumber" type="xs:string" minOccurs="0"/>
+				<xs:element name="Code" type="xs:string" minOccurs="0"/>
+				<xs:element name="SubCode" type="xs:string" minOccurs="0"/>
+				<xs:element name="CurrencyCode" type="xs:string" minOccurs="0"/>
+				<xs:element name="ReturnAmount" type="xs:string" minOccurs="0"/>
+				<xs:element name="ReturnDescription" type="xs:string" minOccurs="0"/>
+				<xs:element name="FutureField" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

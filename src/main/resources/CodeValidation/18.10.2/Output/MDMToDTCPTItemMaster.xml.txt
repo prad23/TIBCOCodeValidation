@@ -1,0 +1,61 @@
+GV~GV Value in PROD XML~GV Value in Staged XML~Reason
+HTTPConnections/Descartes/IdentityFile/password~#!LYAEP6VMDJTwH29sVy5ti+JsSF8duiRLHGDgoil3Y90=~"#!plykfKUNdRE8DOKpnysxzRKURg8b56Tn27hTv7C2Z5M="~GV Present in Both XMLs but not matching
+HTTPConnections/MDMConnection/Password~#!bRMbv69UK+1arJMVDnMbZNm+IflGnHdM~"#!vff4/MZeqE2ae5fhD5Zj90BmTbmo0Y+G"~GV Present in Both XMLs but not matching
+JDBCConnections/AXDB/Password~#!dcKT6FLuVN6Rz4KoQZqKNiIKL18QoUT6~"#!JNWV7YsjB27f7WObgwThUmhucPuQ5b8p"~GV Present in Both XMLs but not matching
+JDBCConnections/CLEDB/Password~#!ybwqXByo5YdsZqUdL+8PWeKsujRlNZhQkXotui/q1Qw=~"#!I2VNyxPXCt0aAkBglbwiid3gEk2NJgYn3Q+S/rUJJNs="~GV Present in Both XMLs but not matching
+JDBCConnections/CheckpointDB/Password~#!s3ALDUDHAW3neCLFJ/Sta8+YABuQVgvLx+FlVW8GHUc=~"#!5zPhybX4LWk0z7/f0cnt2cixduosqNBHq3RVfaFixNE="~GV Present in Both XMLs but not matching
+JDBCConnections/KRONOSDB/Password~#!8DGnyLbbuAZkuP1N2iDY60KJmy39Do2ACbfzcwYR9Sc=~"#!AVixLgc2XEhQ1Sq7pdOhuh5pjluh7l2m/nMA2pusVRs="~GV Present in Both XMLs but not matching
+JDBCConnections/MDM/Password~#!t88k+f4WhPKSO6EXOeXP+bKYVLs8tbszQhmUPuYeW+E=~"#!9QYzxbVRO91R2E9F2c2I1VELBmFo0+D334mACA3IvQM="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSD2FraudServiceDB/Password~#!xnrqXfIHNwfEJGvjedZHiCde4GJnM7e8Cvq4ZBEfoKE=~"#!vbo5IMcH58P0cNiT969bbqpsIwhyrZJlBUWGrT8f1/s="~GV Present in Both XMLs but not matching
+JDBCConnections/OMSSterlingDB/Password~#!BJ1QSqV/wVxA2+JbcDb7TcSsyzKuqL/6HpEMUccxNqw=~"#!v8xVyloNPTTDxyQDAQenkSlNIp1vjhTZnYB9sNryQOw="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB-IBMDB2/Password~#!fti/m130N+JgcoF9TIs/r4WoSBq+z/CuOnGy6jQb+Ek=~"#!AzUtgScp/4+cjRFDjwZAiHAOPLB6W30Q299dxDWENoo="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDB/Password~#!+1yqL5AM6e0jp6hCosWsefI9hLeF0tqz6yJdRkNschc=~"#!cXgOsKhdIeI7tcfUmFv91B3gbDEdhoczsv+cgNDkH80="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDBMEMRPT/Password~#!2XtmmnG7pCsnEYo9C0oYtTUDd8+hYn7pIRB95n4xVzY=~"#!sY5Rnpllknis1/g9OMYCcsh23QmPOIRipT0pm5gn+o0="~GV Present in Both XMLs but not matching
+JDBCConnections/PSDB/Password~#!DW1x6flkqPd4CQVfVBLOZbHcaeKkG5kSxVr+Y42X/tXpCxPjek0MoA==~"#!hbuU+T4fblNp6w8uMATMhbtdZn7kan2Uxu9OGgtVskUEBDpg8+e+2w=="~GV Present in Both XMLs but not matching
+JDBCConnections/PaymentServiceDB/Password~#!SkhhvPW3fftN0XginDXBw0lbDm6M00wI~"#!67OpsadBA55DJ8hfzg+LQFXCHiHX9RQU"~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDB/Password~#!gSL7ZmEdNKtpWKd+zejI8c1p3njPAZChIPakDB8GPIA=~"#!+wAH4SbPMLWXdGuIwdluOyA28oyfUplpzPF0o4SvBVI="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDBThin/Password~#!UP5v4pJkd8p5NiWOPBBLbisr/9k/mADLSEEWppZm0vk=~"#!5KVcq0aeq0X5+NwSICRndkECzc6Az0m6unWCrGMj6LQ="~GV Present in Both XMLs but not matching
+JDBCConnections/RMSDEV2/Password~#!urCYoTgkJnXBS5WWX+Tdy7TZUy+7FM4Ds6VqQeHJeXc=~"#!MIdFTE+K8tbqNRrcSRt284En0C0R7PLGCwYCCVM4wT4="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnDB/Password~#!xCANekDmZTef9qoL7rmihbKpuvBItb5OoZHPt6PopT0=~"#!rjwQeijqYVy1UNu3RIeuXP/8JlIKgQyLLnggpo3GC+8="~GV Present in Both XMLs but not matching
+JDBCConnections/ReturnsAppUIDB/Password~#!4Uo9LPYAy74KZpfUDH6ve18tMPRLt7BTt32kYRGdnEE=~"#!Ycn7KLX33Tf6SROjMoMxLuhgI0XUy8ARfgRMai9S3Vw="~GV Present in Both XMLs but not matching
+JDBCConnections/SDM-TeraData-DB/Password~#!h3GCNxLXJuSI/Y7Hd1h+a8T51Fq5d17SeXPmbuPMlCE=~"#!ht9/rlfYsq5Y9U2fNqYhKVkhJJLWPE5XgDLR5K0S3sg="~GV Present in Both XMLs but not matching
+JDBCConnections/SterlingDB/Password~#!nmhRKvI9msixr3yQ+MMmChq7Af8PtOK8dgm7OOylcCQ=~"#!GVjjB5vdGjju0zi3kt4qhE4IX7jpN2zySsj2RK3dQEY="~GV Present in Both XMLs but not matching
+JDBCConnections/TMSDB/Password~#!I7mY9JUFCRl3cQ4kw311pAq/ejAWSxMd~"#!cUd6xYCifKDGUzRfRmdUwtKMwCVTEP1I"~GV Present in Both XMLs but not matching
+JDBCConnections/TPMDB/Password~#!HQhLc9c5WMv4ukoDwWjoeZDEBKYljshMeIdFfQ5Ak10xViMWHoyf4w==~"#!yWYpqH+0x+Sz7mN+SpniD3ZVZ4M/xnBM9eSLOZonLd9RaWQNh5/9iw=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMCDCDB/Password~#!ehQG+Qwd6CRhMqoK3HhvoVZAYNi+Mx5KGzqRMhs5KPcA6prNLtZzCw==~"#!2B1P56izVrp8jHtHZNw64BHqbs67VqLRc32md3WTGt4tICyqoxZSag=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMDB/Password~#!zOyLISilZXHdyqvs8tqvMui4ZnIiV8aO+hx3cyRJoGXO11H/CTV3Xw==~"#!HI60CvW+D9YAOo9RoVnezRYbYyT3wP3TO1joGA5EoJfp+GW0ab1kAA=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMINTDB/Password~#!r9PU8pE1qdUp54J93tz7jE850F5fzVF0NsCUwNEcB/LM33cye5jM6A==~"#!EuEUyVsOVXDDB3Ii9WTaSOSjgVn7mkIkgoJb7Z0AkClFIBgJJNV5WQ=="~GV Present in Both XMLs but not matching
+JDBCConnections/WMOBMDB/Password~#!jYv0LOTvTAChBlwalizcV3C0FRstQ1B5aUZoux98wlfXSeA6IWrwQQ==~"#!zJrePpkTnxxkyda2gm13d5D9V5HVD1gm/+oyz98qiEpMuTL3UB/DUA=="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/JNDIPassword~#!8cQURGFaX2v41QXItZMyp+ToqPwT3JtOjsdyz7w+F2Y=~"#!7lFnOMNEuw5i48HXqTE4vWgvAZz8RKbVoFqN9x++xTg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSCLE/Password~#!jGfow0Kiy8Em/4SRBle9TZETEK/4qGeS0dpXmdmbfK0=~"#!HiGyqkonNaHlmFjK+XD0JZQWYonin/ZvXvPS9Eg6VIY="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/JNDIPassword~#!L/p8Z4LzO9CA5j5N566CUoZt6NNyglpl+uNO4Bji4OU=~"#!89v7rh0+7ZOb70uMz3r8s8ULf1WwsDP9j9ZcogaRuWc="~GV Present in Both XMLs but not matching
+JMSConnections/EMSDEV2/Password~#!NBD35yI7MBKZCanmnvzBU8EGwftlXTuzIFNN2S3tN40=~"#!wWsdgGF93+WEuQaDnneS073MjkfeDhsQc/B7QlBDVFs="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/JNDIPassword~#!Ky4ib1knxGiDNvCjpBO6qqqlL+sSiK9seb9eEOUGa+g=~"#!EzOM4SMVpP3cUyqFxqd/IkGyRAJ4tcSVmOOwXCtF2p8="~GV Present in Both XMLs but not matching
+JMSConnections/EMSE2OPEN/Password~#!ZE4ED07f/bfp/DTPcAPKAeOdb/iHqzOwKsj5YsLz8N8=~"#!U6JyAMk5hRYhWrZIXdQLZ1iT/VNbELI2qAZAyUs4g2Y="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/JNDIPassword~#!6/ydCHp1XTvT0RTME+T4pW6LXESmUJsVF8FrVxY85ek=~"#!rGIvG4UpAyT9EeF+ViFe7pd0HWkEde6lxxQ9f7uLr0g="~GV Present in Both XMLs but not matching
+JMSConnections/EMSECOM/Password~#!Ly5u5qjuUrdlNe9xdv571EQkizq9M3W62BwIaGNeuSE=~"#!mOwTe3BPqJ+0YPugqJhawD0OLvKa0nMzjqkNqL1XSE4="~GV Present in Both XMLs but not matching
+JMSConnections/EMSELSSECURE/JNDIPassword~#!8OuKNMiTuONVWD/8C51lRBwMTBGEcHCD~"#!gXyyj5tMqbJ6eldijiImlzHn9fq1zqwJ"~GV Present in Both XMLs but not matching
+JMSConnections/EMSELSSECURE/Password~#!pGo9cxeENpFrn4YwybuR/tkVusmGL7eP~"#!OSgQp9NibO8yBAVKcqnKEgh2eY9KMzTF"~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/JNDIPassword~#!GXMjKX/br8GJ8YAHsCUA7Aoezn7x3xYqhOAGg4sm7qg=~"#!qSW2qoXvhNsBQ1y1ca3MdAV6p1DGbGA3LsvQRUJLuCQ="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMDM/Password~#!/StKjBM+jU5h0KjcndlQzoJJY6ytYCQBJeQlNgXYf9c=~"#!K+K/iNItSCFPcBuouBmKId8AQvhISyHwGqtc4j3kQtE="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/JNDIPassword~#!egT90yAMt4UeC/91PNst4NVNz8CCn13pvsLbpR6ocPw=~"#!I2oxctOifLHjGjR5hTcS+i7XwsO1d+YRZEi2str+JgE="~GV Present in Both XMLs but not matching
+JMSConnections/EMSMain/Password~#!aOnXkNuXmw+C/Pw4ir25254P6oTt0UD8XJSIyN2cOis=~"#!L1f+/OOUkKZurgdSdbRtjdcJEWIM0P17+xW4GqbtWD0="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/JNDIPassword~#!2jMrNyvVuZT85f/w8bejaxzxxf9BBSgMTFKWZfYd5W0=~"#!K9SAAMuEYHfCVvV5F1N8RjYnV1qNU5yoSXTOijXhGHs="~GV Present in Both XMLs but not matching
+JMSConnections/EMSPOS/Password~#!NHGAQUK1C5PYPqH3gIl14PE0b2CmPijrnG/XX59Ox6s=~"#!3buRe2GpDawPQRpz87B/shOM/70ELrDh4tXaDYYa5B8="~GV Present in Both XMLs but not matching
+JMSConnections/EMSRMS/JNDIPassword~#!d3qKmAHwy45g7ChvdkvCGuW90htlMSVh~"#!qmhQwh0fFJiikTPCrwTvvIgd17FE5fef"~GV Present in Both XMLs but not matching
+JMSConnections/EMSRMS/Password~#!lfwJ2DGZSsUT+uc5QRxgXBQIvs4ys2R+~"#!1Pfnr+n0uz+MsGiZbkp6VoQcmbLxoMuG"~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/JNDIPassword~#!GiHCYLjpMftApKgo+q8D73HuqY8kKvRMTaxnYDBILx8=~"#!4i685A7NLYAROMHV73EV8Cu0nMR/u48C438YOa17SiM="~GV Present in Both XMLs but not matching
+JMSConnections/EMSReturnsApp/Password~#!xkYDxQzOs+Ui8WiLmrsRF+yZQV5ZOyoTc9cdzP3mNc0=~"#!fviqBGaLuhfsvmeKra79Rgyr1NexlSV//q7O+xQ9A/w="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/JNDIPassword~#!qXERD8qw34j0HTXriZ8LzTaAR6PR9P1dywOogeFLSzE=~"#!HJim2sGQLKR1bJhwM0DL1n26yMXiCkzdXHA/rfP34Hg="~GV Present in Both XMLs but not matching
+JMSConnections/EMSSterling/Password~#!24GH/v3uvwhvORRbzv67sUae5x3YcqJKpiDwhFO6tJ0=~"#!wA/WnDN0C+IELWM9ZmGJieACWUxTwEerVPmlkLhHD9s="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/JNDIPassword~#!np6vdLq4U10DmxJVDna3KS3X4MbmUDspXlc4sq01R3w=~"#!ERCK5rxIOPHJsKd+F8Qc/ymtnEBI4WUFu2l03hjuaXI="~GV Present in Both XMLs but not matching
+JMSConnections/SterlingMQ/Password~#!a1SN4tPNW2yVwKp7Ocj5lIaaw0nimkJR08KL82P1yqw=~"#!pDcoyNnGqzJ4MovW/YvBg5d+mY3ajPZZQxkWLqBfoZQ="~GV Present in Both XMLs but not matching
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/Password~#!vAG7BVSusoGlv0SlHpRoGeSOowf0AAqjPzVfEHb3uV4=~""~GV not present in Staged XML
+MDMInitialLoadToECOM/JMS/MaxSessions~50~""~GV not present in Staged XML
+CommonFilePath/CertegyApprovalCodeLookup~C:\TIBCODEV\PUB_TIBCOSharedResources\SharedResources\XMLFiles\CertegyApprovalCodes.xml~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/JDBCDriver~com.ibm.db2.jcc.DB2Driver~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/LoginTimeOut~0~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/UserName~TIBCODATA2~""~GV not present in Staged XML
+OrderCreateOMSD2/Constants/ShipToStoreServiceLevel~PICKUP_INTERNAL~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/DatabaseURL~jdbc:db2://memrpt.wsgc.com:446/MEMPHIS2~""~GV not present in Staged XML
+JDBCConnections/PKMSDBMEMRPT-IBMDB2/MaxConnections~10~""~GV not present in Staged XML

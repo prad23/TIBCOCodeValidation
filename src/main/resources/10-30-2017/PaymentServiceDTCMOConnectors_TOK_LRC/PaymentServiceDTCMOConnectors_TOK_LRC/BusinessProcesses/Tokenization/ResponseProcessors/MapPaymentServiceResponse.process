@@ -1,0 +1,1173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx21="http://www.tibco.com/ns/no_namespace_schema_location/JSON_GEN_Schemas/TEST.xsd" xmlns:pfx="http://www.tibco.com/schemas/Payment Services/CreditAuthResponseSchema.xsd" xmlns:ns31="http://www.wsgc.com/schemas/common/PaymentServiceCreditAuthorizationValidity.xsd" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns12="http://www.ultimosoft.com/CLEH/ExceptionHandler.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.wsgc.com/schemas/common/PaymentGatewayAuthorizationStatusCodes.xsd" xmlns:ns3="http://www.tibco.com/namespaces/tnt/plugins/json" xmlns:ns4="http://www.wsgc.com/schemas/common/PaymentServiceWSIDeclineRules.xsd" xmlns:pfx1="http://www.tibco.com/schemas/REST-POC/Schemas/Schema.xsd" xmlns:pfx2="http://www.tibco.com/ns/no_namespace_schema_location/SharedResources/XMLSchemas/Verifone/CreditPreAuthorizationResponse.xsd" xmlns:ns5="http://www.wsgc.com/schemas/service/PaymentError.xsd" xmlns:pfx3="http://services.wsgc.com/2014/Payment" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/Credit/CompletionResponse" xmlns:ns7="http://www.wsgc.com/schemas/common/PaymentServicePPCVTypeValues.xsd" xmlns:pfx6="http://ecommerce.wsgc.com/2013/Common" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx7="http://www.services.wsgc.com/2014/Payment/Verfione/UGP/TokenizationQueryResponse" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:pfx8="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx41="http://www.wsgc.com/schemas/common/PaymentServiceAuditSwitches.xsd">
+    <xsd:import namespace="http://www.tibco.com/schemas/Payment Services/CreditAuthResponseSchema.xsd" schemaLocation="/CreditAuthResponse Schema.xsd"/>
+    <xsd:import namespace="http://services.wsgc.com/2014/Payment" schemaLocation="/SharedResources/XMLSchemas/2014/Payment/base-types.xsd"/>
+    <xsd:import namespace="http://ecommerce.wsgc.com/2013/Common" schemaLocation="/SharedResources/XMLSchemas/2013/Common/base-types.xsd"/>
+    <pd:name>BusinessProcesses/Tokenization/ResponseProcessors/MapPaymentServiceResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="TenderSubType" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="paymentgatewayresponse" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="CardDetails" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="PAN" type="xsd:string"/>
+                                <xsd:element name="ExpirationMonth" type="xsd:string"/>
+                                <xsd:element name="ExpirationYear" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element ref="pfx3:TokenizationRequest"/>
+                    <xsd:element name="Error" type="pfx6:ErrorType" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>75</pd:startX>
+    <pd:startY>35</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="string-length($MapErrorResponse/pfx3:TokenizationResponse/@version) > 0">
+                <xsl:copy-of select="$MapErrorResponse/pfx3:TokenizationResponse"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:copy-of select="$MapPaymentServiceResponse/pfx3:TokenizationResponse"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:TokenizationResponse"/>
+    <pd:endX>1151</pd:endX>
+    <pd:endY>35</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <MarketingHash>
+            <xsd:element name="root">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="WSIMatchingTokenScheme" type="xsd:string"/>
+                        <xsd:element name="WSIMatchingTokenValue" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </MarketingHash>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1414172991752</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>515</pd:x>
+        <pd:y>656</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GenMktHash">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>502</pd:x>
+        <pd:y>534</pd:y>
+        <config>
+            <processName>/CommonProcesses/CryptoProcesses/GetWSIMatchingToken.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <PAN>
+                    <xsl:value-of select="$Start/root/CardDetails/PAN"/>
+                </PAN>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCLEParams">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>227</pd:x>
+        <pd:y>35</pd:y>
+        <config>
+            <variableConfig>/BusinessProcesses/Tokenization/CLEParams.jobsharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="LogRequestValidationExceptionRequest">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1153</pd:x>
+        <pd:y>646</pd:y>
+        <config>
+            <processName>/CommonProcesses/CLEClientStub/SendExceptionRequest.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ExceptionHandlerRequest>
+                <ns12:envCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ENV"/>
+                </ns12:envCode>
+                <ns12:appCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/CLE/AppCode"/>
+                </ns12:appCode>
+                <ns12:interfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </ns12:interfaceCode>
+                <ns12:hostName>
+                    <xsl:value-of select="BW:getHostName()"/>
+                </ns12:hostName>
+                <ns12:timeStamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns12:timeStamp>
+                <ns12:message>
+                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                </ns12:message>
+                <ns12:payload>
+                    <xsl:value-of select="tib:render-xml($Start/root/pfx3:TokenizationRequest)"/>
+                </ns12:payload>
+                <ns12:ErrorLevel>
+                    <ns12:errorCode>
+                        <xsl:value-of select="concat($MapErrorResponse/pfx3:TokenizationResponse/Error/Type, $_globalVariables/ns:GlobalVariables/PaymentService/Constants/ErrorCodeSeparator,&#xA;$MapErrorResponse/pfx3:TokenizationResponse/Error/Detail[1])"/>
+                    </ns12:errorCode>
+                </ns12:ErrorLevel>
+                <ns12:TransactionDetails>
+                    <ns12:transactionDomain>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CLE/TransactionDomain"/>
+                    </ns12:transactionDomain>
+                    <ns12:transactionType>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Tokenization/CLE/TransactionType"/>
+                    </ns12:transactionType>
+                    <ns12:transactionID>
+                        <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                    </ns12:transactionID>
+                </ns12:TransactionDetails>
+                <xsl:choose>
+                    <xsl:when test="string-length($GenMktHash/root/Error/Type)>0">
+                        <ns12:ErrorReportType>
+                            <xsl:if test="$GenMktHash/root/CLEErrorReport/ns12:stackTrace">
+                                <ns12:stackTrace>
+                                    <xsl:value-of select="$GenMktHash/root/CLEErrorReport/ns12:stackTrace"/>
+                                </ns12:stackTrace>
+                            </xsl:if>
+                            <xsl:if test="$GenMktHash/root/CLEErrorReport/ns12:msg">
+                                <ns12:msg>
+                                    <xsl:value-of select="$GenMktHash/root/CLEErrorReport/ns12:msg"/>
+                                </ns12:msg>
+                            </xsl:if>
+                            <xsl:if test="$GenMktHash/root/CLEErrorReport/ns12:fullClass">
+                                <ns12:fullClass>
+                                    <xsl:value-of select="$GenMktHash/root/CLEErrorReport/ns12:fullClass"/>
+                                </ns12:fullClass>
+                            </xsl:if>
+                            <xsl:if test="$GenMktHash/root/CLEErrorReport/ns12:class">
+                                <ns12:class>
+                                    <xsl:value-of select="$GenMktHash/root/CLEErrorReport/ns12:class"/>
+                                </ns12:class>
+                            </xsl:if>
+                            <xsl:if test="$GenMktHash/root/CLEErrorReport/ns12:processStack">
+                                <ns12:processStack>
+                                    <xsl:value-of select="$GenMktHash/root/CLEErrorReport/ns12:processStack"/>
+                                </ns12:processStack>
+                            </xsl:if>
+                            <xsl:if test="$GenMktHash/root/CLEErrorReport/ns12:msgCode">
+                                <ns12:msgCode>
+                                    <xsl:value-of select="$GenMktHash/root/CLEErrorReport/ns12:msgCode"/>
+                                </ns12:msgCode>
+                            </xsl:if>
+                            <xsl:if test="$GenMktHash/root/CLEErrorReport/ns12:data">
+                                <ns12:data>
+                                    <xsl:value-of select="$GenMktHash/root/CLEErrorReport/ns12:data"/>
+                                </ns12:data>
+                            </xsl:if>
+                        </ns12:ErrorReportType>
+                    </xsl:when>
+                    <xsl:when test="string-length($GenMktHash1/root/Error/Type)>0">
+                        <ns12:ErrorReportType>
+                            <ns12:stackTrace>
+                                <xsl:value-of select="$GenMktHash1/root/CLEErrorReport/ns12:stackTrace"/>
+                            </ns12:stackTrace>
+                            <ns12:msg>
+                                <xsl:value-of select="$GenMktHash1/root/CLEErrorReport/ns12:msg"/>
+                            </ns12:msg>
+                            <ns12:fullClass>
+                                <xsl:value-of select="$GenMktHash1/root/CLEErrorReport/ns12:fullClass"/>
+                            </ns12:fullClass>
+                            <ns12:class>
+                                <xsl:value-of select="$GenMktHash1/root/CLEErrorReport/ns12:class"/>
+                            </ns12:class>
+                            <ns12:processStack>
+                                <xsl:value-of select="$GenMktHash1/root/CLEErrorReport/ns12:processStack"/>
+                            </ns12:processStack>
+                            <ns12:msgCode>
+                                <xsl:value-of select="$GenMktHash1/root/CLEErrorReport/ns12:msgCode"/>
+                            </ns12:msgCode>
+                            <ns12:data>
+                                <xsl:value-of select="$GenMktHash1/root/CLEErrorReport/ns12:data"/>
+                            </ns12:data>
+                        </ns12:ErrorReportType>
+                    </xsl:when>
+                    <xsl:when test="string-length($GetLocalToken/root/Error/Type)>0">
+                        <ns12:ErrorReportType>
+                            <ns12:stackTrace>
+                                <xsl:value-of select="$GetLocalToken/root/CLEErrorReport/ns12:stackTrace"/>
+                            </ns12:stackTrace>
+                            <ns12:msg>
+                                <xsl:value-of select="$GetLocalToken/root/CLEErrorReport/ns12:msg"/>
+                            </ns12:msg>
+                            <ns12:fullClass>
+                                <xsl:value-of select="$GetLocalToken/root/CLEErrorReport/ns12:fullClass"/>
+                            </ns12:fullClass>
+                            <ns12:class>
+                                <xsl:value-of select="$GetLocalToken/root/CLEErrorReport/ns12:class"/>
+                            </ns12:class>
+                            <ns12:processStack>
+                                <xsl:value-of select="$GetLocalToken/root/CLEErrorReport/ns12:processStack"/>
+                            </ns12:processStack>
+                            <ns12:msgCode>
+                                <xsl:value-of select="$GetLocalToken/root/CLEErrorReport/ns12:msgCode"/>
+                            </ns12:msgCode>
+                            <ns12:data>
+                                <xsl:value-of select="$GetLocalToken/root/CLEErrorReport/ns12:data"/>
+                            </ns12:data>
+                        </ns12:ErrorReportType>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ns12:ErrorReportType>
+                            <xsl:if test="$_error/ns1:ErrorReport/StackTrace">
+                                <ns12:stackTrace>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/StackTrace"/>
+                                </ns12:stackTrace>
+                            </xsl:if>
+                            <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                                <ns12:msg>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                                </ns12:msg>
+                            </xsl:if>
+                            <xsl:if test="$_error/ns1:ErrorReport/FullClass">
+                                <ns12:fullClass>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/FullClass"/>
+                                </ns12:fullClass>
+                            </xsl:if>
+                            <xsl:if test="$_error/ns1:ErrorReport/Class">
+                                <ns12:class>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/Class"/>
+                                </ns12:class>
+                            </xsl:if>
+                            <xsl:if test="$_error/ns1:ErrorReport/ProcessStack">
+                                <ns12:processStack>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/ProcessStack"/>
+                                </ns12:processStack>
+                            </xsl:if>
+                            <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                                <ns12:msgCode>
+                                    <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                                </ns12:msgCode>
+                            </xsl:if>
+                            <ns12:data>
+                                <xsl:value-of select="$_error/ns1:ErrorReport/Data/*"/>
+                            </ns12:data>
+                        </ns12:ErrorReportType>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </ns12:ExceptionHandlerRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapErrorResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>798</pd:x>
+        <pd:y>652</pd:y>
+        <config>
+            <element ref="pfx3:TokenizationResponse"/>
+        </config>
+        <pd:inputBindings>
+            <pfx3:TokenizationResponse>
+                <xsl:attribute name="version">
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Authorization/MessageVersion"/>
+                </xsl:attribute>
+                <SystemContext>
+                    <EnvironmentIdentifier>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                    </EnvironmentIdentifier>
+                    <RegionIdentifier>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                    </RegionIdentifier>
+                    <SourceSystemIdentifier>
+                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix, BW:getHostName())"/>
+                    </SourceSystemIdentifier>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId) > 0">
+                            <TransactionId>
+                                <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,$Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)"/>
+                            </TransactionId>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <TransactionId>
+                                <xsl:value-of select="concat(tib:format-dateTime($_globalVariables/ns:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns:GlobalVariables/ENV   , BW:getHostName())"/>
+                            </TransactionId>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <TransactionTime>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </TransactionTime>
+                </SystemContext>
+                <xsl:choose>
+                    <xsl:when test="string-length($Start/root/pfx3:TokenizationRequest/PaymentContext/Concept) > 0">
+                        <xsl:copy-of select="$Start/root/pfx3:TokenizationRequest/PaymentContext"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <PaymentContext>
+                            <Concept>
+                                <xsl:value-of select="&quot;&quot;"/>
+                            </Concept>
+                            <Channel>
+                                <xsl:value-of select="&quot;&quot;"/>
+                            </Channel>
+                        </PaymentContext>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:for-each select="$_error/ns1:ErrorReport/Msg">
+                    <xsl:choose>
+                        <xsl:when test="string-length($GenMktHash/root/Error/Type)>0">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="$GenMktHash/root/Error/Type"/>
+                                </Type>
+                                <Detail>
+                                    <xsl:value-of select="$GenMktHash/root/Error/Detail[1]"/>
+                                </Detail>
+                                <ErrorMessage>
+                                    <xsl:value-of select="$GenMktHash/root/Error/ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:when>
+                        <xsl:when test="string-length($GenMktHash1/root/Error/Type)>0">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="$GenMktHash1/root/Error/Type"/>
+                                </Type>
+                                <Detail>
+                                    <xsl:value-of select="$GenMktHash1/root/Error/Detail[1]"/>
+                                </Detail>
+                                <ErrorMessage>
+                                    <xsl:value-of select="$GenMktHash1/root/Error/ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:when>
+                        <xsl:when test="string-length($GetLocalToken/root/Error/Type)>0">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="$GetLocalToken/root/Error/Type"/>
+                                </Type>
+                                <Detail>
+                                    <xsl:value-of select="$GetLocalToken/root/Error/Detail[1]"/>
+                                </Detail>
+                                <ErrorMessage>
+                                    <xsl:value-of select="$GetLocalToken/root/Error/ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Type"/>
+                                </Type>
+                                <Detail>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/Detail"/>
+                                </Detail>
+                                <ErrorMessage>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/CommonErrors/SAFE_FAILURE/ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </pfx3:TokenizationResponse>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="MapPaymentServiceResponse">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>981</pd:x>
+        <pd:y>41</pd:y>
+        <config>
+            <element ref="pfx3:TokenizationResponse"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="$ProcessPaymentGatewayResponse/root/Success=$_globalVariables/ns:GlobalVariables/PaymentService/Constants/BooleanSuccess">
+                    <pfx3:TokenizationResponse>
+                        <xsl:attribute name="version">
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Tokenization/MessageVersion"/>
+                        </xsl:attribute>
+                        <SystemContext>
+                            <EnvironmentIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                            </EnvironmentIdentifier>
+                            <RegionIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                            </RegionIdentifier>
+                            <SourceSystemIdentifier>
+                                <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix,BW:getHostName())"/>
+                            </SourceSystemIdentifier>
+                            <xsl:choose>
+                                <xsl:when test="string-length($Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)>0">
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,$Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)"/>
+                                    </TransactionId>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,tib:format-dateTime($_globalVariables/ns:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns:GlobalVariables/ENV,BW:getHostName())"/>
+                                    </TransactionId>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <TransactionTime>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </TransactionTime>
+                        </SystemContext>
+                        <xsl:copy-of select="$Start/root/pfx3:TokenizationRequest/PaymentContext"/>
+                        <xsl:for-each select="$Start/root/pfx3:TokenizationRequest/OrderContext">
+                            <OrderContext>
+                                <xsl:attribute name="omsOrderId">
+                                    <xsl:value-of select="@omsOrderId"/>
+                                </xsl:attribute>
+                                <OrderTime>
+                                    <xsl:value-of select="OrderTime"/>
+                                </OrderTime>
+                            </OrderContext>
+                        </xsl:for-each>
+                        <Tender>
+                            <xsl:variable name="expiryDate" select="if (string-length($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_EXPDATE)>0)&#xA;then&#xA;tib:parse-dateTime($_globalVariables/ns:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/PaymentTokenExpirationDateFormat,concat($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_EXPDATE ,$_globalVariables/ns:GlobalVariables/PaymentService/PaymentGateway/VERIFONE/PaymentTokenExpirationTimeConstant))&#xA;else&#xA;tib:add-to-dateTime(tib:format-dateTime($_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/PaymentTokenCalculatedExpirationTImeFormat,$CalculateLastDateOfMonth/root/lastDate),0, 0, $_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/PaymentTokenExpirationPeriod, 0, 0,0)"/>
+                            <Type>
+                                <Code>
+                                    <xsl:value-of select="$Start/root/pfx3:TokenizationRequest/Tender/Type/Code"/>
+                                </Code>
+                                <xsl:if test="$Start/root/TenderSubType">
+                                    <SubCode>
+                                        <xsl:value-of select="$Start/root/TenderSubType"/>
+                                    </SubCode>
+                                </xsl:if>
+                                <xsl:if test="string-length($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/PPCV)>0">
+                                    <xsl:if test="$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/PPCV">
+                                        <Tag>
+                                            <xsl:attribute name="type">
+                                                <xsl:value-of select="$GetPaymentServicePPCVTypeValues/ns7:PaymentServicePPCVTypeValues/ns7:PaymentServicePPCVTypeValue[ns7:PPCVTypeValue  =substring-before( $ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/PPCV,$_globalVariables/ns:GlobalVariables/PaymentService/Constants/PPCVValueSeperator)]/ns7:PPCVTagValue"/>
+                                            </xsl:attribute>
+                                            <xsl:value-of select="$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/PPCV"/>
+                                        </Tag>
+                                    </xsl:if>
+                                </xsl:if>
+                            </Type>
+                            <Token>
+                                <xsl:attribute name="scheme">
+                                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/PaymentGatewayTokenScheme,$_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/EnvId)"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="scope">
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/PaymentTokenScope"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="isTemporary">
+                                    <xsl:value-of select="false()"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="expiration">
+                                    <xsl:value-of select="$expiryDate"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_PAYMENT"/>
+                            </Token>
+                            <xsl:if test="string-length($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_MATCHING)>0">
+                                <Hash>
+                                    <xsl:attribute name="scheme">
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/MatchingTokenScheme,$_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/EnvId)"/>
+                                    </xsl:attribute>
+                                    <xsl:value-of select="$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_MATCHING"/>
+                                </Hash>
+                            </xsl:if>
+                            <xsl:if test="string-length($MarketingHash/root/WSIMatchingTokenValue)>0">
+                                <Hash>
+                                    <xsl:attribute name="scheme">
+                                        <xsl:value-of select="$MarketingHash/root/WSIMatchingTokenScheme"/>
+                                    </xsl:attribute>
+                                    <xsl:value-of select="$MarketingHash/root/WSIMatchingTokenValue"/>
+                                </Hash>
+                            </xsl:if>
+                            <xsl:if test="string-length($Start/root/CardDetails/PAN) > 0">
+                                <MaskedAccountNumber>
+                                    <xsl:value-of select="concat( tib:pad-and-limit(tib:left($Start/root/CardDetails/PAN,$_globalVariables/ns:GlobalVariables/PaymentService/Constants/MaskedAccountDisplayFirst),(string-length($Start/root/CardDetails/PAN)-$_globalVariables/ns:GlobalVariables/PaymentService/Constants/MaskedAccountDisplayLast),$_globalVariables/ns:GlobalVariables/PaymentService/Constants/MaskedAccountMaskCharecter), tib:right($Start/root/CardDetails/PAN,$_globalVariables/ns:GlobalVariables/PaymentService/Constants/MaskedAccountDisplayLast))"/>
+                                </MaskedAccountNumber>
+                            </xsl:if>
+                        </Tender>
+                    </pfx3:TokenizationResponse>
+                </xsl:when>
+                <xsl:when test="string-length($GetLocalToken/root/TokenDetails/Token)>0">
+                    <pfx3:TokenizationResponse>
+                        <xsl:attribute name="version">
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Tokenization/MessageVersion"/>
+                        </xsl:attribute>
+                        <SystemContext>
+                            <EnvironmentIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                            </EnvironmentIdentifier>
+                            <RegionIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                            </RegionIdentifier>
+                            <SourceSystemIdentifier>
+                                <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix,BW:getHostName())"/>
+                            </SourceSystemIdentifier>
+                            <xsl:choose>
+                                <xsl:when test="string-length($Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)>0">
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,$Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)"/>
+                                    </TransactionId>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,tib:format-dateTime($_globalVariables/ns:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns:GlobalVariables/ENV,BW:getHostName())"/>
+                                    </TransactionId>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <TransactionTime>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </TransactionTime>
+                        </SystemContext>
+                        <xsl:copy-of select="$Start/root/pfx3:TokenizationRequest/PaymentContext"/>
+                        <xsl:for-each select="$Start/root/pfx3:TokenizationRequest/OrderContext">
+                            <OrderContext>
+                                <xsl:attribute name="omsOrderId">
+                                    <xsl:value-of select="@omsOrderId"/>
+                                </xsl:attribute>
+                                <OrderTime>
+                                    <xsl:value-of select="OrderTime"/>
+                                </OrderTime>
+                            </OrderContext>
+                        </xsl:for-each>
+                        <Tender>
+                            <Type>
+                                <Code>
+                                    <xsl:value-of select="$Start/root/pfx3:TokenizationRequest/Tender/Type/Code"/>
+                                </Code>
+                                <xsl:if test="$Start/root/TenderSubType">
+                                    <SubCode>
+                                        <xsl:value-of select="$Start/root/TenderSubType"/>
+                                    </SubCode>
+                                </xsl:if>
+                                <xsl:if test="string-length($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/PPCV)>0">
+                                    <xsl:if test="$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/PPCV">
+                                        <Tag>
+                                            <xsl:attribute name="type">
+                                                <xsl:value-of select="$GetPaymentServicePPCVTypeValues/ns7:PaymentServicePPCVTypeValues/ns7:PaymentServicePPCVTypeValue[ns7:PPCVTypeValue  =substring-before( $ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/PPCV,&quot;.&quot;)]/ns7:PPCVTagValue"/>
+                                            </xsl:attribute>
+                                            <xsl:value-of select="$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/PPCV"/>
+                                        </Tag>
+                                    </xsl:if>
+                                </xsl:if>
+                            </Type>
+                            <Token>
+                                <xsl:attribute name="scheme">
+                                    <xsl:value-of select="$GetLocalToken/root/TokenDetails/Scheme"/>
+                                </xsl:attribute>
+                                <xsl:if test="$GetLocalToken/root/TokenDetails/Scope">
+                                    <xsl:attribute name="scope">
+                                        <xsl:value-of select="$GetLocalToken/root/TokenDetails/Scope"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:attribute name="isTemporary">
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/BooleanSuccess"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="expiration">
+                                    <xsl:value-of select="$GetLocalToken/root/TokenDetails/Expiration"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="$GetLocalToken/root/TokenDetails/Token"/>
+                            </Token>
+                            <xsl:if test="string-length($GenMktHash/root/TokenDetails/WSIMatchingTokenValue)>0">
+                                <Hash>
+                                    <xsl:attribute name="scheme">
+                                        <xsl:value-of select="$GenMktHash/root/TokenDetails/WSIMatchingTokenScheme"/>
+                                    </xsl:attribute>
+                                    <xsl:value-of select="$GenMktHash/root/TokenDetails/WSIMatchingTokenValue"/>
+                                </Hash>
+                            </xsl:if>
+                            <xsl:if test="string-length($Start/root/CardDetails/PAN) > 0">
+                                <MaskedAccountNumber>
+                                    <xsl:value-of select="concat( tib:pad-and-limit(tib:left($Start/root/CardDetails/PAN,$_globalVariables/ns:GlobalVariables/PaymentService/Constants/MaskedAccountDisplayFirst),(string-length($Start/root/CardDetails/PAN)-$_globalVariables/ns:GlobalVariables/PaymentService/Constants/MaskedAccountDisplayLast),$_globalVariables/ns:GlobalVariables/PaymentService/Constants/MaskedAccountMaskCharecter), tib:right($Start/root/CardDetails/PAN,$_globalVariables/ns:GlobalVariables/PaymentService/Constants/MaskedAccountDisplayLast))"/>
+                                </MaskedAccountNumber>
+                            </xsl:if>
+                        </Tender>
+                    </pfx3:TokenizationResponse>
+                </xsl:when>
+                <xsl:when test="string-length($Start/root/Error/Type)>0 and $Start/root/pfx3:TokenizationRequest/Tender/Token/@scheme =concat($_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/PaymentGatewayTokenScheme,$_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/EnvId)">
+                    <pfx3:TokenizationResponse>
+                        <xsl:attribute name="version">
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Tokenization/MessageVersion"/>
+                        </xsl:attribute>
+                        <SystemContext>
+                            <EnvironmentIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                            </EnvironmentIdentifier>
+                            <RegionIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                            </RegionIdentifier>
+                            <SourceSystemIdentifier>
+                                <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix,BW:getHostName())"/>
+                            </SourceSystemIdentifier>
+                            <xsl:choose>
+                                <xsl:when test="string-length($Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)>0">
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,$Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)"/>
+                                    </TransactionId>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,tib:format-dateTime($_globalVariables/ns:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns:GlobalVariables/ENV,BW:getHostName())"/>
+                                    </TransactionId>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <TransactionTime>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </TransactionTime>
+                        </SystemContext>
+                        <xsl:copy-of select="$Start/root/pfx3:TokenizationRequest/PaymentContext"/>
+                        <xsl:for-each select="$Start/root/Error">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <xsl:if test="string-length(Detail[1])>0">
+                                    <xsl:for-each select="Detail">
+                                        <Detail>
+                                            <xsl:value-of select="."/>
+                                        </Detail>
+                                    </xsl:for-each>
+                                </xsl:if>
+                                <ErrorMessage>
+                                    <xsl:value-of select="ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:for-each>
+                    </pfx3:TokenizationResponse>
+                </xsl:when>
+                <xsl:when test="$ProcessPaymentGatewayResponse/root/Success=$_globalVariables/ns:GlobalVariables/PaymentService/Constants/BooleanFailure &#xA;and &#xA;string-length($Start/root/CardDetails/PAN)=0">
+                    <pfx3:TokenizationResponse>
+                        <xsl:attribute name="version">
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Tokenization/MessageVersion"/>
+                        </xsl:attribute>
+                        <SystemContext>
+                            <EnvironmentIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/EnvironmentIdentifier"/>
+                            </EnvironmentIdentifier>
+                            <RegionIdentifier>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/RegionIdentifier"/>
+                            </RegionIdentifier>
+                            <SourceSystemIdentifier>
+                                <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/PaymentService/Constants/SystemContext/SourceSystemIdentifierPrefix,BW:getHostName())"/>
+                            </SourceSystemIdentifier>
+                            <xsl:choose>
+                                <xsl:when test="string-length($Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)>0">
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,$Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId)"/>
+                                    </TransactionId>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <TransactionId>
+                                        <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Tokenization/Constants/TransactionIdPrefix,&quot;-&quot;,tib:format-dateTime($_globalVariables/ns:GlobalVariables/PaymentService/Constants/DateTimeFormat, current-dateTime()),   $_processContext/ns1:ProcessContext/ProcessId,  $_globalVariables/ns:GlobalVariables/ENV,BW:getHostName())"/>
+                                    </TransactionId>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <TransactionTime>
+                                <xsl:value-of select="current-dateTime()"/>
+                            </TransactionTime>
+                        </SystemContext>
+                        <xsl:copy-of select="$Start/root/pfx3:TokenizationRequest/PaymentContext"/>
+                        <xsl:for-each select="$ProcessPaymentGatewayResponse/root/Error">
+                            <Error>
+                                <Type>
+                                    <xsl:value-of select="Type"/>
+                                </Type>
+                                <xsl:if test="string-length(Detail[1])>0">
+                                    <xsl:for-each select="Detail">
+                                        <Detail>
+                                            <xsl:value-of select="."/>
+                                        </Detail>
+                                    </xsl:for-each>
+                                </xsl:if>
+                                <ErrorMessage>
+                                    <xsl:value-of select="ErrorMessage"/>
+                                </ErrorMessage>
+                            </Error>
+                        </xsl:for-each>
+                    </pfx3:TokenizationResponse>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:copy-of select="$ValidatePaymentGatewayResponse/root/pfx3:TokenizationResponse"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ValidatePaymentGatewayResponse">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>352</pd:x>
+        <pd:y>132</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Tokenization/ResponseProcessors/ValidatePaymentGatewayResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <paymentgatewayresponse>
+                    <xsl:value-of select="$Start/root/paymentgatewayresponse"/>
+                </paymentgatewayresponse>
+                <transactionid>
+                    <xsl:value-of select="$Start/root/pfx3:TokenizationRequest/SystemContext/TransactionId"/>
+                </transactionid>
+                <xsl:copy-of select="$Start/root/pfx3:TokenizationRequest"/>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ProcessPaymentGatewayResponse">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>409</pd:x>
+        <pd:y>302</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Tokenization/ResponseProcessors/ProcessPaymentGatewayResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <xsl:copy-of select="$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE"/>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Tokenization/CLE/TransactionType"/>
+                </TransactionType>
+                <TransactionId>
+                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                </TransactionId>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>428</pd:x>
+        <pd:y>603</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <pfx8:ActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CalculateLastDateOfMonth">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>525</pd:x>
+        <pd:y>379</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/CalculateLastDateOfMonth.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Date>
+                <month>
+                    <xsl:value-of select="if(string-length($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_EXPDATE)>0)&#xA; then &#xA;tib:get-month-from-date(tib:parse-date('MMddyyyy',$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_EXPDATE))&#xA;else&#xA; if(string-length($Start/root/pfx3:TokenizationRequest/CardMetadata/CardExpiration/Month) > 0)&#xA;  then&#xA;    $Start/root/pfx3:TokenizationRequest/CardMetadata/CardExpiration/Month&#xA;else&#xA;  tib:get-month-from-dateTime(tib:add-to-dateTime(current-dateTime(),0,1, 0, 0,0, 0))"/>
+                </month>
+                <year>
+                    <xsl:value-of select="if(string-length($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_EXPDATE)>0)&#xA; then &#xA;tib:get-year-from-date(tib:parse-date('MMddyyyy',$ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/TKN_EXPDATE))&#xA;else&#xA; if(string-length($Start/root/pfx3:TokenizationRequest/CardMetadata/CardExpiration/Year) > 0)&#xA;  then&#xA;    $Start/root/pfx3:TokenizationRequest/CardMetadata/CardExpiration/Year&#xA;else&#xA;  tib:get-year-from-dateTime(tib:add-to-dateTime(current-dateTime(),0,1, 0, 0,0, 0))"/>
+                </year>
+            </Date>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetPaymentServicePPCVTypeValues">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>974</pd:x>
+        <pd:y>445</pd:y>
+        <config>
+            <variableConfig>/SharedResources/SharedVariables/SV-PaymentServicePPCVTypeValues.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetLocalToken">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>231</pd:x>
+        <pd:y>444</pd:y>
+        <config>
+            <processName>/CommonProcesses/CryptoProcesses/GetLocalToken.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <PAN>
+                    <xsl:value-of select="$Start/root/CardDetails/PAN"/>
+                </PAN>
+                <xsl:if test="$Start/root/CardDetails/ExpirationMonth">
+                    <ExpiryMonth>
+                        <xsl:value-of select="$Start/root/CardDetails/ExpirationMonth"/>
+                    </ExpiryMonth>
+                </xsl:if>
+                <xsl:if test="$Start/root/CardDetails/ExpirationYear">
+                    <ExpiryYear>
+                        <xsl:value-of select="$Start/root/CardDetails/ExpirationYear"/>
+                    </ExpiryYear>
+                </xsl:if>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate-Error-1">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>233</pd:x>
+        <pd:y>569</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <pfx8:ActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GenMktHash1">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>763</pd:x>
+        <pd:y>251</pd:y>
+        <config>
+            <processName>/CommonProcesses/CryptoProcesses/GetWSIMatchingToken.process</processName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <PAN>
+                    <xsl:value-of select="$Start/root/CardDetails/PAN"/>
+                </PAN>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate-Error-2">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>878</pd:x>
+        <pd:y>155</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <pfx8:ActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignWSIMatchingToken">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>825</pd:x>
+        <pd:y>528</pd:y>
+        <config>
+            <variableName>MarketingHash</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <WSIMatchingTokenScheme>
+                    <xsl:value-of select="$GenMktHash/root/TokenDetails/WSIMatchingTokenScheme"/>
+                </WSIMatchingTokenScheme>
+                <WSIMatchingTokenValue>
+                    <xsl:value-of select="$GenMktHash/root/TokenDetails/WSIMatchingTokenValue"/>
+                </WSIMatchingTokenValue>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="AssignWSIMatchingToken1">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>777</pd:x>
+        <pd:y>357</pd:y>
+        <config>
+            <variableName>MarketingHash</variableName>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <WSIMatchingTokenScheme>
+                    <xsl:value-of select="$GenMktHash1/root/TokenDetails/WSIMatchingTokenScheme"/>
+                </WSIMatchingTokenScheme>
+                <WSIMatchingTokenValue>
+                    <xsl:value-of select="$GenMktHash1/root/TokenDetails/WSIMatchingTokenValue"/>
+                </WSIMatchingTokenValue>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="NotifySupport">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>543</pd:x>
+        <pd:y>119</pd:y>
+        <config>
+            <processName>/BusinessProcesses/Common/NotifySupport.process</processName>
+            <spawn>true</spawn>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <InterfaceCode>
+                    <xsl:value-of select="$GetCLEParams/root/InterfaceCode"/>
+                </InterfaceCode>
+                <ExceptionCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/PaymentService/NotificationErrorCodes/PAYMENT_GATEWAY_RESPONSE_VALIDATION_ERROR"/>
+                </ExceptionCode>
+                <ErrorMessage>
+                    <xsl:value-of select="concat($ValidatePaymentGatewayResponse/root/pfx3:TokenizationResponse/Error/Detail[1],  $_globalVariables/ns:GlobalVariables/PaymentService/CLE/ErrorMessageSeparator   ,  $ValidatePaymentGatewayResponse/root/pfx3:TokenizationResponse/Error/ErrorMessage)"/>
+                </ErrorMessage>
+                <TransactionType>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Tokenization/CLE/TransactionType"/>
+                </TransactionType>
+                <TransactionId>
+                    <xsl:value-of select="$GetCLEParams/root/TransactionId"/>
+                </TransactionId>
+                <Payload>
+                    <xsl:value-of select="tib:render-xml($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE)"/>
+                </Payload>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCLEParams</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapPaymentServiceResponse</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>ValidatePaymentGatewayResponse</pd:to>
+        <pd:xpathDescription>Gateway Token</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/Error/Type)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GenMktHash</pd:from>
+        <pd:to>AssignWSIMatchingToken</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ValidatePaymentGatewayResponse</pd:from>
+        <pd:to>ProcessPaymentGatewayResponse</pd:to>
+        <pd:xpathDescription>Valid</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($ValidatePaymentGatewayResponse/root/pfx7:UGPRESPONSE/RESULT_CODE)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ValidatePaymentGatewayResponse</pd:from>
+        <pd:to>NotifySupport</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessPaymentGatewayResponse</pd:from>
+        <pd:to>CalculateLastDateOfMonth</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>GetLocalToken</pd:to>
+        <pd:xpathDescription>Local Token</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/CardDetails/PAN)&gt;0 and string-length($Start/root/Error/Type)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GenMktHash</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GenMktHash/root/Error/Type) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>MapErrorResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>MapErrorResponse</pd:from>
+        <pd:to>LogRequestValidationExceptionRequest</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LogRequestValidationExceptionRequest</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CalculateLastDateOfMonth</pd:from>
+        <pd:to>GetPaymentServicePPCVTypeValues</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessPaymentGatewayResponse</pd:from>
+        <pd:to>MapPaymentServiceResponse</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$ProcessPaymentGatewayResponse/root/Success=$_globalVariables/ns:GlobalVariables/PaymentService/Constants/BooleanFailure 
+and 
+string-length($Start/root/CardDetails/PAN) =0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPaymentServicePPCVTypeValues</pd:from>
+        <pd:to>MapPaymentServiceResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCLEParams</pd:from>
+        <pd:to>MapPaymentServiceResponse</pd:to>
+        <pd:xpathDescription>Gateway Token in Request and Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/Error/Type) &gt; 0 and
+ $Start/root/pfx3:TokenizationRequest/Tender/Token/@scheme =concat($_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/PaymentGatewayTokenScheme,$_globalVariables/ns:GlobalVariables/PaymentService/TokenConstants/EnvId)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessPaymentGatewayResponse</pd:from>
+        <pd:to>GetLocalToken</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/root/CardDetails/PAN)&gt;0
+and
+$ProcessPaymentGatewayResponse/root/Success=$_globalVariables/ns:GlobalVariables/PaymentService/Constants/BooleanFailure
+and 
+$ProcessPaymentGatewayResponse/root/provideTokenOnError=$_globalVariables/ns:GlobalVariables/PaymentService/Constants/BooleanSuccess</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetLocalToken</pd:from>
+        <pd:to>Generate-Error-1</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GetLocalToken/root/Error/Type)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetLocalToken</pd:from>
+        <pd:to>GenMktHash</pd:to>
+        <pd:xpathDescription>Gen Mkt hash</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$_globalVariables/ns:GlobalVariables/PaymentService/Settings/GenerateWSIMarketingHash=$_globalVariables/ns:GlobalVariables/PaymentService/Constants/BooleanSuccess
+and
+string-length($GetLocalToken/root/Error/Type)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessPaymentGatewayResponse</pd:from>
+        <pd:to>GenMktHash1</pd:to>
+        <pd:xpathDescription>PAN in Hand</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$_globalVariables/ns:GlobalVariables/PaymentService/Settings/GenerateWSIMarketingHash=$_globalVariables/ns:GlobalVariables/PaymentService/Constants/BooleanSuccess
+and
+$ProcessPaymentGatewayResponse/root/Success="true" 
+and 
+string-length($Start/root/CardDetails/PAN)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GenMktHash1</pd:from>
+        <pd:to>AssignWSIMatchingToken1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GenMktHash1</pd:from>
+        <pd:to>Generate-Error-2</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GenMktHash1/root/Error/Type)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignWSIMatchingToken</pd:from>
+        <pd:to>GetPaymentServicePPCVTypeValues</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignWSIMatchingToken1</pd:from>
+        <pd:to>CalculateLastDateOfMonth</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetLocalToken</pd:from>
+        <pd:to>GetPaymentServicePPCVTypeValues</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>NotifySupport</pd:from>
+        <pd:to>MapPaymentServiceResponse</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>Map Payment Gateway Response to Payment Service Response Mapping here 
+</pd:description>
+        <pd:x>1061</pd:x>
+        <pd:y>189</pd:y>
+        <pd:width>258</pd:width>
+        <pd:height>66</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-10027264</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+    <pd:label>
+        <pd:name>Label (1)</pd:name>
+        <pd:description>If decision is made to mask the center 6 of the PAN, use the xpath below.
+
+XPATH:
+concat( tib:pad-and-limit(
+tib:left($Start/root/CardDetails/PAN,floor((string-length($Start/root/CardDetails/PAN) div 2)) - 2),
+(string-length($Start/root/CardDetails/PAN) div 2 +4),'*'), 
+tib:right($Start/root/CardDetails/PAN,string-length($Start/root/CardDetails/PAN)-(floor((string-length($Start/root/CardDetails/PAN) div 2)) +4)))</pd:description>
+        <pd:x>1122</pd:x>
+        <pd:y>324</pd:y>
+        <pd:width>448</pd:width>
+        <pd:height>156</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-103</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

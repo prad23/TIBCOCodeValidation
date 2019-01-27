@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by Akhil (Williams-Sonoma, Inc.) -->
+<!-- 
+	Project 	: OMSD2
+	Date		: December 4th, 2014
+	Author		: Cognizant Technology Solutions 
+	Interface	: Credit Card Settlement Request from 'Sterling OMS' to 'Payment Service/Chase Bank' via 'TIBCO'
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:yfc="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement/Request" xmlns:yfctype="http://www.sterlingcommerce.com/documentation/types" targetNamespace="http://www.sterlingcommerce.com/documentation/YFS/CCSettlement/Request" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:annotation yfc:fileName="OMSD2_CreditCardSettlementRequest.xsd" yfc:rootElement="Payment">
+		<xsd:appinfo source="yfc:structure">
+			<Payment hasAttributes="Y"/>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://www.sterlingcommerce.com/documentation/types" schemaLocation="datatypes.xsd"/>
+	<xsd:element name="Payment">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="CreditCardTransactions">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CreditCardTransaction">
+								<xsd:complexType>
+									<xsd:attribute name="AuthAmount" type="yfctype:Number" use="required"/>
+									<xsd:attribute name="AuthAvs" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="AuthCode" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="AuthReturnCode" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="AuthReturnFlag" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="AuthReturnMessage" type="yfctype:Text-255" use="optional"/>
+									<xsd:attribute name="AuthTime" type="yfctype:TimeStamp" use="optional"/>
+									<xsd:attribute name="CVVAuthCode" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="ChargeTransactionKey" type="yfctype:Key" use="optional"/>
+									<xsd:attribute name="CreditCardTransactionKey" type="yfctype:Key" use="optional"/>
+									<xsd:attribute name="InternalReturnCode" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="InternalReturnFlag" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="InternalReturnMessage" type="yfctype:Text-255" use="optional"/>
+									<xsd:attribute name="ParentKey" type="yfctype:Key" use="optional"/>
+									<xsd:attribute name="Reference1" type="yfctype:Text-100" use="optional"/>
+									<xsd:attribute name="Reference2" type="yfctype:Text-100" use="optional"/>
+									<xsd:attribute name="RequestId" type="yfctype:Text-255" use="optional"/>
+									<xsd:attribute name="TranAmount" type="yfctype:Number" use="optional"/>
+									<xsd:attribute name="TranRequestTime" type="yfctype:TimeStamp" use="optional"/>
+									<xsd:attribute name="TranReturnCode" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="TranReturnFlag" type="yfctype:Text-20" use="optional"/>
+									<xsd:attribute name="TranReturnMessage" type="yfctype:Text-255" use="optional"/>
+									<xsd:attribute name="TranType" type="yfctype:Text-40" use="optional"/>
+									<!--added as part of OMSD3-->
+									<xsd:attribute name="ExtnAuthMetaData" type="yfctype:Text-1500" use="optional"/>
+									<!-- -->
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="EnvIdentifier" type="yfctype:Text-24" use="required"/>
+			<xsd:attribute name="RegIdentifier" type="yfctype:Text-24" use="required"/>
+			<xsd:attribute name="SourceSysID" type="yfctype:Text-50" use="required"/>
+			<xsd:attribute name="MsgTransactionID" type="yfctype:Text-50" use="required"/>
+			<xsd:attribute name="MsgTransactionTime" type="yfctype:TimeStamp" use="required"/>
+			<!-- added as part of OMSD3 EPS CR -->
+			<xsd:attribute name="OrderDate" type="yfctype:TimeStamp" use="required"/>
+			<!--  End -->
+			<xsd:attribute name="AuthorizationId" type="yfctype:Text-255" use="required"/>
+			<xsd:attribute name="BillToAddressLine1" type="yfctype:Address" use="optional"/>
+			<xsd:attribute name="BillToAddressLine2" type="yfctype:Address" use="optional"/>
+			<xsd:attribute name="BillToAddressLine3" type="yfctype:Address" use="optional"/>
+			<xsd:attribute name="BillToCity" type="yfctype:City" use="optional"/>
+			<xsd:attribute name="BillToCountry" type="yfctype:Country" use="optional"/>
+			<xsd:attribute name="BillToDayPhone" type="yfctype:PhoneNo" use="optional"/>
+			<xsd:attribute name="BillToEmailId" type="yfctype:EMailID" use="optional"/>
+			<xsd:attribute name="BillToFirstName" type="yfctype:Text-64" use="optional"/>
+			<xsd:attribute name="BillToId" type="yfctype:ID-40" use="optional"/>
+			<xsd:attribute name="BillToKey" type="yfctype:Key" use="optional"/>
+			<xsd:attribute name="BillToLastName" type="yfctype:Text-64" use="optional"/>
+			<xsd:attribute name="BillToState" type="yfctype:State" use="optional"/>
+			<xsd:attribute name="BillToZipCode" type="yfctype:ZipCode" use="optional"/>
+			<xsd:attribute name="ChargeTransactionKey" type="yfctype:Key" use="required"/>
+			<xsd:attribute name="ChargeType" type="yfctype:ChargeCategory" use="optional"/>
+			<xsd:attribute name="CreditCardExpirationDate" type="yfctype:Text-30" use="optional"/>
+			<xsd:attribute name="CurrentAuthorizationExpirationDate" type="yfctype:TimeStamp" use="required"/>
+			<xsd:attribute name="CreditCardName" type="yfctype:Text-300" use="optional"/>
+			<xsd:attribute name="CreditCardNo" type="yfctype:Text-1000"/>
+			<xsd:attribute name="CreditCardType" type="yfctype:Text-32" use="required"/>
+			<xsd:attribute name="Currency" type="yfctype:Text-32" use="required"/>
+			<xsd:attribute name="CurrentAuthorizationAmount" type="yfctype:ComputedMoney" use="optional"/>
+			<xsd:attribute name="CustomerAccountNo" type="yfctype:AccountNo" use="optional"/>
+			<xsd:attribute name="CustomerPONo" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="DocumentType" type="yfctype:String" use="optional"/>
+			<xsd:attribute name="EnterpriseCode" type="yfctype:String" use="required"/>
+			<xsd:attribute name="EntryType" type="yfctype:Text-20" use="required"/>
+			<xsd:attribute name="FirstName" type="yfctype:Text-64" use="optional"/>
+			<xsd:attribute name="LastName" type="yfctype:Text-64" use="optional"/>
+			<xsd:attribute name="MerchantId" type="yfctype:Text-255" use="optional"/>
+			<xsd:attribute name="MiddleName" type="yfctype:Text-64" use="optional"/>
+			<xsd:attribute name="OrderHeaderKey" type="yfctype:Key" use="optional"/>
+			<xsd:attribute name="OrderNo" type="yfctype:VarcharDocumentNo" use="required"/>
+			<xsd:attribute name="PaymentReference1" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference2" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference3" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference4" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference5" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference6" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference7" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference8" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentReference9" type="yfctype:Text-100" use="optional"/>
+			<xsd:attribute name="PaymentType" type="yfctype:Text-20" use="required"/>
+			<xsd:attribute name="PaymentKey" type="yfctype:Key" use="optional"/>
+			<xsd:attribute name="RequestAmount" type="yfctype:Money" use="required"/>
+			<xsd:attribute name="SecureAuthenticationCode" type="yfctype:Text-20" use="optional"/>
+			<xsd:attribute name="ShipToAddressLine1" type="yfctype:Address" use="optional"/>
+			<xsd:attribute name="ShipToAddressLine2" type="yfctype:Address" use="optional"/>
+			<xsd:attribute name="ShipToAddressLine3" type="yfctype:Address" use="optional"/>
+			<xsd:attribute name="ShipToCity" type="yfctype:City" use="optional"/>
+			<xsd:attribute name="ShipToCountry" type="yfctype:Country" use="optional"/>
+			<xsd:attribute name="ShipToDayPhone" type="yfctype:PhoneNo" use="optional"/>
+			<xsd:attribute name="ShipToEmailId" type="yfctype:EMailID" use="optional"/>
+			<xsd:attribute name="ShipToFirstName" type="yfctype:Text-64" use="optional"/>
+			<xsd:attribute name="ShipToId" type="yfctype:ID-40" use="optional"/>
+			<xsd:attribute name="ShipToLastName" type="yfctype:Text-64" use="optional"/>
+			<xsd:attribute name="ShipToState" type="yfctype:State" use="optional"/>
+			<xsd:attribute name="ShipToZipCode" type="yfctype:ZipCode" use="optional"/>
+			<xsd:attribute name="ShipTokey" type="yfctype:Key" use="optional"/>
+			<xsd:attribute name="SvcNo" type="yfctype:Text-1000" use="optional"/>
+			<xsd:attribute name="bPreviouslyInvoked" type="yfctype:Text-5" use="optional"/>
+			<xsd:attribute name="ExtnPaymentToken" type="yfctype:Text-1000"/>
+			<!-- Added as part of OMSD3 CR Change -->
+			<xsd:attribute name="ExtnPaymentTag" type="yfctype:Text-1000" use="optional"/>		
+			<xsd:attribute name="OriginalTranRequestTime" type="yfctype:TimeStamp" use="optional"/>
+			<!-- end -->
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

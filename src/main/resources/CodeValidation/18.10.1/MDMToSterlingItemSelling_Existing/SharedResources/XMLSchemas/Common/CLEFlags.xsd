@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:CLEFlags="http://www.wsgc.com/schemas/common/CLEFlags.xsd"
+	 targetNamespace="http://www.wsgc.com/schemas/common/CLEFlags.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="CLEFlags">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CLEFlags:CLEFlag" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CLEFlag">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="CLEFlags:ApplicationCode"/>
+				<xs:element ref="CLEFlags:InterfaceCode"/>
+				<xs:element ref="CLEFlags:LoggingOn"/>
+				<xs:element ref="CLEFlags:ExceptionOn"/>
+				<xs:element name="Masks" type="CLEFlags:MasksType" minOccurs="0"/>
+				<xs:element name="ContentValidation" type="CLEFlags:ContentValidationType" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ApplicationCode" type="xs:string"/>
+	<xs:element name="InterfaceCode" type="xs:string"/>
+	<xs:element name="LoggingOn" type="xs:boolean"/>
+	<xs:element name="ExceptionOn" type="xs:boolean"/>
+	<xs:complexType name="MaskType">
+		<xs:sequence>
+			<xs:element name="TargetParentElement" type="xs:string"/>
+			<xs:element name="TargetElement" type="xs:string"/>
+			<xs:element name="NumOfFirstCharToRetain" type="xs:int"/>
+			<xs:element name="NumOfLastCharToRetain" type="xs:int"/>
+			<xs:element name="MaskChar" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MasksType">
+		<xs:sequence>
+			<xs:element name="Mask" type="CLEFlags:MaskType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContentValidationType">
+		<xs:sequence>
+			<xs:element name="ContentValidation" type="xs:boolean"/>
+			<xs:element ref="CLEFlags:XSLTFilenameWithExtension" maxOccurs="unbounded"/>
+			<xs:element ref="CLEFlags:XSLTContent" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="RequestValidationErrorCodePrefix" type="xs:string" minOccurs="0"/>
+			<xs:element name="ResponseValidationErrorCodePrefix" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="XSLTFilenameWithExtension">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="type" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="XSLTContent">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="type" type="xs:string"/>
+					<xs:attribute name="filenamewithextension" type="xs:string"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
